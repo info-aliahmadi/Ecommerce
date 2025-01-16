@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hydra.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250116195203_dbVersion_03")]
+    [Migration("20250116203330_dbVersion_03")]
     partial class dbVersion_03
     {
         /// <inheritdoc />
@@ -1463,6 +1463,186 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 3038,
                             Name = "CRM.REMOVE_EMAIL_OUTBOX",
                             NormalizedName = "CRM.REMOVE_EMAIL_OUTBOX"
+                        },
+                        new
+                        {
+                            Id = 4001,
+                            Name = "FS.GET_FILE_INFO",
+                            NormalizedName = "FS.GET_FILE_INFO"
+                        },
+                        new
+                        {
+                            Id = 4002,
+                            Name = "FS.GET_FILE_INFO_BY_NAME",
+                            NormalizedName = "FS.GET_FILE_INFO_BY_NAME"
+                        },
+                        new
+                        {
+                            Id = 4003,
+                            Name = "FS.GET_FILES_LIST",
+                            NormalizedName = "FS.GET_FILES_LIST"
+                        },
+                        new
+                        {
+                            Id = 4004,
+                            Name = "FS.GET_GALLEY_FILES",
+                            NormalizedName = "FS.GET_GALLEY_FILES"
+                        },
+                        new
+                        {
+                            Id = 4005,
+                            Name = "FS.GET_DIRECTORIES",
+                            NormalizedName = "FS.GET_DIRECTORIES"
+                        },
+                        new
+                        {
+                            Id = 4006,
+                            Name = "FS.GET_FILES_BY_DIRECTORY",
+                            NormalizedName = "FS.GET_FILES_BY_DIRECTORY"
+                        },
+                        new
+                        {
+                            Id = 5001,
+                            Name = "SALE.CATEGORY_MANAGEMENT",
+                            NormalizedName = "SALE.CATEGORY_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5002,
+                            Name = "SALE.PRODUCT_ATTRIBUTE_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_ATTRIBUTE_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5003,
+                            Name = "SALE.ORDER_MANAGEMENT",
+                            NormalizedName = "SALE.ORDER_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5004,
+                            Name = "SALE.ORDER_DISCOUNT_MANAGEMENT",
+                            NormalizedName = "SALE.ORDER_DISCOUNT_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5005,
+                            Name = "SALE.ORDER_ITEM_MANAGEMENT",
+                            NormalizedName = "SALE.ORDER_ITEM_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5006,
+                            Name = "SALE.ORDERNOTE_MANAGEMENT",
+                            NormalizedName = "SALE.ORDERNOTE_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5007,
+                            Name = "SALE.PAYMENT_MANAGEMENT",
+                            NormalizedName = "SALE.PAYMENT_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5008,
+                            Name = "SALE.PRODUCT_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5009,
+                            Name = "SALE.PRODUCT_INVENTORY_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_INVENTORY_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5010,
+                            Name = "SALE.PRODUCT_REVIEW_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_REVIEW_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5011,
+                            Name = "SALE.PRODUCT_REVIEW_HELPFULNESS_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_REVIEW_HELPFULNESS_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5012,
+                            Name = "SALE.PRODUCT_TAG_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_TAG_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5013,
+                            Name = "SALE.SEARCH_TERM_MANAGEMENT",
+                            NormalizedName = "SALE.SEARCH_TERM_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5014,
+                            Name = "SALE.SHIPMENT_MANAGEMENT",
+                            NormalizedName = "SALE.SHIPMENT_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5015,
+                            Name = "SALE.SHOPPING_CART_MANAGEMENT",
+                            NormalizedName = "SALE.SHOPPING_CART_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5016,
+                            Name = "SALE.CURRENCY_MANAGEMENT",
+                            NormalizedName = "SALE.CURRENCY_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5017,
+                            Name = "SALE.DELIVERY_MANAGEMENT",
+                            NormalizedName = "SALE.DELIVERY_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5018,
+                            Name = "SALE.DISCOUNT_MANAGEMENT",
+                            NormalizedName = "SALE.DISCOUNT_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5019,
+                            Name = "SALE.MANUFACTURER_MANAGEMENT",
+                            NormalizedName = "SALE.MANUFACTURER_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5020,
+                            Name = "SALE.SHIPMENT_METHOD_MANAGEMENT",
+                            NormalizedName = "SALE.SHIPMENT_METHOD_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5021,
+                            Name = "SALE.COUNTRY_MANAGEMENT",
+                            NormalizedName = "SALE.COUNTRY_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5022,
+                            Name = "SALE.STATE_PROVINCE_MANAGEMENT",
+                            NormalizedName = "SALE.STATE_PROVINCE_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5023,
+                            Name = "SALE.ADDRESS_MANAGEMENT",
+                            NormalizedName = "SALE.ADDRESS_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5024,
+                            Name = "SALE.TAX_MANAGEMENT",
+                            NormalizedName = "SALE.TAX_MANAGEMENT"
                         });
                 });
 

@@ -210,7 +210,37 @@ namespace Hydra.Infrastructure.Migrations
                     { 3035, "CRM.GET_EMAIL_OUTBOX", "CRM.GET_EMAIL_OUTBOX" },
                     { 3036, "CRM.GET_ADDRESS_FOR_SELECT", "CRM.GET_ADDRESS_FOR_SELECT" },
                     { 3037, "CRM.GET_EMAIL_OUTBOX_BY_ID_FOR_SENDER", "CRM.GET_EMAIL_OUTBOX_BY_ID_FOR_SENDER" },
-                    { 3038, "CRM.REMOVE_EMAIL_OUTBOX", "CRM.REMOVE_EMAIL_OUTBOX" }
+                    { 3038, "CRM.REMOVE_EMAIL_OUTBOX", "CRM.REMOVE_EMAIL_OUTBOX" },
+                    { 4001, "FS.GET_FILE_INFO", "FS.GET_FILE_INFO" },
+                    { 4002, "FS.GET_FILE_INFO_BY_NAME", "FS.GET_FILE_INFO_BY_NAME" },
+                    { 4003, "FS.GET_FILES_LIST", "FS.GET_FILES_LIST" },
+                    { 4004, "FS.GET_GALLEY_FILES", "FS.GET_GALLEY_FILES" },
+                    { 4005, "FS.GET_DIRECTORIES", "FS.GET_DIRECTORIES" },
+                    { 4006, "FS.GET_FILES_BY_DIRECTORY", "FS.GET_FILES_BY_DIRECTORY" },
+                    { 5001, "SALE.CATEGORY_MANAGEMENT", "SALE.CATEGORY_MANAGEMENT" },
+                    { 5002, "SALE.PRODUCT_ATTRIBUTE_MANAGEMENT", "SALE.PRODUCT_ATTRIBUTE_MANAGEMENT" },
+                    { 5003, "SALE.ORDER_MANAGEMENT", "SALE.ORDER_MANAGEMENT" },
+                    { 5004, "SALE.ORDER_DISCOUNT_MANAGEMENT", "SALE.ORDER_DISCOUNT_MANAGEMENT" },
+                    { 5005, "SALE.ORDER_ITEM_MANAGEMENT", "SALE.ORDER_ITEM_MANAGEMENT" },
+                    { 5006, "SALE.ORDERNOTE_MANAGEMENT", "SALE.ORDERNOTE_MANAGEMENT" },
+                    { 5007, "SALE.PAYMENT_MANAGEMENT", "SALE.PAYMENT_MANAGEMENT" },
+                    { 5008, "SALE.PRODUCT_MANAGEMENT", "SALE.PRODUCT_MANAGEMENT" },
+                    { 5009, "SALE.PRODUCT_INVENTORY_MANAGEMENT", "SALE.PRODUCT_INVENTORY_MANAGEMENT" },
+                    { 5010, "SALE.PRODUCT_REVIEW_MANAGEMENT", "SALE.PRODUCT_REVIEW_MANAGEMENT" },
+                    { 5011, "SALE.PRODUCT_REVIEW_HELPFULNESS_MANAGEMENT", "SALE.PRODUCT_REVIEW_HELPFULNESS_MANAGEMENT" },
+                    { 5012, "SALE.PRODUCT_TAG_MANAGEMENT", "SALE.PRODUCT_TAG_MANAGEMENT" },
+                    { 5013, "SALE.SEARCH_TERM_MANAGEMENT", "SALE.SEARCH_TERM_MANAGEMENT" },
+                    { 5014, "SALE.SHIPMENT_MANAGEMENT", "SALE.SHIPMENT_MANAGEMENT" },
+                    { 5015, "SALE.SHOPPING_CART_MANAGEMENT", "SALE.SHOPPING_CART_MANAGEMENT" },
+                    { 5016, "SALE.CURRENCY_MANAGEMENT", "SALE.CURRENCY_MANAGEMENT" },
+                    { 5017, "SALE.DELIVERY_MANAGEMENT", "SALE.DELIVERY_MANAGEMENT" },
+                    { 5018, "SALE.DISCOUNT_MANAGEMENT", "SALE.DISCOUNT_MANAGEMENT" },
+                    { 5019, "SALE.MANUFACTURER_MANAGEMENT", "SALE.MANUFACTURER_MANAGEMENT" },
+                    { 5020, "SALE.SHIPMENT_METHOD_MANAGEMENT", "SALE.SHIPMENT_METHOD_MANAGEMENT" },
+                    { 5021, "SALE.COUNTRY_MANAGEMENT", "SALE.COUNTRY_MANAGEMENT" },
+                    { 5022, "SALE.STATE_PROVINCE_MANAGEMENT", "SALE.STATE_PROVINCE_MANAGEMENT" },
+                    { 5023, "SALE.ADDRESS_MANAGEMENT", "SALE.ADDRESS_MANAGEMENT" },
+                    { 5024, "SALE.TAX_MANAGEMENT", "SALE.TAX_MANAGEMENT" }
                 });
 
             migrationBuilder.UpdateData(
@@ -802,6 +832,186 @@ namespace Hydra.Infrastructure.Migrations
                 table: "Permission",
                 keyColumn: "Id",
                 keyValue: 3038);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 4001);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 4002);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 4003);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 4004);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 4005);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 4006);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5001);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5002);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5003);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5004);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5005);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5006);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5007);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5008);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5009);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5010);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5011);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5012);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5013);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5014);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5015);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5016);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5017);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5018);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5019);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5020);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5021);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5022);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5023);
+
+            migrationBuilder.DeleteData(
+                schema: "Auth",
+                table: "Permission",
+                keyColumn: "Id",
+                keyValue: 5024);
 
             migrationBuilder.InsertData(
                 schema: "Auth",
