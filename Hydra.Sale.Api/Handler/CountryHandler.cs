@@ -30,25 +30,6 @@ namespace Hydra.Sale.Api.Handler
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="countryService"></param>
-        /// <returns></returns>
-        public static async Task<IResult> GetCountrySeed(ICountryService countryService)
-        {
-            try
-            {
-                var result = await countryService.GetCountrySeed();
-                await File.AppendAllTextAsync("C:\\Users\\AliReza\\Desktop\\test\\seed.txt", result);
-                return Results.Ok();
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-        }
-
-        /// <summary>
         ///
         /// </summary>
         /// <param name="countryService"></param>
