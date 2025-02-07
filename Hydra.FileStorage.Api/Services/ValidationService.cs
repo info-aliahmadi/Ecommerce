@@ -1,6 +1,6 @@
 ﻿using Hydra.FileStorage.Core.Interfaces;
 using Hydra.FileStorage.Core.Settings;
-using Hydra.Infrastructure.GeneralModels;
+using Hydra.Kernel.GeneralModels;
 using Hydra.Infrastructure.Setting.Interface;
 
 

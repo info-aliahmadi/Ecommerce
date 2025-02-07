@@ -1,6 +1,5 @@
 ﻿using Hydra.Crm.Core.Models.Message;
-using Hydra.Infrastructure.Data.Extension;
-using Hydra.Infrastructure.GeneralModels;
+using Hydra.Kernel.GeneralModels;
 
 
 namespace Hydra.Crm.Core.Interfaces

@@ -1,5 +1,5 @@
 ﻿using Hydra.FileStorage.Core.Settings;
-using Hydra.Infrastructure.GeneralModels;
+using Hydra.Kernel.GeneralModels;
 
 
 namespace Hydra.FileStorage.Core.Interfaces

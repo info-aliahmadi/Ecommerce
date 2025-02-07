@@ -1,7 +1,7 @@
 ﻿
 using Hydra.FileStorage.Core.Domain;
-using Hydra.Infrastructure.Data;
-using Hydra.Infrastructure.Security.Domain;
+using Hydra.Kernel.Data;
+using Hydra.Auth.Domain;
 
 namespace Hydra.Cms.Core.Domain
 {

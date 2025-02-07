@@ -23,10 +23,16 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Hydra.Auth.Api\Hydra.Auth.Api.csproj" />
 		<ProjectReference Include="..\Hydra.Cms.Api\Hydra.Cms.Api.csproj" />
+		<ProjectReference Include="..\Hydra.Common.Api\Hydra.Common.Api.csproj" />
 		<ProjectReference Include="..\Hydra.Crm.Api\Hydra.Crm.Api.csproj" />
+		<ProjectReference Include="..\Hydra.Ecommerce.Core\Hydra.Ecommerce.Core.csproj" />
 		<ProjectReference Include="..\Hydra.FileStorage.Api\Hydra.FileStorage.Api.csproj" />
 		<ProjectReference Include="..\Hydra.Infrastructure\Hydra.Infrastructure.csproj" />
-		<ProjectReference Include="..\Hydra.Sale.Api\Hydra.Sale.Api.csproj" />
+		<ProjectReference Include="..\Hydra.Inventory.Api\Hydra.Inventory.Api.csproj" />
+		<ProjectReference Include="..\Hydra.Order.Api\Hydra.Order.Api.csproj" />
+		<ProjectReference Include="..\Hydra.Payment.Api\Hydra.Payment.Api.csproj" />
+		<ProjectReference Include="..\Hydra.Product.Api\Hydra.Product.Api.csproj" />
+		<ProjectReference Include="..\Hydra.ShoppingCart.Api\Hydra.ShoppingCart.Api.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

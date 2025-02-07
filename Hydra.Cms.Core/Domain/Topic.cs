@@ -1,5 +1,5 @@
-﻿using Hydra.Infrastructure.Security.Domain;
-using Hydra.Infrastructure.Data;
+﻿using Hydra.Auth.Domain;
+using Hydra.Kernel.Data;
 
 namespace Hydra.Cms.Core.Domain
 {

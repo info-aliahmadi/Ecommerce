@@ -1,6 +1,6 @@
 ﻿using Hydra.Cms.Core.Interfaces;
 using Hydra.Cms.Core.Models;
-using Hydra.Infrastructure.GeneralModels;
+using Hydra.Kernel.GeneralModels;
 using Hydra.Infrastructure.Setting.Domain;
 using Hydra.Infrastructure.Setting.Enum;
 using Hydra.Infrastructure.Setting.Service;

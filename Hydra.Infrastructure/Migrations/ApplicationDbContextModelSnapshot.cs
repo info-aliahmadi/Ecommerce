@@ -76,6 +76,929 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("DiscountProduct", "Sale");
                 });
 
+            modelBuilder.Entity("Hydra.Auth.Domain.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("NormalizedName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permission", "Auth");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "AUTH.USER_MANAGEMENT",
+                            NormalizedName = "AUTH.USER_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "AUTH.PERMISSION_MANAGEMENT",
+                            NormalizedName = "AUTH.PERMISSION_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 2001,
+                            Name = "CMS.ADD_OR_UPDATE_SETTINGS",
+                            NormalizedName = "CMS.ADD_OR_UPDATE_SETTINGS"
+                        },
+                        new
+                        {
+                            Id = 2002,
+                            Name = "CMS.GET_TOPIC_LIST",
+                            NormalizedName = "CMS.GET_TOPIC_LIST"
+                        },
+                        new
+                        {
+                            Id = 2003,
+                            Name = "CMS.GET_TOPIC_BY_ID",
+                            NormalizedName = "CMS.GET_TOPIC_BY_ID"
+                        },
+                        new
+                        {
+                            Id = 2004,
+                            Name = "CMS.ADD_TOPIC",
+                            NormalizedName = "CMS.ADD_TOPIC"
+                        },
+                        new
+                        {
+                            Id = 2005,
+                            Name = "CMS.UPDATE_TOPIC",
+                            NormalizedName = "CMS.UPDATE_TOPIC"
+                        },
+                        new
+                        {
+                            Id = 2006,
+                            Name = "CMS.DELETE_TOPIC",
+                            NormalizedName = "CMS.DELETE_TOPIC"
+                        },
+                        new
+                        {
+                            Id = 2007,
+                            Name = "CMS.GET_TAG_LIST",
+                            NormalizedName = "CMS.GET_TAG_LIST"
+                        },
+                        new
+                        {
+                            Id = 2008,
+                            Name = "CMS.GET_TAG_BY_ID",
+                            NormalizedName = "CMS.GET_TAG_BY_ID"
+                        },
+                        new
+                        {
+                            Id = 2009,
+                            Name = "CMS.ADD_TAG",
+                            NormalizedName = "CMS.ADD_TAG"
+                        },
+                        new
+                        {
+                            Id = 2010,
+                            Name = "CMS.UPDATE_TAG",
+                            NormalizedName = "CMS.UPDATE_TAG"
+                        },
+                        new
+                        {
+                            Id = 2011,
+                            Name = "CMS.DELETE_TAG",
+                            NormalizedName = "CMS.DELETE_TAG"
+                        },
+                        new
+                        {
+                            Id = 2012,
+                            Name = "CMS.GET_ARTICLE_LIST",
+                            NormalizedName = "CMS.GET_ARTICLE_LIST"
+                        },
+                        new
+                        {
+                            Id = 2013,
+                            Name = "CMS.GET_TRASH_ARTICLE_LIST",
+                            NormalizedName = "CMS.GET_TRASH_ARTICLE_LIST"
+                        },
+                        new
+                        {
+                            Id = 2014,
+                            Name = "CMS.GET_ARTICLE_BY_ID",
+                            NormalizedName = "CMS.GET_ARTICLE_BY_ID"
+                        },
+                        new
+                        {
+                            Id = 2015,
+                            Name = "CMS.CMS_PINNED_ARTICLE",
+                            NormalizedName = "CMS.CMS_PINNED_ARTICLE"
+                        },
+                        new
+                        {
+                            Id = 2016,
+                            Name = "CMS.ADD_ARTICLE",
+                            NormalizedName = "CMS.ADD_ARTICLE"
+                        },
+                        new
+                        {
+                            Id = 2017,
+                            Name = "CMS.UPDATE_ARTICLE",
+                            NormalizedName = "CMS.UPDATE_ARTICLE"
+                        },
+                        new
+                        {
+                            Id = 2018,
+                            Name = "CMS.DELETE_ARTICLE",
+                            NormalizedName = "CMS.DELETE_ARTICLE"
+                        },
+                        new
+                        {
+                            Id = 2019,
+                            Name = "CMS.RESTORE_ARTICLE",
+                            NormalizedName = "CMS.RESTORE_ARTICLE"
+                        },
+                        new
+                        {
+                            Id = 2020,
+                            Name = "CMS.REMOVE_ARTICLE",
+                            NormalizedName = "CMS.REMOVE_ARTICLE"
+                        },
+                        new
+                        {
+                            Id = 2021,
+                            Name = "CMS.GET_PAGE_LIST",
+                            NormalizedName = "CMS.GET_PAGE_LIST"
+                        },
+                        new
+                        {
+                            Id = 2022,
+                            Name = "CMS.GET_PAGE_BY_ID",
+                            NormalizedName = "CMS.GET_PAGE_BY_ID"
+                        },
+                        new
+                        {
+                            Id = 2023,
+                            Name = "CMS.ADD_PAGE",
+                            NormalizedName = "CMS.ADD_PAGE"
+                        },
+                        new
+                        {
+                            Id = 2024,
+                            Name = "CMS.UPDATE_PAGE",
+                            NormalizedName = "CMS.UPDATE_PAGE"
+                        },
+                        new
+                        {
+                            Id = 2025,
+                            Name = "CMS.DELETE_PAGE",
+                            NormalizedName = "CMS.DELETE_PAGE"
+                        },
+                        new
+                        {
+                            Id = 2026,
+                            Name = "CMS.GET_MENU_LIST",
+                            NormalizedName = "CMS.GET_MENU_LIST"
+                        },
+                        new
+                        {
+                            Id = 2027,
+                            Name = "CMS.GET_MENU_BY_ID",
+                            NormalizedName = "CMS.GET_MENU_BY_ID"
+                        },
+                        new
+                        {
+                            Id = 2028,
+                            Name = "CMS.ADD_MENU",
+                            NormalizedName = "CMS.ADD_MENU"
+                        },
+                        new
+                        {
+                            Id = 2029,
+                            Name = "CMS.UPDATE_MENU",
+                            NormalizedName = "CMS.UPDATE_MENU"
+                        },
+                        new
+                        {
+                            Id = 2030,
+                            Name = "CMS.DELETE_MENU",
+                            NormalizedName = "CMS.DELETE_MENU"
+                        },
+                        new
+                        {
+                            Id = 2031,
+                            Name = "CMS.GET_SLIDESHOW_LIST",
+                            NormalizedName = "CMS.GET_SLIDESHOW_LIST"
+                        },
+                        new
+                        {
+                            Id = 2032,
+                            Name = "CMS.GET_SLIDESHOW_BY_ID",
+                            NormalizedName = "CMS.GET_SLIDESHOW_BY_ID"
+                        },
+                        new
+                        {
+                            Id = 2033,
+                            Name = "CMS.ADD_SLIDESHOW",
+                            NormalizedName = "CMS.ADD_SLIDESHOW"
+                        },
+                        new
+                        {
+                            Id = 2034,
+                            Name = "CMS.UPDATE_SLIDESHOW",
+                            NormalizedName = "CMS.UPDATE_SLIDESHOW"
+                        },
+                        new
+                        {
+                            Id = 2035,
+                            Name = "CMS.VISIBLE_SLIDESHOW",
+                            NormalizedName = "CMS.VISIBLE_SLIDESHOW"
+                        },
+                        new
+                        {
+                            Id = 2036,
+                            Name = "CMS.DELETE_SLIDESHOW",
+                            NormalizedName = "CMS.DELETE_SLIDESHOW"
+                        },
+                        new
+                        {
+                            Id = 3001,
+                            Name = "CRM.GET_SETTINGS",
+                            NormalizedName = "CRM.GET_SETTINGS"
+                        },
+                        new
+                        {
+                            Id = 3002,
+                            Name = "CRM.ADD_OR_UPDATE_SETTINGS",
+                            NormalizedName = "CRM.ADD_OR_UPDATE_SETTINGS"
+                        },
+                        new
+                        {
+                            Id = 3003,
+                            Name = "CRM.SEND_PUBLIC_MESSAGE",
+                            NormalizedName = "CRM.SEND_PUBLIC_MESSAGE"
+                        },
+                        new
+                        {
+                            Id = 3004,
+                            Name = "CRM.SEND_PRIVATE_MESSAGE",
+                            NormalizedName = "CRM.SEND_PRIVATE_MESSAGE"
+                        },
+                        new
+                        {
+                            Id = 3005,
+                            Name = "CRM.SAVE_DRAFT_MESSAGE",
+                            NormalizedName = "CRM.SAVE_DRAFT_MESSAGE"
+                        },
+                        new
+                        {
+                            Id = 3006,
+                            Name = "CRM.GET_ALLMESSAGES",
+                            NormalizedName = "CRM.GET_ALLMESSAGES"
+                        },
+                        new
+                        {
+                            Id = 3007,
+                            Name = "CRM.GET_INBOX_MESSAGES",
+                            NormalizedName = "CRM.GET_INBOX_MESSAGES"
+                        },
+                        new
+                        {
+                            Id = 3008,
+                            Name = "CRM.GET_SENT_MESSAGES",
+                            NormalizedName = "CRM.GET_SENT_MESSAGES"
+                        },
+                        new
+                        {
+                            Id = 3009,
+                            Name = "CRM.GET_DRAFT_MESSAGES",
+                            NormalizedName = "CRM.GET_DRAFT_MESSAGES"
+                        },
+                        new
+                        {
+                            Id = 3010,
+                            Name = "CRM.GET_PUBLIC_INBOX_MESSAGES",
+                            NormalizedName = "CRM.GET_PUBLIC_INBOX_MESSAGES"
+                        },
+                        new
+                        {
+                            Id = 3011,
+                            Name = "CRM.GET_DELETED_INBOX_MESSAGES",
+                            NormalizedName = "CRM.GET_DELETED_INBOX_MESSAGES"
+                        },
+                        new
+                        {
+                            Id = 3012,
+                            Name = "CRM.GET_DELETED_SENT_MESSAGES",
+                            NormalizedName = "CRM.GET_DELETED_SENT_MESSAGES"
+                        },
+                        new
+                        {
+                            Id = 3013,
+                            Name = "CRM.GET_MESSAGE_BY_ID_FOR_PUBLIC",
+                            NormalizedName = "CRM.GET_MESSAGE_BY_ID_FOR_PUBLIC"
+                        },
+                        new
+                        {
+                            Id = 3014,
+                            Name = "CRM.GET_MESSAGE_BY_ID_FOR_SENDER",
+                            NormalizedName = "CRM.GET_MESSAGE_BY_ID_FOR_SENDER"
+                        },
+                        new
+                        {
+                            Id = 3015,
+                            Name = "CRM.GET_MESSAGE_BY_ID_FOR_RECEIVER",
+                            NormalizedName = "CRM.GET_MESSAGE_BY_ID_FOR_RECEIVER"
+                        },
+                        new
+                        {
+                            Id = 3016,
+                            Name = "CRM.DELETE_MESSAGE",
+                            NormalizedName = "CRM.DELETE_MESSAGE"
+                        },
+                        new
+                        {
+                            Id = 3017,
+                            Name = "CRM.RESTORE_MESSAGE",
+                            NormalizedName = "CRM.RESTORE_MESSAGE"
+                        },
+                        new
+                        {
+                            Id = 3018,
+                            Name = "CRM.PIN_MESSAGE",
+                            NormalizedName = "CRM.PIN_MESSAGE"
+                        },
+                        new
+                        {
+                            Id = 3019,
+                            Name = "CRM.READ_MESSAGE",
+                            NormalizedName = "CRM.READ_MESSAGE"
+                        },
+                        new
+                        {
+                            Id = 3020,
+                            Name = "CRM.DELETE_DRAFT_MESSAGE",
+                            NormalizedName = "CRM.DELETE_DRAFT_MESSAGE"
+                        },
+                        new
+                        {
+                            Id = 3021,
+                            Name = "CRM.REMOVE_DRAFT_MESSAGE",
+                            NormalizedName = "CRM.REMOVE_DRAFT_MESSAGE"
+                        },
+                        new
+                        {
+                            Id = 3022,
+                            Name = "CRM.LOAD_EMAIL_INBOX",
+                            NormalizedName = "CRM.LOAD_EMAIL_INBOX"
+                        },
+                        new
+                        {
+                            Id = 3023,
+                            Name = "CRM.GET_ALL_EMAIL_INBOX",
+                            NormalizedName = "CRM.GET_ALL_EMAIL_INBOX"
+                        },
+                        new
+                        {
+                            Id = 3024,
+                            Name = "CRM.GET_INBOX_EMAIL_INBOX",
+                            NormalizedName = "CRM.GET_INBOX_EMAIL_INBOX"
+                        },
+                        new
+                        {
+                            Id = 3025,
+                            Name = "CRM.GET_DELETED_EMAIL_INBOX",
+                            NormalizedName = "CRM.GET_DELETED_EMAIL_INBOX"
+                        },
+                        new
+                        {
+                            Id = 3026,
+                            Name = "CRM.GET_EMAIL_INBOX_BY_ID",
+                            NormalizedName = "CRM.GET_EMAIL_INBOX_BY_ID"
+                        },
+                        new
+                        {
+                            Id = 3027,
+                            Name = "CRM.GET_EMAIL_INBOX_BY_ID_FOR_RECEIVER",
+                            NormalizedName = "CRM.GET_EMAIL_INBOX_BY_ID_FOR_RECEIVER"
+                        },
+                        new
+                        {
+                            Id = 3028,
+                            Name = "CRM.DELETE_EMAIL_INBOX",
+                            NormalizedName = "CRM.DELETE_EMAIL_INBOX"
+                        },
+                        new
+                        {
+                            Id = 3029,
+                            Name = "CRM.PIN_EMAIL_INBOX",
+                            NormalizedName = "CRM.PIN_EMAIL_INBOX"
+                        },
+                        new
+                        {
+                            Id = 3030,
+                            Name = "CRM.READ_EMAIL_INBOX",
+                            NormalizedName = "CRM.READ_EMAIL_INBOX"
+                        },
+                        new
+                        {
+                            Id = 3031,
+                            Name = "CRM.REMOVE_EMAIL_INBOX",
+                            NormalizedName = "CRM.REMOVE_EMAIL_INBOX"
+                        },
+                        new
+                        {
+                            Id = 3032,
+                            Name = "CRM.SEND_EMAIL_OUTBOX",
+                            NormalizedName = "CRM.SEND_EMAIL_OUTBOX"
+                        },
+                        new
+                        {
+                            Id = 3033,
+                            Name = "CRM.SAVE_DRAFT_EMAIL_OUTBOX",
+                            NormalizedName = "CRM.SAVE_DRAFT_EMAIL_OUTBOX"
+                        },
+                        new
+                        {
+                            Id = 3034,
+                            Name = "CRM.GET_ALL_EMAIL_OUTBOX",
+                            NormalizedName = "CRM.GET_ALL_EMAIL_OUTBOX"
+                        },
+                        new
+                        {
+                            Id = 3035,
+                            Name = "CRM.GET_EMAIL_OUTBOX",
+                            NormalizedName = "CRM.GET_EMAIL_OUTBOX"
+                        },
+                        new
+                        {
+                            Id = 3036,
+                            Name = "CRM.GET_ADDRESS_FOR_SELECT",
+                            NormalizedName = "CRM.GET_ADDRESS_FOR_SELECT"
+                        },
+                        new
+                        {
+                            Id = 3037,
+                            Name = "CRM.GET_EMAIL_OUTBOX_BY_ID_FOR_SENDER",
+                            NormalizedName = "CRM.GET_EMAIL_OUTBOX_BY_ID_FOR_SENDER"
+                        },
+                        new
+                        {
+                            Id = 3038,
+                            Name = "CRM.REMOVE_EMAIL_OUTBOX",
+                            NormalizedName = "CRM.REMOVE_EMAIL_OUTBOX"
+                        },
+                        new
+                        {
+                            Id = 5001,
+                            Name = "SALE.CATEGORY_MANAGEMENT",
+                            NormalizedName = "SALE.CATEGORY_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5002,
+                            Name = "SALE.PRODUCT_ATTRIBUTE_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_ATTRIBUTE_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5003,
+                            Name = "SALE.ORDER_MANAGEMENT",
+                            NormalizedName = "SALE.ORDER_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5004,
+                            Name = "SALE.ORDER_DISCOUNT_MANAGEMENT",
+                            NormalizedName = "SALE.ORDER_DISCOUNT_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5005,
+                            Name = "SALE.ORDER_ITEM_MANAGEMENT",
+                            NormalizedName = "SALE.ORDER_ITEM_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5006,
+                            Name = "SALE.ORDERNOTE_MANAGEMENT",
+                            NormalizedName = "SALE.ORDERNOTE_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5007,
+                            Name = "SALE.PAYMENT_MANAGEMENT",
+                            NormalizedName = "SALE.PAYMENT_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5008,
+                            Name = "SALE.PRODUCT_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5009,
+                            Name = "SALE.PRODUCT_INVENTORY_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_INVENTORY_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5010,
+                            Name = "SALE.PRODUCT_REVIEW_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_REVIEW_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5011,
+                            Name = "SALE.PRODUCT_REVIEW_HELPFULNESS_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_REVIEW_HELPFULNESS_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5012,
+                            Name = "SALE.PRODUCT_TAG_MANAGEMENT",
+                            NormalizedName = "SALE.PRODUCT_TAG_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5013,
+                            Name = "SALE.SEARCH_TERM_MANAGEMENT",
+                            NormalizedName = "SALE.SEARCH_TERM_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5014,
+                            Name = "SALE.SHIPMENT_MANAGEMENT",
+                            NormalizedName = "SALE.SHIPMENT_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5015,
+                            Name = "SALE.SHOPPING_CART_MANAGEMENT",
+                            NormalizedName = "SALE.SHOPPING_CART_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5016,
+                            Name = "SALE.CURRENCY_MANAGEMENT",
+                            NormalizedName = "SALE.CURRENCY_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5017,
+                            Name = "SALE.DELIVERY_MANAGEMENT",
+                            NormalizedName = "SALE.DELIVERY_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5018,
+                            Name = "SALE.DISCOUNT_MANAGEMENT",
+                            NormalizedName = "SALE.DISCOUNT_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5019,
+                            Name = "SALE.MANUFACTURER_MANAGEMENT",
+                            NormalizedName = "SALE.MANUFACTURER_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5020,
+                            Name = "SALE.SHIPMENT_METHOD_MANAGEMENT",
+                            NormalizedName = "SALE.SHIPMENT_METHOD_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5021,
+                            Name = "SALE.COUNTRY_MANAGEMENT",
+                            NormalizedName = "SALE.COUNTRY_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5022,
+                            Name = "SALE.STATE_PROVINCE_MANAGEMENT",
+                            NormalizedName = "SALE.STATE_PROVINCE_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5023,
+                            Name = "SALE.ADDRESS_MANAGEMENT",
+                            NormalizedName = "SALE.ADDRESS_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5024,
+                            Name = "SALE.TAX_MANAGEMENT",
+                            NormalizedName = "SALE.TAX_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 4001,
+                            Name = "FS.GET_FILE_INFO",
+                            NormalizedName = "FS.GET_FILE_INFO"
+                        },
+                        new
+                        {
+                            Id = 4002,
+                            Name = "FS.GET_FILE_INFO_BY_NAME",
+                            NormalizedName = "FS.GET_FILE_INFO_BY_NAME"
+                        },
+                        new
+                        {
+                            Id = 4003,
+                            Name = "FS.GET_FILES_LIST",
+                            NormalizedName = "FS.GET_FILES_LIST"
+                        },
+                        new
+                        {
+                            Id = 4004,
+                            Name = "FS.GET_GALLEY_FILES",
+                            NormalizedName = "FS.GET_GALLEY_FILES"
+                        },
+                        new
+                        {
+                            Id = 4005,
+                            Name = "FS.GET_DIRECTORIES",
+                            NormalizedName = "FS.GET_DIRECTORIES"
+                        },
+                        new
+                        {
+                            Id = 4006,
+                            Name = "FS.GET_FILES_BY_DIRECTORY",
+                            NormalizedName = "FS.GET_FILES_BY_DIRECTORY"
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("Role", "Auth");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "SUPERADMIN",
+                            NormalizedName = "SUPERADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "ADMIN",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "USER",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "SUPERVISER",
+                            NormalizedName = "SUPERVISER"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "GUEST",
+                            NormalizedName = "GUEST"
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.RoleClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RoleClaim", "Auth");
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Avatar")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("DefaultLanguage")
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("DefaultTheme")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("RegisterDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("User", "Auth");
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.UserClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserClaim", "Auth");
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.UserLogin", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLogin", "Auth");
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRole", "Auth");
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.UserToken", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("UserToken", "Auth");
+                });
+
             modelBuilder.Entity("Hydra.Cms.Core.Domain.Article", b =>
                 {
                     b.Property<int>("Id")
@@ -841,1095 +1764,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("SubscribeLabel", "Cms");
                 });
 
-            modelBuilder.Entity("Hydra.FileStorage.Core.Domain.FileUpload", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Alt")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Directory")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("Extension")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<long>("Size")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Tags")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Thumbnail")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<DateTime>("UploadDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("FileUpload", "FS");
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.Permission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("NormalizedName")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Permission", "Auth");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1001,
-                            Name = "AUTH.CHANGE_PASSWORD",
-                            NormalizedName = "AUTH.CHANGE_PASSWORD"
-                        },
-                        new
-                        {
-                            Id = 1002,
-                            Name = "AUTH.GET_USER_LIST",
-                            NormalizedName = "AUTH.GET_USER_LIST"
-                        },
-                        new
-                        {
-                            Id = 1003,
-                            Name = "AUTH.GET_USER_BY_ID",
-                            NormalizedName = "AUTH.GET_USER_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 1004,
-                            Name = "AUTH.ADD_USER",
-                            NormalizedName = "AUTH.ADD_USER"
-                        },
-                        new
-                        {
-                            Id = 1005,
-                            Name = "AUTH.UPDATE_USER",
-                            NormalizedName = "AUTH.UPDATE_USER"
-                        },
-                        new
-                        {
-                            Id = 1006,
-                            Name = "AUTH.DELETE_USER",
-                            NormalizedName = "AUTH.DELETE_USER"
-                        },
-                        new
-                        {
-                            Id = 1007,
-                            Name = "AUTH.ASSIGN_PERMISSION_TO_ROLE_BY_ROLE_ID",
-                            NormalizedName = "AUTH.ASSIGN_PERMISSION_TO_ROLE_BY_ROLE_ID"
-                        },
-                        new
-                        {
-                            Id = 1008,
-                            Name = "AUTH.GET_ROLE_LIST",
-                            NormalizedName = "AUTH.GET_ROLE_LIST"
-                        },
-                        new
-                        {
-                            Id = 1009,
-                            Name = "AUTH.GET_ROLE_BY_ID",
-                            NormalizedName = "AUTH.GET_ROLE_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 1010,
-                            Name = "AUTH.ADD_ROLE",
-                            NormalizedName = "AUTH.ADD_ROLE"
-                        },
-                        new
-                        {
-                            Id = 1011,
-                            Name = "AUTH.UPDATE_ROLE",
-                            NormalizedName = "AUTH.UPDATE_ROLE"
-                        },
-                        new
-                        {
-                            Id = 1012,
-                            Name = "AUTH.DELETE_ROLE",
-                            NormalizedName = "AUTH.DELETE_ROLE"
-                        },
-                        new
-                        {
-                            Id = 1013,
-                            Name = "AUTH.GET_PERMISSION_LIST",
-                            NormalizedName = "AUTH.GET_PERMISSION_LIST"
-                        },
-                        new
-                        {
-                            Id = 1014,
-                            Name = "AUTH.GET_PERMISSION_BY_ID",
-                            NormalizedName = "AUTH.GET_PERMISSION_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 1015,
-                            Name = "AUTH.ADD_PERMISSION",
-                            NormalizedName = "AUTH.ADD_PERMISSION"
-                        },
-                        new
-                        {
-                            Id = 1016,
-                            Name = "AUTH.UPDATE_PERMISSION",
-                            NormalizedName = "AUTH.UPDATE_PERMISSION"
-                        },
-                        new
-                        {
-                            Id = 1017,
-                            Name = "AUTH.DELETE_PERMISSION",
-                            NormalizedName = "AUTH.DELETE_PERMISSION"
-                        },
-                        new
-                        {
-                            Id = 2001,
-                            Name = "CMS.ADD_OR_UPDATE_SETTINGS",
-                            NormalizedName = "CMS.ADD_OR_UPDATE_SETTINGS"
-                        },
-                        new
-                        {
-                            Id = 2002,
-                            Name = "CMS.GET_TOPIC_LIST",
-                            NormalizedName = "CMS.GET_TOPIC_LIST"
-                        },
-                        new
-                        {
-                            Id = 2003,
-                            Name = "CMS.GET_TOPIC_BY_ID",
-                            NormalizedName = "CMS.GET_TOPIC_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2004,
-                            Name = "CMS.ADD_TOPIC",
-                            NormalizedName = "CMS.ADD_TOPIC"
-                        },
-                        new
-                        {
-                            Id = 2005,
-                            Name = "CMS.UPDATE_TOPIC",
-                            NormalizedName = "CMS.UPDATE_TOPIC"
-                        },
-                        new
-                        {
-                            Id = 2006,
-                            Name = "CMS.DELETE_TOPIC",
-                            NormalizedName = "CMS.DELETE_TOPIC"
-                        },
-                        new
-                        {
-                            Id = 2007,
-                            Name = "CMS.GET_TAG_LIST",
-                            NormalizedName = "CMS.GET_TAG_LIST"
-                        },
-                        new
-                        {
-                            Id = 2008,
-                            Name = "CMS.GET_TAG_BY_ID",
-                            NormalizedName = "CMS.GET_TAG_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2009,
-                            Name = "CMS.ADD_TAG",
-                            NormalizedName = "CMS.ADD_TAG"
-                        },
-                        new
-                        {
-                            Id = 2010,
-                            Name = "CMS.UPDATE_TAG",
-                            NormalizedName = "CMS.UPDATE_TAG"
-                        },
-                        new
-                        {
-                            Id = 2011,
-                            Name = "CMS.DELETE_TAG",
-                            NormalizedName = "CMS.DELETE_TAG"
-                        },
-                        new
-                        {
-                            Id = 2012,
-                            Name = "CMS.GET_ARTICLE_LIST",
-                            NormalizedName = "CMS.GET_ARTICLE_LIST"
-                        },
-                        new
-                        {
-                            Id = 2013,
-                            Name = "CMS.GET_TRASH_ARTICLE_LIST",
-                            NormalizedName = "CMS.GET_TRASH_ARTICLE_LIST"
-                        },
-                        new
-                        {
-                            Id = 2014,
-                            Name = "CMS.GET_ARTICLE_BY_ID",
-                            NormalizedName = "CMS.GET_ARTICLE_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2015,
-                            Name = "CMS.CMS_PINNED_ARTICLE",
-                            NormalizedName = "CMS.CMS_PINNED_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2016,
-                            Name = "CMS.ADD_ARTICLE",
-                            NormalizedName = "CMS.ADD_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2017,
-                            Name = "CMS.UPDATE_ARTICLE",
-                            NormalizedName = "CMS.UPDATE_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2018,
-                            Name = "CMS.DELETE_ARTICLE",
-                            NormalizedName = "CMS.DELETE_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2019,
-                            Name = "CMS.RESTORE_ARTICLE",
-                            NormalizedName = "CMS.RESTORE_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2020,
-                            Name = "CMS.REMOVE_ARTICLE",
-                            NormalizedName = "CMS.REMOVE_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2021,
-                            Name = "CMS.GET_PAGE_LIST",
-                            NormalizedName = "CMS.GET_PAGE_LIST"
-                        },
-                        new
-                        {
-                            Id = 2022,
-                            Name = "CMS.GET_PAGE_BY_ID",
-                            NormalizedName = "CMS.GET_PAGE_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2023,
-                            Name = "CMS.ADD_PAGE",
-                            NormalizedName = "CMS.ADD_PAGE"
-                        },
-                        new
-                        {
-                            Id = 2024,
-                            Name = "CMS.UPDATE_PAGE",
-                            NormalizedName = "CMS.UPDATE_PAGE"
-                        },
-                        new
-                        {
-                            Id = 2025,
-                            Name = "CMS.DELETE_PAGE",
-                            NormalizedName = "CMS.DELETE_PAGE"
-                        },
-                        new
-                        {
-                            Id = 2026,
-                            Name = "CMS.GET_MENU_LIST",
-                            NormalizedName = "CMS.GET_MENU_LIST"
-                        },
-                        new
-                        {
-                            Id = 2027,
-                            Name = "CMS.GET_MENU_BY_ID",
-                            NormalizedName = "CMS.GET_MENU_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2028,
-                            Name = "CMS.ADD_MENU",
-                            NormalizedName = "CMS.ADD_MENU"
-                        },
-                        new
-                        {
-                            Id = 2029,
-                            Name = "CMS.UPDATE_MENU",
-                            NormalizedName = "CMS.UPDATE_MENU"
-                        },
-                        new
-                        {
-                            Id = 2030,
-                            Name = "CMS.DELETE_MENU",
-                            NormalizedName = "CMS.DELETE_MENU"
-                        },
-                        new
-                        {
-                            Id = 2031,
-                            Name = "CMS.GET_SLIDESHOW_LIST",
-                            NormalizedName = "CMS.GET_SLIDESHOW_LIST"
-                        },
-                        new
-                        {
-                            Id = 2032,
-                            Name = "CMS.GET_SLIDESHOW_BY_ID",
-                            NormalizedName = "CMS.GET_SLIDESHOW_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2033,
-                            Name = "CMS.ADD_SLIDESHOW",
-                            NormalizedName = "CMS.ADD_SLIDESHOW"
-                        },
-                        new
-                        {
-                            Id = 2034,
-                            Name = "CMS.UPDATE_SLIDESHOW",
-                            NormalizedName = "CMS.UPDATE_SLIDESHOW"
-                        },
-                        new
-                        {
-                            Id = 2035,
-                            Name = "CMS.VISIBLE_SLIDESHOW",
-                            NormalizedName = "CMS.VISIBLE_SLIDESHOW"
-                        },
-                        new
-                        {
-                            Id = 2036,
-                            Name = "CMS.DELETE_SLIDESHOW",
-                            NormalizedName = "CMS.DELETE_SLIDESHOW"
-                        },
-                        new
-                        {
-                            Id = 3001,
-                            Name = "CRM.GET_SETTINGS",
-                            NormalizedName = "CRM.GET_SETTINGS"
-                        },
-                        new
-                        {
-                            Id = 3002,
-                            Name = "CRM.ADD_OR_UPDATE_SETTINGS",
-                            NormalizedName = "CRM.ADD_OR_UPDATE_SETTINGS"
-                        },
-                        new
-                        {
-                            Id = 3003,
-                            Name = "CRM.SEND_PUBLIC_MESSAGE",
-                            NormalizedName = "CRM.SEND_PUBLIC_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3004,
-                            Name = "CRM.SEND_PRIVATE_MESSAGE",
-                            NormalizedName = "CRM.SEND_PRIVATE_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3005,
-                            Name = "CRM.SAVE_DRAFT_MESSAGE",
-                            NormalizedName = "CRM.SAVE_DRAFT_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3006,
-                            Name = "CRM.GET_ALLMESSAGES",
-                            NormalizedName = "CRM.GET_ALLMESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3007,
-                            Name = "CRM.GET_INBOX_MESSAGES",
-                            NormalizedName = "CRM.GET_INBOX_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3008,
-                            Name = "CRM.GET_SENT_MESSAGES",
-                            NormalizedName = "CRM.GET_SENT_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3009,
-                            Name = "CRM.GET_DRAFT_MESSAGES",
-                            NormalizedName = "CRM.GET_DRAFT_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3010,
-                            Name = "CRM.GET_PUBLIC_INBOX_MESSAGES",
-                            NormalizedName = "CRM.GET_PUBLIC_INBOX_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3011,
-                            Name = "CRM.GET_DELETED_INBOX_MESSAGES",
-                            NormalizedName = "CRM.GET_DELETED_INBOX_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3012,
-                            Name = "CRM.GET_DELETED_SENT_MESSAGES",
-                            NormalizedName = "CRM.GET_DELETED_SENT_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3013,
-                            Name = "CRM.GET_MESSAGE_BY_ID_FOR_PUBLIC",
-                            NormalizedName = "CRM.GET_MESSAGE_BY_ID_FOR_PUBLIC"
-                        },
-                        new
-                        {
-                            Id = 3014,
-                            Name = "CRM.GET_MESSAGE_BY_ID_FOR_SENDER",
-                            NormalizedName = "CRM.GET_MESSAGE_BY_ID_FOR_SENDER"
-                        },
-                        new
-                        {
-                            Id = 3015,
-                            Name = "CRM.GET_MESSAGE_BY_ID_FOR_RECEIVER",
-                            NormalizedName = "CRM.GET_MESSAGE_BY_ID_FOR_RECEIVER"
-                        },
-                        new
-                        {
-                            Id = 3016,
-                            Name = "CRM.DELETE_MESSAGE",
-                            NormalizedName = "CRM.DELETE_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3017,
-                            Name = "CRM.RESTORE_MESSAGE",
-                            NormalizedName = "CRM.RESTORE_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3018,
-                            Name = "CRM.PIN_MESSAGE",
-                            NormalizedName = "CRM.PIN_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3019,
-                            Name = "CRM.READ_MESSAGE",
-                            NormalizedName = "CRM.READ_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3020,
-                            Name = "CRM.DELETE_DRAFT_MESSAGE",
-                            NormalizedName = "CRM.DELETE_DRAFT_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3021,
-                            Name = "CRM.REMOVE_DRAFT_MESSAGE",
-                            NormalizedName = "CRM.REMOVE_DRAFT_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3022,
-                            Name = "CRM.LOAD_EMAIL_INBOX",
-                            NormalizedName = "CRM.LOAD_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3023,
-                            Name = "CRM.GET_ALL_EMAIL_INBOX",
-                            NormalizedName = "CRM.GET_ALL_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3024,
-                            Name = "CRM.GET_INBOX_EMAIL_INBOX",
-                            NormalizedName = "CRM.GET_INBOX_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3025,
-                            Name = "CRM.GET_DELETED_EMAIL_INBOX",
-                            NormalizedName = "CRM.GET_DELETED_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3026,
-                            Name = "CRM.GET_EMAIL_INBOX_BY_ID",
-                            NormalizedName = "CRM.GET_EMAIL_INBOX_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 3027,
-                            Name = "CRM.GET_EMAIL_INBOX_BY_ID_FOR_RECEIVER",
-                            NormalizedName = "CRM.GET_EMAIL_INBOX_BY_ID_FOR_RECEIVER"
-                        },
-                        new
-                        {
-                            Id = 3028,
-                            Name = "CRM.DELETE_EMAIL_INBOX",
-                            NormalizedName = "CRM.DELETE_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3029,
-                            Name = "CRM.PIN_EMAIL_INBOX",
-                            NormalizedName = "CRM.PIN_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3030,
-                            Name = "CRM.READ_EMAIL_INBOX",
-                            NormalizedName = "CRM.READ_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3031,
-                            Name = "CRM.REMOVE_EMAIL_INBOX",
-                            NormalizedName = "CRM.REMOVE_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3032,
-                            Name = "CRM.SEND_EMAIL_OUTBOX",
-                            NormalizedName = "CRM.SEND_EMAIL_OUTBOX"
-                        },
-                        new
-                        {
-                            Id = 3033,
-                            Name = "CRM.SAVE_DRAFT_EMAIL_OUTBOX",
-                            NormalizedName = "CRM.SAVE_DRAFT_EMAIL_OUTBOX"
-                        },
-                        new
-                        {
-                            Id = 3034,
-                            Name = "CRM.GET_ALL_EMAIL_OUTBOX",
-                            NormalizedName = "CRM.GET_ALL_EMAIL_OUTBOX"
-                        },
-                        new
-                        {
-                            Id = 3035,
-                            Name = "CRM.GET_EMAIL_OUTBOX",
-                            NormalizedName = "CRM.GET_EMAIL_OUTBOX"
-                        },
-                        new
-                        {
-                            Id = 3036,
-                            Name = "CRM.GET_ADDRESS_FOR_SELECT",
-                            NormalizedName = "CRM.GET_ADDRESS_FOR_SELECT"
-                        },
-                        new
-                        {
-                            Id = 3037,
-                            Name = "CRM.GET_EMAIL_OUTBOX_BY_ID_FOR_SENDER",
-                            NormalizedName = "CRM.GET_EMAIL_OUTBOX_BY_ID_FOR_SENDER"
-                        },
-                        new
-                        {
-                            Id = 3038,
-                            Name = "CRM.REMOVE_EMAIL_OUTBOX",
-                            NormalizedName = "CRM.REMOVE_EMAIL_OUTBOX"
-                        },
-                        new
-                        {
-                            Id = 4001,
-                            Name = "FS.GET_FILE_INFO",
-                            NormalizedName = "FS.GET_FILE_INFO"
-                        },
-                        new
-                        {
-                            Id = 4002,
-                            Name = "FS.GET_FILE_INFO_BY_NAME",
-                            NormalizedName = "FS.GET_FILE_INFO_BY_NAME"
-                        },
-                        new
-                        {
-                            Id = 4003,
-                            Name = "FS.GET_FILES_LIST",
-                            NormalizedName = "FS.GET_FILES_LIST"
-                        },
-                        new
-                        {
-                            Id = 4004,
-                            Name = "FS.GET_GALLEY_FILES",
-                            NormalizedName = "FS.GET_GALLEY_FILES"
-                        },
-                        new
-                        {
-                            Id = 4005,
-                            Name = "FS.GET_DIRECTORIES",
-                            NormalizedName = "FS.GET_DIRECTORIES"
-                        },
-                        new
-                        {
-                            Id = 4006,
-                            Name = "FS.GET_FILES_BY_DIRECTORY",
-                            NormalizedName = "FS.GET_FILES_BY_DIRECTORY"
-                        },
-                        new
-                        {
-                            Id = 5001,
-                            Name = "SALE.CATEGORY_MANAGEMENT",
-                            NormalizedName = "SALE.CATEGORY_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5002,
-                            Name = "SALE.PRODUCT_ATTRIBUTE_MANAGEMENT",
-                            NormalizedName = "SALE.PRODUCT_ATTRIBUTE_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5003,
-                            Name = "SALE.ORDER_MANAGEMENT",
-                            NormalizedName = "SALE.ORDER_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5004,
-                            Name = "SALE.ORDER_DISCOUNT_MANAGEMENT",
-                            NormalizedName = "SALE.ORDER_DISCOUNT_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5005,
-                            Name = "SALE.ORDER_ITEM_MANAGEMENT",
-                            NormalizedName = "SALE.ORDER_ITEM_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5006,
-                            Name = "SALE.ORDERNOTE_MANAGEMENT",
-                            NormalizedName = "SALE.ORDERNOTE_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5007,
-                            Name = "SALE.PAYMENT_MANAGEMENT",
-                            NormalizedName = "SALE.PAYMENT_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5008,
-                            Name = "SALE.PRODUCT_MANAGEMENT",
-                            NormalizedName = "SALE.PRODUCT_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5009,
-                            Name = "SALE.PRODUCT_INVENTORY_MANAGEMENT",
-                            NormalizedName = "SALE.PRODUCT_INVENTORY_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5010,
-                            Name = "SALE.PRODUCT_REVIEW_MANAGEMENT",
-                            NormalizedName = "SALE.PRODUCT_REVIEW_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5011,
-                            Name = "SALE.PRODUCT_REVIEW_HELPFULNESS_MANAGEMENT",
-                            NormalizedName = "SALE.PRODUCT_REVIEW_HELPFULNESS_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5012,
-                            Name = "SALE.PRODUCT_TAG_MANAGEMENT",
-                            NormalizedName = "SALE.PRODUCT_TAG_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5013,
-                            Name = "SALE.SEARCH_TERM_MANAGEMENT",
-                            NormalizedName = "SALE.SEARCH_TERM_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5014,
-                            Name = "SALE.SHIPMENT_MANAGEMENT",
-                            NormalizedName = "SALE.SHIPMENT_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5015,
-                            Name = "SALE.SHOPPING_CART_MANAGEMENT",
-                            NormalizedName = "SALE.SHOPPING_CART_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5016,
-                            Name = "SALE.CURRENCY_MANAGEMENT",
-                            NormalizedName = "SALE.CURRENCY_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5017,
-                            Name = "SALE.DELIVERY_MANAGEMENT",
-                            NormalizedName = "SALE.DELIVERY_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5018,
-                            Name = "SALE.DISCOUNT_MANAGEMENT",
-                            NormalizedName = "SALE.DISCOUNT_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5019,
-                            Name = "SALE.MANUFACTURER_MANAGEMENT",
-                            NormalizedName = "SALE.MANUFACTURER_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5020,
-                            Name = "SALE.SHIPMENT_METHOD_MANAGEMENT",
-                            NormalizedName = "SALE.SHIPMENT_METHOD_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5021,
-                            Name = "SALE.COUNTRY_MANAGEMENT",
-                            NormalizedName = "SALE.COUNTRY_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5022,
-                            Name = "SALE.STATE_PROVINCE_MANAGEMENT",
-                            NormalizedName = "SALE.STATE_PROVINCE_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5023,
-                            Name = "SALE.ADDRESS_MANAGEMENT",
-                            NormalizedName = "SALE.ADDRESS_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5024,
-                            Name = "SALE.TAX_MANAGEMENT",
-                            NormalizedName = "SALE.TAX_MANAGEMENT"
-                        });
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("Role", "Auth");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "SUPERADMIN",
-                            NormalizedName = "SUPERADMIN"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "ADMIN",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "USER",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "SUPERVISER",
-                            NormalizedName = "SUPERVISER"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "GUEST",
-                            NormalizedName = "GUEST"
-                        });
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.RoleClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("RoleClaim", "Auth");
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Avatar")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("DefaultLanguage")
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
-
-                    b.Property<string>("DefaultTheme")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("RegisterDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("User", "Auth");
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.UserClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserClaim", "Auth");
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.UserLogin", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserLogin", "Auth");
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.UserRole", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UserRole", "Auth");
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.UserToken", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Value")
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("UserToken", "Auth");
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Setting.Domain.SiteSetting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ValueType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Setting", "Infra");
-                });
-
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Address", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2016,7 +1851,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("Address", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Category", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2116,7 +1951,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Country", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -5655,7 +5490,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Currency", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Currency", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -5760,7 +5595,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.DeliveryDate", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.DeliveryDate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -5801,7 +5636,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Discount", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Discount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -5898,7 +5733,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Manufacturer", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Manufacturer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -5988,7 +5823,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Order", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6089,7 +5924,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("Order", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.OrderDiscount", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.OrderDiscount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6116,7 +5951,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("OrderDiscount", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.OrderItem", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6159,7 +5994,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("OrderItem", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.OrderNote", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.OrderNote", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6194,7 +6029,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("OrderNote", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Payment", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Payment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6275,7 +6110,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("Payment", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Product", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6449,7 +6284,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("Product", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductAttribute", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductAttribute", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6550,7 +6385,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductCategory", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6579,7 +6414,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("ProductCategory", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductInventory", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6612,7 +6447,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("ProductInventory", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductManufacturer", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductManufacturer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6641,7 +6476,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("ProductManufacturer", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductPicture", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductPicture", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6668,7 +6503,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("ProductPicture", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductProductAttribute", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductProductAttribute", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6694,7 +6529,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("ProductProductAttribute", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductProductTag", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductProductTag", b =>
                 {
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -6709,7 +6544,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("ProductProductTag", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductReview", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductReview", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6766,7 +6601,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("ProductReview", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductReviewHelpfulness", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductReviewHelpfulness", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6792,7 +6627,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("ProductReviewHelpfulness", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductTag", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductTag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6829,7 +6664,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.RelatedProduct", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.RelatedProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6855,7 +6690,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("RelatedProduct", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.SearchTerm", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.SearchTerm", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6876,7 +6711,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("SearchTerm", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Shipment", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Shipment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6923,7 +6758,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("Shipment", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ShipmentItem", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ShipmentItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6949,7 +6784,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("ShipmentItem", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ShippingMethod", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ShippingMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6998,7 +6833,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ShoppingCartItem", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ShoppingCartItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -7037,7 +6872,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("ShoppingCartItem", "Sale");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.StateProvince", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.StateProvince", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -23597,7 +23432,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.TaxCategory", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.TaxCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -23638,7 +23473,7 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.TaxRate", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.TaxRate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -23669,6 +23504,81 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("TaxRate", "Sale");
                 });
 
+            modelBuilder.Entity("Hydra.FileStorage.Core.Domain.FileUpload", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Alt")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Directory")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Tags")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Thumbnail")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<DateTime>("UploadDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FileUpload", "FS");
+                });
+
+            modelBuilder.Entity("Hydra.Infrastructure.Setting.Domain.SiteSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ValueType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Setting", "Infra");
+                });
+
             modelBuilder.Entity("PermissionRole", b =>
                 {
                     b.Property<int>("PermissionsId")
@@ -23686,14 +23596,14 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("DiscountCategory", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Category", null)
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Category", null)
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_DiscountCategory_Category");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Discount", null)
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Discount", null)
                         .WithMany()
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -23703,14 +23613,14 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("DiscountManufacturer", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Discount", null)
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Discount", null)
                         .WithMany()
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_DiscountManufacturer_Discount");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Manufacturer", null)
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Manufacturer", null)
                         .WithMany()
                         .HasForeignKey("ManufacturerId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -23720,14 +23630,14 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("DiscountProduct", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Discount", null)
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Discount", null)
                         .WithMany()
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_DiscountProduct_Discount");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", null)
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -23735,9 +23645,64 @@ namespace Hydra.Infrastructure.Migrations
                         .HasConstraintName("FK_DiscountProduct_Product");
                 });
 
+            modelBuilder.Entity("Hydra.Auth.Domain.RoleClaim", b =>
+                {
+                    b.HasOne("Hydra.Auth.Domain.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.UserClaim", b =>
+                {
+                    b.HasOne("Hydra.Auth.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.UserLogin", b =>
+                {
+                    b.HasOne("Hydra.Auth.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.UserRole", b =>
+                {
+                    b.HasOne("Hydra.Auth.Domain.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hydra.Auth.Domain.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.UserToken", b =>
+                {
+                    b.HasOne("Hydra.Auth.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Hydra.Cms.Core.Domain.Article", b =>
                 {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "Editor")
+                    b.HasOne("Hydra.Auth.Domain.User", "Editor")
                         .WithMany()
                         .HasForeignKey("EditorId");
 
@@ -23745,7 +23710,7 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("PreviewImageId");
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "Writer")
+                    b.HasOne("Hydra.Auth.Domain.User", "Writer")
                         .WithMany()
                         .HasForeignKey("WriterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -23804,7 +23769,7 @@ namespace Hydra.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "User")
+                    b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -23826,11 +23791,11 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Cms.Core.Domain.Page", b =>
                 {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "Editor")
+                    b.HasOne("Hydra.Auth.Domain.User", "Editor")
                         .WithMany()
                         .HasForeignKey("EditorId");
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "Writer")
+                    b.HasOne("Hydra.Auth.Domain.User", "Writer")
                         .WithMany()
                         .HasForeignKey("WriterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -23862,7 +23827,7 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Cms.Core.Domain.Slideshow", b =>
                 {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "User")
+                    b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -23957,7 +23922,7 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Crm.Core.Domain.Message.Message", b =>
                 {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "FromUser")
+                    b.HasOne("Hydra.Auth.Domain.User", "FromUser")
                         .WithMany()
                         .HasForeignKey("FromUserId");
 
@@ -23983,7 +23948,7 @@ namespace Hydra.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "ToUser")
+                    b.HasOne("Hydra.Auth.Domain.User", "ToUser")
                         .WithMany()
                         .HasForeignKey("ToUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -24006,89 +23971,23 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("SubscribeLabel");
                 });
 
-            modelBuilder.Entity("Hydra.FileStorage.Core.Domain.FileUpload", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Address", b =>
                 {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.RoleClaim", b =>
-                {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.UserClaim", b =>
-                {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.UserLogin", b =>
-                {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.UserRole", b =>
-                {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.Role", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.UserToken", b =>
-                {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Address", b =>
-                {
-                    b.HasOne("Hydra.Sale.Core.Domain.Country", "Country")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Country", "Country")
                         .WithMany("Addresses")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_Address_Country");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.StateProvince", "StateProvince")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.StateProvince", "StateProvince")
                         .WithMany("Addresses")
                         .HasForeignKey("StateProvinceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_Address_StateProvince");
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "User")
+                    b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24102,9 +24001,9 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Category", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Category", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Category", "ParentCategory")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Category", "ParentCategory")
                         .WithMany()
                         .HasForeignKey("ParentCategoryId")
                         .HasConstraintName("FK_Category_Category");
@@ -24112,28 +24011,28 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Order", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Order", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Address", "Address")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Address", "Address")
                         .WithMany("Orders")
                         .HasForeignKey("AddressId")
                         .HasConstraintName("FK_Order_Address");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Payment", "Payment")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Payment", "Payment")
                         .WithMany("Orders")
                         .HasForeignKey("PaymentId");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.ShippingMethod", "ShippingMethod")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ShippingMethod", "ShippingMethod")
                         .WithMany("Orders")
                         .HasForeignKey("ShippingMethodId")
                         .HasConstraintName("FK_Order_ShippingMethod");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Currency", "UserCurrency")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Currency", "UserCurrency")
                         .WithMany("Orders")
                         .HasForeignKey("UserCurrencyId")
                         .HasConstraintName("FK_Order_Currency");
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "User")
+                    b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24151,16 +24050,16 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("UserCurrency");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.OrderDiscount", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.OrderDiscount", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Discount", "Discount")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Discount", "Discount")
                         .WithMany("OrderDiscounts")
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_OrderDiscount_Discount");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Order", "Order")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Order", "Order")
                         .WithMany("OrderDiscounts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24172,20 +24071,20 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.OrderItem", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.OrderItem", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Discount", "Discount")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Discount", "Discount")
                         .WithMany("OrderItems")
                         .HasForeignKey("DiscountId");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Order", "Order")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_OrderItem_Order");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "Product")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("OrderItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -24199,16 +24098,16 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.OrderNote", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.OrderNote", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Order", "Order")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Order", "Order")
                         .WithMany("OrderNotes")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_OrderNote_Order");
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "User")
+                    b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24220,9 +24119,9 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Payment", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Payment", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Order", "Order")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Order", "Order")
                         .WithMany("Payments")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24232,37 +24131,37 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Product", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Product", b =>
                 {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "CreateUser")
+                    b.HasOne("Hydra.Auth.Domain.User", "CreateUser")
                         .WithMany()
                         .HasForeignKey("CreateUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Product_CreateUser");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Currency", "Currency")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Currency", "Currency")
                         .WithMany("Products")
                         .HasForeignKey("CurrencyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_Product_Currency");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.DeliveryDate", "DeliveryDate")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.DeliveryDate", "DeliveryDate")
                         .WithMany("Products")
                         .HasForeignKey("DeliveryDateId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_Product_DeliveryDate");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.TaxCategory", "TaxCategory")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.TaxCategory", "TaxCategory")
                         .WithMany("Products")
                         .HasForeignKey("TaxCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_Product_TaxCategory");
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "UpdateUser")
+                    b.HasOne("Hydra.Auth.Domain.User", "UpdateUser")
                         .WithMany()
                         .HasForeignKey("UpdateUserId")
                         .HasConstraintName("FK_Product_UpdateUser");
@@ -24278,16 +24177,16 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("UpdateUser");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductCategory", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductCategory", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Category", "Category")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Category", "Category")
                         .WithMany("ProductCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_ProductCategory_Category");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "Product")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("ProductCategories")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24299,15 +24198,15 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductInventory", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventory", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.ProductAttribute", "ProductAttribute")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductAttribute", "ProductAttribute")
                         .WithMany("ProductInventories")
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("FK_ProductInventory_Attribute");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "Product")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("ProductInventories")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24319,16 +24218,16 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("ProductAttribute");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductManufacturer", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductManufacturer", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Manufacturer", "Manufacturer")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Manufacturer", "Manufacturer")
                         .WithMany("ProductManufacturers")
                         .HasForeignKey("ManufacturerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_ProductManufacturer_Manufacturer");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "Product")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("ProductManufacturers")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24340,7 +24239,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductPicture", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductPicture", b =>
                 {
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "Picture")
                         .WithMany()
@@ -24348,7 +24247,7 @@ namespace Hydra.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "Product")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("ProductPictures")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24360,16 +24259,16 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductProductAttribute", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductProductAttribute", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.ProductAttribute", "Attribute")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductAttribute", "Attribute")
                         .WithMany("ProductAttributes")
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_ProductAttribute_Attribute");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "Product")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("ProductAttributes")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24381,15 +24280,15 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductProductTag", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductProductTag", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "Product")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("ProductProductTags")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hydra.Sale.Core.Domain.ProductTag", "ProductTag")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductTag", "ProductTag")
                         .WithMany("ProductProductTags")
                         .HasForeignKey("ProductTagId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -24400,16 +24299,16 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("ProductTag");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductReview", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductReview", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "Product")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("ProductReviews")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_ProductReview_Product");
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "User")
+                    b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24421,16 +24320,16 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductReviewHelpfulness", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductReviewHelpfulness", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.ProductReview", "ProductReview")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductReview", "ProductReview")
                         .WithMany("ProductReviewHelpfulnesses")
                         .HasForeignKey("ProductReviewId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_ProductReviewHelpfulness_ProductReview");
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "User")
+                    b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24442,16 +24341,16 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.RelatedProduct", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.RelatedProduct", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "ProductId1Navigation")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "ProductId1Navigation")
                         .WithMany("RelatedProductProductId1Navigations")
                         .HasForeignKey("ProductId1")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_RelatedProduct_Product");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "ProductId2Navigation")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "ProductId2Navigation")
                         .WithMany("RelatedProductProductId2Navigations")
                         .HasForeignKey("ProductId2")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24463,9 +24362,9 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("ProductId2Navigation");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Shipment", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Shipment", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Order", "Order")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Order", "Order")
                         .WithMany("Shipments")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24475,16 +24374,16 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ShipmentItem", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ShipmentItem", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.OrderItem", "OrderItem")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.OrderItem", "OrderItem")
                         .WithMany("ShipmentItems")
                         .HasForeignKey("OrderItemId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_ShipmentItem_OrderItem");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.Shipment", "Shipment")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Shipment", "Shipment")
                         .WithMany("ShipmentItems")
                         .HasForeignKey("ShipmentId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24496,16 +24395,16 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Shipment");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ShoppingCartItem", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ShoppingCartItem", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Product", "Product")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_ShoppingCartItem_Product");
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.User", "User")
+                    b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24517,9 +24416,9 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.StateProvince", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.StateProvince", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Country", "Country")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Country", "Country")
                         .WithMany("StateProvinces")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24529,23 +24428,23 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.TaxRate", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.TaxRate", b =>
                 {
-                    b.HasOne("Hydra.Sale.Core.Domain.Country", "Country")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Country", "Country")
                         .WithMany("TaxRates")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_TaxRate_Country");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.StateProvince", "StateProvince")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.StateProvince", "StateProvince")
                         .WithMany("TaxRates")
                         .HasForeignKey("StateProvinceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_TaxRate_StateProvince");
 
-                    b.HasOne("Hydra.Sale.Core.Domain.TaxCategory", "TaxCategory")
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.TaxCategory", "TaxCategory")
                         .WithMany("TaxRates")
                         .HasForeignKey("TaxCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -24559,19 +24458,40 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("TaxCategory");
                 });
 
+            modelBuilder.Entity("Hydra.FileStorage.Core.Domain.FileUpload", b =>
+                {
+                    b.HasOne("Hydra.Auth.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PermissionRole", b =>
                 {
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.Permission", null)
+                    b.HasOne("Hydra.Auth.Domain.Permission", null)
                         .WithMany()
                         .HasForeignKey("PermissionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hydra.Infrastructure.Security.Domain.Role", null)
+                    b.HasOne("Hydra.Auth.Domain.Role", null)
                         .WithMany()
                         .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Hydra.Auth.Domain.User", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("Hydra.Cms.Core.Domain.Article", b =>
@@ -24635,27 +24555,17 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Subscribes");
                 });
 
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.Role", b =>
-                {
-                    b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("Hydra.Infrastructure.Security.Domain.User", b =>
-                {
-                    b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Address", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Address", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Category", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Category", b =>
                 {
                     b.Navigation("ProductCategories");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Country", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Country", b =>
                 {
                     b.Navigation("Addresses");
 
@@ -24664,31 +24574,31 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("TaxRates");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Currency", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Currency", b =>
                 {
                     b.Navigation("Orders");
 
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.DeliveryDate", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.DeliveryDate", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Discount", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Discount", b =>
                 {
                     b.Navigation("OrderDiscounts");
 
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Manufacturer", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Manufacturer", b =>
                 {
                     b.Navigation("ProductManufacturers");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Order", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Order", b =>
                 {
                     b.Navigation("OrderDiscounts");
 
@@ -24701,17 +24611,17 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Shipments");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.OrderItem", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.OrderItem", b =>
                 {
                     b.Navigation("ShipmentItems");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Payment", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Payment", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Product", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Product", b =>
                 {
                     b.Navigation("OrderItems");
 
@@ -24736,41 +24646,41 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("ShoppingCartItems");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductAttribute", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductAttribute", b =>
                 {
                     b.Navigation("ProductAttributes");
 
                     b.Navigation("ProductInventories");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductReview", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductReview", b =>
                 {
                     b.Navigation("ProductReviewHelpfulnesses");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ProductTag", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductTag", b =>
                 {
                     b.Navigation("ProductProductTags");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.Shipment", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Shipment", b =>
                 {
                     b.Navigation("ShipmentItems");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.ShippingMethod", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ShippingMethod", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.StateProvince", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.StateProvince", b =>
                 {
                     b.Navigation("Addresses");
 
                     b.Navigation("TaxRates");
                 });
 
-            modelBuilder.Entity("Hydra.Sale.Core.Domain.TaxCategory", b =>
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.TaxCategory", b =>
                 {
                     b.Navigation("Products");
 

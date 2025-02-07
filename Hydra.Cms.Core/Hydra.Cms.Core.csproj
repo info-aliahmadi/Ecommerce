@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hydra.FileStorage.Core\Hydra.FileStorage.Core.csproj" />
-    <ProjectReference Include="..\Hydra.Infrastructure\Hydra.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Hydra.Infrastructure.Data;
+using Hydra.Kernel.Data;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Hydra.Infrastructure.Security.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Hydra.Auth.Domain;
+using Hydra.Infrastructure.Data;
 
 namespace Hydra.Infrastructure.Security
 {

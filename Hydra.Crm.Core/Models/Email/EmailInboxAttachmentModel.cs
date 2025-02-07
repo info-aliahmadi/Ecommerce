@@ -1,4 +1,4 @@
-﻿using Hydra.Infrastructure.Data;
+﻿using Hydra.Kernel.Data;
     
 namespace Hydra.Crm.Core.Models.Email
 {

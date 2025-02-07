@@ -1,14 +1,12 @@
-﻿using Hydra.Infrastructure;
-using Hydra.Infrastructure.Data.Interface;
-using Hydra.Infrastructure.GeneralModels;
+﻿using Hydra.Auth.Domain;
+using Hydra.Auth.Models;
+using Hydra.Infrastructure;
+using Hydra.Kernel.Interface;
 using Hydra.Infrastructure.Notification.Email.Interface;
 using Hydra.Infrastructure.Notification.Email.Models;
 using Hydra.Infrastructure.Notification.Sms.Interface;
 using Hydra.Infrastructure.Notification.Sms.Models;
-using Hydra.Infrastructure.Security.Constants;
-using Hydra.Infrastructure.Security.Domain;
-using Hydra.Infrastructure.Security.Interface;
-using Hydra.Infrastructure.Security.Models;
+using Hydra.Kernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,15 +14,16 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using MiniValidation;
 using System.Security.Claims;
+using Hydra.Auth.Interface;
+using Hydra.Kernel.GeneralModels;
 
 namespace Hydra.Auth.Api.Handler
 {
     public class AccountHandler
     {
-        public static async Task<IResult> ApiTest(IStringLocalizer<SharedResource> _sharedlocalizer)
+        public static async Task<IResult> ApiTest()
         {
-            var sss = _sharedlocalizer["{0}; Requested By: {1}"];
-            return Results.Ok(sss);
+            return Results.Ok();
         }
         /// <summary>
         /// 
@@ -45,62 +44,58 @@ namespace Hydra.Auth.Api.Handler
             ILogger<AccountHandler> _logger
             )
         {
-            var result = new AccountResult();
-
-            var user = new User
-            { RegisterDate = DateTime.UtcNow, Name = "admin", UserName = "admin", Email = "admin@admin.com", EmailConfirmed = true, DefaultTheme = "dark", DefaultLanguage = "en" };
-
-
-            if (!await _roleManager.RoleExistsAsync(RoleTypes.SUPERVISER))
-                await _roleManager.CreateAsync(new Role() { Name = RoleTypes.SUPERVISER, NormalizedName = RoleTypes.SUPERVISER });
-
-
-            var isExist = _repository.Table<User>().Any(x => x.UserName == "admin");
-            if (!isExist)
+            try
             {
-                var identityResult = await _userManager.CreateAsync(user, "admin");
-                await _userManager.AddToRoleAsync(user, RoleTypes.SUPERVISER);
+                var result = new AccountResult();
 
-                if (identityResult.Succeeded)
+                var user = new User
+                { RegisterDate = DateTime.UtcNow, Name = "admin", UserName = "admin", Email = "admin@admin.com", EmailConfirmed = true, DefaultTheme = "dark", DefaultLanguage = "en" };
+
+
+                if (!await _roleManager.RoleExistsAsync("SuperAdmin"))
+                    await _roleManager.CreateAsync(new Role() { Name = "SuperAdmin", NormalizedName = "SUPERADMIN" });
+
+
+                var isExist = _repository.Table<User>().Any(x => x.UserName == "admin");
+                if (!isExist)
                 {
-                    return Results.Ok(result);
-                }
-                else
-                {
-                    foreach (var error in identityResult.Errors)
+                    var identityResult = await _userManager.CreateAsync(user, "admin");
+                    await _userManager.AddToRoleAsync(user, "SuperAdmin");
+
+                    if (identityResult.Succeeded)
                     {
-                        _logger.LogError(_sharedlocalizer["{0}; Requested By: {1}"], error.Description,
-                            "admin@admin.com");
-                        result.Errors.Add(error.Description);
+                        return Results.Ok(result);
                     }
+                    else
+                    {
+                        foreach (var error in identityResult.Errors)
+                        {
+                            _logger.LogError(_sharedlocalizer["{0}; Requested By: {1}"], error.Description,
+                                "admin@admin.com");
+                            result.Errors.Add(error.Description);
+                        }
 
-                    _logger.LogError(_sharedlocalizer["The user could not create a new account.; Requested By: {0}"],
-                        "admin@admin.com");
-                    result.Status = AccountStatusEnum.Failed;
+                        _logger.LogError(_sharedlocalizer["The user could not create a new account.; Requested By: {0}"],
+                            "admin@admin.com");
+                        result.Status = AccountStatusEnum.Failed;
 
-                    return Results.BadRequest(result);
+                        return Results.BadRequest(result);
 
+                    }
                 }
+
+                //var setting = new setting
+
+                return Results.Ok(result);
+
             }
-
-            //var setting = new setting
-
-            return Results.Ok(result);
-
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_repository"></param>
-        /// <param name="_emailSender"></param>
-        /// <param name="_userManager"></param>
-        /// <param name="_roleManager"></param>
-        /// <param name="_signInManager"></param>
-        /// <param name="_sharedlocalizer"></param>
-        /// <param name="_logger"></param>
-        /// <param name="registerModel"></param>
-        /// <returns></returns>
+
         public static async Task<IResult> RegisterHandler(
              IQueryRepository _repository,
              IEmailService _emailSender,
@@ -112,85 +107,94 @@ namespace Hydra.Auth.Api.Handler
              [FromBody] RegisterModel registerModel
              )
         {
-            var result = new AccountResult();
-
-            var user = new User
-            { RegisterDate = DateTime.UtcNow, Name = registerModel.Name, UserName = registerModel.UserName, Email = registerModel.Email };
-
-
-            if (!await _roleManager.RoleExistsAsync(RoleTypes.USER))
-                await _roleManager.CreateAsync(new Role() { Name = RoleTypes.USER });
-
-
-            var isExist = _repository.Table<User>().Any(x => x.UserName == registerModel.UserName || x.Email == registerModel.Email);
-            if (!isExist)
+            try
             {
-                var identityResult = await _userManager.CreateAsync(user, registerModel.Password);
+                var result = new AccountResult();
+
+                var user = new User
+                { RegisterDate = DateTime.UtcNow, Name = registerModel.Name, UserName = registerModel.UserName, Email = registerModel.Email };
 
 
-                if (identityResult.Succeeded)
+                if (!await _roleManager.RoleExistsAsync("user"))
+                    await _roleManager.CreateAsync(new Role() { Name = "user" });
+
+
+                var isExist = _repository.Table<User>().Any(x => x.UserName == registerModel.UserName || x.Email == registerModel.Email);
+                if (!isExist)
                 {
-                    await _userManager.AddToRoleAsync(user, RoleTypes.USER);
-                    if (_userManager.Options.SignIn.RequireConfirmedEmail)
+                    var identityResult = await _userManager.CreateAsync(user, registerModel.Password);
+
+
+                    if (identityResult.Succeeded)
                     {
-                        result.Status = AccountStatusEnum.RequireConfirmedEmail;
-                        var emailRequest = new EmailMessage();
-                        //For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                        //Send an email with this link
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        var callbackUrl = string.Format("ConfirmEmail/Account/{0}/{1}/{2}", user.Id, code, "");
-
-                        emailRequest.Subject = _sharedlocalizer["ConfirmEmail"];
-                        emailRequest.Content =
-                            string.Format(
-                                _sharedlocalizer[
-                                    "Please confirm your account by clicking this link: <a href='{0}'>link</a>"],
-                                callbackUrl);
-                        emailRequest.ToAddresses.Add(new EmailAddress() { Address = registerModel.Email });
-                        try
+                        await _userManager.AddToRoleAsync(user, "User");
+                        if (_userManager.Options.SignIn.RequireConfirmedEmail)
                         {
-                            _emailSender.Send(emailRequest);
+                            result.Status = AccountStatusEnum.RequireConfirmedEmail;
+                            var emailRequest = new EmailMessage();
+                            //For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
+                            //Send an email with this link
+                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            var callbackUrl = string.Format("ConfirmEmail/Account/{0}/{1}/{2}", user.Id, code, "");
 
-                            result.Status = AccountStatusEnum.Succeeded;
-                            return Results.Ok(result);
+                            emailRequest.Subject = _sharedlocalizer["ConfirmEmail"];
+                            emailRequest.Content =
+                                string.Format(
+                                    _sharedlocalizer[
+                                        "Please confirm your account by clicking this link: <a href='{0}'>link</a>"],
+                                    callbackUrl);
+                            emailRequest.ToAddresses.Add(new EmailAddress() { Address = registerModel.Email });
+                            try
+                            {
+                                _emailSender.Send(emailRequest);
+
+                                result.Status = AccountStatusEnum.Succeeded;
+                                return Results.Ok(result);
+                            }
+                            catch (Exception e)
+                            {
+                                _logger.LogError(e.InnerException + "_" + e.Message);
+                                result.Errors.Add(string.Format(_sharedlocalizer["{0} action throws an error"]));
+                                return Results.BadRequest(result);
+                            }
                         }
-                        catch (Exception e)
+                    }
+                    if (identityResult.Errors.Any())
+                    {
+                        foreach (var error in identityResult.Errors)
                         {
-                            _logger.LogError(e.InnerException + "_" + e.Message);
-                            result.Errors.Add(string.Format(_sharedlocalizer["{0} action throws an error"]));
-                            return Results.BadRequest(result);
+                            _logger.LogError(_sharedlocalizer["{0}; Requested By: {1}"], error.Description,
+                                registerModel.Email);
+                            result.Errors.Add(error.Description);
                         }
+
+                        _logger.LogError(_sharedlocalizer["The user could not create a new account.; Requested By: {0}"],
+                            registerModel.Email);
+                        result.Status = AccountStatusEnum.Failed;
+
+                        return Results.BadRequest(result);
+
+                    }
+                    else
+                    {
+                        return Results.Ok(result);
                     }
                 }
-                if (identityResult.Errors.Any())
+                else
                 {
-                    foreach (var error in identityResult.Errors)
-                    {
-                        _logger.LogError(_sharedlocalizer["{0}; Requested By: {1}"], error.Description,
-                            registerModel.Email);
-                        result.Errors.Add(error.Description);
-                    }
 
-                    _logger.LogError(_sharedlocalizer["The user could not create a new account.; Requested By: {0}"],
+                    _logger.LogError(_sharedlocalizer["The username or email already exist.; Requested By: {0}"],
                         registerModel.Email);
                     result.Status = AccountStatusEnum.Failed;
 
                     return Results.BadRequest(result);
+                }
 
-                }
-                else
-                {
-                    return Results.Ok(result);
-                }
             }
-            else
+            catch (Exception)
             {
 
-                _logger.LogError(_sharedlocalizer["The username or email already exist.; Requested By: {0}"],
-                    registerModel.Email);
-                result.Status = AccountStatusEnum.Failed;
-
-                return Results.BadRequest(result);
+                throw;
             }
         }
 
@@ -211,51 +215,60 @@ namespace Hydra.Auth.Api.Handler
             string password,
             bool rememberMe)
         {
-            var result = new Result<UserModel>();
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-
-            var user = await _userManager.FindByNameAsync(username);
-
-            if (user == null)
+            try
             {
-                result.Status = ResultStatusEnum.NotFound;
-                return Results.Ok(result);
-            }
-            var signInResult = await _signInManager.CheckPasswordSignInAsync(user, password, true);
-            if (signInResult.Succeeded)
-            {
-                if (signInResult.RequiresTwoFactor)
+                var result = new Result<UserModel>();
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+                var user = await _userManager.FindByNameAsync(username);
+
+                if (user == null)
                 {
-                    result.Status = ResultStatusEnum.RequiresTwoFactor;
+                    result.Status = ResultStatusEnum.NotFound;
                     return Results.Ok(result);
                 }
-
-                if (signInResult.IsLockedOut)
+                var signInResult = await _signInManager.CheckPasswordSignInAsync(user, password, true);
+                if (signInResult.Succeeded)
                 {
-                    result.Status = ResultStatusEnum.IsLockedOut;
+                    if (signInResult.RequiresTwoFactor)
+                    {
+                        result.Status = ResultStatusEnum.RequiresTwoFactor;
+                        return Results.Ok(result);
+                    }
+
+                    if (signInResult.IsLockedOut)
+                    {
+                        result.Status = ResultStatusEnum.IsLockedOut;
+                        return Results.Ok(result);
+                    }
+                    DateTime expireDate = rememberMe ? DateTime.Now.AddMonths(6) : DateTime.Now.AddHours(3);
+                    var token = tokenService.CreateToken(user, expireDate);
+
+                    var roles = await _userManager.GetRolesAsync(user);
+                    var userModel = new UserModel()
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        Avatar = user.Avatar,
+                        DefaultLanguage = user.DefaultLanguage,
+                        DefaultTheme = user.DefaultTheme,
+                        Roles = roles,
+                        AccessToken = token,
+                        AccessTokenExpires = expireDate,
+                    };
+                    result.Data = userModel;
                     return Results.Ok(result);
                 }
-                DateTime? expireDate = rememberMe ? DateTime.Now.AddMonths(6) : null;
-                var token = tokenService.CreateToken(user, expireDate);
-
-                var roles = await _userManager.GetRolesAsync(user);
-                var userModel = new UserModel()
+                else
                 {
-                    Id = user.Id,
-                    Name = user.Name,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Avatar = user.Avatar,
-                    DefaultLanguage = user.DefaultLanguage,
-                    DefaultTheme = user.DefaultTheme,
-                    Roles = roles,
-                    AccessToken = token
-                };
-                result.Data = userModel;
-                return Results.Ok(result);
+                    return Results.BadRequest("BadRequest");
+                }
+
             }
-            else
+            catch (Exception e)
             {
                 return Results.BadRequest("BadRequest");
             }
@@ -278,35 +291,43 @@ namespace Hydra.Auth.Api.Handler
             string password,
             bool rememberMe)
         {
-            var result = new AccountResult();
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-
-            var user = await _userManager.FindByNameAsync(userName);
-
-            var signInResult = await _signInManager.CheckPasswordSignInAsync(user, password, true);
-            if (signInResult.Succeeded)
+            try
             {
-                DateTime? expireDate = rememberMe ? DateTime.Now.AddMonths(6) : null;
-                var token = tokenService.CreateToken(user, expireDate);
-                result.Status = AccountStatusEnum.Succeeded;
+                var result = new AccountResult();
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
 
+                var user = await _userManager.FindByNameAsync(userName);
 
-                if (signInResult.RequiresTwoFactor)
+                var signInResult = await _signInManager.CheckPasswordSignInAsync(user, password, true);
+                if (signInResult.Succeeded)
                 {
-                    result.Status = AccountStatusEnum.RequiresTwoFactor;
-                    return Results.Ok(result);
+                    DateTime? expireDate = rememberMe ? DateTime.Now.AddMonths(6) : null;
+                    var token = tokenService.CreateToken(user, expireDate);
+                    result.Status = AccountStatusEnum.Succeeded;
+
+
+                    if (signInResult.RequiresTwoFactor)
+                    {
+                        result.Status = AccountStatusEnum.RequiresTwoFactor;
+                        return Results.Ok(result);
+                    }
+
+                    if (signInResult.IsLockedOut)
+                    {
+                        result.Status = AccountStatusEnum.IsLockedOut;
+                        return Results.Ok(result);
+                    }
+
+                    return Results.Ok(token);
+                }
+                else
+                {
+                    return Results.BadRequest("BadRequest");
                 }
 
-                if (signInResult.IsLockedOut)
-                {
-                    result.Status = AccountStatusEnum.IsLockedOut;
-                    return Results.Ok(result);
-                }
-
-                return Results.Ok(token);
             }
-            else
+            catch (Exception e)
             {
                 return Results.BadRequest("BadRequest");
             }
@@ -323,18 +344,29 @@ namespace Hydra.Auth.Api.Handler
             UserManager<User> _userManager,
             ClaimsPrincipal userPrincipal)
         {
-            var userIdentity = userPrincipal.GetUserId();
-
-            if (userIdentity == null)
+            try
             {
-                return Results.BadRequest("ERROR: PLEASE LOGIN");
+
+                var userIdentity = userPrincipal.GetUserId();
+
+                if (userIdentity == null)
+                {
+                    return Results.BadRequest("ERROR: PLEASE LOGIN");
+
+                }
+                var user = await _userManager.FindByIdAsync(userIdentity);
+
+                var expireDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(userPrincipal.FindFirst("exp").Value)).DateTime;
+
+                var token = tokenService.CreateToken(user, expireDate);
+
+                return Results.Ok(token);
 
             }
-            var user = await _userManager.FindByIdAsync(userIdentity);
-
-            var token = tokenService.CreateToken(user, userPrincipal.GetExpiration());
-
-            return Results.Ok(token);
+            catch (Exception e)
+            {
+                return Results.BadRequest("BadRequest");
+            }
         }
 
         /// <summary>
@@ -349,17 +381,26 @@ namespace Hydra.Auth.Api.Handler
             IPermissionChecker permission,
             ClaimsPrincipal userPrincipal)
         {
-            var userIdentity = userPrincipal.GetUserId();
-
-            if (userIdentity == null)
+            try
             {
-                return Results.BadRequest("ERROR: PLEASE LOGIN");
+                var userIdentity = userPrincipal.GetUserId();
+
+                if (userIdentity == null)
+                {
+                    return Results.BadRequest("ERROR: PLEASE LOGIN");
+
+                }
+
+                var userPermissions = permission.GetPermissionsOfUser(int.Parse(userIdentity));
+
+                return Results.Ok(userPermissions);
+
 
             }
-
-            var userPermissions = permission.GetPermissionsOfUser(int.Parse(userIdentity));
-
-            return Results.Ok(userPermissions);
+            catch (Exception e)
+            {
+                return Results.BadRequest("BadRequest");
+            }
         }
 
         /// <summary>
@@ -373,9 +414,19 @@ namespace Hydra.Auth.Api.Handler
         public static IResult GetPermissions(
             IPermissionChecker permission)
         {
-            var userPermissions = permission.GetPermissions();
+            try
+            {
 
-            return Results.Ok(userPermissions);
+                var userPermissions = permission.GetPermissions();
+
+                return Results.Ok(userPermissions);
+
+
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest("BadRequest");
+            }
         }
 
         public static async Task<IResult> SignOutHandler(
@@ -427,33 +478,40 @@ namespace Hydra.Auth.Api.Handler
             ITokenService tokenService, UserManager<User> _userManager,
             ClaimsPrincipal userClaim, IUserService userService, UserModel userModel)
         {
-            var userId = userClaim?.GetUserId();
-
-            if (userId == null)
+            try
             {
-                return Results.BadRequest("ERROR: PLEASE LOGIN");
+                var result = new Result<UserModel>();
+                var userId = userClaim?.GetUserId();
+
+                if (userId == null)
+                {
+                    return Results.BadRequest("ERROR: PLEASE LOGIN");
+                }
+
+                var user = await _userManager.FindByIdAsync(userId);
+                user.Name = userModel.Name;
+                user.UserName = userModel.UserName;
+                user.Email = userModel.Email;
+                user.PhoneNumber = userModel.PhoneNumber;
+
+                var saveFileResult = userService.SaveAvatarFile(userModel.AvatarFile, user.Avatar);
+                if (saveFileResult.Succeeded)
+                {
+                    user.Avatar = saveFileResult.Data;
+                }
+                userModel.Avatar = user.Avatar;
+
+                var identityResult = await _userManager.UpdateAsync(user);
+
+                result.Data = userModel;
+
+                return Results.Ok(result);
+
             }
-
-            var user = await _userManager.FindByIdAsync(userId);
-            user.Name = userModel.Name;
-            user.UserName = userModel.UserName;
-            user.Email = userModel.Email;
-            user.PhoneNumber = userModel.PhoneNumber;
-
-            var saveFileResult = userService.SaveAvatarFile(userModel.AvatarFile, user.Avatar);
-            if (saveFileResult.Succeeded)
+            catch (Exception e)
             {
-                user.Avatar = saveFileResult.Data;
+                return Results.BadRequest(e);
             }
-            userModel.Avatar = user.Avatar;
-
-            var result = await _userManager.UpdateAsync(user);
-
-            var token = tokenService.CreateToken(user, userClaim.GetExpiration());
-
-            userModel.AccessToken = token;
-
-            return Results.Ok(userModel);
         }
         /// <summary>
         /// 
@@ -552,17 +610,6 @@ namespace Hydra.Auth.Api.Handler
         }
 
 
-        /// <summary>
-        /// Signs in a user via a previously registered third party login, as an asynchronous operation.
-        /// </summary>
-        /// <param name="_signInManager"></param>
-        /// <param name="context"></param>
-        /// <param name="_sharedlocalizer"></param>
-        /// <param name="_logger"></param>
-        /// <param name="returnUrl"></param>
-        /// <param name="remoteError"></param>
-        /// <returns>The task object representing the asynchronous operation containing the <see name="SignInResult"/>
-        /// for the sign-in attempt.</returns>
         public static async Task<IResult> ExternalLoginCallbackHandler(SignInManager<User> _signInManager,
             HttpContext context,
             IStringLocalizer<SharedResource> _sharedlocalizer,
@@ -624,20 +671,12 @@ namespace Hydra.Auth.Api.Handler
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_userManager"></param>
-        /// <param name="_sharedlocalizer"></param>
-        /// <param name="_logger"></param>
-        /// <param name="_signInManager"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public static async Task<IResult> ExternalLoginConfirmationHandler(UserManager<User> _userManager,
             IStringLocalizer<SharedResource> _sharedlocalizer,
              ILogger<AccountHandler> _logger, SignInManager<User> _signInManager, [FromBody] ExternalLoginConfirmationModel model)
         {
             var result = new AccountResult();
+            ;
             if (MiniValidator.TryValidate(model, out var errors))
             {
                 // Get the information about the user from the external login provider
@@ -706,17 +745,7 @@ namespace Hydra.Auth.Api.Handler
             return Results.Redirect(returnUrl + "&status" + (result.Succeeded ? "succeeded" : "error"));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_userManager"></param>
-        /// <param name="context"></param>
-        /// <param name="_sharedlocalizer"></param>
-        /// <param name="_logger"></param>
-        /// <param name="_emailSender"></param>
-        /// <param name="userClaim"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
+
         public static async Task<IResult> ChangePasswordHandler(UserManager<User> _userManager,
             HttpContext context,
             IStringLocalizer<SharedResource> _sharedlocalizer,
@@ -754,16 +783,6 @@ namespace Hydra.Auth.Api.Handler
             return Results.BadRequest(errors);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_userManager"></param>
-        /// <param name="context"></param>
-        /// <param name="_sharedlocalizer"></param>
-        /// <param name="_logger"></param>
-        /// <param name="_emailSender"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public static async Task<IResult> ForgotPasswordHandler(UserManager<User> _userManager,
             HttpContext context,
             IStringLocalizer<SharedResource> _sharedlocalizer,
@@ -791,7 +810,7 @@ namespace Hydra.Auth.Api.Handler
                 var callbackUrl = HydraHelper.GetCurrentDomain(context) + $"ConfirmEmail/Account?userId={user.Id}&code={code}&returnUrl=";
 
                 emailRequest.Subject = _sharedlocalizer["ConfirmEmail"];
-                emailRequest.Content = _sharedlocalizer["Please confirm your account by clicking this link:"] + $"<br><a href='{callbackUrl}'>link</a>";
+                emailRequest.Content = $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>";
                 emailRequest.ToAddresses.Add(new EmailAddress() { Address = model.Email });
                 try
                 {
@@ -816,14 +835,7 @@ namespace Hydra.Auth.Api.Handler
             return Results.BadRequest(errors);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_userManager"></param>
-        /// <param name="_sharedlocalizer"></param>
-        /// <param name="_logger"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
+
         public static async Task<IResult> ResetPasswordHandler(UserManager<User> _userManager,
             IStringLocalizer<SharedResource> _sharedlocalizer,
              ILogger<AccountHandler> _logger, [FromBody] ResetPasswordModel model)
@@ -858,19 +870,10 @@ namespace Hydra.Auth.Api.Handler
             return Results.BadRequest(result);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_userManager"></param>
-        /// <param name="_sharedlocalizer"></param>
-        /// <param name="_logger"></param>
-        /// <param name="_signInManager"></param>
-        /// <returns></returns>
-        public static async Task<IResult> GetTwoFactorProvidersAsyncHandler(
-            UserManager<User> _userManager,
+
+        public static async Task<IResult> GetTwoFactorProvidersAsyncHandler(UserManager<User> _userManager,
             IStringLocalizer<SharedResource> _sharedlocalizer,
-            ILogger<AccountHandler> _logger,
-            SignInManager<User> _signInManager)
+             ILogger<AccountHandler> _logger, SignInManager<User> _signInManager)
         {
             var result = new AccountResult();
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
@@ -888,17 +891,7 @@ namespace Hydra.Auth.Api.Handler
             { Providers = factorOptions });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_userManager"></param>
-        /// <param name="_signInManager"></param>
-        /// <param name="_sharedlocalizer"></param>
-        /// <param name="_logger"></param>
-        /// <param name="_emailSender"></param>
-        /// <param name="_smsSender"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
+
         public static async Task<IResult> SendCodeHandler(UserManager<User> _userManager, SignInManager<User> _signInManager,
             IStringLocalizer<SharedResource> _sharedlocalizer,
              ILogger<AccountHandler> _logger, IEmailService _emailSender, ISmsService _smsSender, [FromBody] SendCodeModel model)

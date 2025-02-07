@@ -1,4 +1,4 @@
-﻿using Hydra.Infrastructure.GeneralModels;
+﻿using Hydra.Kernel.GeneralModels;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
@@ -23,9 +23,8 @@ namespace Hydra.Infrastructure.Logs
             catch (Exception ex)
             {
                 result.Status = ResultStatusEnum.ExceptionThrowed;
-                result.Errors.Add(new Error(ResultStatusEnum.ExceptionThrowed.Description(), ex.InnerException.Message));
-                result.Message = ex.Message;
-                context.Response.StatusCode = 500;
+                result.Errors.Add(new Error(ResultStatusEnum.ExceptionThrowed.Description(), ex.Message));
+                result.Message = ex.Message; 
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(JsonSerializer.Serialize(result));
             }

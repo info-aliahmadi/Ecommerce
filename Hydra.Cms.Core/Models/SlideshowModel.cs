@@ -1,6 +1,6 @@
 ﻿
 using Hydra.FileStorage.Core.Models;
-using Hydra.Infrastructure.GeneralModels;
+using Hydra.Kernel.GeneralModels;
 
 
 namespace Hydra.Cms.Core.Models

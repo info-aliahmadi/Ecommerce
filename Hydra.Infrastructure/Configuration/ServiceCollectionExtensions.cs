@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
-using Hydra.Infrastructure.Data;
+using Hydra.Kernel.Data;
 using Hydra.Infrastructure.Security;
 using Hydra.Infrastructure.Logs;
 using Hydra.Infrastructure.localization;
@@ -15,6 +15,7 @@ using Hydra.Infrastructure.Notification.Email;
 using Hydra.Infrastructure.Notification.Sms;
 using Microsoft.Extensions.Hosting;
 using Hydra.Infrastructure.Scheduler;
+using Hydra.Infrastructure.Data;
 
 namespace Hydra.Infrastructure.Configuration
 {
@@ -64,7 +65,7 @@ namespace Hydra.Infrastructure.Configuration
             // Collect all services from Modules
             services.AddModulesService();
 
-            //services.AddScheduler(builder.Configuration);
+            services.AddScheduler(builder.Configuration);
 
             services.AddSwaggerGenConfig();
 

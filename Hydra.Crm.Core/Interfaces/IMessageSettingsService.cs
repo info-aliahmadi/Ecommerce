@@ -1,5 +1,5 @@
 ﻿using Hydra.Crm.Core.Models;
-using Hydra.Infrastructure.GeneralModels;
+using Hydra.Kernel.GeneralModels;
 
 
 namespace Hydra.Crm.Core.Interfaces

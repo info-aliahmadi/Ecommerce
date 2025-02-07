@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hydra.Ecommerce.Core\Hydra.Ecommerce.Core.csproj" />
+    <ProjectReference Include="..\Hydra.Infrastructure\Hydra.Infrastructure.csproj" />
+    <ProjectReference Include="..\Hydra.Payment.Core\Hydra.Payment.Core.csproj" />
+  </ItemGroup>
+
+</Project>

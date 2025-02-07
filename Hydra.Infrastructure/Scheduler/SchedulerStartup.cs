@@ -27,7 +27,7 @@ namespace Hydra.Infrastructure.Scheduler
                 Console.WriteLine("Hangfire Server started...");
             }
 
-            //// Only Once
+            // Only Once
             //var jobId = BackgroundJob.Schedule(
             //                () => Console.WriteLine("Delayed!"),
             //                TimeSpan.FromDays(7));
@@ -38,7 +38,7 @@ namespace Hydra.Infrastructure.Scheduler
             //            () => Console.WriteLine("Recurring!"),
             //            Cron.Daily);
 
-            //// conditionally
+            // conditionally
             //BackgroundJob.ContinueJobWith(
             //            jobId,
             //            () => Console.WriteLine("Continuation!"));

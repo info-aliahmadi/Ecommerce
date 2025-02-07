@@ -3,8 +3,8 @@ using Hydra.Crm.Core.Models.Message;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Hydra.Infrastructure.Data.Extension;
-using Hydra.Infrastructure.Security.Interface;
+using Hydra.Auth.Interface;
+using Hydra.Kernel.GeneralModels;
 
 namespace Hydra.Crm.Api.Handler
 {

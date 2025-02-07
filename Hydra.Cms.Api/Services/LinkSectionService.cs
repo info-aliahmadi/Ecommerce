@@ -2,8 +2,8 @@
 using Hydra.Cms.Core.Domain;
 using Hydra.Cms.Core.Interfaces;
 using Hydra.Cms.Core.Models;
-using Hydra.Infrastructure.Data.Interface;
-using Hydra.Infrastructure.GeneralModels;
+using Hydra.Kernel.Interface;
+using Hydra.Kernel.GeneralModels;
 using Microsoft.EntityFrameworkCore;
 
 

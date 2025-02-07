@@ -6,9 +6,9 @@ using Hydra.FileStorage.Core.Interfaces;
 using Hydra.FileStorage.Core.Domain;
 using Hydra.FileStorage.Core.Models;
 using Hydra.FileStorage.Core.Settings;
-using Hydra.Infrastructure.GeneralModels;
+using Hydra.Kernel.GeneralModels;
 using Hydra.Infrastructure.Setting.Interface;
-using Hydra.Infrastructure.Data.Interface;
+using Hydra.Kernel.Interface;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 

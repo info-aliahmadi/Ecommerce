@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Hydra.Crm.Core.Interfaces;
 using Hydra.Crm.Core.Models.Subscribe;
-using Hydra.Infrastructure.Data.Extension;
+using Hydra.Kernel.GeneralModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

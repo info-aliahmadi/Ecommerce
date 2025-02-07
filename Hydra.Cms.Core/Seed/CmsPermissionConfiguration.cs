@@ -1,5 +1,5 @@
 ﻿using Hydra.Cms.Core.Constants;
-using Hydra.Infrastructure.Security.Domain;
+using Hydra.Auth.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
