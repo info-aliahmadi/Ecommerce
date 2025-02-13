@@ -44,67 +44,67 @@ namespace Hydra.Cms.Api.Endpoints
 
 
 
-            endpoints.MapPost(API_SCHEMA + "/AddOrUpdateSettings", SettingsHandler.AddOrUpdateSettings).RequirePermission(CmsPermissionTypes.CMS_ADD_OR_UPDATE_SETTINGS);
+            endpoints.MapPost(API_SCHEMA + "/AddOrUpdateSettings", SettingsHandler.AddOrUpdateSettings).RequirePermission(CmsPermissionTypes.CMS_SETTINGS_MANAGEMENT);
 
-            endpoints.MapGet(API_SCHEMA + "/GetTopicsHierarchy", TopicHandler.GetTopicsHierarchy).RequirePermission(CmsPermissionTypes.CMS_GET_TOPIC_LIST);
-            endpoints.MapGet(API_SCHEMA + "/GetTopicListForSelect", TopicHandler.GetListForSelect).RequirePermission(CmsPermissionTypes.CMS_GET_TOPIC_LIST);
-            endpoints.MapGet(API_SCHEMA + "/GetTopicById", TopicHandler.GetTopicById).RequirePermission(CmsPermissionTypes.CMS_GET_TOPIC_BY_ID);
-            endpoints.MapPost(API_SCHEMA + "/AddTopic", TopicHandler.AddTopic).RequirePermission(CmsPermissionTypes.CMS_ADD_TOPIC);
-            endpoints.MapPost(API_SCHEMA + "/UpdateTopic", TopicHandler.UpdateTopic).RequirePermission(CmsPermissionTypes.CMS_UPDATE_TOPIC);
-            endpoints.MapGet(API_SCHEMA + "/DeleteTopic", TopicHandler.DeleteTopic).RequirePermission(CmsPermissionTypes.CMS_DELETE_TOPIC);
+            endpoints.MapGet(API_SCHEMA + "/GetTopicsHierarchy", TopicHandler.GetTopicsHierarchy).RequirePermission(CmsPermissionTypes.CMS_TOPIC_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetTopicListForSelect", TopicHandler.GetListForSelect).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/GetTopicById", TopicHandler.GetTopicById).RequirePermission(CmsPermissionTypes.CMS_TOPIC_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddTopic", TopicHandler.AddTopic).RequirePermission(CmsPermissionTypes.CMS_TOPIC_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateTopic", TopicHandler.UpdateTopic).RequirePermission(CmsPermissionTypes.CMS_TOPIC_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeleteTopic", TopicHandler.DeleteTopic).RequirePermission(CmsPermissionTypes.CMS_TOPIC_MANAGEMENT);
 
-            endpoints.MapPost(API_SCHEMA + "/GetTagList", TagHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_GET_TAG_LIST);
-            endpoints.MapGet(API_SCHEMA + "/GetTagListForSelect", TagHandler.GetListForSelect).RequirePermission(CmsPermissionTypes.CMS_GET_TAG_LIST);
-            endpoints.MapGet(API_SCHEMA + "/GetTagById", TagHandler.GetTagById).RequirePermission(CmsPermissionTypes.CMS_GET_TAG_BY_ID);
-            endpoints.MapPost(API_SCHEMA + "/AddTag", TagHandler.AddTag).RequirePermission(CmsPermissionTypes.CMS_ADD_TAG);
-            endpoints.MapPost(API_SCHEMA + "/UpdateTag", TagHandler.UpdateTag).RequirePermission(CmsPermissionTypes.CMS_UPDATE_TAG);
-            endpoints.MapGet(API_SCHEMA + "/DeleteTag", TagHandler.DeleteTag).RequirePermission(CmsPermissionTypes.CMS_DELETE_TAG);
+            endpoints.MapPost(API_SCHEMA + "/GetTagList", TagHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_TAG_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetTagListForSelect", TagHandler.GetListForSelect).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/GetTagById", TagHandler.GetTagById).RequirePermission(CmsPermissionTypes.CMS_TAG_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddTag", TagHandler.AddTag).RequirePermission(CmsPermissionTypes.CMS_TAG_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateTag", TagHandler.UpdateTag).RequirePermission(CmsPermissionTypes.CMS_TAG_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeleteTag", TagHandler.DeleteTag).RequirePermission(CmsPermissionTypes.CMS_TAG_MANAGEMENT);
 
-            endpoints.MapPost(API_SCHEMA + "/GetArticleList", ArticleHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_GET_ARTICLE_LIST);
-            endpoints.MapPost(API_SCHEMA + "/GetArticleTrashList", ArticleHandler.GetTrashList).RequirePermission(CmsPermissionTypes.CMS_GET_TRASH_ARTICLE_LIST);
-            endpoints.MapGet(API_SCHEMA + "/GetArticleById", ArticleHandler.GetArticleById).RequirePermission(CmsPermissionTypes.CMS_GET_ARTICLE_BY_ID);
-            endpoints.MapPost(API_SCHEMA + "/AddArticle", ArticleHandler.AddArticle).RequirePermission(CmsPermissionTypes.CMS_ADD_ARTICLE);
-            endpoints.MapPost(API_SCHEMA + "/UpdateArticle", ArticleHandler.UpdateArticle).RequirePermission(CmsPermissionTypes.CMS_UPDATE_ARTICLE);
-            endpoints.MapGet(API_SCHEMA + "/PinArticle", ArticleHandler.PinArticle).RequirePermission(CmsPermissionTypes.CMS_PINNED_ARTICLE);
-            endpoints.MapGet(API_SCHEMA + "/DeleteArticle", ArticleHandler.DeleteArticle).RequirePermission(CmsPermissionTypes.CMS_DELETE_ARTICLE);
-            endpoints.MapGet(API_SCHEMA + "/RestoreArticle", ArticleHandler.RestoreArticle).RequirePermission(CmsPermissionTypes.CMS_RESTORE_ARTICLE);
-            endpoints.MapGet(API_SCHEMA + "/RemoveArticle", ArticleHandler.RemoveArticle).RequirePermission(CmsPermissionTypes.CMS_REMOVE_ARTICLE);
+            endpoints.MapPost(API_SCHEMA + "/GetArticleList", ArticleHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_ARTICLE_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/GetArticleTrashList", ArticleHandler.GetTrashList).RequirePermission(CmsPermissionTypes.CMS_ARTICLE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetArticleById", ArticleHandler.GetArticleById).RequirePermission(CmsPermissionTypes.CMS_ARTICLE_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddArticle", ArticleHandler.AddArticle).RequirePermission(CmsPermissionTypes.CMS_ARTICLE_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateArticle", ArticleHandler.UpdateArticle).RequirePermission(CmsPermissionTypes.CMS_ARTICLE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/PinArticle", ArticleHandler.PinArticle).RequirePermission(CmsPermissionTypes.CMS_ARTICLE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeleteArticle", ArticleHandler.DeleteArticle).RequirePermission(CmsPermissionTypes.CMS_ARTICLE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/RestoreArticle", ArticleHandler.RestoreArticle).RequirePermission(CmsPermissionTypes.CMS_ARTICLE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/RemoveArticle", ArticleHandler.RemoveArticle).RequirePermission(CmsPermissionTypes.CMS_ARTICLE_MANAGEMENT);
 
-            endpoints.MapPost(API_SCHEMA + "/GetPageList", PageHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_GET_PAGE_LIST);
-            endpoints.MapGet(API_SCHEMA + "/GetPageById", PageHandler.GetPageById).RequirePermission(CmsPermissionTypes.CMS_GET_PAGE_BY_ID);
-            endpoints.MapPost(API_SCHEMA + "/AddPage", PageHandler.AddPage).RequirePermission(CmsPermissionTypes.CMS_ADD_PAGE);
-            endpoints.MapPost(API_SCHEMA + "/UpdatePage", PageHandler.UpdatePage).RequirePermission(CmsPermissionTypes.CMS_UPDATE_PAGE);
-            endpoints.MapGet(API_SCHEMA + "/DeletePage", PageHandler.DeletePage).RequirePermission(CmsPermissionTypes.CMS_DELETE_PAGE);
+            endpoints.MapPost(API_SCHEMA + "/GetPageList", PageHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_PAGE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetPageById", PageHandler.GetPageById).RequirePermission(CmsPermissionTypes.CMS_PAGE_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddPage", PageHandler.AddPage).RequirePermission(CmsPermissionTypes.CMS_PAGE_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdatePage", PageHandler.UpdatePage).RequirePermission(CmsPermissionTypes.CMS_PAGE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeletePage", PageHandler.DeletePage).RequirePermission(CmsPermissionTypes.CMS_PAGE_MANAGEMENT);
 
-            endpoints.MapGet(API_SCHEMA + "/GetLinkSectionList", LinkSectionHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_GET_PAGE_LIST);
-            endpoints.MapGet(API_SCHEMA + "/GetLinkSectionById", LinkSectionHandler.GetLinkSectionById).RequirePermission(CmsPermissionTypes.CMS_GET_PAGE_BY_ID);
-            endpoints.MapGet(API_SCHEMA + "/VisibleLinkSection", LinkSectionHandler.VisibleLinkSection).RequirePermission(CmsPermissionTypes.CMS_UPDATE_PAGE);
-            endpoints.MapPost(API_SCHEMA + "/AddLinkSection", LinkSectionHandler.AddLinkSection).RequirePermission(CmsPermissionTypes.CMS_ADD_PAGE);
-            endpoints.MapPost(API_SCHEMA + "/UpdateLinkSection", LinkSectionHandler.UpdateLinkSection).RequirePermission(CmsPermissionTypes.CMS_UPDATE_PAGE);
-            endpoints.MapGet(API_SCHEMA + "/DeleteLinkSection", LinkSectionHandler.DeleteLinkSection).RequirePermission(CmsPermissionTypes.CMS_DELETE_PAGE);
+            endpoints.MapGet(API_SCHEMA + "/GetLinkSectionList", LinkSectionHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetLinkSectionById", LinkSectionHandler.GetLinkSectionById).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/VisibleLinkSection", LinkSectionHandler.VisibleLinkSection).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddLinkSection", LinkSectionHandler.AddLinkSection).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateLinkSection", LinkSectionHandler.UpdateLinkSection).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeleteLinkSection", LinkSectionHandler.DeleteLinkSection).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
 
-            endpoints.MapGet(API_SCHEMA + "/GetLinkList", LinkHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_GET_PAGE_LIST);
-            endpoints.MapGet(API_SCHEMA + "/GetLinkById", LinkHandler.GetLinkById).RequirePermission(CmsPermissionTypes.CMS_GET_PAGE_BY_ID);
-            endpoints.MapPost(API_SCHEMA + "/UpdateLinkOrders", LinkHandler.UpdateOrders).RequirePermission(CmsPermissionTypes.CMS_UPDATE_MENU);
-            endpoints.MapPost(API_SCHEMA + "/AddLink", LinkHandler.AddLink).RequirePermission(CmsPermissionTypes.CMS_ADD_PAGE);
-            endpoints.MapPost(API_SCHEMA + "/UpdateLink", LinkHandler.UpdateLink).RequirePermission(CmsPermissionTypes.CMS_UPDATE_PAGE);
-            endpoints.MapGet(API_SCHEMA + "/DeleteLink", LinkHandler.DeleteLink).RequirePermission(CmsPermissionTypes.CMS_DELETE_PAGE);
+            endpoints.MapGet(API_SCHEMA + "/GetLinkList", LinkHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetLinkById", LinkHandler.GetLinkById).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateLinkOrders", LinkHandler.UpdateOrders).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddLink", LinkHandler.AddLink).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateLink", LinkHandler.UpdateLink).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeleteLink", LinkHandler.DeleteLink).RequirePermission(CmsPermissionTypes.CMS_LINK_MANAGEMENT);
 
 
-            endpoints.MapGet(API_SCHEMA + "/GetMenusHierarchy", MenuHandler.GetMenusHierarchy).RequirePermission(CmsPermissionTypes.CMS_GET_MENU_LIST);
-            endpoints.MapGet(API_SCHEMA + "/GetMenuById", MenuHandler.GetMenuById).RequirePermission(CmsPermissionTypes.CMS_GET_MENU_BY_ID);
-            endpoints.MapPost(API_SCHEMA + "/AddMenu", MenuHandler.AddMenu).RequirePermission(CmsPermissionTypes.CMS_ADD_MENU);
-            endpoints.MapPost(API_SCHEMA + "/UpdateMenu", MenuHandler.UpdateMenu).RequirePermission(CmsPermissionTypes.CMS_UPDATE_MENU);
-            endpoints.MapPost(API_SCHEMA + "/UpdateMenuOrders", MenuHandler.UpdateOrders).RequirePermission(CmsPermissionTypes.CMS_UPDATE_MENU);
-            endpoints.MapGet(API_SCHEMA + "/DeleteMenu", MenuHandler.DeleteMenu).RequirePermission(CmsPermissionTypes.CMS_DELETE_MENU);
+            endpoints.MapGet(API_SCHEMA + "/GetMenusHierarchy", MenuHandler.GetMenusHierarchy).RequirePermission(CmsPermissionTypes.CMS_MENU_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetMenuById", MenuHandler.GetMenuById).RequirePermission(CmsPermissionTypes.CMS_MENU_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddMenu", MenuHandler.AddMenu).RequirePermission(CmsPermissionTypes.CMS_MENU_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateMenu", MenuHandler.UpdateMenu).RequirePermission(CmsPermissionTypes.CMS_MENU_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateMenuOrders", MenuHandler.UpdateOrders).RequirePermission(CmsPermissionTypes.CMS_MENU_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeleteMenu", MenuHandler.DeleteMenu).RequirePermission(CmsPermissionTypes.CMS_MENU_MANAGEMENT);
 
-            endpoints.MapGet(API_SCHEMA + "/GetSlideshowList", SlideshowHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_GET_SLIDESHOW_LIST);
-            endpoints.MapGet(API_SCHEMA + "/GetSlideshowById", SlideshowHandler.GetSlideshowById).RequirePermission(CmsPermissionTypes.CMS_GET_SLIDESHOW_BY_ID);
-            endpoints.MapPost(API_SCHEMA + "/AddSlideshow", SlideshowHandler.AddSlideshow).RequirePermission(CmsPermissionTypes.CMS_ADD_SLIDESHOW);
-            endpoints.MapPost(API_SCHEMA + "/UpdateSlideshow", SlideshowHandler.UpdateSlideshow).RequirePermission(CmsPermissionTypes.CMS_UPDATE_SLIDESHOW);
-            endpoints.MapPost(API_SCHEMA + "/UpdateSlideshowOrders", SlideshowHandler.UpdateOrders).RequirePermission(CmsPermissionTypes.CMS_UPDATE_SLIDESHOW);
-            endpoints.MapGet(API_SCHEMA + "/VisibleSlideshow", SlideshowHandler.VisibleSlideshow).RequirePermission(CmsPermissionTypes.CMS_VISIBLE_SLIDESHOW);
-            endpoints.MapGet(API_SCHEMA + "/DeleteSlideshow", SlideshowHandler.DeleteSlideshow).RequirePermission(CmsPermissionTypes.CMS_DELETE_SLIDESHOW);
+            endpoints.MapGet(API_SCHEMA + "/GetSlideshowList", SlideshowHandler.GetList).RequirePermission(CmsPermissionTypes.CMS_SLIDESHOW_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetSlideshowById", SlideshowHandler.GetSlideshowById).RequirePermission(CmsPermissionTypes.CMS_SLIDESHOW_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddSlideshow", SlideshowHandler.AddSlideshow).RequirePermission(CmsPermissionTypes.CMS_SLIDESHOW_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateSlideshow", SlideshowHandler.UpdateSlideshow).RequirePermission(CmsPermissionTypes.CMS_SLIDESHOW_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateSlideshowOrders", SlideshowHandler.UpdateOrders).RequirePermission(CmsPermissionTypes.CMS_SLIDESHOW_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/VisibleSlideshow", SlideshowHandler.VisibleSlideshow).RequirePermission(CmsPermissionTypes.CMS_SLIDESHOW_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeleteSlideshow", SlideshowHandler.DeleteSlideshow).RequirePermission(CmsPermissionTypes.CMS_SLIDESHOW_MANAGEMENT);
 
             return endpoints;
         }
