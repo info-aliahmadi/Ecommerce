@@ -264,6 +264,7 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 ServiceFabricBackup/
 *.rptproj.bak
+Log*.db
 
 # SQL Server files
 *.mdf
@@ -365,7 +366,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/Hydra.Web/appsettings.Production.json
+appsettings.Production.json
 
 /.cloud/
 .cloud/
