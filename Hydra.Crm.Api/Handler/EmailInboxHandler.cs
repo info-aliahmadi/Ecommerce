@@ -127,6 +127,23 @@ namespace Hydra.Crm.Api.Handler
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_emailInboxService"></param>
+        /// <param name="emailInboxModel"></param>
+        /// <returns></returns>
+        public static async Task<IResult> RestoreEmailInbox(
+            ClaimsPrincipal userClaim,
+             IEmailInboxService _emailInboxService, int emailInboxId)
+        {
+            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+
+            var result = await _emailInboxService.Restore(emailInboxId, currentEmail);
+
+            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+
+        }
 
         /// <summary>
         /// 

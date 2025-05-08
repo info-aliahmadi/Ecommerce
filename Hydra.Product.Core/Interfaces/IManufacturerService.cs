@@ -12,13 +12,13 @@ namespace Hydra.Product.Core.Interfaces
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        Task<Result<PaginatedList<ManufacturerModel>>> GetList(GridDataBound dataGrid);
+        Task<Result<List<ManufacturerModel>>> GetManufacturersList();
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        Result<List<ManufacturerModel>> GetListForSelect();
+        Task<Result<List<ManufacturerModel>>> GetListForSelect();
 
         /// <summary>
         /// 

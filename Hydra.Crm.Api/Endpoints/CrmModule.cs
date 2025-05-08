@@ -63,6 +63,7 @@ namespace Hydra.Crm.Api.Endpoints
             endpoints.MapGet(API_SCHEMA + "/GetEmailInboxById", EmailInboxHandler.GetEmailInboxById).RequirePermission(CrmPermissionTypes.CRM_ALL_EMAIL_INBOX_MANAGMENT);
             endpoints.MapGet(API_SCHEMA + "/GetEmailInboxByIdForReceiver", EmailInboxHandler.GetEmailInboxByIdForReceiver).RequirePermission(CrmPermissionTypes.CRM_ALL_EMAIL_INBOX_MANAGMENT);
             endpoints.MapGet(API_SCHEMA + "/DeleteEmailInbox", EmailInboxHandler.DeleteEmailInbox).RequirePermission(CrmPermissionTypes.CRM_ALL_EMAIL_INBOX_MANAGMENT);
+            endpoints.MapGet(API_SCHEMA + "/RestoreEmailInbox", EmailInboxHandler.RestoreEmailInbox).RequirePermission(CrmPermissionTypes.CRM_ALL_EMAIL_INBOX_MANAGMENT);
             endpoints.MapGet(API_SCHEMA + "/PinEmailInbox", EmailInboxHandler.PinEmailInbox).RequirePermission(CrmPermissionTypes.CRM_EMAIL_INBOX_MANAGMENT);
             endpoints.MapGet(API_SCHEMA + "/ReadEmailInbox", EmailInboxHandler.ReadEmailInbox).RequirePermission(CrmPermissionTypes.CRM_EMAIL_INBOX_MANAGMENT);
             endpoints.MapGet(API_SCHEMA + "/RemoveEmailInbox", EmailInboxHandler.RemoveEmailInbox).RequirePermission(CrmPermissionTypes.CRM_EMAIL_INBOX_MANAGMENT);

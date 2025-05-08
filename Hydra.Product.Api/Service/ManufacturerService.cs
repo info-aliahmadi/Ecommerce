@@ -25,10 +25,11 @@ namespace Hydra.Product.Api.Services
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        private List<ManufacturerModel> GetManufacturersList()
+        public async Task<Result<List<ManufacturerModel>>> GetManufacturersList()
         {
+            var result = new Result<List<ManufacturerModel>>();
 
-            var list = (from manufacturer in _queryRepository.Table<Manufacturer>()
+            var list = await (from manufacturer in _queryRepository.Table<Manufacturer>()
                               select new ManufacturerModel()
                               {
                                   Id = manufacturer.Id,
@@ -44,37 +45,22 @@ namespace Hydra.Product.Api.Services
                                   CreatedOnUtc = manufacturer.CreatedOnUtc,
                                   UpdatedOnUtc = manufacturer.UpdatedOnUtc
 
-                              }).OrderByDescending(x => x.Id).Cacheable().ToList();
-
-            return list;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
-        public async Task<Result<PaginatedList<ManufacturerModel>>> GetList(GridDataBound dataGrid)
-        {
-            var result = new Result<PaginatedList<ManufacturerModel>>();
-
-            var list = await GetManufacturersList().AsQueryable().ToPaginatedListAsync(dataGrid);
-
+                              }).OrderByDescending(x => x.Id).Cacheable().ToListAsync();
             result.Data = list;
-
             return result;
         }
 
+
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        public Result<List<ManufacturerModel>> GetListForSelect()
+        public async Task<Result<List<ManufacturerModel>>> GetListForSelect()
         {
             var result = new Result<List<ManufacturerModel>>();
 
-            result.Data = GetManufacturersList();
-
+            var list = await GetManufacturersList();
+            result.Data = list.Data;
             return result;
         }
         /// <summary>
@@ -86,7 +72,7 @@ namespace Hydra.Product.Api.Services
         {
             var result = new Result<ManufacturerModel>();
 
-            result.Data = GetManufacturersList().FirstOrDefault(x => x.Id == id) ?? new ManufacturerModel();
+            result.Data = GetManufacturersList().Result.Data.FirstOrDefault(x => x.Id == id) ?? new ManufacturerModel();
 
             return result;
         }

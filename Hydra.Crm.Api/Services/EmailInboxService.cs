@@ -9,6 +9,7 @@ using MimeKit;
 using Hydra.Infrastructure.Notification.Email.Interface;
 using Hydra.Kernel.Interface;
 using Hydra.Kernel.Extension;
+using Hydra.Crm.Core.Domain.Message;
 
 
 namespace Hydra.Crm.Api.Services
@@ -406,6 +407,41 @@ namespace Hydra.Crm.Api.Services
 
                 _commandRepository.UpdateAsync(emailInbox);
                 _commandRepository.SaveChanges();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="messageId"></param>
+        /// <param name="currentUser"></param>
+        /// <returns></returns>
+        public async Task<Result> Restore(int emailInboxId, string emailAddress)
+        {
+            var result = new Result();
+            try
+            {
+                var emailInboxUser = await _queryRepository.Table<EmailInboxToAddress>().FirstOrDefaultAsync(x => x.EmailInboxId == emailInboxId && x.Address == emailAddress);
+                if (emailInboxUser is null)
+                {
+                    result.Status = ResultStatusEnum.NotFound;
+                    result.Message = "The Message not found";
+                    return result;
+                }
+
+                var emailInbox = await _queryRepository.Table<EmailInbox>().FirstOrDefaultAsync(x => x.Id == emailInboxId);
+                emailInbox.IsDeleted = true;
+
+                _commandRepository.UpdateAsync(emailInbox);
+                await _commandRepository.SaveChangesAsync();
 
                 return result;
             }

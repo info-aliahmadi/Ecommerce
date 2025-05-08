@@ -8,13 +8,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Hydra.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class dbVersion_02 : Migration
+    public partial class dbVersion_01 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
                 name: "Sale");
+
+            migrationBuilder.EnsureSchema(
+                name: "Cms");
+
+            migrationBuilder.EnsureSchema(
+                name: "Crm");
+
+            migrationBuilder.EnsureSchema(
+                name: "FS");
+
+            migrationBuilder.EnsureSchema(
+                name: "Auth");
+
+            migrationBuilder.EnsureSchema(
+                name: "Infra");
 
             migrationBuilder.CreateTable(
                 name: "Category",
@@ -139,6 +154,43 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EmailInbox",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Subject = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    IsPin = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailInbox", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LinkSection",
+                schema: "Cms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    IsVisible = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LinkSection", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Manufacturer",
                 schema: "Sale",
                 columns: table => new
@@ -160,6 +212,46 @@ namespace Hydra.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Manufacturer", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Menu",
+                schema: "Cms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    PreviewImageId = table.Column<int>(type: "int", nullable: true),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Menu", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Menu_Menu_ParentId",
+                        column: x => x.ParentId,
+                        principalSchema: "Cms",
+                        principalTable: "Menu",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Permission",
+                schema: "Auth",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    NormalizedName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Permission", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -196,6 +288,22 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Role",
+                schema: "Auth",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SearchTerm",
                 schema: "Sale",
                 columns: table => new
@@ -208,6 +316,22 @@ namespace Hydra.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SearchTerm", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Setting",
+                schema: "Infra",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Key = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ValueType = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Setting", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -227,6 +351,35 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubscribeLabel",
+                schema: "Cms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    InsertDate = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubscribeLabel", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tag",
+                schema: "Cms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tag", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TaxCategory",
                 schema: "Sale",
                 columns: table => new
@@ -239,6 +392,61 @@ namespace Hydra.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TaxCategory", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Topic",
+                schema: "Cms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: true),
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Topic", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Topic_Topic_ParentId",
+                        column: x => x.ParentId,
+                        principalSchema: "Cms",
+                        principalTable: "Topic",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                schema: "Auth",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DefaultLanguage = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true),
+                    DefaultTheme = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Avatar = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -294,6 +502,98 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EmailInboxAttachment",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmailInboxId = table.Column<int>(type: "int", nullable: false),
+                    AttachmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailInboxAttachment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmailInboxAttachment_EmailInbox_EmailInboxId",
+                        column: x => x.EmailInboxId,
+                        principalSchema: "Crm",
+                        principalTable: "EmailInbox",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailInboxFromAddress",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmailInboxId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailInboxFromAddress", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmailInboxFromAddress_EmailInbox_EmailInboxId",
+                        column: x => x.EmailInboxId,
+                        principalSchema: "Crm",
+                        principalTable: "EmailInbox",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailInboxToAddress",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmailInboxId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailInboxToAddress", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmailInboxToAddress_EmailInbox_EmailInboxId",
+                        column: x => x.EmailInboxId,
+                        principalSchema: "Crm",
+                        principalTable: "EmailInbox",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailOutbox",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ReplayToId = table.Column<int>(type: "int", nullable: true),
+                    Subject = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailOutbox", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmailOutbox_EmailInbox_ReplayToId",
+                        column: x => x.ReplayToId,
+                        principalSchema: "Crm",
+                        principalTable: "EmailInbox",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DiscountManufacturer",
                 schema: "Sale",
                 columns: table => new
@@ -318,6 +618,203 @@ namespace Hydra.Infrastructure.Migrations
                         principalTable: "Manufacturer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PermissionRole",
+                schema: "Auth",
+                columns: table => new
+                {
+                    PermissionsId = table.Column<int>(type: "int", nullable: false),
+                    RolesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PermissionRole", x => new { x.PermissionsId, x.RolesId });
+                    table.ForeignKey(
+                        name: "FK_PermissionRole_Permission_PermissionsId",
+                        column: x => x.PermissionsId,
+                        principalSchema: "Auth",
+                        principalTable: "Permission",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PermissionRole_Role_RolesId",
+                        column: x => x.RolesId,
+                        principalSchema: "Auth",
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoleClaim",
+                schema: "Auth",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleClaim", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RoleClaim_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalSchema: "Auth",
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subscribe",
+                schema: "Cms",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubscribeLabelId = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    InsertDate = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscribe", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subscribe_SubscribeLabel",
+                        column: x => x.SubscribeLabelId,
+                        principalSchema: "Cms",
+                        principalTable: "SubscribeLabel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FileUpload",
+                schema: "FS",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Directory = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Thumbnail = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Extension = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
+                    Size = table.Column<long>(type: "bigint", nullable: false),
+                    Tags = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Alt = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileUpload", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FileUpload_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Link",
+                schema: "Cms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    ImagePreviewId = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    LinkSectionId = table.Column<int>(type: "int", nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Link", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Link_LinkSection_LinkSectionId",
+                        column: x => x.LinkSectionId,
+                        principalSchema: "Cms",
+                        principalTable: "LinkSection",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Link_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Message",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MessageType = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    FromUserId = table.Column<int>(type: "int", nullable: true),
+                    Subject = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Message", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Message_User_FromUserId",
+                        column: x => x.FromUserId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Page",
+                schema: "Cms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PageTitle = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Subject = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    WriterId = table.Column<int>(type: "int", nullable: false),
+                    EditorId = table.Column<int>(type: "int", nullable: true),
+                    EditDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Page", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Page_User_EditorId",
+                        column: x => x.EditorId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Page_User_WriterId",
+                        column: x => x.WriterId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -413,6 +910,128 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Slideshow",
+                schema: "Cms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Header = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    PreviewImageId = table.Column<int>(type: "int", nullable: true),
+                    PreviewImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    IsVisible = table.Column<bool>(type: "bit", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Slideshow", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Slideshow_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserClaim",
+                schema: "Auth",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserClaim", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserClaim_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserLogin",
+                schema: "Auth",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserLogin", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_UserLogin_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRole",
+                schema: "Auth",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_UserRole_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalSchema: "Auth",
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserRole_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserToken",
+                schema: "Auth",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserToken", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_UserToken_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Address",
                 schema: "Sale",
                 columns: table => new
@@ -497,6 +1116,199 @@ namespace Hydra.Infrastructure.Migrations
                         principalTable: "TaxCategory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailOutboxAttachment",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmailOutboxId = table.Column<int>(type: "int", nullable: false),
+                    AttachmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailOutboxAttachment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmailOutboxAttachment_EmailOutbox_EmailOutboxId",
+                        column: x => x.EmailOutboxId,
+                        principalSchema: "Crm",
+                        principalTable: "EmailOutbox",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailOutboxFromAddress",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmailOutboxId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailOutboxFromAddress", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmailOutboxFromAddress_EmailOutbox_EmailOutboxId",
+                        column: x => x.EmailOutboxId,
+                        principalSchema: "Crm",
+                        principalTable: "EmailOutbox",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailOutboxToAddress",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmailOutboxId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailOutboxToAddress", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmailOutboxToAddress_EmailOutbox_EmailOutboxId",
+                        column: x => x.EmailOutboxId,
+                        principalSchema: "Crm",
+                        principalTable: "EmailOutbox",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Article",
+                schema: "Cms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Subject = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PreviewImageId = table.Column<int>(type: "int", nullable: true),
+                    PreviewImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PublishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    WriterId = table.Column<int>(type: "int", nullable: false),
+                    EditorId = table.Column<int>(type: "int", nullable: true),
+                    EditDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsPinned = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Article", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Article_FileUpload_PreviewImageId",
+                        column: x => x.PreviewImageId,
+                        principalSchema: "FS",
+                        principalTable: "FileUpload",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Article_User_EditorId",
+                        column: x => x.EditorId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Article_User_WriterId",
+                        column: x => x.WriterId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MessageAttachment",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MessageId = table.Column<int>(type: "int", nullable: false),
+                    AttachmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MessageAttachment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MessageAttachment_Message_MessageId",
+                        column: x => x.MessageId,
+                        principalSchema: "Crm",
+                        principalTable: "Message",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MessageUser",
+                schema: "Crm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MessageId = table.Column<int>(type: "int", nullable: false),
+                    ToUserId = table.Column<int>(type: "int", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsPin = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MessageUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MessageUser_Message_MessageId",
+                        column: x => x.MessageId,
+                        principalSchema: "Crm",
+                        principalTable: "Message",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MessageUser_User_ToUserId",
+                        column: x => x.ToUserId,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PageTag",
+                schema: "Cms",
+                columns: table => new
+                {
+                    PageId = table.Column<int>(type: "int", nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PageTag", x => new { x.TagId, x.PageId });
+                    table.ForeignKey(
+                        name: "FK_PageTag_Page_PageId",
+                        column: x => x.PageId,
+                        principalSchema: "Cms",
+                        principalTable: "Page",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PageTag_Tag_TagId",
+                        column: x => x.TagId,
+                        principalSchema: "Cms",
+                        principalTable: "Tag",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -803,6 +1615,60 @@ namespace Hydra.Infrastructure.Migrations
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ArticleTag",
+                schema: "Cms",
+                columns: table => new
+                {
+                    ArticleId = table.Column<int>(type: "int", nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArticleTag", x => new { x.TagId, x.ArticleId });
+                    table.ForeignKey(
+                        name: "FK_ArticleTag_Article_ArticleId",
+                        column: x => x.ArticleId,
+                        principalSchema: "Cms",
+                        principalTable: "Article",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ArticleTag_Tag_TagId",
+                        column: x => x.TagId,
+                        principalSchema: "Cms",
+                        principalTable: "Tag",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ArticleTopic",
+                schema: "Cms",
+                columns: table => new
+                {
+                    ArticleId = table.Column<int>(type: "int", nullable: false),
+                    TopicId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArticleTopic", x => new { x.TopicId, x.ArticleId });
+                    table.ForeignKey(
+                        name: "FK_ArticleTopic_Article_ArticleId",
+                        column: x => x.ArticleId,
+                        principalSchema: "Cms",
+                        principalTable: "Article",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ArticleTopic_Topic_TopicId",
+                        column: x => x.TopicId,
+                        principalSchema: "Cms",
+                        principalTable: "Topic",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1392,6 +2258,16 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "Cms",
+                table: "LinkSection",
+                columns: new[] { "Id", "IsVisible", "Key", "Title" },
+                values: new object[,]
+                {
+                    { 1, true, "Categories", "Categories" },
+                    { 2, true, "RecentPosts", "Recent Post" }
+                });
+
+            migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "Manufacturer",
                 columns: new[] { "Id", "CreatedOnUtc", "Deleted", "Description", "DisplayOrder", "MetaDescription", "MetaKeywords", "MetaTitle", "Name", "PictureId", "Published", "UpdatedOnUtc" },
@@ -1402,11 +2278,44 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "Cms",
+                table: "Menu",
+                columns: new[] { "Id", "Order", "ParentId", "PreviewImageId", "Title", "Url", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 0, null, null, "About", "/About", 1 },
+                    { 2, 1, null, null, "Service", "/Service", 1 },
+                    { 3, 2, null, null, "Pricing", "/Pricing", 1 },
+                    { 4, 3, null, null, "Contact", "/Contact", 1 },
+                    { 5, 4, null, null, "Blog", "/Blog", 1 }
+                });
+
+            migrationBuilder.InsertData(
                 schema: "Auth",
                 table: "Permission",
                 columns: new[] { "Id", "Name", "NormalizedName" },
                 values: new object[,]
                 {
+                    { 1, "AUTH.USER_MANAGEMENT", "AUTH.USER_MANAGEMENT" },
+                    { 2, "AUTH.PERMISSION_MANAGEMENT", "AUTH.PERMISSION_MANAGEMENT" },
+                    { 2001, "CMS.SETTINGS_MANAGEMENT", "CMS.SETTINGS_MANAGEMENT" },
+                    { 2002, "CMS.ARTICLE_MANAGEMENT", "CMS.ARTICLE_MANAGEMENT" },
+                    { 2003, "CMS.TOPIC_MANAGEMENT", "CMS.TOPIC_MANAGEMENT" },
+                    { 2004, "CMS.TAG_MANAGEMENT", "CMS.TAG_MANAGEMENT" },
+                    { 2005, "CMS.LINK_MANAGEMENT", "CMS.LINK_MANAGEMENT" },
+                    { 2006, "CMS.PAGE_MANAGEMENT", "CMS.PAGE_MANAGEMENT" },
+                    { 2007, "CMS.MENU_MANAGEMENT", "CMS.MENU_MANAGEMENT" },
+                    { 2008, "CMS.SLIDESHOW_MANAGEMENT", "CMS.SLIDESHOW_MANAGEMENT" },
+                    { 3001, "CRM.SETTING_MANAGMENT", "CRM.SETTING_MANAGMENT" },
+                    { 3002, "CRM.ALL_MESSAGE_MANAGMENT", "CRM.ALL_MESSAGE_MANAGMENT" },
+                    { 3003, "CRM.MESSAGE_MANAGMENT", "CRM.MESSAGE_MANAGMENT" },
+                    { 3004, "CRM.ALL_EMAIL_INBOX_MANAGMENT", "CRM.ALL_EMAIL_INBOX_MANAGMENT" },
+                    { 3005, "CRM.EMAIL_INBOX_MANAGMENT", "CRM.EMAIL_INBOX_MANAGMENT" },
+                    { 3006, "CRM.ALL_EMAIL_OUTBOX_MANAGMENT", "CRM.ALL_EMAIL_OUTBOX_MANAGMENT" },
+                    { 3007, "CRM.EMAIL_OUTBOX_MANAGMENT", "CRM.EMAIL_OUTBOX_MANAGMENT" },
+                    { 3008, "CRM.SUBSCRIBE_MANAGMENT", "CRM.SUBSCRIBE_MANAGMENT" },
+                    { 4001, "FS.GALLEY_VIEW", "FS.GALLEY_VIEW" },
+                    { 4002, "FS.FILE_UPLOAD", "FS.FILE_UPLOAD" },
                     { 5001, "SALE.CATEGORY_MANAGEMENT", "SALE.CATEGORY_MANAGEMENT" },
                     { 5002, "SALE.PRODUCT_ATTRIBUTE_MANAGEMENT", "SALE.PRODUCT_ATTRIBUTE_MANAGEMENT" },
                     { 5003, "SALE.ORDER_MANAGEMENT", "SALE.ORDER_MANAGEMENT" },
@@ -1457,6 +2366,19 @@ namespace Hydra.Infrastructure.Migrations
                     { 1, "Tag 1" },
                     { 2, "Tag 2" },
                     { 3, "Tag 3" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Auth",
+                table: "Role",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1, null, "SUPERADMIN", "SUPERADMIN" },
+                    { 2, null, "ADMIN", "ADMIN" },
+                    { 3, null, "USER", "USER" },
+                    { 4, null, "SUPERVISER", "SUPERVISER" },
+                    { 5, null, "GUEST", "GUEST" }
                 });
 
             migrationBuilder.InsertData(
@@ -3344,6 +4266,36 @@ namespace Hydra.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Article_EditorId",
+                schema: "Cms",
+                table: "Article",
+                column: "EditorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Article_PreviewImageId",
+                schema: "Cms",
+                table: "Article",
+                column: "PreviewImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Article_WriterId",
+                schema: "Cms",
+                table: "Article",
+                column: "WriterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArticleTag_ArticleId",
+                schema: "Cms",
+                table: "ArticleTag",
+                column: "ArticleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArticleTopic_ArticleId",
+                schema: "Cms",
+                table: "ArticleTopic",
+                column: "ArticleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Category_DisplayOrder",
                 schema: "Sale",
                 table: "Category",
@@ -3404,10 +4356,100 @@ namespace Hydra.Infrastructure.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EmailInboxAttachment_EmailInboxId",
+                schema: "Crm",
+                table: "EmailInboxAttachment",
+                column: "EmailInboxId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailInboxFromAddress_EmailInboxId",
+                schema: "Crm",
+                table: "EmailInboxFromAddress",
+                column: "EmailInboxId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailInboxToAddress_EmailInboxId",
+                schema: "Crm",
+                table: "EmailInboxToAddress",
+                column: "EmailInboxId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailOutbox_ReplayToId",
+                schema: "Crm",
+                table: "EmailOutbox",
+                column: "ReplayToId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailOutboxAttachment_EmailOutboxId",
+                schema: "Crm",
+                table: "EmailOutboxAttachment",
+                column: "EmailOutboxId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailOutboxFromAddress_EmailOutboxId",
+                schema: "Crm",
+                table: "EmailOutboxFromAddress",
+                column: "EmailOutboxId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailOutboxToAddress_EmailOutboxId",
+                schema: "Crm",
+                table: "EmailOutboxToAddress",
+                column: "EmailOutboxId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FileUpload_UserId",
+                schema: "FS",
+                table: "FileUpload",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Link_LinkSectionId",
+                schema: "Cms",
+                table: "Link",
+                column: "LinkSectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Link_UserId",
+                schema: "Cms",
+                table: "Link",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Manufacturer_DisplayOrder",
                 schema: "Sale",
                 table: "Manufacturer",
                 column: "DisplayOrder");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Menu_ParentId",
+                schema: "Cms",
+                table: "Menu",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Message_FromUserId",
+                schema: "Crm",
+                table: "Message",
+                column: "FromUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MessageAttachment_MessageId",
+                schema: "Crm",
+                table: "MessageAttachment",
+                column: "MessageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MessageUser_MessageId",
+                schema: "Crm",
+                table: "MessageUser",
+                column: "MessageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MessageUser_ToUserId",
+                schema: "Crm",
+                table: "MessageUser",
+                column: "ToUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_AddressId",
@@ -3495,10 +4537,34 @@ namespace Hydra.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Page_EditorId",
+                schema: "Cms",
+                table: "Page",
+                column: "EditorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Page_WriterId",
+                schema: "Cms",
+                table: "Page",
+                column: "WriterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PageTag_PageId",
+                schema: "Cms",
+                table: "PageTag",
+                column: "PageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RecurringPayment_InitialOrderId",
                 schema: "Sale",
                 table: "Payment",
                 column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PermissionRole_RolesId",
+                schema: "Auth",
+                table: "PermissionRole",
+                column: "RolesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_CreateUserId",
@@ -3675,6 +4741,20 @@ namespace Hydra.Infrastructure.Migrations
                 column: "ProductId2");
 
             migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                schema: "Auth",
+                table: "Role",
+                column: "NormalizedName",
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoleClaim_RoleId",
+                schema: "Auth",
+                table: "RoleClaim",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Shipment_OrderId",
                 schema: "Sale",
                 table: "Shipment",
@@ -3711,10 +4791,22 @@ namespace Hydra.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Slideshow_UserId",
+                schema: "Cms",
+                table: "Slideshow",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StateProvince_CountryId",
                 schema: "Sale",
                 table: "StateProvince",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscribe_SubscribeLabelId",
+                schema: "Cms",
+                table: "Subscribe",
+                column: "SubscribeLabelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaxRate_CountryId",
@@ -3733,6 +4825,44 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 table: "TaxRate",
                 column: "TaxCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Topic_ParentId",
+                schema: "Cms",
+                table: "Topic",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                schema: "Auth",
+                table: "User",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                schema: "Auth",
+                table: "User",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserClaim_UserId",
+                schema: "Auth",
+                table: "UserClaim",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserLogin_UserId",
+                schema: "Auth",
+                table: "UserLogin",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_RoleId",
+                schema: "Auth",
+                table: "UserRole",
+                column: "RoleId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Order_Payment_PaymentId",
@@ -3763,6 +4893,16 @@ namespace Hydra.Infrastructure.Migrations
                 table: "Address");
 
             migrationBuilder.DropForeignKey(
+                name: "FK_Address_User",
+                schema: "Sale",
+                table: "Address");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Order_User",
+                schema: "Sale",
+                table: "Order");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_Order_Address",
                 schema: "Sale",
                 table: "Order");
@@ -3778,6 +4918,14 @@ namespace Hydra.Infrastructure.Migrations
                 table: "Order");
 
             migrationBuilder.DropTable(
+                name: "ArticleTag",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "ArticleTopic",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
                 name: "DiscountCategory",
                 schema: "Sale");
 
@@ -3790,12 +4938,60 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale");
 
             migrationBuilder.DropTable(
+                name: "EmailInboxAttachment",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
+                name: "EmailInboxFromAddress",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
+                name: "EmailInboxToAddress",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
+                name: "EmailOutboxAttachment",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
+                name: "EmailOutboxFromAddress",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
+                name: "EmailOutboxToAddress",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
+                name: "Link",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "Menu",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "MessageAttachment",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
+                name: "MessageUser",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
                 name: "OrderDiscount",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
                 name: "OrderNote",
                 schema: "Sale");
+
+            migrationBuilder.DropTable(
+                name: "PageTag",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "PermissionRole",
+                schema: "Auth");
 
             migrationBuilder.DropTable(
                 name: "ProductCategory",
@@ -3830,8 +5026,16 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale");
 
             migrationBuilder.DropTable(
+                name: "RoleClaim",
+                schema: "Auth");
+
+            migrationBuilder.DropTable(
                 name: "SearchTerm",
                 schema: "Sale");
+
+            migrationBuilder.DropTable(
+                name: "Setting",
+                schema: "Infra");
 
             migrationBuilder.DropTable(
                 name: "ShipmentItem",
@@ -3842,8 +5046,64 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale");
 
             migrationBuilder.DropTable(
+                name: "Slideshow",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "Subscribe",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
                 name: "TaxRate",
                 schema: "Sale");
+
+            migrationBuilder.DropTable(
+                name: "UserClaim",
+                schema: "Auth");
+
+            migrationBuilder.DropTable(
+                name: "UserLogin",
+                schema: "Auth");
+
+            migrationBuilder.DropTable(
+                name: "UserRole",
+                schema: "Auth");
+
+            migrationBuilder.DropTable(
+                name: "UserToken",
+                schema: "Auth");
+
+            migrationBuilder.DropTable(
+                name: "Article",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "Topic",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "EmailOutbox",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
+                name: "LinkSection",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "Message",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
+                name: "Page",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "Tag",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "Permission",
+                schema: "Auth");
 
             migrationBuilder.DropTable(
                 name: "Category",
@@ -3874,6 +5134,22 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale");
 
             migrationBuilder.DropTable(
+                name: "SubscribeLabel",
+                schema: "Cms");
+
+            migrationBuilder.DropTable(
+                name: "Role",
+                schema: "Auth");
+
+            migrationBuilder.DropTable(
+                name: "FileUpload",
+                schema: "FS");
+
+            migrationBuilder.DropTable(
+                name: "EmailInbox",
+                schema: "Crm");
+
+            migrationBuilder.DropTable(
                 name: "Discount",
                 schema: "Sale");
 
@@ -3898,6 +5174,10 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale");
 
             migrationBuilder.DropTable(
+                name: "User",
+                schema: "Auth");
+
+            migrationBuilder.DropTable(
                 name: "Address",
                 schema: "Sale");
 
@@ -3916,150 +5196,6 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "ShippingMethod",
                 schema: "Sale");
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5001);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5002);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5003);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5004);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5005);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5006);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5007);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5008);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5009);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5010);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5011);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5012);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5013);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5014);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5015);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5016);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5017);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5018);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5019);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5020);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5021);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5022);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5023);
-
-            migrationBuilder.DeleteData(
-                schema: "Auth",
-                table: "Permission",
-                keyColumn: "Id",
-                keyValue: 5024);
         }
     }
 }

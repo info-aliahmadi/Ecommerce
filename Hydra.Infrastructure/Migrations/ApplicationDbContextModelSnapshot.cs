@@ -114,446 +114,98 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 2001,
-                            Name = "CMS.ADD_OR_UPDATE_SETTINGS",
-                            NormalizedName = "CMS.ADD_OR_UPDATE_SETTINGS"
+                            Name = "CMS.SETTINGS_MANAGEMENT",
+                            NormalizedName = "CMS.SETTINGS_MANAGEMENT"
                         },
                         new
                         {
                             Id = 2002,
-                            Name = "CMS.GET_TOPIC_LIST",
-                            NormalizedName = "CMS.GET_TOPIC_LIST"
+                            Name = "CMS.ARTICLE_MANAGEMENT",
+                            NormalizedName = "CMS.ARTICLE_MANAGEMENT"
                         },
                         new
                         {
                             Id = 2003,
-                            Name = "CMS.GET_TOPIC_BY_ID",
-                            NormalizedName = "CMS.GET_TOPIC_BY_ID"
+                            Name = "CMS.TOPIC_MANAGEMENT",
+                            NormalizedName = "CMS.TOPIC_MANAGEMENT"
                         },
                         new
                         {
                             Id = 2004,
-                            Name = "CMS.ADD_TOPIC",
-                            NormalizedName = "CMS.ADD_TOPIC"
+                            Name = "CMS.TAG_MANAGEMENT",
+                            NormalizedName = "CMS.TAG_MANAGEMENT"
                         },
                         new
                         {
                             Id = 2005,
-                            Name = "CMS.UPDATE_TOPIC",
-                            NormalizedName = "CMS.UPDATE_TOPIC"
+                            Name = "CMS.LINK_MANAGEMENT",
+                            NormalizedName = "CMS.LINK_MANAGEMENT"
                         },
                         new
                         {
                             Id = 2006,
-                            Name = "CMS.DELETE_TOPIC",
-                            NormalizedName = "CMS.DELETE_TOPIC"
+                            Name = "CMS.PAGE_MANAGEMENT",
+                            NormalizedName = "CMS.PAGE_MANAGEMENT"
                         },
                         new
                         {
                             Id = 2007,
-                            Name = "CMS.GET_TAG_LIST",
-                            NormalizedName = "CMS.GET_TAG_LIST"
+                            Name = "CMS.MENU_MANAGEMENT",
+                            NormalizedName = "CMS.MENU_MANAGEMENT"
                         },
                         new
                         {
                             Id = 2008,
-                            Name = "CMS.GET_TAG_BY_ID",
-                            NormalizedName = "CMS.GET_TAG_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2009,
-                            Name = "CMS.ADD_TAG",
-                            NormalizedName = "CMS.ADD_TAG"
-                        },
-                        new
-                        {
-                            Id = 2010,
-                            Name = "CMS.UPDATE_TAG",
-                            NormalizedName = "CMS.UPDATE_TAG"
-                        },
-                        new
-                        {
-                            Id = 2011,
-                            Name = "CMS.DELETE_TAG",
-                            NormalizedName = "CMS.DELETE_TAG"
-                        },
-                        new
-                        {
-                            Id = 2012,
-                            Name = "CMS.GET_ARTICLE_LIST",
-                            NormalizedName = "CMS.GET_ARTICLE_LIST"
-                        },
-                        new
-                        {
-                            Id = 2013,
-                            Name = "CMS.GET_TRASH_ARTICLE_LIST",
-                            NormalizedName = "CMS.GET_TRASH_ARTICLE_LIST"
-                        },
-                        new
-                        {
-                            Id = 2014,
-                            Name = "CMS.GET_ARTICLE_BY_ID",
-                            NormalizedName = "CMS.GET_ARTICLE_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2015,
-                            Name = "CMS.CMS_PINNED_ARTICLE",
-                            NormalizedName = "CMS.CMS_PINNED_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2016,
-                            Name = "CMS.ADD_ARTICLE",
-                            NormalizedName = "CMS.ADD_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2017,
-                            Name = "CMS.UPDATE_ARTICLE",
-                            NormalizedName = "CMS.UPDATE_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2018,
-                            Name = "CMS.DELETE_ARTICLE",
-                            NormalizedName = "CMS.DELETE_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2019,
-                            Name = "CMS.RESTORE_ARTICLE",
-                            NormalizedName = "CMS.RESTORE_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2020,
-                            Name = "CMS.REMOVE_ARTICLE",
-                            NormalizedName = "CMS.REMOVE_ARTICLE"
-                        },
-                        new
-                        {
-                            Id = 2021,
-                            Name = "CMS.GET_PAGE_LIST",
-                            NormalizedName = "CMS.GET_PAGE_LIST"
-                        },
-                        new
-                        {
-                            Id = 2022,
-                            Name = "CMS.GET_PAGE_BY_ID",
-                            NormalizedName = "CMS.GET_PAGE_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2023,
-                            Name = "CMS.ADD_PAGE",
-                            NormalizedName = "CMS.ADD_PAGE"
-                        },
-                        new
-                        {
-                            Id = 2024,
-                            Name = "CMS.UPDATE_PAGE",
-                            NormalizedName = "CMS.UPDATE_PAGE"
-                        },
-                        new
-                        {
-                            Id = 2025,
-                            Name = "CMS.DELETE_PAGE",
-                            NormalizedName = "CMS.DELETE_PAGE"
-                        },
-                        new
-                        {
-                            Id = 2026,
-                            Name = "CMS.GET_MENU_LIST",
-                            NormalizedName = "CMS.GET_MENU_LIST"
-                        },
-                        new
-                        {
-                            Id = 2027,
-                            Name = "CMS.GET_MENU_BY_ID",
-                            NormalizedName = "CMS.GET_MENU_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2028,
-                            Name = "CMS.ADD_MENU",
-                            NormalizedName = "CMS.ADD_MENU"
-                        },
-                        new
-                        {
-                            Id = 2029,
-                            Name = "CMS.UPDATE_MENU",
-                            NormalizedName = "CMS.UPDATE_MENU"
-                        },
-                        new
-                        {
-                            Id = 2030,
-                            Name = "CMS.DELETE_MENU",
-                            NormalizedName = "CMS.DELETE_MENU"
-                        },
-                        new
-                        {
-                            Id = 2031,
-                            Name = "CMS.GET_SLIDESHOW_LIST",
-                            NormalizedName = "CMS.GET_SLIDESHOW_LIST"
-                        },
-                        new
-                        {
-                            Id = 2032,
-                            Name = "CMS.GET_SLIDESHOW_BY_ID",
-                            NormalizedName = "CMS.GET_SLIDESHOW_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 2033,
-                            Name = "CMS.ADD_SLIDESHOW",
-                            NormalizedName = "CMS.ADD_SLIDESHOW"
-                        },
-                        new
-                        {
-                            Id = 2034,
-                            Name = "CMS.UPDATE_SLIDESHOW",
-                            NormalizedName = "CMS.UPDATE_SLIDESHOW"
-                        },
-                        new
-                        {
-                            Id = 2035,
-                            Name = "CMS.VISIBLE_SLIDESHOW",
-                            NormalizedName = "CMS.VISIBLE_SLIDESHOW"
-                        },
-                        new
-                        {
-                            Id = 2036,
-                            Name = "CMS.DELETE_SLIDESHOW",
-                            NormalizedName = "CMS.DELETE_SLIDESHOW"
+                            Name = "CMS.SLIDESHOW_MANAGEMENT",
+                            NormalizedName = "CMS.SLIDESHOW_MANAGEMENT"
                         },
                         new
                         {
                             Id = 3001,
-                            Name = "CRM.GET_SETTINGS",
-                            NormalizedName = "CRM.GET_SETTINGS"
+                            Name = "CRM.SETTING_MANAGMENT",
+                            NormalizedName = "CRM.SETTING_MANAGMENT"
                         },
                         new
                         {
                             Id = 3002,
-                            Name = "CRM.ADD_OR_UPDATE_SETTINGS",
-                            NormalizedName = "CRM.ADD_OR_UPDATE_SETTINGS"
+                            Name = "CRM.ALL_MESSAGE_MANAGMENT",
+                            NormalizedName = "CRM.ALL_MESSAGE_MANAGMENT"
                         },
                         new
                         {
                             Id = 3003,
-                            Name = "CRM.SEND_PUBLIC_MESSAGE",
-                            NormalizedName = "CRM.SEND_PUBLIC_MESSAGE"
+                            Name = "CRM.MESSAGE_MANAGMENT",
+                            NormalizedName = "CRM.MESSAGE_MANAGMENT"
                         },
                         new
                         {
                             Id = 3004,
-                            Name = "CRM.SEND_PRIVATE_MESSAGE",
-                            NormalizedName = "CRM.SEND_PRIVATE_MESSAGE"
+                            Name = "CRM.ALL_EMAIL_INBOX_MANAGMENT",
+                            NormalizedName = "CRM.ALL_EMAIL_INBOX_MANAGMENT"
                         },
                         new
                         {
                             Id = 3005,
-                            Name = "CRM.SAVE_DRAFT_MESSAGE",
-                            NormalizedName = "CRM.SAVE_DRAFT_MESSAGE"
+                            Name = "CRM.EMAIL_INBOX_MANAGMENT",
+                            NormalizedName = "CRM.EMAIL_INBOX_MANAGMENT"
                         },
                         new
                         {
                             Id = 3006,
-                            Name = "CRM.GET_ALLMESSAGES",
-                            NormalizedName = "CRM.GET_ALLMESSAGES"
+                            Name = "CRM.ALL_EMAIL_OUTBOX_MANAGMENT",
+                            NormalizedName = "CRM.ALL_EMAIL_OUTBOX_MANAGMENT"
                         },
                         new
                         {
                             Id = 3007,
-                            Name = "CRM.GET_INBOX_MESSAGES",
-                            NormalizedName = "CRM.GET_INBOX_MESSAGES"
+                            Name = "CRM.EMAIL_OUTBOX_MANAGMENT",
+                            NormalizedName = "CRM.EMAIL_OUTBOX_MANAGMENT"
                         },
                         new
                         {
                             Id = 3008,
-                            Name = "CRM.GET_SENT_MESSAGES",
-                            NormalizedName = "CRM.GET_SENT_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3009,
-                            Name = "CRM.GET_DRAFT_MESSAGES",
-                            NormalizedName = "CRM.GET_DRAFT_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3010,
-                            Name = "CRM.GET_PUBLIC_INBOX_MESSAGES",
-                            NormalizedName = "CRM.GET_PUBLIC_INBOX_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3011,
-                            Name = "CRM.GET_DELETED_INBOX_MESSAGES",
-                            NormalizedName = "CRM.GET_DELETED_INBOX_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3012,
-                            Name = "CRM.GET_DELETED_SENT_MESSAGES",
-                            NormalizedName = "CRM.GET_DELETED_SENT_MESSAGES"
-                        },
-                        new
-                        {
-                            Id = 3013,
-                            Name = "CRM.GET_MESSAGE_BY_ID_FOR_PUBLIC",
-                            NormalizedName = "CRM.GET_MESSAGE_BY_ID_FOR_PUBLIC"
-                        },
-                        new
-                        {
-                            Id = 3014,
-                            Name = "CRM.GET_MESSAGE_BY_ID_FOR_SENDER",
-                            NormalizedName = "CRM.GET_MESSAGE_BY_ID_FOR_SENDER"
-                        },
-                        new
-                        {
-                            Id = 3015,
-                            Name = "CRM.GET_MESSAGE_BY_ID_FOR_RECEIVER",
-                            NormalizedName = "CRM.GET_MESSAGE_BY_ID_FOR_RECEIVER"
-                        },
-                        new
-                        {
-                            Id = 3016,
-                            Name = "CRM.DELETE_MESSAGE",
-                            NormalizedName = "CRM.DELETE_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3017,
-                            Name = "CRM.RESTORE_MESSAGE",
-                            NormalizedName = "CRM.RESTORE_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3018,
-                            Name = "CRM.PIN_MESSAGE",
-                            NormalizedName = "CRM.PIN_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3019,
-                            Name = "CRM.READ_MESSAGE",
-                            NormalizedName = "CRM.READ_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3020,
-                            Name = "CRM.DELETE_DRAFT_MESSAGE",
-                            NormalizedName = "CRM.DELETE_DRAFT_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3021,
-                            Name = "CRM.REMOVE_DRAFT_MESSAGE",
-                            NormalizedName = "CRM.REMOVE_DRAFT_MESSAGE"
-                        },
-                        new
-                        {
-                            Id = 3022,
-                            Name = "CRM.LOAD_EMAIL_INBOX",
-                            NormalizedName = "CRM.LOAD_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3023,
-                            Name = "CRM.GET_ALL_EMAIL_INBOX",
-                            NormalizedName = "CRM.GET_ALL_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3024,
-                            Name = "CRM.GET_INBOX_EMAIL_INBOX",
-                            NormalizedName = "CRM.GET_INBOX_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3025,
-                            Name = "CRM.GET_DELETED_EMAIL_INBOX",
-                            NormalizedName = "CRM.GET_DELETED_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3026,
-                            Name = "CRM.GET_EMAIL_INBOX_BY_ID",
-                            NormalizedName = "CRM.GET_EMAIL_INBOX_BY_ID"
-                        },
-                        new
-                        {
-                            Id = 3027,
-                            Name = "CRM.GET_EMAIL_INBOX_BY_ID_FOR_RECEIVER",
-                            NormalizedName = "CRM.GET_EMAIL_INBOX_BY_ID_FOR_RECEIVER"
-                        },
-                        new
-                        {
-                            Id = 3028,
-                            Name = "CRM.DELETE_EMAIL_INBOX",
-                            NormalizedName = "CRM.DELETE_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3029,
-                            Name = "CRM.PIN_EMAIL_INBOX",
-                            NormalizedName = "CRM.PIN_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3030,
-                            Name = "CRM.READ_EMAIL_INBOX",
-                            NormalizedName = "CRM.READ_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3031,
-                            Name = "CRM.REMOVE_EMAIL_INBOX",
-                            NormalizedName = "CRM.REMOVE_EMAIL_INBOX"
-                        },
-                        new
-                        {
-                            Id = 3032,
-                            Name = "CRM.SEND_EMAIL_OUTBOX",
-                            NormalizedName = "CRM.SEND_EMAIL_OUTBOX"
-                        },
-                        new
-                        {
-                            Id = 3033,
-                            Name = "CRM.SAVE_DRAFT_EMAIL_OUTBOX",
-                            NormalizedName = "CRM.SAVE_DRAFT_EMAIL_OUTBOX"
-                        },
-                        new
-                        {
-                            Id = 3034,
-                            Name = "CRM.GET_ALL_EMAIL_OUTBOX",
-                            NormalizedName = "CRM.GET_ALL_EMAIL_OUTBOX"
-                        },
-                        new
-                        {
-                            Id = 3035,
-                            Name = "CRM.GET_EMAIL_OUTBOX",
-                            NormalizedName = "CRM.GET_EMAIL_OUTBOX"
-                        },
-                        new
-                        {
-                            Id = 3036,
-                            Name = "CRM.GET_ADDRESS_FOR_SELECT",
-                            NormalizedName = "CRM.GET_ADDRESS_FOR_SELECT"
-                        },
-                        new
-                        {
-                            Id = 3037,
-                            Name = "CRM.GET_EMAIL_OUTBOX_BY_ID_FOR_SENDER",
-                            NormalizedName = "CRM.GET_EMAIL_OUTBOX_BY_ID_FOR_SENDER"
-                        },
-                        new
-                        {
-                            Id = 3038,
-                            Name = "CRM.REMOVE_EMAIL_OUTBOX",
-                            NormalizedName = "CRM.REMOVE_EMAIL_OUTBOX"
+                            Name = "CRM.SUBSCRIBE_MANAGMENT",
+                            NormalizedName = "CRM.SUBSCRIBE_MANAGMENT"
                         },
                         new
                         {
@@ -702,38 +354,14 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 4001,
-                            Name = "FS.GET_FILE_INFO",
-                            NormalizedName = "FS.GET_FILE_INFO"
+                            Name = "FS.GALLEY_VIEW",
+                            NormalizedName = "FS.GALLEY_VIEW"
                         },
                         new
                         {
                             Id = 4002,
-                            Name = "FS.GET_FILE_INFO_BY_NAME",
-                            NormalizedName = "FS.GET_FILE_INFO_BY_NAME"
-                        },
-                        new
-                        {
-                            Id = 4003,
-                            Name = "FS.GET_FILES_LIST",
-                            NormalizedName = "FS.GET_FILES_LIST"
-                        },
-                        new
-                        {
-                            Id = 4004,
-                            Name = "FS.GET_GALLEY_FILES",
-                            NormalizedName = "FS.GET_GALLEY_FILES"
-                        },
-                        new
-                        {
-                            Id = 4005,
-                            Name = "FS.GET_DIRECTORIES",
-                            NormalizedName = "FS.GET_DIRECTORIES"
-                        },
-                        new
-                        {
-                            Id = 4006,
-                            Name = "FS.GET_FILES_BY_DIRECTORY",
-                            NormalizedName = "FS.GET_FILES_BY_DIRECTORY"
+                            Name = "FS.FILE_UPLOAD",
+                            NormalizedName = "FS.FILE_UPLOAD"
                         });
                 });
 

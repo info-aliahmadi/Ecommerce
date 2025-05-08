@@ -66,6 +66,13 @@ namespace Hydra.Crm.Core.Interfaces
         /// <param name="emailInboxId"></param>
         /// <param name="emailAddress"></param>
         /// <returns></returns>
+        Task<Result> Restore(int emailInboxId, string emailAddress);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="emailInboxId"></param>
+        /// <param name="emailAddress"></param>
+        /// <returns></returns>
         Task<Result> Pin(int emailInboxId, string emailAddress);
 
         /// <summary>
