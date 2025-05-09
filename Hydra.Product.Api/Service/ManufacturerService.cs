@@ -45,7 +45,7 @@ namespace Hydra.Product.Api.Services
                                   CreatedOnUtc = manufacturer.CreatedOnUtc,
                                   UpdatedOnUtc = manufacturer.UpdatedOnUtc
 
-                              }).OrderByDescending(x => x.Id).Cacheable().ToListAsync();
+                              }).OrderBy(x => x.DisplayOrder).Cacheable().ToListAsync();
             result.Data = list;
             return result;
         }
@@ -87,12 +87,19 @@ namespace Hydra.Product.Api.Services
             var result = new Result<ManufacturerModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<Manufacturer>().AnyAsync(x => x.Id == manufacturerModel.Id);
+                var category = await _queryRepository.Table<Category>().FirstAsync(x => x.Id == manufacturerModel.Id);
+                if (category is null)
+                {
+                    result.Status = ResultStatusEnum.NotFound;
+                    result.Message = "The Manufacturer not found";
+                    return result;
+                }
+                bool isExist = await _queryRepository.Table<Category>().AnyAsync(x => x.Id != manufacturerModel.Id && x.Name == manufacturerModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(manufacturerModel.Id), "The Id already exist"));
+                    result.Message = "The Name already exist";
+                    result.Errors.Add(new Error(nameof(manufacturerModel.Id), "The Name already exist"));
                     return result;
                 }
 
@@ -181,6 +188,37 @@ namespace Hydra.Product.Api.Services
                 result.Status = ResultStatusEnum.ExceptionThrowed;
                 return result;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="linkModelList"></param>
+        /// <returns></returns>
+        public async Task<Result<List<ManufacturerModel>>> UpdateOrder(List<ManufacturerModel> linkModelList)
+        {
+            var result = new Result<List<ManufacturerModel>>();
+
+
+            var ids = linkModelList.Select(x => x.Id).ToArray();
+            var i = linkModelList.Count();
+            foreach (var item in linkModelList)
+            {
+                item.DisplayOrder = i--;
+            }
+
+            var visibleList = _queryRepository.Table<Manufacturer>().Where(x => ids.Contains(x.Id)).ToList();
+            foreach (var item in visibleList)
+            {
+                var model = linkModelList.First(x => x.Id == item.Id);
+                item.DisplayOrder = model.DisplayOrder;
+                _commandRepository.UpdateAsync(item);
+            }
+
+            await _commandRepository.SaveChangesAsync();
+
+            result.Data = linkModelList;
+            return result;
         }
 
         /// <summary>

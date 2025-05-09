@@ -120,8 +120,6 @@ namespace Hydra.Cms.Api.Handler
             {
                 return Results.BadRequest(e.Message);
             }
-
-
         }
 
         /// <summary>

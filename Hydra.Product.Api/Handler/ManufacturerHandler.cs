@@ -16,7 +16,7 @@ namespace Hydra.Product.Api.Handler
         /// <param name="manufacturerService"></param>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        public static async Task<IResult> GetList(IManufacturerService manufacturerService, GridDataBound dataGrid)
+        public static async Task<IResult> GetList(IManufacturerService manufacturerService)
         {
             try
             {
@@ -83,6 +83,31 @@ namespace Hydra.Product.Api.Handler
         {
             var result = await manufacturerService.Update(manufacturerModel);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_menuService"></param>
+        /// <param name="menuModel"></param>
+        /// <returns></returns>
+        public static async Task<IResult> UpdateOrders(ClaimsPrincipal userClaim,
+            IManufacturerService manufacturerService,
+            [FromBody] List<ManufacturerModel> manufacturerList
+            )
+        {
+            try
+            {
+                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+
+                var result = await manufacturerService.UpdateOrder(manufacturerList);
+
+                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
         }
 
         /// <summary>

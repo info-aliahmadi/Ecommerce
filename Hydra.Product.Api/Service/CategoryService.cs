@@ -5,6 +5,8 @@ using Hydra.Ecommerce.Core.Domain;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using Hydra.FileStorage.Core.Domain;
+using Hydra.FileStorage.Core.Models;
 
 namespace Hydra.Product.Api.Services
 {
@@ -27,24 +29,42 @@ namespace Hydra.Product.Api.Services
         {
 
             var list = (from category in _queryRepository.Table<Category>()
-                             select new CategoryModel()
-                             {
-                                 Id = category.Id,
-                                 Name = category.Name,
-                                 MetaKeywords = category.MetaKeywords,
-                                 MetaTitle = category.MetaTitle,
-                                 Description = category.Description,
-                                 MetaDescription = category.MetaDescription,
-                                 ParentCategoryId = category.ParentCategoryId,
-                                 PictureId = category.PictureId,
-                                 ShowOnHomepage = category.ShowOnHomepage,
-                                 Published = category.Published,
-                                 Deleted = category.Deleted,
-                                 DisplayOrder = category.DisplayOrder,
-                                 CreatedOnUtc = category.CreatedOnUtc,
-                                 UpdatedOnUtc = category.UpdatedOnUtc
+                        select new CategoryModel()
+                        {
+                            Id = category.Id,
+                            Name = category.Name,
+                            MetaKeywords = category.MetaKeywords,
+                            MetaTitle = category.MetaTitle,
+                            Description = category.Description,
+                            MetaDescription = category.MetaDescription,
+                            ParentCategoryId = category.ParentCategoryId,
+                            PictureId = category.PictureId,
+                            ShowOnHomepage = category.ShowOnHomepage,
+                            Published = category.Published,
+                            Deleted = category.Deleted,
+                            DisplayOrder = category.DisplayOrder,
+                            CreatedOnUtc = category.CreatedOnUtc,
+                            UpdatedOnUtc = category.UpdatedOnUtc,
 
-                             }).OrderByDescending(x => x.Id).Cacheable().ToList();
+
+                        }).Where(x => x.Deleted == false).OrderBy(x => x.DisplayOrder).Cacheable().ToList();
+
+            var listIds = list.Where(x => x.PictureId != null).Select(x => x.PictureId).ToArray();
+            var files = _queryRepository.Table<FileUpload>().Where(x => listIds.Contains(x.Id));
+            foreach (var item in list)
+            {
+                var file = files.FirstOrDefault(x => x.Id == item.PictureId);
+                if (file != null)
+                    item.PictureInfo = new FileUploadModel()
+                    {
+                        Id = file.Id,
+                        FileName = file.FileName,
+                        Directory = file.Directory,
+                        Extension = file.Extension,
+                        Size = file.Size,
+                        Thumbnail = file.Thumbnail
+                    };
+            }
 
             return list;
         }
@@ -234,12 +254,12 @@ namespace Hydra.Product.Api.Services
                     result.Message = "The Category not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<Category>().AnyAsync(x => x.Id != categoryModel.Id);
+                bool isExist = await _queryRepository.Table<Category>().AnyAsync(x => x.Id != categoryModel.Id && x.Name == categoryModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(categoryModel.Id), "The Id already exist"));
+                    result.Message = "The Name already exist";
+                    result.Errors.Add(new Error(nameof(categoryModel.Id), "The Name already exist"));
                     return result;
                 }
                 category.Name = categoryModel.Name;
@@ -273,6 +293,52 @@ namespace Hydra.Product.Api.Services
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="linkModelList"></param>
+        /// <returns></returns>
+        public async Task<Result<List<CategoryModel>>> UpdateOrder(List<CategoryModel> categoriesList)
+        {
+            var result = new Result<List<CategoryModel>>();
+
+            var flattenMenus = new List<CategoryModel>();
+
+            GetChild(categoriesList);
+
+            void GetChild(List<CategoryModel> menus)
+            {
+                foreach (var item in menus)
+                {
+                    if (item.IsEdited)
+                    {
+                        flattenMenus.Add(item);
+                    }
+                    if (item.Childs.Any())
+                    {
+                        GetChild(item.Childs);
+                    }
+                }
+            }
+
+            var editedModelIds = flattenMenus.Select(x => x.Id).ToArray();
+
+
+            var editedList = _queryRepository.Table<Category>().Where(x => editedModelIds.Contains(x.Id)).ToList();
+
+            foreach (var item in editedList)
+            {
+                var model = flattenMenus.First(x => x.Id == item.Id);
+                item.DisplayOrder = model.DisplayOrder;
+                item.ParentCategoryId = model.ParentCategoryId;
+                _commandRepository.UpdateAsync(item);
+            }
+
+            await _commandRepository.SaveChangesAsync();
+
+            result.Data = categoriesList;
+            return result;
+        }
         /// <summary>
         ///
         /// </summary>

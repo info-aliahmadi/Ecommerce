@@ -106,6 +106,32 @@ namespace Hydra.Product.Api.Handler
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_menuService"></param>
+        /// <param name="menuModel"></param>
+        /// <returns></returns>
+        public static async Task<IResult> UpdateOrders(ClaimsPrincipal userClaim,
+            ICategoryService _menuService,
+            [FromBody] List<CategoryModel> categoryList
+            )
+        {
+            try
+            {
+                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+               
+                var result = await _menuService.UpdateOrder(categoryList);
+
+                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
+        }
+
         /// <summary>
         ///
         /// </summary>

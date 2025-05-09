@@ -48,6 +48,12 @@ namespace Hydra.Product.Core.Interfaces
         Task<Result<CategoryModel>> Update(CategoryModel categoryModel);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="linkModelList"></param>
+        /// <returns></returns>
+        Task<Result<List<CategoryModel>>> UpdateOrder(List<CategoryModel> linkModelList);
+        /// <summary>
         ///
         /// </summary>
         /// <param name="id"></param>
