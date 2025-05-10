@@ -16,11 +16,11 @@ namespace Hydra.Product.Api.Handler
         /// <param name="productAttributeService"></param>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        public static async Task<IResult> GetList(IProductAttributeService productAttributeService, GridDataBound dataGrid)
+        public static async Task<IResult> GetList(IProductAttributeService productAttributeService)
         {
             try
             {
-                var result = await productAttributeService.GetList(dataGrid);
+                var result = productAttributeService.GetList();
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
             }
             catch (Exception e)

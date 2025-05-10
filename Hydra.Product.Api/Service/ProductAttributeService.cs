@@ -30,31 +30,30 @@ namespace Hydra.Product.Api.Services
         {
 
             var list = (from productAttribute in _queryRepository.Table<ProductAttribute>()
-                              select new ProductAttributeModel()
-                              {
-                                  Id = productAttribute.Id,
-                                  Name = productAttribute.Name,
-                                  Value = productAttribute.Value,
-                                  AttributeType = productAttribute.AttributeType,
-                                  Description = productAttribute.Description,
-                                  DisplayOrder = productAttribute.DisplayOrder,
-                                  PictureId = productAttribute.PictureId,
+                        select new ProductAttributeModel()
+                        {
+                            Id = productAttribute.Id,
+                            Name = productAttribute.Name,
+                            Value = productAttribute.Value,
+                            AttributeType = productAttribute.AttributeType,
+                            Description = productAttribute.Description,
+                            DisplayOrder = productAttribute.DisplayOrder,
+                            PictureId = productAttribute.PictureId,
 
-                              }).OrderByDescending(x => x.Id).Cacheable().ToList();
+                        }).OrderBy(x => x.DisplayOrder).Cacheable().ToList();
 
             return list;
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
-        /// <param name="dataGrid"></param>
         /// <returns></returns>
-        public async Task<Result<PaginatedList<ProductAttributeModel>>> GetList(GridDataBound dataGrid)
+        public Result<List<ProductAttributeModel>> GetList()
         {
-            var result = new Result<PaginatedList<ProductAttributeModel>>();
+            var result = new Result<List<ProductAttributeModel>>();
 
-            var list = await GetProductAttributesList().AsQueryable().ToPaginatedListAsync(dataGrid);
+            var list = GetProductAttributesList();
 
             result.Data = list;
 
@@ -97,15 +96,14 @@ namespace Hydra.Product.Api.Services
             var result = new Result<ProductAttributeModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<ProductAttribute>().AnyAsync(x => x.Id == productAttributeModel.Id);
+                var isExist = await _queryRepository.Table<ProductAttribute>().AnyAsync(x => x.Id != productAttributeModel.Id && x.Name == productAttributeModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(productAttributeModel.Id), "The Id already exist"));
+                    result.Message = "The Name already exist";
+                    result.Errors.Add(new Error(nameof(productAttributeModel.Id), "The Name already exist"));
                     return result;
                 }
-
                 var date = DateTime.UtcNow;
                 var productAttribute = new ProductAttribute()
                 {
@@ -150,15 +148,15 @@ namespace Hydra.Product.Api.Services
                 if (productAttribute is null)
                 {
                     result.Status = ResultStatusEnum.NotFound;
-                    result.Message = "The ProductAttribute not found";
+                    result.Message = "The Product Attribute not found";
                     return result;
                 }
                 var isExist = await _queryRepository.Table<ProductAttribute>().AnyAsync(x => x.Id != productAttributeModel.Id && x.Name == productAttribute.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(productAttributeModel.Id), "The Id already exist"));
+                    result.Message = "The Name already exist";
+                    result.Errors.Add(new Error(nameof(productAttributeModel.Id), "The Name already exist"));
                     return result;
                 }
 

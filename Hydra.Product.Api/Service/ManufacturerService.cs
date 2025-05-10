@@ -87,14 +87,7 @@ namespace Hydra.Product.Api.Services
             var result = new Result<ManufacturerModel>();
             try
             {
-                var category = await _queryRepository.Table<Category>().FirstAsync(x => x.Id == manufacturerModel.Id);
-                if (category is null)
-                {
-                    result.Status = ResultStatusEnum.NotFound;
-                    result.Message = "The Manufacturer not found";
-                    return result;
-                }
-                bool isExist = await _queryRepository.Table<Category>().AnyAsync(x => x.Id != manufacturerModel.Id && x.Name == manufacturerModel.Name);
+                bool isExist = await _queryRepository.Table<Manufacturer>().AnyAsync(x => x.Id != manufacturerModel.Id && x.Name == manufacturerModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -160,8 +153,8 @@ namespace Hydra.Product.Api.Services
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(manufacturerModel.Id), "The Id already exist"));
+                    result.Message = "The Name already exist";
+                    result.Errors.Add(new Error(nameof(manufacturerModel.Id), "The Name already exist"));
                     return result;
                 }
 
@@ -172,7 +165,6 @@ namespace Hydra.Product.Api.Services
                 manufacturer.MetaDescription = manufacturerModel.MetaDescription;
                 manufacturer.PictureId = manufacturerModel.PictureId;
                 manufacturer.Published = manufacturerModel.Published;
-                manufacturer.DisplayOrder = manufacturerModel.DisplayOrder;
                 manufacturer.UpdatedOnUtc = DateTime.UtcNow;
 
                 _commandRepository.UpdateAsync(manufacturer);

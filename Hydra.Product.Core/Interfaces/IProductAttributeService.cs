@@ -8,11 +8,10 @@ namespace Hydra.Product.Core.Interfaces
     public interface IProductAttributeService
     {
         /// <summary>
-        ///
+        /// 
         /// </summary>
-        /// <param name="dataGrid"></param>
         /// <returns></returns>
-        Task<Result<PaginatedList<ProductAttributeModel>>> GetList(GridDataBound dataGrid);
+        Result<List<ProductAttributeModel>> GetList();
 
         /// <summary>
         /// 

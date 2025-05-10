@@ -96,18 +96,17 @@ namespace Hydra.Product.Api.Services
             var result = new Result<ProductTagModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<ProductTag>().AnyAsync(x => x.Id == productTagModel.Id);
+                bool isExist = await _queryRepository.Table<ProductTag>().AnyAsync(x => x.Name == productTagModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(productTagModel.Id), "The Id already exist"));
+                    result.Message = "The Name already exist";
+                    result.Errors.Add(new Error(nameof(productTagModel.Id), "The Name already exist"));
                     return result;
                 }
                 var productTag = new ProductTag()
                 {
                     Name = productTagModel.Name,
-                    //Products = productTagModel.Products,
 
                 };
 
@@ -131,7 +130,7 @@ namespace Hydra.Product.Api.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="tagModel"></param>
+        /// <param name="tags"></param>
         /// <returns></returns>
         public async Task<Result<List<ProductTagModel>>> Add(string[] tags)
         {
@@ -179,12 +178,12 @@ namespace Hydra.Product.Api.Services
                     result.Message = "The ProductTag not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<ProductTag>().AnyAsync(x => x.Id != productTagModel.Id);
+                bool isExist = await _queryRepository.Table<ProductTag>().AnyAsync(x => x.Id != productTagModel.Id && x.Name == productTagModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(productTagModel.Id), "The Id already exist"));
+                    result.Message = "The Name already exist";
+                    result.Errors.Add(new Error(nameof(productTagModel.Id), "The Name already exist"));
                     return result;
                 }
                 productTag.Name = productTagModel.Name;
