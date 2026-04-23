@@ -1,47 +1,43 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="HydraHelper.cs" />
-    <Compile Remove="Logs\GlobalExceptionHandler.cs" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="EasyCaching.InMemory" Version="1.9.2" />
-    <PackageReference Include="EasyCaching.Redis" Version="1.9.2" />
-    <PackageReference Include="EasyCaching.Serialization.Json" Version="1.9.2" />
-    <PackageReference Include="EFCoreSecondLevelCacheInterceptor" Version="5.0.0" />
-    <PackageReference Include="EFCoreSecondLevelCacheInterceptor.EasyCaching.Core" Version="5.0.0" />
-    <PackageReference Include="EFCoreSecondLevelCacheInterceptor.MemoryCache" Version="5.0.0" />
-    <PackageReference Include="Hangfire.Core" Version="1.8.17" />
-    <PackageReference Include="Hangfire.SqlServer" Version="1.8.17" />
-    <PackageReference Include="InstagramApiSharp" Version="1.7.4" />
-    <PackageReference Include="MailKit" Version="4.9.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.11" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.11" />
-    <PackageReference Include="Microsoft.Identity.Web" Version="3.5.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-    <PackageReference Include="MiniValidation" Version="0.9.2" />
-    <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
-    <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
-    <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
-    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.1" />
-    <PackageReference Include="Serilog.Sinks.SQLite" Version="6.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="EasyCaching.InMemory" />
+		<PackageReference Include="EasyCaching.Redis" />
+		<PackageReference Include="EasyCaching.Serialization.Json" />
+		<PackageReference Include="EFCoreSecondLevelCacheInterceptor" />
+		<PackageReference Include="EFCoreSecondLevelCacheInterceptor.EasyCaching.Core" />
+		<PackageReference Include="EFCoreSecondLevelCacheInterceptor.MemoryCache" />
+		<PackageReference Include="Hangfire.Core" />
+		<PackageReference Include="Hangfire.PostgreSql" />
+		<PackageReference Include="InstagramApiSharp" />
+		<PackageReference Include="MailKit" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Core" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Stores" />
+		<PackageReference Include="Microsoft.Identity.Web" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+		<PackageReference Include="MiniValidation" />
+		<PackageReference Include="Serilog.AspNetCore" />
+		<PackageReference Include="Serilog.Exceptions" />
+		<PackageReference Include="Serilog.Sinks.Debug" />
+		<PackageReference Include="Serilog.Sinks.Elasticsearch" />
+		<PackageReference Include="Serilog.Sinks.SQLite" />
+		<PackageReference Include="Swashbuckle.AspNetCore" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Migrations\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Hydra.Auth.Core\Hydra.Auth.Core.csproj" />
-    <ProjectReference Include="..\Hydra.Kernel\Hydra.Kernel.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Hydra.Auth.Core\Hydra.Auth.Core.csproj" />
+		<ProjectReference Include="..\Hydra.Kernel\Hydra.Kernel.csproj" />
+	</ItemGroup>
 
 </Project>

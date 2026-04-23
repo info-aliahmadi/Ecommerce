@@ -1,0 +1,44 @@
+<Project>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+		<CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageVersion Include="NReco.VideoConverter" Version="1.2.1" />
+		<PackageVersion Include="SixLabors.ImageSharp" Version="3.1.6" />
+		<PackageVersion Include="EasyCaching.InMemory" Version="1.9.2" />
+		<PackageVersion Include="EasyCaching.Redis" Version="1.9.2" />
+		<PackageVersion Include="EasyCaching.Serialization.Json" Version="1.9.2" />
+		<PackageVersion Include="EFCore.NamingConventions" Version="9.0.0" />
+		<PackageVersion Include="EFCoreSecondLevelCacheInterceptor" Version="5.3.6" />
+		<PackageVersion Include="EFCoreSecondLevelCacheInterceptor.EasyCaching.Core" Version="5.3.6" />
+		<PackageVersion Include="EFCoreSecondLevelCacheInterceptor.MemoryCache" Version="5.3.6" />
+		<PackageVersion Include="Hangfire.Core" Version="1.8.17" />
+		<PackageVersion Include="Hangfire.PostgreSql" Version="1.20.13" />
+		<PackageVersion Include="InstagramApiSharp" Version="1.7.4" />
+		<PackageVersion Include="MailKit" Version="4.9.0" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.11" />
+		<PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.11" />
+		<PackageVersion Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.11" />
+		<PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.11" />
+		<PackageVersion Include="Microsoft.Data.SqlClient" Version="6.0.1" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="9.7.1" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.11" />
+		<PackageVersion Include="Microsoft.Extensions.Identity.Core" Version="9.0.11" />
+		<PackageVersion Include="Microsoft.Extensions.Identity.Stores" Version="9.0.11" />
+		<PackageVersion Include="Microsoft.Identity.Web" Version="4.2.0" />
+		<PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+		<PackageVersion Include="MiniValidation" Version="0.9.2" />
+		<PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+		<PackageVersion Include="QuestPDF" Version="2024.10.1" />
+		<PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
+		<PackageVersion Include="Serilog.Exceptions" Version="8.4.0" />
+		<PackageVersion Include="Serilog.Sinks.Debug" Version="3.0.0" />
+		<PackageVersion Include="Serilog.Sinks.Elasticsearch" Version="9.0.1" />
+		<PackageVersion Include="Serilog.Sinks.SQLite" Version="6.0.0" />
+		<PackageVersion Include="SixLabors.ImageSharp" Version="3.1.6" />
+		<PackageVersion Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+	</ItemGroup>
+</Project>

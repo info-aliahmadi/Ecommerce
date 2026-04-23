@@ -11,6 +11,7 @@ using Hydra.Infrastructure.Notification.Email.Interface;
 using Hydra.Infrastructure.Notification.Email.Models;
 using Hydra.Kernel.Interface;
 using Hydra.Kernel.Extension;
+using Hydra.Kernel;
 
 
 namespace Hydra.Crm.Api.Services

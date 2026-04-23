@@ -14,7 +14,6 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasIndex(e => e.ParentCategoryId, "IX_Category_ParentCategoryId");
 
-            entity.Property(e => e.CreatedOnUtc).HasPrecision(6);
             entity.Property(e => e.Description).HasMaxLength(200);
             entity.Property(e => e.MetaDescription).HasMaxLength(300);
             entity.Property(e => e.MetaKeywords).HasMaxLength(250);
@@ -36,7 +35,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                 MetaDescription = "MetaDescription",
                 MetaKeywords = "MetaKeywords",
                 MetaTitle = "Title",
-                CreatedOnUtc = DateTime.Parse("2024-01-10 10:58:14.7398970"),
+                CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                 Deleted = false,
                 ShowOnHomepage = true,
                 Description = "Description of Category 1",
@@ -49,7 +48,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                 MetaDescription = "MetaDescription",
                 MetaKeywords = "MetaKeywords",
                 MetaTitle = "Title",
-                CreatedOnUtc = DateTime.Parse("2024-01-10 10:58:14.7398970"),
+                CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                 Deleted = false,
                 ShowOnHomepage = true,
                 Description = "Description of Category 2",

@@ -14,7 +14,6 @@ namespace Hydra.Crm.Core.EntityConfiguration.Subscribe
             .IsRequired()
             .HasMaxLength(100);
 
-            entity.Property(e => e.InsertDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.SubscribeLabel).WithMany(p => p.Subscribes)
             .HasForeignKey(d => d.SubscribeLabelId)

@@ -1,4 +1,4 @@
-﻿using Hydra.Infrastructure.Localization;
+﻿using Hydra.Kernel.Localization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +16,7 @@ namespace Hydra.Infrastructure.localization
         {
             // Configure the HTTP request pipeline.
 
-            IList<CultureInfo> supportedCultures = new List<CultureInfo>
+            IList<CultureInfo> supportedUICultures = new List<CultureInfo>
             {
                 new CultureInfo(CultureInfoTypes.ENGLISH_US),
                 new CultureInfo(CultureInfoTypes.ENGLISH_GB),
@@ -25,18 +25,26 @@ namespace Hydra.Infrastructure.localization
                 new CultureInfo(CultureInfoTypes.ARABIC),
                 new CultureInfo(CultureInfoTypes.FARSI)
             };
+            // Supported Cultures for formatting (dates, numbers, currency)
+            // Keep this fixed to prevent culture-specific formatting issues
+            // You can use InvariantCulture or a specific culture like en-US
+            IList<CultureInfo> supportedCultures = new List<CultureInfo>
+            {
+                CultureInfo.InvariantCulture, // Use InvariantCulture for consistent formatting
+                // Or use a specific culture: new CultureInfo(CultureInfoTypes.ENGLISH_US)
+            };
 
             var requestLocalizationOptions = new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(CultureInfoTypes.ENGLISH_US),
                 SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures,
+                SupportedUICultures = supportedUICultures,
                 RequestCultureProviders = new List<IRequestCultureProvider>
                 {
                     new QueryStringRequestCultureProvider()
                     {
                         QueryStringKey = "lang",
-                        UIQueryStringKey ="ui-lang"
+                        UIQueryStringKey ="ui-lang",
 
                     },
                     new AcceptLanguageHeaderRequestCultureProvider(),
@@ -64,7 +72,7 @@ namespace Hydra.Infrastructure.localization
         public static void AddlocalizationConfig(this IServiceCollection services)
         {
 
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddLocalization();
 
         }
     }

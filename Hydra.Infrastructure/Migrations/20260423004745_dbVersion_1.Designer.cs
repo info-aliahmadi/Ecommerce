@@ -3,42 +3,46 @@ using System;
 using Hydra.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Hydra.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250507214829_dbVersion_01")]
-    partial class dbVersion_01
+    [Migration("20260423004745_dbVersion_1")]
+    partial class dbVersion_1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("ProductVersion", "9.0.11")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("DiscountCategory", b =>
                 {
                     b.Property<int>("DiscountId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("discount_id");
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("category_id");
 
                     b.HasKey("DiscountId", "CategoryId")
                         .HasName("PK_Discount_AppliedToCategories");
 
-                    b.HasIndex(new[] { "CategoryId" }, "IX_Discount_AppliedToCategories_Category_Id");
+                    b.HasIndex(new[] { "CategoryId" }, "IX_Discount_AppliedToCategories_Category_Id")
+                        .HasDatabaseName("ix_discount_category_category_id");
 
-                    b.HasIndex(new[] { "DiscountId" }, "IX_Discount_AppliedToCategories_Discount_Id");
+                    b.HasIndex(new[] { "DiscountId" }, "IX_Discount_AppliedToCategories_Discount_Id")
+                        .HasDatabaseName("ix_discount_category_discount_id");
 
                     b.ToTable("DiscountCategory", "Sale");
                 });
@@ -46,17 +50,21 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("DiscountManufacturer", b =>
                 {
                     b.Property<int>("DiscountId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("discount_id");
 
                     b.Property<int>("ManufacturerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("manufacturer_id");
 
                     b.HasKey("DiscountId", "ManufacturerId")
                         .HasName("PK_Discount_AppliedToManufacturers");
 
-                    b.HasIndex(new[] { "DiscountId" }, "IX_Discount_AppliedToManufacturers_Discount_Id");
+                    b.HasIndex(new[] { "DiscountId" }, "IX_Discount_AppliedToManufacturers_Discount_Id")
+                        .HasDatabaseName("ix_discount_manufacturer_discount_id");
 
-                    b.HasIndex(new[] { "ManufacturerId" }, "IX_Discount_AppliedToManufacturers_Manufacturer_Id");
+                    b.HasIndex(new[] { "ManufacturerId" }, "IX_Discount_AppliedToManufacturers_Manufacturer_Id")
+                        .HasDatabaseName("ix_discount_manufacturer_manufacturer_id");
 
                     b.ToTable("DiscountManufacturer", "Sale");
                 });
@@ -64,17 +72,21 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("DiscountProduct", b =>
                 {
                     b.Property<int>("DiscountId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("discount_id");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
 
                     b.HasKey("DiscountId", "ProductId")
                         .HasName("PK_Discount_AppliedToProducts");
 
-                    b.HasIndex(new[] { "DiscountId" }, "IX_Discount_AppliedToProducts_Discount_Id");
+                    b.HasIndex(new[] { "DiscountId" }, "IX_Discount_AppliedToProducts_Discount_Id")
+                        .HasDatabaseName("ix_discount_product_discount_id");
 
-                    b.HasIndex(new[] { "ProductId" }, "IX_Discount_AppliedToProducts_Product_Id");
+                    b.HasIndex(new[] { "ProductId" }, "IX_Discount_AppliedToProducts_Product_Id")
+                        .HasDatabaseName("ix_discount_product_product_id");
 
                     b.ToTable("DiscountProduct", "Sale");
                 });
@@ -83,21 +95,25 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("name");
 
                     b.Property<string>("NormalizedName")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("normalized_name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_permission");
 
                     b.ToTable("Permission", "Auth");
 
@@ -372,29 +388,33 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("concurrency_stamp");
 
                     b.Property<string>("Name")
                         .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("name");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("normalized_name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_role");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("Role", "Auth");
 
@@ -435,23 +455,29 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("claim_type");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("claim_value");
 
                     b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("role_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_role_claim");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("RoleId")
+                        .HasDatabaseName("ix_role_claim_role_id");
 
                     b.ToTable("RoleClaim", "Auth");
                 });
@@ -460,89 +486,109 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("access_failed_count");
 
                     b.Property<string>("Avatar")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("avatar");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("concurrency_stamp");
 
                     b.Property<string>("DefaultLanguage")
                         .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
+                        .HasColumnType("character varying(6)")
+                        .HasColumnName("default_language");
 
                     b.Property<string>("DefaultTheme")
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("default_theme");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("email");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("email_confirmed");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("lockout_enabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("lockout_end");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("name");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("normalized_email");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("normalized_user_name");
 
                     b.Property<string>("PasswordHash")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("password_hash");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("phone_number");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("phone_number_confirmed");
 
                     b.Property<DateTime?>("RegisterDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("register_date");
 
                     b.Property<string>("SecurityStamp")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("security_stamp");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("two_factor_enabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("user_name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_user");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("User", "Auth");
                 });
@@ -551,24 +597,30 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("claim_type");
 
                     b.Property<string>("ClaimValue")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("claim_value");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_user_claim");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_user_claim_user_id");
 
                     b.ToTable("UserClaim", "Auth");
                 });
@@ -576,21 +628,27 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Auth.Domain.UserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text")
+                        .HasColumnName("login_provider");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text")
+                        .HasColumnName("provider_key");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("provider_display_name");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("LoginProvider", "ProviderKey");
+                    b.HasKey("LoginProvider", "ProviderKey")
+                        .HasName("pk_user_login");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_user_login_user_id");
 
                     b.ToTable("UserLogin", "Auth");
                 });
@@ -598,14 +656,18 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Auth.Domain.UserRole", b =>
                 {
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
                     b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("role_id");
 
-                    b.HasKey("UserId", "RoleId");
+                    b.HasKey("UserId", "RoleId")
+                        .HasName("pk_user_role");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("RoleId")
+                        .HasDatabaseName("ix_user_role_role_id");
 
                     b.ToTable("UserRole", "Auth");
                 });
@@ -613,19 +675,24 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Auth.Domain.UserToken", b =>
                 {
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text")
+                        .HasColumnName("login_provider");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
                     b.Property<string>("Value")
                         .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("character varying(450)")
+                        .HasColumnName("value");
 
-                    b.HasKey("UserId", "LoginProvider", "Name");
+                    b.HasKey("UserId", "LoginProvider", "Name")
+                        .HasName("pk_user_token");
 
                     b.ToTable("UserToken", "Auth");
                 });
@@ -634,56 +701,73 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Body")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("body");
 
                     b.Property<DateTime?>("EditDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("edit_date");
 
                     b.Property<int?>("EditorId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("editor_id");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
 
                     b.Property<bool>("IsDraft")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_draft");
 
                     b.Property<bool>("IsPinned")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_pinned");
 
                     b.Property<int?>("PreviewImageId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("preview_image_id");
 
                     b.Property<string>("PreviewImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("preview_image_url");
 
                     b.Property<DateTime>("PublishDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("publish_date");
 
                     b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("register_date");
 
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("subject");
 
                     b.Property<int>("WriterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("writer_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_article");
 
-                    b.HasIndex("EditorId");
+                    b.HasIndex("EditorId")
+                        .HasDatabaseName("ix_article_editor_id");
 
-                    b.HasIndex("PreviewImageId");
+                    b.HasIndex("PreviewImageId")
+                        .HasDatabaseName("ix_article_preview_image_id");
 
-                    b.HasIndex("WriterId");
+                    b.HasIndex("WriterId")
+                        .HasDatabaseName("ix_article_writer_id");
 
                     b.ToTable("Article", "Cms");
                 });
@@ -691,14 +775,18 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Cms.Core.Domain.ArticleTag", b =>
                 {
                     b.Property<int>("TagId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("tag_id");
 
                     b.Property<int>("ArticleId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("article_id");
 
-                    b.HasKey("TagId", "ArticleId");
+                    b.HasKey("TagId", "ArticleId")
+                        .HasName("pk_article_tag");
 
-                    b.HasIndex("ArticleId");
+                    b.HasIndex("ArticleId")
+                        .HasDatabaseName("ix_article_tag_article_id");
 
                     b.ToTable("ArticleTag", "Cms");
                 });
@@ -706,14 +794,18 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Cms.Core.Domain.ArticleTopic", b =>
                 {
                     b.Property<int>("TopicId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("topic_id");
 
                     b.Property<int>("ArticleId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("article_id");
 
-                    b.HasKey("TopicId", "ArticleId");
+                    b.HasKey("TopicId", "ArticleId")
+                        .HasName("pk_article_topic");
 
-                    b.HasIndex("ArticleId");
+                    b.HasIndex("ArticleId")
+                        .HasDatabaseName("ix_article_topic_article_id");
 
                     b.ToTable("ArticleTopic", "Cms");
                 });
@@ -722,41 +814,52 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("description");
 
                     b.Property<int?>("ImagePreviewId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("image_preview_id");
 
                     b.Property<int>("LinkSectionId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("link_section_id");
 
                     b.Property<int>("Order")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("title");
 
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("url");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_link");
 
-                    b.HasIndex("LinkSectionId");
+                    b.HasIndex("LinkSectionId")
+                        .HasDatabaseName("ix_link_link_section_id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_link_user_id");
 
                     b.ToTable("Link", "Cms");
                 });
@@ -765,22 +868,27 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsVisible")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_visible");
 
                     b.Property<string>("Key")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("key");
 
                     b.Property<string>("Title")
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("title");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_link_section");
 
                     b.ToTable("LinkSection", "Cms");
 
@@ -805,35 +913,44 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Order")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order");
 
                     b.Property<int?>("ParentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("parent_id");
 
                     b.Property<int?>("PreviewImageId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("preview_image_id");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("title");
 
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("url");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_menu");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("ParentId")
+                        .HasDatabaseName("ix_menu_parent_id");
 
                     b.ToTable("Menu", "Cms");
 
@@ -884,41 +1001,52 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Body")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("body");
 
                     b.Property<DateTime?>("EditDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("edit_date");
 
                     b.Property<int?>("EditorId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("editor_id");
 
                     b.Property<string>("PageTitle")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("page_title");
 
                     b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("register_date");
 
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("subject");
 
                     b.Property<int>("WriterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("writer_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_page");
 
-                    b.HasIndex("EditorId");
+                    b.HasIndex("EditorId")
+                        .HasDatabaseName("ix_page_editor_id");
 
-                    b.HasIndex("WriterId");
+                    b.HasIndex("WriterId")
+                        .HasDatabaseName("ix_page_writer_id");
 
                     b.ToTable("Page", "Cms");
                 });
@@ -926,14 +1054,18 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Cms.Core.Domain.PageTag", b =>
                 {
                     b.Property<int>("TagId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("tag_id");
 
                     b.Property<int>("PageId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("page_id");
 
-                    b.HasKey("TagId", "PageId");
+                    b.HasKey("TagId", "PageId")
+                        .HasName("pk_page_tag");
 
-                    b.HasIndex("PageId");
+                    b.HasIndex("PageId")
+                        .HasDatabaseName("ix_page_tag_page_id");
 
                     b.ToTable("PageTag", "Cms");
                 });
@@ -942,41 +1074,52 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("create_date");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("description");
 
                     b.Property<string>("Header")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("header");
 
                     b.Property<bool>("IsVisible")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_visible");
 
                     b.Property<int>("Order")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order");
 
                     b.Property<int?>("PreviewImageId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("preview_image_id");
 
                     b.Property<string>("PreviewImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("preview_image_url");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_slideshow");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_slideshow_user_id");
 
                     b.ToTable("Slideshow", "Cms");
                 });
@@ -985,16 +1128,19 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("title");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_tag");
 
                     b.ToTable("Tag", "Cms");
                 });
@@ -1003,27 +1149,34 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("ParentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("parent_id");
 
                     b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("register_date");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("title");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_topic");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("ParentId")
+                        .HasDatabaseName("ix_topic_parent_id");
 
                     b.ToTable("Topic", "Cms");
                 });
@@ -1032,39 +1185,49 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("content");
 
                     b.Property<DateTimeOffset>("Date")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("date");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
 
                     b.Property<bool>("IsPin")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_pin");
 
                     b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_read");
 
                     b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("register_date");
 
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("subject");
 
                     b.Property<string>("UID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("uid");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_email_inbox");
 
                     b.ToTable("EmailInbox", "Crm");
                 });
@@ -1073,19 +1236,24 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AttachmentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("attachment_id");
 
                     b.Property<int>("EmailInboxId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("email_inbox_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_email_inbox_attachment");
 
-                    b.HasIndex("EmailInboxId");
+                    b.HasIndex("EmailInboxId")
+                        .HasDatabaseName("ix_email_inbox_attachment_email_inbox_id");
 
                     b.ToTable("EmailInboxAttachment", "Crm");
                 });
@@ -1094,24 +1262,30 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("address");
 
                     b.Property<int>("EmailInboxId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("email_inbox_id");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_email_inbox_from_address");
 
-                    b.HasIndex("EmailInboxId");
+                    b.HasIndex("EmailInboxId")
+                        .HasDatabaseName("ix_email_inbox_from_address_email_inbox_id");
 
                     b.ToTable("EmailInboxFromAddress", "Crm");
                 });
@@ -1120,24 +1294,30 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("address");
 
                     b.Property<int>("EmailInboxId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("email_inbox_id");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_email_inbox_to_address");
 
-                    b.HasIndex("EmailInboxId");
+                    b.HasIndex("EmailInboxId")
+                        .HasDatabaseName("ix_email_inbox_to_address_email_inbox_id");
 
                     b.ToTable("EmailInboxToAddress", "Crm");
                 });
@@ -1146,31 +1326,39 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("content");
 
                     b.Property<bool>("IsDraft")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_draft");
 
                     b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("register_date");
 
                     b.Property<int?>("ReplayToId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("replay_to_id");
 
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("subject");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_email_outbox");
 
-                    b.HasIndex("ReplayToId");
+                    b.HasIndex("ReplayToId")
+                        .HasDatabaseName("ix_email_outbox_replay_to_id");
 
                     b.ToTable("EmailOutbox", "Crm");
                 });
@@ -1179,19 +1367,24 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AttachmentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("attachment_id");
 
                     b.Property<int>("EmailOutboxId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("email_outbox_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_email_outbox_attachment");
 
-                    b.HasIndex("EmailOutboxId");
+                    b.HasIndex("EmailOutboxId")
+                        .HasDatabaseName("ix_email_outbox_attachment_email_outbox_id");
 
                     b.ToTable("EmailOutboxAttachment", "Crm");
                 });
@@ -1200,24 +1393,30 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("address");
 
                     b.Property<int>("EmailOutboxId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("email_outbox_id");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_email_outbox_from_address");
 
-                    b.HasIndex("EmailOutboxId");
+                    b.HasIndex("EmailOutboxId")
+                        .HasDatabaseName("ix_email_outbox_from_address_email_outbox_id");
 
                     b.ToTable("EmailOutboxFromAddress", "Crm");
                 });
@@ -1226,24 +1425,30 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("address");
 
                     b.Property<int>("EmailOutboxId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("email_outbox_id");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_email_outbox_to_address");
 
-                    b.HasIndex("EmailOutboxId");
+                    b.HasIndex("EmailOutboxId")
+                        .HasDatabaseName("ix_email_outbox_to_address_email_outbox_id");
 
                     b.ToTable("EmailOutboxToAddress", "Crm");
                 });
@@ -1252,45 +1457,57 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("content");
 
                     b.Property<string>("Email")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("email");
 
                     b.Property<int?>("FromUserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("from_user_id");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
 
                     b.Property<bool>("IsDraft")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_draft");
 
                     b.Property<int>("MessageType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("message_type");
 
                     b.Property<string>("Name")
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("name");
 
                     b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("register_date");
 
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("subject");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_message");
 
-                    b.HasIndex("FromUserId");
+                    b.HasIndex("FromUserId")
+                        .HasDatabaseName("ix_message_from_user_id");
 
                     b.ToTable("Message", "Crm");
                 });
@@ -1299,19 +1516,24 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AttachmentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("attachment_id");
 
                     b.Property<int>("MessageId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("message_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_message_attachment");
 
-                    b.HasIndex("MessageId");
+                    b.HasIndex("MessageId")
+                        .HasDatabaseName("ix_message_attachment_message_id");
 
                     b.ToTable("MessageAttachment", "Crm");
                 });
@@ -1320,30 +1542,39 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
 
                     b.Property<bool>("IsPin")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_pin");
 
                     b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_read");
 
                     b.Property<int>("MessageId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("message_id");
 
                     b.Property<int>("ToUserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("to_user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_message_user");
 
-                    b.HasIndex("MessageId");
+                    b.HasIndex("MessageId")
+                        .HasDatabaseName("ix_message_user_message_id");
 
-                    b.HasIndex("ToUserId");
+                    b.HasIndex("ToUserId")
+                        .HasDatabaseName("ix_message_user_to_user_id");
 
                     b.ToTable("MessageUser", "Crm");
                 });
@@ -1352,24 +1583,30 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("email");
 
                     b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("insert_date");
 
                     b.Property<int>("SubscribeLabelId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("subscribe_label_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_subscribe");
 
-                    b.HasIndex("SubscribeLabelId");
+                    b.HasIndex("SubscribeLabelId")
+                        .HasDatabaseName("ix_subscribe_subscribe_label_id");
 
                     b.ToTable("Subscribe", "Cms");
                 });
@@ -1378,19 +1615,23 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("insert_date");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("title");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_subscribe_label");
 
                     b.ToTable("SubscribeLabel", "Cms");
                 });
@@ -1399,85 +1640,105 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address1")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("address1");
 
                     b.Property<string>("Address2")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("address2");
 
                     b.Property<string>("City")
                         .IsRequired()
                         .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("city");
 
                     b.Property<string>("Company")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("company");
 
                     b.Property<int>("CountryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("country_id");
 
                     b.Property<string>("County")
                         .IsRequired()
                         .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("county");
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("email");
 
                     b.Property<string>("FaxNumber")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("fax_number");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("first_name");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("last_name");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("phone_number");
 
                     b.Property<int>("StateProvinceId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("state_province_id");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
                     b.Property<string>("ZipPostalCode")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("zip_postal_code");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_address");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_address_user_id");
 
-                    b.HasIndex(new[] { "CountryId" }, "IX_Address_CountryId");
+                    b.HasIndex(new[] { "CountryId" }, "IX_Address_CountryId")
+                        .HasDatabaseName("ix_address_country_id");
 
-                    b.HasIndex(new[] { "StateProvinceId" }, "IX_Address_StateProvinceId");
+                    b.HasIndex(new[] { "StateProvinceId" }, "IX_Address_StateProvinceId")
+                        .HasDatabaseName("ix_address_state_province_id");
 
                     b.ToTable("Address", "Sale");
                 });
@@ -1486,66 +1747,82 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOnUtc")
-                        .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("deleted");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("description");
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("meta_description");
 
                     b.Property<string>("MetaKeywords")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("meta_keywords");
 
                     b.Property<string>("MetaTitle")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("meta_title");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("name");
 
                     b.Property<int?>("ParentCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("parent_category_id");
 
                     b.Property<int?>("PictureId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("picture_id");
 
                     b.Property<bool>("Published")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("published");
 
                     b.Property<bool>("ShowOnHomepage")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("show_on_homepage");
 
                     b.Property<DateTime>("UpdatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("updated_on_utc");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_category");
 
-                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Category_DisplayOrder");
+                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Category_DisplayOrder")
+                        .HasDatabaseName("ix_category_display_order");
 
-                    b.HasIndex(new[] { "ParentCategoryId" }, "IX_Category_ParentCategoryId");
+                    b.HasIndex(new[] { "ParentCategoryId" }, "IX_Category_ParentCategoryId")
+                        .HasDatabaseName("ix_category_parent_category_id");
 
                     b.ToTable("Category", "Sale");
 
@@ -1553,7 +1830,7 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOnUtc = new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970),
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
                             Description = "Description of Category 1",
                             DisplayOrder = 1,
@@ -1568,7 +1845,7 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOnUtc = new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970),
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
                             Description = "Description of Category 2",
                             DisplayOrder = 2,
@@ -1586,49 +1863,62 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("AllowsBilling")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("allows_billing");
 
                     b.Property<bool>("AllowsShipping")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("allows_shipping");
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<bool>("LimitedToStores")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("limited_to_stores");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
 
                     b.Property<int>("NumericIsoCode")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("numeric_iso_code");
 
                     b.Property<bool>("Published")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("published");
 
                     b.Property<bool>("SubjectToVat")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("subject_to_vat");
 
                     b.Property<string>("ThreeLetterIsoCode")
                         .IsRequired()
                         .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasColumnType("character varying(3)")
+                        .HasColumnName("three_letter_iso_code");
 
                     b.Property<string>("TwoLetterIsoCode")
                         .IsRequired()
                         .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
+                        .HasColumnType("character varying(2)")
+                        .HasColumnName("two_letter_iso_code");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_country");
 
-                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Country_DisplayOrder");
+                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Country_DisplayOrder")
+                        .HasDatabaseName("ix_country_display_order");
 
                     b.ToTable("Country", "Sale");
 
@@ -5125,56 +5415,69 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOnUtc")
-                        .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<string>("CurrencyCode")
                         .IsRequired()
                         .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                        .HasColumnType("character varying(5)")
+                        .HasColumnName("currency_code");
 
                     b.Property<string>("CustomFormatting")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("custom_formatting");
 
                     b.Property<string>("DisplayLocale")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("display_locale");
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<bool>("LimitedToStores")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("limited_to_stores");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("name");
 
                     b.Property<bool>("Published")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("published");
 
                     b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("rate");
 
                     b.Property<int>("RoundingTypeId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("rounding_type_id");
 
                     b.Property<DateTime>("UpdatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("updated_on_utc");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_currency");
 
-                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Currency_DisplayOrder");
+                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Currency_DisplayOrder")
+                        .HasDatabaseName("ix_currency_display_order");
 
                     b.ToTable("Currency", "Sale");
 
@@ -5182,7 +5485,7 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOnUtc = new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970),
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyCode = "USD",
                             CustomFormatting = "",
                             DisplayLocale = "en-US",
@@ -5192,12 +5495,12 @@ namespace Hydra.Infrastructure.Migrations
                             Published = true,
                             Rate = 1m,
                             RoundingTypeId = 0,
-                            UpdatedOnUtc = new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970)
+                            UpdatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOnUtc = new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970),
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyCode = "EUR",
                             CustomFormatting = "€0.00",
                             DisplayLocale = "",
@@ -5207,12 +5510,12 @@ namespace Hydra.Infrastructure.Migrations
                             Published = true,
                             Rate = 0.86m,
                             RoundingTypeId = 0,
-                            UpdatedOnUtc = new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970)
+                            UpdatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOnUtc = new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970),
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyCode = "Rial",
                             CustomFormatting = "",
                             DisplayLocale = "fa-IR",
@@ -5222,7 +5525,7 @@ namespace Hydra.Infrastructure.Migrations
                             Published = true,
                             Rate = 1m,
                             RoundingTypeId = 0,
-                            UpdatedOnUtc = new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970)
+                            UpdatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -5230,19 +5533,23 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_delivery_date");
 
                     b.ToTable("DeliveryDate", "Sale");
 
@@ -5271,63 +5578,80 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AdminComment")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("admin_comment");
 
                     b.Property<string>("CouponCode")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("coupon_code");
 
                     b.Property<decimal>("DiscountAmount")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("discount_amount");
 
                     b.Property<int>("DiscountLimitationId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("discount_limitation_id");
 
                     b.Property<decimal>("DiscountPercentage")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("discount_percentage");
 
                     b.Property<int>("DiscountTypeId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("discount_type_id");
 
                     b.Property<DateTime?>("EndDateUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("end_date_utc");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
 
                     b.Property<int>("LimitationTimes")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("limitation_times");
 
                     b.Property<decimal?>("MaximumDiscountAmount")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("maximum_discount_amount");
 
                     b.Property<int?>("MaximumDiscountedQuantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("maximum_discounted_quantity");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("name");
 
                     b.Property<bool>("RequiresCouponCode")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("requires_coupon_code");
 
                     b.Property<DateTime?>("StartDateUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("start_date_utc");
 
                     b.Property<bool>("UsePercentage")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("use_percentage");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_discount");
 
                     b.ToTable("Discount", "Sale");
 
@@ -5368,58 +5692,70 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOnUtc")
-                        .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("deleted");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("description");
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("meta_description");
 
                     b.Property<string>("MetaKeywords")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("meta_keywords");
 
                     b.Property<string>("MetaTitle")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("meta_title");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("name");
 
                     b.Property<int?>("PictureId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("picture_id");
 
                     b.Property<bool>("Published")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("published");
 
                     b.Property<DateTime>("UpdatedOnUtc")
-                        .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_on_utc");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_manufacturer");
 
-                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Manufacturer_DisplayOrder");
+                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Manufacturer_DisplayOrder")
+                        .HasDatabaseName("ix_manufacturer_display_order");
 
                     b.ToTable("Manufacturer", "Sale");
 
@@ -5427,7 +5763,7 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOnUtc = new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970),
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
                             Description = "Description of Category 1",
                             DisplayOrder = 1,
@@ -5441,7 +5777,7 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOnUtc = new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970),
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
                             Description = "Description of Category 2",
                             DisplayOrder = 2,
@@ -5458,99 +5794,131 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("AddressId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("address_id");
 
                     b.Property<bool>("AllowStoringCreditCardNumber")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("allow_storing_credit_card_number");
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<string>("CustomerIp")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("customer_ip");
 
                     b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("deleted");
 
                     b.Property<decimal>("DiscountAmount")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("discount_amount");
 
                     b.Property<decimal>("FinalPrice")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("final_price");
 
                     b.Property<byte>("OrderStatusId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint")
+                        .HasColumnName("order_status_id");
 
                     b.Property<DateTime?>("PaidDateUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("paid_date_utc");
 
                     b.Property<int?>("PaymentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("payment_id");
 
                     b.Property<byte?>("PaymentMethodId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint")
+                        .HasColumnName("payment_method_id");
 
                     b.Property<byte>("PaymentStatusId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint")
+                        .HasColumnName("payment_status_id");
 
                     b.Property<decimal>("RefundedAmount")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("refunded_amount");
 
                     b.Property<int?>("ShipmentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("shipment_id");
 
                     b.Property<decimal>("ShippingAmount")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("shipping_amount");
 
                     b.Property<decimal>("ShippingAmountTax")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("shipping_amount_tax");
 
                     b.Property<int?>("ShippingMethodId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("shipping_method_id");
 
                     b.Property<byte>("ShippingStatusId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint")
+                        .HasColumnName("shipping_status_id");
 
                     b.Property<decimal>("ShippingTax")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("shipping_tax");
 
                     b.Property<decimal>("TaxAmount")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("tax_amount");
 
                     b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("total_amount");
 
                     b.Property<int?>("UserCurrencyId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_currency_id");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_order");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("AddressId")
+                        .HasDatabaseName("ix_order_address_id");
 
-                    b.HasIndex("PaymentId");
+                    b.HasIndex("PaymentId")
+                        .HasDatabaseName("ix_order_payment_id");
 
-                    b.HasIndex("ShippingMethodId");
+                    b.HasIndex("ShippingMethodId")
+                        .HasDatabaseName("ix_order_shipping_method_id");
 
-                    b.HasIndex("UserCurrencyId");
+                    b.HasIndex("UserCurrencyId")
+                        .HasDatabaseName("ix_order_user_currency_id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_order_user_id");
 
                     b.HasIndex(new[] { "CreatedOnUtc" }, "IX_Order_CreatedOnUtc")
-                        .IsDescending();
+                        .IsDescending()
+                        .HasDatabaseName("ix_order_created_on_utc");
 
-                    b.HasIndex(new[] { "ShipmentId" }, "IX_Order_ShippingAddressId");
+                    b.HasIndex(new[] { "ShipmentId" }, "IX_Order_ShippingAddressId")
+                        .HasDatabaseName("ix_order_shipment_id");
 
                     b.ToTable("Order", "Sale");
                 });
@@ -5559,25 +5927,32 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<int>("DiscountId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("discount_id");
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_order_discount");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderId")
+                        .HasDatabaseName("ix_order_discount_order_id");
 
-                    b.HasIndex(new[] { "DiscountId", "OrderId" }, "IX_OrderDiscount");
+                    b.HasIndex(new[] { "DiscountId", "OrderId" }, "IX_OrderDiscount")
+                        .HasDatabaseName("ix_order_discount_discount_id_order_id");
 
                     b.ToTable("OrderDiscount", "Sale");
                 });
@@ -5586,41 +5961,54 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("DiscountAmount")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("discount_amount");
 
                     b.Property<int?>("DiscountId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("discount_id");
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order_id");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("total_price");
 
                     b.Property<decimal>("TotalPriceTax")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("total_price_tax");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("unit_price");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_order_item");
 
-                    b.HasIndex("DiscountId");
+                    b.HasIndex("DiscountId")
+                        .HasDatabaseName("ix_order_item_discount_id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_order_item_product_id");
 
-                    b.HasIndex(new[] { "OrderId" }, "IX_OrderItem_OrderId");
+                    b.HasIndex(new[] { "OrderId" }, "IX_OrderItem_OrderId")
+                        .HasDatabaseName("ix_order_item_order_id");
 
                     b.ToTable("OrderItem", "Sale");
                 });
@@ -5629,33 +6017,42 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_read");
 
                     b.Property<string>("Note")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("note");
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order_id");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_order_note");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_order_note_user_id");
 
-                    b.HasIndex(new[] { "OrderId" }, "IX_OrderNote_OrderId");
+                    b.HasIndex(new[] { "OrderId" }, "IX_OrderNote_OrderId")
+                        .HasDatabaseName("ix_order_note_order_id");
 
                     b.ToTable("OrderNote", "Sale");
                 });
@@ -5664,79 +6061,96 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CardCvv2")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("card_cvv2");
 
                     b.Property<string>("CardExpirationMonth")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("card_expiration_month");
 
                     b.Property<string>("CardExpirationYear")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("card_expiration_year");
 
                     b.Property<string>("CardName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("card_name");
 
                     b.Property<string>("CardNumber")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("card_number");
 
                     b.Property<string>("CardType")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("card_type");
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("deleted");
 
                     b.Property<string>("MaskedCreditCardNumber")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("masked_credit_card_number");
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order_id");
 
                     b.Property<DateTime?>("PaymentDateUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("payment_date_utc");
 
                     b.Property<string>("PaymentTrackingCode")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("payment_tracking_code");
 
                     b.Property<byte?>("PaymentTypeId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint")
+                        .HasColumnName("payment_type_id");
 
                     b.Property<int?>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
 
                     b.Property<string>("TransactionTrackingCode")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("transaction_tracking_code");
 
                     b.HasKey("Id")
                         .HasName("PK_RecurringPayment");
 
-                    b.HasIndex(new[] { "OrderId" }, "IX_RecurringPayment_InitialOrderId");
+                    b.HasIndex(new[] { "OrderId" }, "IX_RecurringPayment_InitialOrderId")
+                        .HasDatabaseName("ix_payment_order_id");
 
                     b.ToTable("Payment", "Sale");
                 });
@@ -5745,172 +6159,225 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AdminComment")
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("admin_comment");
 
                     b.Property<bool>("AllowCustomerReviews")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("allow_customer_reviews");
 
                     b.Property<bool>("AllowedQuantities")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("allowed_quantities");
 
                     b.Property<int>("ApprovedRatingSum")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("approved_rating_sum");
 
                     b.Property<int>("ApprovedTotalReviews")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("approved_total_reviews");
 
                     b.Property<DateTime?>("AvailableEndDateTimeUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("available_end_date_time_utc");
 
                     b.Property<bool>("AvailableForPreOrder")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("available_for_pre_order");
 
                     b.Property<DateTime?>("AvailableStartDateTimeUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("available_start_date_time_utc");
 
                     b.Property<bool>("CallForPrice")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("call_for_price");
 
                     b.Property<int>("CreateUserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("create_user_id");
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<int>("CurrencyId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("currency_id");
 
                     b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("deleted");
 
                     b.Property<int>("DeliveryDateId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("delivery_date_id");
 
                     b.Property<bool>("DisableBuyButton")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("disable_buy_button");
 
                     b.Property<bool>("DisableWishlistButton")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("disable_wishlist_button");
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<bool>("DisplayStockQuantity")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("display_stock_quantity");
 
                     b.Property<string>("FullDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("full_description");
 
                     b.Property<bool>("HasDiscountsApplied")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_discounts_applied");
 
                     b.Property<bool>("IsFreeShipping")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_free_shipping");
 
                     b.Property<bool>("IsTaxExempt")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_tax_exempt");
 
                     b.Property<bool>("MarkAsNew")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("mark_as_new");
 
                     b.Property<DateTime?>("MarkAsNewEndDateTimeUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("mark_as_new_end_date_time_utc");
 
                     b.Property<DateTime?>("MarkAsNewStartDateTimeUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("mark_as_new_start_date_time_utc");
 
                     b.Property<string>("MetaDescription")
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("meta_description");
 
                     b.Property<string>("MetaKeywords")
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("meta_keywords");
 
                     b.Property<string>("MetaTitle")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("meta_title");
 
                     b.Property<int>("MinStockQuantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("min_stock_quantity");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
 
                     b.Property<int>("NotApprovedRatingSum")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("not_approved_rating_sum");
 
                     b.Property<int>("NotApprovedTotalReviews")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("not_approved_total_reviews");
 
                     b.Property<bool>("NotReturnable")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("not_returnable");
 
                     b.Property<bool>("NotifyAdminForQuantityBelow")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("notify_admin_for_quantity_below");
 
                     b.Property<decimal>("OldPrice")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("old_price");
 
                     b.Property<int>("OrderMaximumQuantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order_maximum_quantity");
 
                     b.Property<int>("OrderMinimumQuantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order_minimum_quantity");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("price");
 
                     b.Property<bool>("Published")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("published");
 
                     b.Property<string>("ShortDescription")
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("short_description");
 
                     b.Property<bool>("ShowOnHomepage")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("show_on_homepage");
 
                     b.Property<int>("StockQuantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("stock_quantity");
 
                     b.Property<int>("TaxCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("tax_category_id");
 
                     b.Property<int?>("UpdateUserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("update_user_id");
 
                     b.Property<DateTime?>("UpdatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("updated_on_utc");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_product");
 
-                    b.HasIndex("CreateUserId");
+                    b.HasIndex("CreateUserId")
+                        .HasDatabaseName("ix_product_create_user_id");
 
-                    b.HasIndex("CurrencyId");
+                    b.HasIndex("CurrencyId")
+                        .HasDatabaseName("ix_product_currency_id");
 
-                    b.HasIndex("DeliveryDateId");
+                    b.HasIndex("DeliveryDateId")
+                        .HasDatabaseName("ix_product_delivery_date_id");
 
-                    b.HasIndex("TaxCategoryId");
+                    b.HasIndex("TaxCategoryId")
+                        .HasDatabaseName("ix_product_tax_category_id");
 
-                    b.HasIndex("UpdateUserId");
+                    b.HasIndex("UpdateUserId")
+                        .HasDatabaseName("ix_product_update_user_id");
 
-                    b.HasIndex(new[] { "Published", "Deleted", "Id" }, "IX_Product_Deleted_and_Published");
+                    b.HasIndex(new[] { "Published", "Deleted", "Id" }, "IX_Product_Deleted_and_Published")
+                        .HasDatabaseName("ix_product_published_deleted_id");
 
                     b.ToTable("Product", "Sale");
                 });
@@ -5919,38 +6386,48 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AttributeType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("attribute_type");
 
                     b.Property<string>("Description")
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("description");
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
 
                     b.Property<int?>("PictureId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("picture_id");
 
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("value");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_product_attribute");
 
-                    b.HasIndex(new[] { "AttributeType" }, "IX_Attribute_AttributeType");
+                    b.HasIndex(new[] { "AttributeType" }, "IX_Attribute_AttributeType")
+                        .HasDatabaseName("ix_product_attribute_attribute_type");
 
-                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Attribute_DisplayOrder");
+                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Attribute_DisplayOrder")
+                        .HasDatabaseName("ix_product_attribute_display_order");
 
                     b.ToTable("ProductAttribute", "Sale");
 
@@ -6020,27 +6497,34 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("category_id");
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
 
                     b.HasKey("Id")
                         .HasName("PK_Product_Category_Mapping");
 
-                    b.HasIndex(new[] { "CategoryId", "ProductId" }, "IX_PCM_Product_and_Category");
+                    b.HasIndex(new[] { "CategoryId", "ProductId" }, "IX_PCM_Product_and_Category")
+                        .HasDatabaseName("ix_product_category_category_id_product_id");
 
-                    b.HasIndex(new[] { "CategoryId" }, "IX_Product_Category_Mapping_CategoryId");
+                    b.HasIndex(new[] { "CategoryId" }, "IX_Product_Category_Mapping_CategoryId")
+                        .HasDatabaseName("ix_product_category_category_id");
 
-                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Category_Mapping_ProductId");
+                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Category_Mapping_ProductId")
+                        .HasDatabaseName("ix_product_category_product_id");
 
                     b.ToTable("ProductCategory", "Sale");
                 });
@@ -6049,31 +6533,39 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("AttributeId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("attribute_id");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
 
                     b.Property<int>("ReservedQuantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("reserved_quantity");
 
                     b.Property<int>("StockQuantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("stock_quantity");
 
                     b.Property<int>("StockType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("stock_type");
 
                     b.HasKey("Id")
                         .HasName("PK_ProductWarehouseInventory");
 
-                    b.HasIndex("AttributeId");
+                    b.HasIndex("AttributeId")
+                        .HasDatabaseName("ix_product_inventory_attribute_id");
 
-                    b.HasIndex(new[] { "ProductId" }, "IX_ProductWarehouseInventory_ProductId");
+                    b.HasIndex(new[] { "ProductId" }, "IX_ProductWarehouseInventory_ProductId")
+                        .HasDatabaseName("ix_product_inventory_product_id");
 
                     b.ToTable("ProductInventory", "Sale");
                 });
@@ -6082,27 +6574,34 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<int>("ManufacturerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("manufacturer_id");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
 
                     b.HasKey("Id")
                         .HasName("PK_Product_Manufacturer_Mapping");
 
-                    b.HasIndex(new[] { "ManufacturerId", "ProductId" }, "IX_PMM_Product_and_Manufacturer");
+                    b.HasIndex(new[] { "ManufacturerId", "ProductId" }, "IX_PMM_Product_and_Manufacturer")
+                        .HasDatabaseName("ix_product_manufacturer_manufacturer_id_product_id");
 
-                    b.HasIndex(new[] { "ManufacturerId" }, "IX_Product_Manufacturer_Mapping_ManufacturerId");
+                    b.HasIndex(new[] { "ManufacturerId" }, "IX_Product_Manufacturer_Mapping_ManufacturerId")
+                        .HasDatabaseName("ix_product_manufacturer_manufacturer_id");
 
-                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Manufacturer_Mapping_ProductId");
+                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Manufacturer_Mapping_ProductId")
+                        .HasDatabaseName("ix_product_manufacturer_product_id");
 
                     b.ToTable("ProductManufacturer", "Sale");
                 });
@@ -6111,25 +6610,31 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<int>("PictureId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("picture_id");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
 
                     b.HasKey("Id")
                         .HasName("PK_Product_Picture_Mapping");
 
-                    b.HasIndex(new[] { "PictureId" }, "IX_Product_Picture_Mapping_PictureId");
+                    b.HasIndex(new[] { "PictureId" }, "IX_Product_Picture_Mapping_PictureId")
+                        .HasDatabaseName("ix_product_picture_picture_id");
 
-                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Picture_Mapping_ProductId");
+                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Picture_Mapping_ProductId")
+                        .HasDatabaseName("ix_product_picture_product_id");
 
                     b.ToTable("ProductPicture", "Sale");
                 });
@@ -6138,24 +6643,30 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AttributeId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("attribute_id");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
 
                     b.HasKey("Id")
                         .HasName("PK_Product_Attribute_Mapping");
 
-                    b.HasIndex(new[] { "AttributeId", "ProductId" }, "IX_PCM_Product_and_Attribute");
+                    b.HasIndex(new[] { "AttributeId", "ProductId" }, "IX_PCM_Product_and_Attribute")
+                        .HasDatabaseName("ix_product_product_attribute_attribute_id_product_id");
 
-                    b.HasIndex(new[] { "AttributeId" }, "IX_Product_Attribute_Mapping_AttributeId");
+                    b.HasIndex(new[] { "AttributeId" }, "IX_Product_Attribute_Mapping_AttributeId")
+                        .HasDatabaseName("ix_product_product_attribute_attribute_id");
 
-                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Attribute_Mapping_ProductId");
+                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Attribute_Mapping_ProductId")
+                        .HasDatabaseName("ix_product_product_attribute_product_id");
 
                     b.ToTable("ProductProductAttribute", "Sale");
                 });
@@ -6163,14 +6674,18 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductProductTag", b =>
                 {
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
 
                     b.Property<int>("ProductTagId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_tag_id");
 
-                    b.HasKey("ProductId", "ProductTagId");
+                    b.HasKey("ProductId", "ProductTagId")
+                        .HasName("pk_product_product_tag");
 
-                    b.HasIndex("ProductTagId");
+                    b.HasIndex("ProductTagId")
+                        .HasDatabaseName("ix_product_product_tag_product_tag_id");
 
                     b.ToTable("ProductProductTag", "Sale");
                 });
@@ -6179,55 +6694,70 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<bool>("CustomerNotifiedOfReply")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("customer_notified_of_reply");
 
                     b.Property<int>("HelpfulNoTotal")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("helpful_no_total");
 
                     b.Property<int>("HelpfulYesTotal")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("helpful_yes_total");
 
                     b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_approved");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
 
                     b.Property<int>("Rating")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("rating");
 
                     b.Property<string>("ReplyText")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("reply_text");
 
                     b.Property<string>("ReviewText")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("review_text");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("title");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_product_review");
 
-                    b.HasIndex(new[] { "UserId" }, "IX_ProductReview_CustomerId");
+                    b.HasIndex(new[] { "UserId" }, "IX_ProductReview_CustomerId")
+                        .HasDatabaseName("ix_product_review_user_id");
 
-                    b.HasIndex(new[] { "ProductId" }, "IX_ProductReview_ProductId");
+                    b.HasIndex(new[] { "ProductId" }, "IX_ProductReview_ProductId")
+                        .HasDatabaseName("ix_product_review_product_id");
 
                     b.ToTable("ProductReview", "Sale");
                 });
@@ -6236,24 +6766,31 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ProductReviewId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_review_id");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
                     b.Property<bool>("WasHelpful")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("was_helpful");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_product_review_helpfulness");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_product_review_helpfulness_user_id");
 
-                    b.HasIndex(new[] { "ProductReviewId" }, "IX_ProductReviewHelpfulness_ProductReviewId");
+                    b.HasIndex(new[] { "ProductReviewId" }, "IX_ProductReviewHelpfulness_ProductReviewId")
+                        .HasDatabaseName("ix_product_review_helpfulness_product_review_id");
 
                     b.ToTable("ProductReviewHelpfulness", "Sale");
                 });
@@ -6262,18 +6799,22 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_product_tag");
 
-                    b.HasIndex(new[] { "Name" }, "IX_ProductTag_Name");
+                    b.HasIndex(new[] { "Name" }, "IX_ProductTag_Name")
+                        .HasDatabaseName("ix_product_tag_name");
 
                     b.ToTable("ProductTag", "Sale");
 
@@ -6299,24 +6840,31 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<int>("ProductId1")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id1");
 
                     b.Property<int>("ProductId2")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id2");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_related_product");
 
-                    b.HasIndex("ProductId2");
+                    b.HasIndex("ProductId2")
+                        .HasDatabaseName("ix_related_product_product_id2");
 
-                    b.HasIndex(new[] { "ProductId1" }, "IX_RelatedProduct_ProductId1");
+                    b.HasIndex(new[] { "ProductId1" }, "IX_RelatedProduct_ProductId1")
+                        .HasDatabaseName("ix_related_product_product_id1");
 
                     b.ToTable("RelatedProduct", "Sale");
                 });
@@ -6325,19 +6873,23 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Count")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("count");
 
                     b.Property<string>("Keyword")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("keyword");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_search_term");
 
                     b.ToTable("SearchTerm", "Sale");
                 });
@@ -6346,45 +6898,56 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AdminComment")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("admin_comment");
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<DateTime?>("DeliveryDateUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("delivery_date_utc");
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order_id");
 
                     b.Property<DateTime?>("ReadyForPickupDateUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("ready_for_pickup_date_utc");
 
                     b.Property<DateTime?>("ShippedDateUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("shipped_date_utc");
 
                     b.Property<decimal?>("TotalWeight")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("total_weight");
 
                     b.Property<string>("TrackingNumber")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("tracking_number");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_shipment");
 
-                    b.HasIndex(new[] { "OrderId" }, "IX_Shipment_OrderId");
+                    b.HasIndex(new[] { "OrderId" }, "IX_Shipment_OrderId")
+                        .HasDatabaseName("ix_shipment_order_id");
 
                     b.ToTable("Shipment", "Sale");
                 });
@@ -6393,24 +6956,31 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("OrderItemId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("order_item_id");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
 
                     b.Property<int>("ShipmentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("shipment_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_shipment_item");
 
-                    b.HasIndex("OrderItemId");
+                    b.HasIndex("OrderItemId")
+                        .HasDatabaseName("ix_shipment_item_order_item_id");
 
-                    b.HasIndex(new[] { "ShipmentId" }, "IX_ShipmentItem_ShipmentId");
+                    b.HasIndex(new[] { "ShipmentId" }, "IX_ShipmentItem_ShipmentId")
+                        .HasDatabaseName("ix_shipment_item_shipment_id");
 
                     b.ToTable("ShipmentItem", "Sale");
                 });
@@ -6419,24 +6989,29 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("description");
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_shipping_method");
 
                     b.ToTable("ShippingMethod", "Sale");
 
@@ -6468,37 +7043,48 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
 
                     b.Property<byte>("ShoppingCartTypeId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint")
+                        .HasColumnName("shopping_cart_type_id");
 
                     b.Property<DateTime>("UpdatedOnUtc")
                         .HasPrecision(6)
-                        .HasColumnType("datetime2(6)");
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("updated_on_utc");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_shopping_cart_item");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_shopping_cart_item_product_id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_shopping_cart_item_user_id");
 
-                    b.HasIndex(new[] { "Id" }, "IX_ShoppingCartItem");
+                    b.HasIndex(new[] { "Id" }, "IX_ShoppingCartItem")
+                        .HasDatabaseName("ix_shopping_cart_item_id");
 
                     b.ToTable("ShoppingCartItem", "Sale");
                 });
@@ -6507,32 +7093,40 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Abbreviation")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("abbreviation");
 
                     b.Property<int>("CountryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("country_id");
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
 
                     b.Property<bool>("Published")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("published");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_state_province");
 
-                    b.HasIndex(new[] { "CountryId" }, "IX_StateProvince_CountryId");
+                    b.HasIndex(new[] { "CountryId" }, "IX_StateProvince_CountryId")
+                        .HasDatabaseName("ix_state_province_country_id");
 
                     b.ToTable("StateProvince", "Sale");
 
@@ -23067,19 +23661,23 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_tax_category");
 
                     b.ToTable("TaxCategory", "Sale");
 
@@ -23108,29 +23706,38 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CountryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("country_id");
 
                     b.Property<decimal>("Percentage")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnName("percentage");
 
                     b.Property<int>("StateProvinceId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("state_province_id");
 
                     b.Property<int>("TaxCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("tax_category_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_tax_rate");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CountryId")
+                        .HasDatabaseName("ix_tax_rate_country_id");
 
-                    b.HasIndex("StateProvinceId");
+                    b.HasIndex("StateProvinceId")
+                        .HasDatabaseName("ix_tax_rate_state_province_id");
 
-                    b.HasIndex("TaxCategoryId");
+                    b.HasIndex("TaxCategoryId")
+                        .HasDatabaseName("ix_tax_rate_tax_category_id");
 
                     b.ToTable("TaxRate", "Sale");
                 });
@@ -23139,90 +23746,164 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Alt")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("alt");
 
                     b.Property<string>("Directory")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("directory");
 
                     b.Property<string>("Extension")
                         .IsRequired()
                         .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
+                        .HasColumnType("character varying(6)")
+                        .HasColumnName("extension");
 
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("file_name");
 
                     b.Property<long>("Size")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("size");
 
                     b.Property<string>("Tags")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("tags");
 
                     b.Property<string>("Thumbnail")
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("thumbnail");
 
                     b.Property<DateTime>("UploadDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("upload_date");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_file_upload");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_file_upload_user_id");
 
                     b.ToTable("FileUpload", "FS");
                 });
 
-            modelBuilder.Entity("Hydra.Infrastructure.Setting.Domain.SiteSetting", b =>
+            modelBuilder.Entity("Hydra.Infrastructure.Localization.Domain.Language", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CultureInfo")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("culture_info");
+
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_visible");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_language");
+
+                    b.ToTable("language", "infra");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CultureInfo = "ar",
+                            IsVisible = true,
+                            Name = "Arabic"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CultureInfo = "fa-IR",
+                            IsVisible = true,
+                            Name = "Persian"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CultureInfo = "en-US",
+                            IsVisible = true,
+                            Name = "English"
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Kernel.Setting.Domain.SiteSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Key")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("key");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("value");
 
                     b.Property<int>("ValueType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("value_type");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_setting");
 
-                    b.ToTable("Setting", "Infra");
+                    b.ToTable("setting", "infra");
                 });
 
             modelBuilder.Entity("PermissionRole", b =>
                 {
                     b.Property<int>("PermissionsId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("permissions_id");
 
                     b.Property<int>("RolesId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("roles_id");
 
-                    b.HasKey("PermissionsId", "RolesId");
+                    b.HasKey("PermissionsId", "RolesId")
+                        .HasName("pk_permission_role");
 
-                    b.HasIndex("RolesId");
+                    b.HasIndex("RolesId")
+                        .HasDatabaseName("ix_permission_role_roles_id");
 
-                    b.ToTable("PermissionRole", "Auth");
+                    b.ToTable("permission_role", "Auth");
                 });
 
             modelBuilder.Entity("DiscountCategory", b =>
@@ -23282,7 +23963,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_role_claim_asp_net_roles_role_id");
                 });
 
             modelBuilder.Entity("Hydra.Auth.Domain.UserClaim", b =>
@@ -23291,7 +23973,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_user_claim_asp_net_users_user_id");
                 });
 
             modelBuilder.Entity("Hydra.Auth.Domain.UserLogin", b =>
@@ -23300,7 +23983,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_user_login_user_user_id");
                 });
 
             modelBuilder.Entity("Hydra.Auth.Domain.UserRole", b =>
@@ -23309,13 +23993,15 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_user_role_role_role_id");
 
                     b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_user_role_user_user_id");
 
                     b.Navigation("Role");
 
@@ -23328,24 +24014,28 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_user_token_user_user_id");
                 });
 
             modelBuilder.Entity("Hydra.Cms.Core.Domain.Article", b =>
                 {
                     b.HasOne("Hydra.Auth.Domain.User", "Editor")
                         .WithMany()
-                        .HasForeignKey("EditorId");
+                        .HasForeignKey("EditorId")
+                        .HasConstraintName("fk_article_user_editor_id");
 
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "PreviewImage")
                         .WithMany()
-                        .HasForeignKey("PreviewImageId");
+                        .HasForeignKey("PreviewImageId")
+                        .HasConstraintName("fk_article_file_upload_preview_image_id");
 
                     b.HasOne("Hydra.Auth.Domain.User", "Writer")
                         .WithMany()
                         .HasForeignKey("WriterId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_article_user_writer_id");
 
                     b.Navigation("Editor");
 
@@ -23360,13 +24050,15 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("ArticleTags")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_article_tag_article_article_id");
 
                     b.HasOne("Hydra.Cms.Core.Domain.Tag", "Tag")
                         .WithMany("ArticleTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_article_tag_tag_tag_id");
 
                     b.Navigation("Article");
 
@@ -23379,13 +24071,15 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("ArticleTopics")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_article_topic_article_article_id");
 
                     b.HasOne("Hydra.Cms.Core.Domain.Topic", "Topic")
                         .WithMany("ArticleTopics")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_article_topic_topic_topic_id");
 
                     b.Navigation("Article");
 
@@ -23398,13 +24092,15 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("Links")
                         .HasForeignKey("LinkSectionId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_link_link_section_link_section_id");
 
                     b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_link_user_user_id");
 
                     b.Navigation("LinkSection");
 
@@ -23415,7 +24111,8 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.HasOne("Hydra.Cms.Core.Domain.Menu", "Parent")
                         .WithMany()
-                        .HasForeignKey("ParentId");
+                        .HasForeignKey("ParentId")
+                        .HasConstraintName("fk_menu_menu_parent_id");
 
                     b.Navigation("Parent");
                 });
@@ -23424,13 +24121,15 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.HasOne("Hydra.Auth.Domain.User", "Editor")
                         .WithMany()
-                        .HasForeignKey("EditorId");
+                        .HasForeignKey("EditorId")
+                        .HasConstraintName("fk_page_user_editor_id");
 
                     b.HasOne("Hydra.Auth.Domain.User", "Writer")
                         .WithMany()
                         .HasForeignKey("WriterId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_page_user_writer_id");
 
                     b.Navigation("Editor");
 
@@ -23443,13 +24142,15 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("PageTags")
                         .HasForeignKey("PageId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_page_tag_page_page_id");
 
                     b.HasOne("Hydra.Cms.Core.Domain.Tag", "Tag")
                         .WithMany("PageTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_page_tag_tag_tag_id");
 
                     b.Navigation("Page");
 
@@ -23462,7 +24163,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_slideshow_user_user_id");
 
                     b.Navigation("User");
                 });
@@ -23471,7 +24173,8 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.HasOne("Hydra.Cms.Core.Domain.Topic", "Parent")
                         .WithMany()
-                        .HasForeignKey("ParentId");
+                        .HasForeignKey("ParentId")
+                        .HasConstraintName("fk_topic_topic_parent_id");
 
                     b.Navigation("Parent");
                 });
@@ -23482,7 +24185,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("EmailInboxAttachments")
                         .HasForeignKey("EmailInboxId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_email_inbox_attachment_email_inbox_email_inbox_id");
 
                     b.Navigation("EmailInbox");
                 });
@@ -23493,7 +24197,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("EmailInboxFromAddress")
                         .HasForeignKey("EmailInboxId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_email_inbox_from_address_email_inbox_email_inbox_id");
 
                     b.Navigation("EmailInbox");
                 });
@@ -23504,7 +24209,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("EmailInboxToAddress")
                         .HasForeignKey("EmailInboxId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_email_inbox_to_address_email_inbox_email_inbox_id");
 
                     b.Navigation("EmailInbox");
                 });
@@ -23513,7 +24219,8 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.HasOne("Hydra.Crm.Core.Domain.Email.EmailInbox", "ReplayTo")
                         .WithMany("EmailOutboxs")
-                        .HasForeignKey("ReplayToId");
+                        .HasForeignKey("ReplayToId")
+                        .HasConstraintName("fk_email_outbox_email_inbox_replay_to_id");
 
                     b.Navigation("ReplayTo");
                 });
@@ -23524,7 +24231,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("EmailOutboxAttachments")
                         .HasForeignKey("EmailOutboxId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_email_outbox_attachment_email_outbox_email_outbox_id");
 
                     b.Navigation("EmailOutbox");
                 });
@@ -23535,7 +24243,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("EmailOutboxFromAddress")
                         .HasForeignKey("EmailOutboxId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_email_outbox_from_address_email_outbox_email_outbox_id");
 
                     b.Navigation("EmailOutbox");
                 });
@@ -23546,7 +24255,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("EmailOutboxToAddress")
                         .HasForeignKey("EmailOutboxId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_email_outbox_to_address_email_outbox_email_outbox_id");
 
                     b.Navigation("EmailOutbox");
                 });
@@ -23555,7 +24265,8 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.HasOne("Hydra.Auth.Domain.User", "FromUser")
                         .WithMany()
-                        .HasForeignKey("FromUserId");
+                        .HasForeignKey("FromUserId")
+                        .HasConstraintName("fk_message_user_from_user_id");
 
                     b.Navigation("FromUser");
                 });
@@ -23566,7 +24277,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("MessageAttachments")
                         .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_message_attachment_message_message_id");
 
                     b.Navigation("Message");
                 });
@@ -23577,13 +24289,15 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("MessageUsers")
                         .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_message_user_message_message_id");
 
                     b.HasOne("Hydra.Auth.Domain.User", "ToUser")
                         .WithMany()
                         .HasForeignKey("ToUserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_message_user_user_to_user_id");
 
                     b.Navigation("Message");
 
@@ -23651,7 +24365,8 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Payment", "Payment")
                         .WithMany("Orders")
-                        .HasForeignKey("PaymentId");
+                        .HasForeignKey("PaymentId")
+                        .HasConstraintName("fk_order_payment_payment_id");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.ShippingMethod", "ShippingMethod")
                         .WithMany("Orders")
@@ -23706,7 +24421,8 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Discount", "Discount")
                         .WithMany("OrderItems")
-                        .HasForeignKey("DiscountId");
+                        .HasForeignKey("DiscountId")
+                        .HasConstraintName("fk_order_item_discount_discount_id");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Order", "Order")
                         .WithMany("OrderItems")
@@ -23876,7 +24592,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("PictureId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_product_picture_file_upload_picture_id");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("ProductPictures")
@@ -23917,13 +24634,15 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("ProductProductTags")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_product_product_tag_product_product_id");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.ProductTag", "ProductTag")
                         .WithMany("ProductProductTags")
                         .HasForeignKey("ProductTagId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_product_product_tag_product_tag_product_tag_id");
 
                     b.Navigation("Product");
 
@@ -24095,7 +24814,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_file_upload_user_user_id");
 
                     b.Navigation("User");
                 });
@@ -24106,13 +24826,15 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("PermissionsId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_permission_role_permissions_permissions_id");
 
                     b.HasOne("Hydra.Auth.Domain.Role", null)
                         .WithMany()
                         .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_permission_role_role_roles_id");
                 });
 
             modelBuilder.Entity("Hydra.Auth.Domain.Role", b =>

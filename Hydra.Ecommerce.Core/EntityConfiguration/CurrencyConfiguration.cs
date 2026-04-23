@@ -12,7 +12,6 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasIndex(e => e.DisplayOrder, "IX_Currency_DisplayOrder");
 
-            entity.Property(e => e.CreatedOnUtc).HasPrecision(6);
             entity.Property(e => e.CurrencyCode)
             .IsRequired()
             .HasMaxLength(5);
@@ -38,8 +37,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     LimitedToStores = false,
                     Published = true,
                     DisplayOrder = 1,
-                    CreatedOnUtc = DateTime.Parse("2024-01-10 10:58:14.7398970"),
-                    UpdatedOnUtc = DateTime.Parse("2024-01-10 10:58:14.7398970"),
+                    CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     RoundingTypeId = 0
                 },
                 new Currency()
@@ -53,8 +52,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     LimitedToStores = false,
                     Published = true,
                     DisplayOrder = 2,
-                    CreatedOnUtc = DateTime.Parse("2024-01-10 10:58:14.7398970"),
-                    UpdatedOnUtc = DateTime.Parse("2024-01-10 10:58:14.7398970"),
+                    CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     RoundingTypeId = 0
                 },
                 new Currency()
@@ -68,8 +67,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     LimitedToStores = false,
                     Published = true,
                     DisplayOrder = 3,
-                    CreatedOnUtc = DateTime.Parse("2024-01-10 10:58:14.7398970"),
-                    UpdatedOnUtc = DateTime.Parse("2024-01-10 10:58:14.7398970"),
+                    CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     RoundingTypeId = 0
                 }
                 );

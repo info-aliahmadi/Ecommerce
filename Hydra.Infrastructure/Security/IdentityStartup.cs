@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Hydra.Kernel.Data;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -23,6 +22,8 @@ namespace Hydra.Infrastructure.Security
                         builder =>
                         {
                             builder.WithOrigins(configuration["Authentication:Schemes:Bearer:Authority"]).AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                            builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                            builder.WithOrigins("http://localhost:9230").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
                         });
             });
 
@@ -35,36 +36,36 @@ namespace Hydra.Infrastructure.Security
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; 
             }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                options.Configuration = new OpenIdConnectConfiguration();
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    options.Configuration = new OpenIdConnectConfiguration();
-                    options.SaveToken = true;
-                    options.RequireHttpsMetadata = false;
-                    options.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuer = false, // on production make it true
-                        ValidateAudience = false, // on production make it true
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidAudience = configuration["Authentication:Schemes:Bearer:ValidAudiences"],
-                        ValidIssuer = configuration["Authentication:Schemes:Bearer:ValidIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:Schemes:Bearer:Secret"])),
-                        ClockSkew = TimeSpan.Zero,
+                    ValidateIssuer = false, // on production make it true
+                    ValidateAudience = false, // on production make it true
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidAudience = configuration["Authentication:Schemes:Bearer:ValidAudiences"],
+                    ValidIssuer = configuration["Authentication:Schemes:Bearer:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:Schemes:Bearer:Secret"])),
+                    ClockSkew = TimeSpan.Zero,
 
-                    };
-                    options.Events = new JwtBearerEvents
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
                     {
-                        OnAuthenticationFailed = context =>
+                        if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
                         {
-                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
-                            {
-                                context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
-                            }
-                            return Task.CompletedTask;
+                            context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
                         }
-                    };
-                });
+                        return Task.CompletedTask;
+                    }
+                };
+            });
             //.AddCookie(options =>
             //{
             //    options.Cookie.Name = "HydraCookie";

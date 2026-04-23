@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,25 +10,30 @@ namespace Hydra.Infrastructure.Scheduler
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="app"></param>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
         public static void AddScheduler(this IServiceCollection services,
             IConfiguration configuration)
         {
+            // TODO:
+            //var connectionString = configuration["ConnectionStrings:DefaultConnection"];
 
-            var connectionString = configuration["ConnectionStrings:DefaultConnection"];
+            //GlobalConfiguration.Configuration
+            //.SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+            //.UseSimpleAssemblyNameTypeSerializer()
+            //.UseRecommendedSerializerSettings()
+            //.UsePostgreSqlStorage(options =>
+            //{
+            //    options.UseNpgsqlConnection(connectionString);
+            //    // Optional: set to false if you manage schema creation via migrations/scripts
+            //});
 
-            GlobalConfiguration.Configuration
-            .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
-            .UseSimpleAssemblyNameTypeSerializer()
-            .UseRecommendedSerializerSettings()
-            .UseSqlServerStorage(connectionString);
+            //using (new BackgroundJobServer())
+            //{
+            //    Console.WriteLine("Hangfire Server started...");
+            //}
 
-            using (new BackgroundJobServer())
-            {
-                Console.WriteLine("Hangfire Server started...");
-            }
-
-            // Only Once
+            //// Only Once
             //var jobId = BackgroundJob.Schedule(
             //                () => Console.WriteLine("Delayed!"),
             //                TimeSpan.FromDays(7));
@@ -38,7 +44,7 @@ namespace Hydra.Infrastructure.Scheduler
             //            () => Console.WriteLine("Recurring!"),
             //            Cron.Daily);
 
-            // conditionally
+            //// conditionally
             //BackgroundJob.ContinueJobWith(
             //            jobId,
             //            () => Console.WriteLine("Continuation!"));

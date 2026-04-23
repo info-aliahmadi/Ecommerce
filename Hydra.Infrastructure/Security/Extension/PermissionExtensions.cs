@@ -16,12 +16,12 @@ namespace Hydra.Infrastructure.Security.Extension
             {
                 throw new ArgumentNullException(nameof(builder));
             }
-
             builder.Add(endpointBuilder =>
             {
                 endpointBuilder.Metadata.Add(new PermissionAttribute(permissionName));
             });
             return builder;
         }
+
     }
 }

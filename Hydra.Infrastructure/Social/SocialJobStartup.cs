@@ -12,7 +12,7 @@ namespace Hydra.Infrastructure.Social
         /// <param name="app"></param>
         public static void UseSocialJob(this WebApplication app)
         {
-            GlobalConfiguration.Configuration.UseSqlServerStorage("DefaultConnection");
+            //GlobalConfiguration.Configuration.UsePostgreSqlStorage("DefaultConnection");
 
 
         }

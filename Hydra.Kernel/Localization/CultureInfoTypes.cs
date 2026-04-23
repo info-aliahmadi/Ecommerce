@@ -1,4 +1,4 @@
-﻿namespace Hydra.Infrastructure.Localization
+﻿namespace Hydra.Kernel.Localization
 {
     public static class CultureInfoTypes
     {

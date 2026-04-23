@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Hydra.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class dbVersion_01 : Migration
+    public partial class dbVersion_1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,41 +27,41 @@ namespace Hydra.Infrastructure.Migrations
                 name: "FS");
 
             migrationBuilder.EnsureSchema(
-                name: "Auth");
+                name: "infra");
 
             migrationBuilder.EnsureSchema(
-                name: "Infra");
+                name: "Auth");
 
             migrationBuilder.CreateTable(
                 name: "Category",
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    MetaKeywords = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    MetaTitle = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    MetaDescription = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    ParentCategoryId = table.Column<int>(type: "int", nullable: true),
-                    PictureId = table.Column<int>(type: "int", nullable: true),
-                    ShowOnHomepage = table.Column<bool>(type: "bit", nullable: false),
-                    Published = table.Column<bool>(type: "bit", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false),
-                    UpdatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
+                    meta_keywords = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    meta_title = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    meta_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    parent_category_id = table.Column<int>(type: "integer", nullable: true),
+                    picture_id = table.Column<int>(type: "integer", nullable: true),
+                    show_on_homepage = table.Column<bool>(type: "boolean", nullable: false),
+                    published = table.Column<bool>(type: "boolean", nullable: false),
+                    deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updated_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("pk_category", x => x.id);
                     table.ForeignKey(
                         name: "FK_Category_Category",
-                        column: x => x.ParentCategoryId,
+                        column: x => x.parent_category_id,
                         principalSchema: "Sale",
                         principalTable: "Category",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -68,22 +69,22 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TwoLetterIsoCode = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
-                    ThreeLetterIsoCode = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    AllowsBilling = table.Column<bool>(type: "bit", nullable: false),
-                    AllowsShipping = table.Column<bool>(type: "bit", nullable: false),
-                    NumericIsoCode = table.Column<int>(type: "int", nullable: false),
-                    SubjectToVat = table.Column<bool>(type: "bit", nullable: false),
-                    Published = table.Column<bool>(type: "bit", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    LimitedToStores = table.Column<bool>(type: "bit", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    two_letter_iso_code = table.Column<string>(type: "character varying(2)", maxLength: 2, nullable: false),
+                    three_letter_iso_code = table.Column<string>(type: "character varying(3)", maxLength: 3, nullable: false),
+                    allows_billing = table.Column<bool>(type: "boolean", nullable: false),
+                    allows_shipping = table.Column<bool>(type: "boolean", nullable: false),
+                    numeric_iso_code = table.Column<int>(type: "integer", nullable: false),
+                    subject_to_vat = table.Column<bool>(type: "boolean", nullable: false),
+                    published = table.Column<bool>(type: "boolean", nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false),
+                    limited_to_stores = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.PrimaryKey("pk_country", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,23 +92,23 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CurrencyCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    DisplayLocale = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CustomFormatting = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Rate = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    LimitedToStores = table.Column<bool>(type: "bit", nullable: false),
-                    Published = table.Column<bool>(type: "bit", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false),
-                    UpdatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false),
-                    RoundingTypeId = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    currency_code = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: false),
+                    display_locale = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    custom_formatting = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    rate = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    limited_to_stores = table.Column<bool>(type: "boolean", nullable: false),
+                    published = table.Column<bool>(type: "boolean", nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updated_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
+                    rounding_type_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Currency", x => x.Id);
+                    table.PrimaryKey("pk_currency", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,14 +116,14 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DeliveryDate", x => x.Id);
+                    table.PrimaryKey("pk_delivery_date", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,27 +131,27 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    CouponCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    AdminComment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DiscountTypeId = table.Column<int>(type: "int", nullable: false),
-                    UsePercentage = table.Column<bool>(type: "bit", nullable: false),
-                    DiscountPercentage = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    DiscountAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    MaximumDiscountAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: true),
-                    StartDateUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    EndDateUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    RequiresCouponCode = table.Column<bool>(type: "bit", nullable: false),
-                    DiscountLimitationId = table.Column<int>(type: "int", nullable: false),
-                    LimitationTimes = table.Column<int>(type: "int", nullable: false),
-                    MaximumDiscountedQuantity = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    coupon_code = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    admin_comment = table.Column<string>(type: "text", nullable: false),
+                    discount_type_id = table.Column<int>(type: "integer", nullable: false),
+                    use_percentage = table.Column<bool>(type: "boolean", nullable: false),
+                    discount_percentage = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    discount_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    maximum_discount_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: true),
+                    start_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    end_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    requires_coupon_code = table.Column<bool>(type: "boolean", nullable: false),
+                    discount_limitation_id = table.Column<int>(type: "integer", nullable: false),
+                    limitation_times = table.Column<int>(type: "integer", nullable: false),
+                    maximum_discounted_quantity = table.Column<int>(type: "integer", nullable: true),
+                    is_active = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Discount", x => x.Id);
+                    table.PrimaryKey("pk_discount", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,20 +159,36 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Subject = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsRead = table.Column<bool>(type: "bit", nullable: false),
-                    IsPin = table.Column<bool>(type: "bit", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    uid = table.Column<string>(type: "text", nullable: false),
+                    subject = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    content = table.Column<string>(type: "text", nullable: false),
+                    date = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    register_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    is_read = table.Column<bool>(type: "boolean", nullable: false),
+                    is_pin = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailInbox", x => x.Id);
+                    table.PrimaryKey("pk_email_inbox", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "language",
+                schema: "infra",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
+                    culture_info = table.Column<string>(type: "text", nullable: false),
+                    is_visible = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_language", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -179,15 +196,15 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    IsVisible = table.Column<bool>(type: "bit", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    key = table.Column<string>(type: "text", nullable: false),
+                    title = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    is_visible = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LinkSection", x => x.Id);
+                    table.PrimaryKey("pk_link_section", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,23 +212,23 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    MetaKeywords = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    MetaTitle = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    MetaDescription = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    PictureId = table.Column<int>(type: "int", nullable: true),
-                    Published = table.Column<bool>(type: "bit", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false),
-                    UpdatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
+                    meta_keywords = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    meta_title = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    meta_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    picture_id = table.Column<int>(type: "integer", nullable: true),
+                    published = table.Column<bool>(type: "boolean", nullable: false),
+                    deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updated_on_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Manufacturer", x => x.Id);
+                    table.PrimaryKey("pk_manufacturer", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -219,24 +236,24 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    PreviewImageId = table.Column<int>(type: "int", nullable: true),
-                    Order = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    url = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    preview_image_id = table.Column<int>(type: "integer", nullable: true),
+                    order = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    parent_id = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Menu", x => x.Id);
+                    table.PrimaryKey("pk_menu", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Menu_Menu_ParentId",
-                        column: x => x.ParentId,
+                        name: "fk_menu_menu_parent_id",
+                        column: x => x.parent_id,
                         principalSchema: "Cms",
                         principalTable: "Menu",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -244,14 +261,14 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    NormalizedName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    normalized_name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Permission", x => x.Id);
+                    table.PrimaryKey("pk_permission", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -259,18 +276,18 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    AttributeType = table.Column<int>(type: "int", nullable: false),
-                    PictureId = table.Column<int>(type: "int", nullable: true),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    value = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    attribute_type = table.Column<int>(type: "integer", nullable: false),
+                    picture_id = table.Column<int>(type: "integer", nullable: true),
+                    display_order = table.Column<int>(type: "integer", nullable: false),
+                    description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductAttribute", x => x.Id);
+                    table.PrimaryKey("pk_product_attribute", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -278,13 +295,13 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductTag", x => x.Id);
+                    table.PrimaryKey("pk_product_tag", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -292,15 +309,15 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: true),
+                    normalized_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    concurrency_stamp = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.Id);
+                    table.PrimaryKey("pk_role", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -308,30 +325,30 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Keyword = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Count = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    keyword = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    count = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SearchTerm", x => x.Id);
+                    table.PrimaryKey("pk_search_term", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Setting",
-                schema: "Infra",
+                name: "setting",
+                schema: "infra",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ValueType = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    key = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    value = table.Column<string>(type: "text", nullable: true),
+                    value_type = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Setting", x => x.Id);
+                    table.PrimaryKey("pk_setting", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -339,15 +356,15 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
+                    description = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShippingMethod", x => x.Id);
+                    table.PrimaryKey("pk_shipping_method", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -355,14 +372,14 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    InsertDate = table.Column<DateTime>(type: "datetime", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    insert_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubscribeLabel", x => x.Id);
+                    table.PrimaryKey("pk_subscribe_label", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -370,13 +387,13 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tag", x => x.Id);
+                    table.PrimaryKey("pk_tag", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -384,14 +401,14 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaxCategory", x => x.Id);
+                    table.PrimaryKey("pk_tax_category", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -399,22 +416,22 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: true),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    parent_id = table.Column<int>(type: "integer", nullable: true),
+                    register_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Topic", x => x.Id);
+                    table.PrimaryKey("pk_topic", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Topic_Topic_ParentId",
-                        column: x => x.ParentId,
+                        name: "fk_topic_topic_parent_id",
+                        column: x => x.parent_id,
                         principalSchema: "Cms",
                         principalTable: "Topic",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -422,31 +439,31 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DefaultLanguage = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true),
-                    DefaultTheme = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Avatar = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    register_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    default_language = table.Column<string>(type: "character varying(6)", maxLength: 6, nullable: true),
+                    default_theme = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true),
+                    avatar = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    normalized_user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    normalized_email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    email_confirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    password_hash = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    security_stamp = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    concurrency_stamp = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    phone_number = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    phone_number_confirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    two_factor_enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    lockout_end = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    lockout_enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    access_failed_count = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("pk_user", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -454,23 +471,23 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Abbreviation = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false),
-                    Published = table.Column<bool>(type: "bit", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    abbreviation = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    country_id = table.Column<int>(type: "integer", nullable: false),
+                    published = table.Column<bool>(type: "boolean", nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StateProvince", x => x.Id);
+                    table.PrimaryKey("pk_state_province", x => x.id);
                     table.ForeignKey(
                         name: "FK_StateProvince_Country",
-                        column: x => x.CountryId,
+                        column: x => x.country_id,
                         principalSchema: "Sale",
                         principalTable: "Country",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -479,25 +496,25 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    DiscountId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    discount_id = table.Column<int>(type: "integer", nullable: false),
+                    category_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Discount_AppliedToCategories", x => new { x.DiscountId, x.CategoryId });
+                    table.PrimaryKey("PK_Discount_AppliedToCategories", x => new { x.discount_id, x.category_id });
                     table.ForeignKey(
                         name: "FK_DiscountCategory_Category",
-                        column: x => x.CategoryId,
+                        column: x => x.category_id,
                         principalSchema: "Sale",
                         principalTable: "Category",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DiscountCategory_Discount",
-                        column: x => x.DiscountId,
+                        column: x => x.discount_id,
                         principalSchema: "Sale",
                         principalTable: "Discount",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -506,20 +523,20 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmailInboxId = table.Column<int>(type: "int", nullable: false),
-                    AttachmentId = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    email_inbox_id = table.Column<int>(type: "integer", nullable: false),
+                    attachment_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailInboxAttachment", x => x.Id);
+                    table.PrimaryKey("pk_email_inbox_attachment", x => x.id);
                     table.ForeignKey(
-                        name: "FK_EmailInboxAttachment_EmailInbox_EmailInboxId",
-                        column: x => x.EmailInboxId,
+                        name: "fk_email_inbox_attachment_email_inbox_email_inbox_id",
+                        column: x => x.email_inbox_id,
                         principalSchema: "Crm",
                         principalTable: "EmailInbox",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -528,21 +545,21 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmailInboxId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    email_inbox_id = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    address = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailInboxFromAddress", x => x.Id);
+                    table.PrimaryKey("pk_email_inbox_from_address", x => x.id);
                     table.ForeignKey(
-                        name: "FK_EmailInboxFromAddress_EmailInbox_EmailInboxId",
-                        column: x => x.EmailInboxId,
+                        name: "fk_email_inbox_from_address_email_inbox_email_inbox_id",
+                        column: x => x.email_inbox_id,
                         principalSchema: "Crm",
                         principalTable: "EmailInbox",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -551,21 +568,21 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmailInboxId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    email_inbox_id = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    address = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailInboxToAddress", x => x.Id);
+                    table.PrimaryKey("pk_email_inbox_to_address", x => x.id);
                     table.ForeignKey(
-                        name: "FK_EmailInboxToAddress_EmailInbox_EmailInboxId",
-                        column: x => x.EmailInboxId,
+                        name: "fk_email_inbox_to_address_email_inbox_email_inbox_id",
+                        column: x => x.email_inbox_id,
                         principalSchema: "Crm",
                         principalTable: "EmailInbox",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -574,23 +591,23 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ReplayToId = table.Column<int>(type: "int", nullable: true),
-                    Subject = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    replay_to_id = table.Column<int>(type: "integer", nullable: true),
+                    subject = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    content = table.Column<string>(type: "text", nullable: false),
+                    register_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    is_draft = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailOutbox", x => x.Id);
+                    table.PrimaryKey("pk_email_outbox", x => x.id);
                     table.ForeignKey(
-                        name: "FK_EmailOutbox_EmailInbox_ReplayToId",
-                        column: x => x.ReplayToId,
+                        name: "fk_email_outbox_email_inbox_replay_to_id",
+                        column: x => x.replay_to_id,
                         principalSchema: "Crm",
                         principalTable: "EmailInbox",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -598,52 +615,52 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    DiscountId = table.Column<int>(type: "int", nullable: false),
-                    ManufacturerId = table.Column<int>(type: "int", nullable: false)
+                    discount_id = table.Column<int>(type: "integer", nullable: false),
+                    manufacturer_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Discount_AppliedToManufacturers", x => new { x.DiscountId, x.ManufacturerId });
+                    table.PrimaryKey("PK_Discount_AppliedToManufacturers", x => new { x.discount_id, x.manufacturer_id });
                     table.ForeignKey(
                         name: "FK_DiscountManufacturer_Discount",
-                        column: x => x.DiscountId,
+                        column: x => x.discount_id,
                         principalSchema: "Sale",
                         principalTable: "Discount",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DiscountManufacturer_Manufacturer",
-                        column: x => x.ManufacturerId,
+                        column: x => x.manufacturer_id,
                         principalSchema: "Sale",
                         principalTable: "Manufacturer",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PermissionRole",
+                name: "permission_role",
                 schema: "Auth",
                 columns: table => new
                 {
-                    PermissionsId = table.Column<int>(type: "int", nullable: false),
-                    RolesId = table.Column<int>(type: "int", nullable: false)
+                    permissions_id = table.Column<int>(type: "integer", nullable: false),
+                    roles_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PermissionRole", x => new { x.PermissionsId, x.RolesId });
+                    table.PrimaryKey("pk_permission_role", x => new { x.permissions_id, x.roles_id });
                     table.ForeignKey(
-                        name: "FK_PermissionRole_Permission_PermissionsId",
-                        column: x => x.PermissionsId,
+                        name: "fk_permission_role_permissions_permissions_id",
+                        column: x => x.permissions_id,
                         principalSchema: "Auth",
                         principalTable: "Permission",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PermissionRole_Role_RolesId",
-                        column: x => x.RolesId,
+                        name: "fk_permission_role_role_roles_id",
+                        column: x => x.roles_id,
                         principalSchema: "Auth",
                         principalTable: "Role",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -652,21 +669,21 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    role_id = table.Column<int>(type: "integer", nullable: false),
+                    claim_type = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
+                    claim_value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoleClaim", x => x.Id);
+                    table.PrimaryKey("pk_role_claim", x => x.id);
                     table.ForeignKey(
-                        name: "FK_RoleClaim_Role_RoleId",
-                        column: x => x.RoleId,
+                        name: "fk_role_claim_asp_net_roles_role_id",
+                        column: x => x.role_id,
                         principalSchema: "Auth",
                         principalTable: "Role",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -675,21 +692,21 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SubscribeLabelId = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    InsertDate = table.Column<DateTime>(type: "datetime", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    subscribe_label_id = table.Column<int>(type: "integer", nullable: false),
+                    email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    insert_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subscribe", x => x.Id);
+                    table.PrimaryKey("pk_subscribe", x => x.id);
                     table.ForeignKey(
                         name: "FK_Subscribe_SubscribeLabel",
-                        column: x => x.SubscribeLabelId,
+                        column: x => x.subscribe_label_id,
                         principalSchema: "Cms",
                         principalTable: "SubscribeLabel",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -698,27 +715,27 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "FS",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Directory = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Thumbnail = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
-                    Extension = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
-                    Size = table.Column<long>(type: "bigint", nullable: false),
-                    Tags = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Alt = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    file_name = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    directory = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    thumbnail = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true),
+                    extension = table.Column<string>(type: "character varying(6)", maxLength: 6, nullable: false),
+                    size = table.Column<long>(type: "bigint", nullable: false),
+                    tags = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    alt = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    upload_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FileUpload", x => x.Id);
+                    table.PrimaryKey("pk_file_upload", x => x.id);
                     table.ForeignKey(
-                        name: "FK_FileUpload_User_UserId",
-                        column: x => x.UserId,
+                        name: "fk_file_upload_user_user_id",
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -727,32 +744,32 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    ImagePreviewId = table.Column<int>(type: "int", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    LinkSectionId = table.Column<int>(type: "int", nullable: false),
-                    Order = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    url = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    image_preview_id = table.Column<int>(type: "integer", nullable: true),
+                    description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    link_section_id = table.Column<int>(type: "integer", nullable: false),
+                    order = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Link", x => x.Id);
+                    table.PrimaryKey("pk_link", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Link_LinkSection_LinkSectionId",
-                        column: x => x.LinkSectionId,
+                        name: "fk_link_link_section_link_section_id",
+                        column: x => x.link_section_id,
                         principalSchema: "Cms",
                         principalTable: "LinkSection",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Link_User_UserId",
-                        column: x => x.UserId,
+                        name: "fk_link_user_user_id",
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -761,27 +778,27 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MessageType = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    FromUserId = table.Column<int>(type: "int", nullable: true),
-                    Subject = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    message_type = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
+                    email = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    from_user_id = table.Column<int>(type: "integer", nullable: true),
+                    subject = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    content = table.Column<string>(type: "text", nullable: false),
+                    register_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    is_draft = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Message", x => x.Id);
+                    table.PrimaryKey("pk_message", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Message_User_FromUserId",
-                        column: x => x.FromUserId,
+                        name: "fk_message_user_from_user_id",
+                        column: x => x.from_user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -789,31 +806,31 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PageTitle = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Subject = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    WriterId = table.Column<int>(type: "int", nullable: false),
-                    EditorId = table.Column<int>(type: "int", nullable: true),
-                    EditDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    page_title = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    subject = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    body = table.Column<string>(type: "text", nullable: false),
+                    register_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    writer_id = table.Column<int>(type: "integer", nullable: false),
+                    editor_id = table.Column<int>(type: "integer", nullable: true),
+                    edit_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Page", x => x.Id);
+                    table.PrimaryKey("pk_page", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Page_User_EditorId",
-                        column: x => x.EditorId,
+                        name: "fk_page_user_editor_id",
+                        column: x => x.editor_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK_Page_User_WriterId",
-                        column: x => x.WriterId,
+                        name: "fk_page_user_writer_id",
+                        column: x => x.writer_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -822,91 +839,91 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    MetaKeywords = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    MetaTitle = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ShortDescription = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    FullDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AdminComment = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    MetaDescription = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    DeliveryDateId = table.Column<int>(type: "int", nullable: false),
-                    TaxCategoryId = table.Column<int>(type: "int", nullable: false),
-                    StockQuantity = table.Column<int>(type: "int", nullable: false),
-                    MinStockQuantity = table.Column<int>(type: "int", nullable: false),
-                    NotifyAdminForQuantityBelow = table.Column<bool>(type: "bit", nullable: false),
-                    OrderMinimumQuantity = table.Column<int>(type: "int", nullable: false),
-                    OrderMaximumQuantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    OldPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    CurrencyId = table.Column<int>(type: "int", nullable: false),
-                    AvailableStartDateTimeUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    AvailableEndDateTimeUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    ApprovedRatingSum = table.Column<int>(type: "int", nullable: false),
-                    NotApprovedRatingSum = table.Column<int>(type: "int", nullable: false),
-                    ApprovedTotalReviews = table.Column<int>(type: "int", nullable: false),
-                    NotApprovedTotalReviews = table.Column<int>(type: "int", nullable: false),
-                    HasDiscountsApplied = table.Column<bool>(type: "bit", nullable: false),
-                    MarkAsNew = table.Column<bool>(type: "bit", nullable: false),
-                    MarkAsNewStartDateTimeUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    MarkAsNewEndDateTimeUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    NotReturnable = table.Column<bool>(type: "bit", nullable: false),
-                    AllowedQuantities = table.Column<bool>(type: "bit", nullable: false),
-                    IsTaxExempt = table.Column<bool>(type: "bit", nullable: false),
-                    ShowOnHomepage = table.Column<bool>(type: "bit", nullable: false),
-                    IsFreeShipping = table.Column<bool>(type: "bit", nullable: false),
-                    AllowCustomerReviews = table.Column<bool>(type: "bit", nullable: false),
-                    DisplayStockQuantity = table.Column<bool>(type: "bit", nullable: false),
-                    DisableBuyButton = table.Column<bool>(type: "bit", nullable: false),
-                    DisableWishlistButton = table.Column<bool>(type: "bit", nullable: false),
-                    AvailableForPreOrder = table.Column<bool>(type: "bit", nullable: false),
-                    CallForPrice = table.Column<bool>(type: "bit", nullable: false),
-                    Published = table.Column<bool>(type: "bit", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreateUserId = table.Column<int>(type: "int", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false),
-                    UpdateUserId = table.Column<int>(type: "int", nullable: true),
-                    UpdatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    meta_keywords = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    meta_title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    short_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    full_description = table.Column<string>(type: "text", nullable: false),
+                    admin_comment = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    meta_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    delivery_date_id = table.Column<int>(type: "integer", nullable: false),
+                    tax_category_id = table.Column<int>(type: "integer", nullable: false),
+                    stock_quantity = table.Column<int>(type: "integer", nullable: false),
+                    min_stock_quantity = table.Column<int>(type: "integer", nullable: false),
+                    notify_admin_for_quantity_below = table.Column<bool>(type: "boolean", nullable: false),
+                    order_minimum_quantity = table.Column<int>(type: "integer", nullable: false),
+                    order_maximum_quantity = table.Column<int>(type: "integer", nullable: false),
+                    price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    old_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    currency_id = table.Column<int>(type: "integer", nullable: false),
+                    available_start_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    available_end_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    display_order = table.Column<int>(type: "integer", nullable: false),
+                    approved_rating_sum = table.Column<int>(type: "integer", nullable: false),
+                    not_approved_rating_sum = table.Column<int>(type: "integer", nullable: false),
+                    approved_total_reviews = table.Column<int>(type: "integer", nullable: false),
+                    not_approved_total_reviews = table.Column<int>(type: "integer", nullable: false),
+                    has_discounts_applied = table.Column<bool>(type: "boolean", nullable: false),
+                    mark_as_new = table.Column<bool>(type: "boolean", nullable: false),
+                    mark_as_new_start_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    mark_as_new_end_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    not_returnable = table.Column<bool>(type: "boolean", nullable: false),
+                    allowed_quantities = table.Column<bool>(type: "boolean", nullable: false),
+                    is_tax_exempt = table.Column<bool>(type: "boolean", nullable: false),
+                    show_on_homepage = table.Column<bool>(type: "boolean", nullable: false),
+                    is_free_shipping = table.Column<bool>(type: "boolean", nullable: false),
+                    allow_customer_reviews = table.Column<bool>(type: "boolean", nullable: false),
+                    display_stock_quantity = table.Column<bool>(type: "boolean", nullable: false),
+                    disable_buy_button = table.Column<bool>(type: "boolean", nullable: false),
+                    disable_wishlist_button = table.Column<bool>(type: "boolean", nullable: false),
+                    available_for_pre_order = table.Column<bool>(type: "boolean", nullable: false),
+                    call_for_price = table.Column<bool>(type: "boolean", nullable: false),
+                    published = table.Column<bool>(type: "boolean", nullable: false),
+                    deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    create_user_id = table.Column<int>(type: "integer", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
+                    update_user_id = table.Column<int>(type: "integer", nullable: true),
+                    updated_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.Id);
+                    table.PrimaryKey("pk_product", x => x.id);
                     table.ForeignKey(
                         name: "FK_Product_CreateUser",
-                        column: x => x.CreateUserId,
+                        column: x => x.create_user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Product_Currency",
-                        column: x => x.CurrencyId,
+                        column: x => x.currency_id,
                         principalSchema: "Sale",
                         principalTable: "Currency",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Product_DeliveryDate",
-                        column: x => x.DeliveryDateId,
+                        column: x => x.delivery_date_id,
                         principalSchema: "Sale",
                         principalTable: "DeliveryDate",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Product_TaxCategory",
-                        column: x => x.TaxCategoryId,
+                        column: x => x.tax_category_id,
                         principalSchema: "Sale",
                         principalTable: "TaxCategory",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Product_UpdateUser",
-                        column: x => x.UpdateUserId,
+                        column: x => x.update_user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -914,26 +931,26 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Header = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    PreviewImageId = table.Column<int>(type: "int", nullable: true),
-                    PreviewImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Order = table.Column<int>(type: "int", nullable: false),
-                    IsVisible = table.Column<bool>(type: "bit", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    header = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    preview_image_id = table.Column<int>(type: "integer", nullable: true),
+                    preview_image_url = table.Column<string>(type: "text", nullable: true),
+                    order = table.Column<int>(type: "integer", nullable: false),
+                    is_visible = table.Column<bool>(type: "boolean", nullable: false),
+                    create_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Slideshow", x => x.Id);
+                    table.PrimaryKey("pk_slideshow", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Slideshow_User_UserId",
-                        column: x => x.UserId,
+                        name: "fk_slideshow_user_user_id",
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -942,21 +959,21 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    claim_type = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    claim_value = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserClaim", x => x.Id);
+                    table.PrimaryKey("pk_user_claim", x => x.id);
                     table.ForeignKey(
-                        name: "FK_UserClaim_User_UserId",
-                        column: x => x.UserId,
+                        name: "fk_user_claim_asp_net_users_user_id",
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -965,20 +982,20 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    login_provider = table.Column<string>(type: "text", nullable: false),
+                    provider_key = table.Column<string>(type: "text", nullable: false),
+                    provider_display_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    user_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserLogin", x => new { x.LoginProvider, x.ProviderKey });
+                    table.PrimaryKey("pk_user_login", x => new { x.login_provider, x.provider_key });
                     table.ForeignKey(
-                        name: "FK_UserLogin_User_UserId",
-                        column: x => x.UserId,
+                        name: "fk_user_login_user_user_id",
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -987,25 +1004,25 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    role_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("pk_user_role", x => new { x.user_id, x.role_id });
                     table.ForeignKey(
-                        name: "FK_UserRole_Role_RoleId",
-                        column: x => x.RoleId,
+                        name: "fk_user_role_role_role_id",
+                        column: x => x.role_id,
                         principalSchema: "Auth",
                         principalTable: "Role",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRole_User_UserId",
-                        column: x => x.UserId,
+                        name: "fk_user_role_user_user_id",
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1014,20 +1031,20 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true)
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    login_provider = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    value = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserToken", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.PrimaryKey("pk_user_token", x => new { x.user_id, x.login_provider, x.name });
                     table.ForeignKey(
-                        name: "FK_UserToken_User_UserId",
-                        column: x => x.UserId,
+                        name: "fk_user_token_user_user_id",
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1036,47 +1053,47 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false),
-                    StateProvinceId = table.Column<int>(type: "int", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    County = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Company = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    Address1 = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    Address2 = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    ZipPostalCode = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    FaxNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    country_id = table.Column<int>(type: "integer", nullable: false),
+                    state_province_id = table.Column<int>(type: "integer", nullable: false),
+                    city = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
+                    county = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
+                    first_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    last_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    phone_number = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    company = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    address1 = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    address2 = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    zip_postal_code = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
+                    fax_number = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.PrimaryKey("pk_address", x => x.id);
                     table.ForeignKey(
                         name: "FK_Address_Country",
-                        column: x => x.CountryId,
+                        column: x => x.country_id,
                         principalSchema: "Sale",
                         principalTable: "Country",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Address_StateProvince",
-                        column: x => x.StateProvinceId,
+                        column: x => x.state_province_id,
                         principalSchema: "Sale",
                         principalTable: "StateProvince",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Address_User",
-                        column: x => x.UserId,
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1085,36 +1102,36 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TaxCategoryId = table.Column<int>(type: "int", nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false),
-                    StateProvinceId = table.Column<int>(type: "int", nullable: false),
-                    Percentage = table.Column<decimal>(type: "decimal(18,4)", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    tax_category_id = table.Column<int>(type: "integer", nullable: false),
+                    country_id = table.Column<int>(type: "integer", nullable: false),
+                    state_province_id = table.Column<int>(type: "integer", nullable: false),
+                    percentage = table.Column<decimal>(type: "numeric(18,4)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaxRate", x => x.Id);
+                    table.PrimaryKey("pk_tax_rate", x => x.id);
                     table.ForeignKey(
                         name: "FK_TaxRate_Country",
-                        column: x => x.CountryId,
+                        column: x => x.country_id,
                         principalSchema: "Sale",
                         principalTable: "Country",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TaxRate_StateProvince",
-                        column: x => x.StateProvinceId,
+                        column: x => x.state_province_id,
                         principalSchema: "Sale",
                         principalTable: "StateProvince",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TaxRate_TaxCategory",
-                        column: x => x.TaxCategoryId,
+                        column: x => x.tax_category_id,
                         principalSchema: "Sale",
                         principalTable: "TaxCategory",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1123,20 +1140,20 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmailOutboxId = table.Column<int>(type: "int", nullable: false),
-                    AttachmentId = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    email_outbox_id = table.Column<int>(type: "integer", nullable: false),
+                    attachment_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailOutboxAttachment", x => x.Id);
+                    table.PrimaryKey("pk_email_outbox_attachment", x => x.id);
                     table.ForeignKey(
-                        name: "FK_EmailOutboxAttachment_EmailOutbox_EmailOutboxId",
-                        column: x => x.EmailOutboxId,
+                        name: "fk_email_outbox_attachment_email_outbox_email_outbox_id",
+                        column: x => x.email_outbox_id,
                         principalSchema: "Crm",
                         principalTable: "EmailOutbox",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1145,21 +1162,21 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmailOutboxId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    email_outbox_id = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    address = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailOutboxFromAddress", x => x.Id);
+                    table.PrimaryKey("pk_email_outbox_from_address", x => x.id);
                     table.ForeignKey(
-                        name: "FK_EmailOutboxFromAddress_EmailOutbox_EmailOutboxId",
-                        column: x => x.EmailOutboxId,
+                        name: "fk_email_outbox_from_address_email_outbox_email_outbox_id",
+                        column: x => x.email_outbox_id,
                         principalSchema: "Crm",
                         principalTable: "EmailOutbox",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1168,21 +1185,21 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmailOutboxId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    email_outbox_id = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    address = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailOutboxToAddress", x => x.Id);
+                    table.PrimaryKey("pk_email_outbox_to_address", x => x.id);
                     table.ForeignKey(
-                        name: "FK_EmailOutboxToAddress_EmailOutbox_EmailOutboxId",
-                        column: x => x.EmailOutboxId,
+                        name: "fk_email_outbox_to_address_email_outbox_email_outbox_id",
+                        column: x => x.email_outbox_id,
                         principalSchema: "Crm",
                         principalTable: "EmailOutbox",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1191,42 +1208,42 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Subject = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PreviewImageId = table.Column<int>(type: "int", nullable: true),
-                    PreviewImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PublishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    WriterId = table.Column<int>(type: "int", nullable: false),
-                    EditorId = table.Column<int>(type: "int", nullable: true),
-                    EditDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsPinned = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    subject = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    body = table.Column<string>(type: "text", nullable: false),
+                    preview_image_id = table.Column<int>(type: "integer", nullable: true),
+                    preview_image_url = table.Column<string>(type: "text", nullable: true),
+                    register_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    publish_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    writer_id = table.Column<int>(type: "integer", nullable: false),
+                    editor_id = table.Column<int>(type: "integer", nullable: true),
+                    edit_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    is_pinned = table.Column<bool>(type: "boolean", nullable: false),
+                    is_draft = table.Column<bool>(type: "boolean", nullable: false),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Article", x => x.Id);
+                    table.PrimaryKey("pk_article", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Article_FileUpload_PreviewImageId",
-                        column: x => x.PreviewImageId,
+                        name: "fk_article_file_upload_preview_image_id",
+                        column: x => x.preview_image_id,
                         principalSchema: "FS",
                         principalTable: "FileUpload",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK_Article_User_EditorId",
-                        column: x => x.EditorId,
+                        name: "fk_article_user_editor_id",
+                        column: x => x.editor_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK_Article_User_WriterId",
-                        column: x => x.WriterId,
+                        name: "fk_article_user_writer_id",
+                        column: x => x.writer_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1235,20 +1252,20 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MessageId = table.Column<int>(type: "int", nullable: false),
-                    AttachmentId = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    message_id = table.Column<int>(type: "integer", nullable: false),
+                    attachment_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MessageAttachment", x => x.Id);
+                    table.PrimaryKey("pk_message_attachment", x => x.id);
                     table.ForeignKey(
-                        name: "FK_MessageAttachment_Message_MessageId",
-                        column: x => x.MessageId,
+                        name: "fk_message_attachment_message_message_id",
+                        column: x => x.message_id,
                         principalSchema: "Crm",
                         principalTable: "Message",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1257,30 +1274,30 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MessageId = table.Column<int>(type: "int", nullable: false),
-                    ToUserId = table.Column<int>(type: "int", nullable: false),
-                    IsRead = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsPin = table.Column<bool>(type: "bit", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    message_id = table.Column<int>(type: "integer", nullable: false),
+                    to_user_id = table.Column<int>(type: "integer", nullable: false),
+                    is_read = table.Column<bool>(type: "boolean", nullable: false),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    is_pin = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MessageUser", x => x.Id);
+                    table.PrimaryKey("pk_message_user", x => x.id);
                     table.ForeignKey(
-                        name: "FK_MessageUser_Message_MessageId",
-                        column: x => x.MessageId,
+                        name: "fk_message_user_message_message_id",
+                        column: x => x.message_id,
                         principalSchema: "Crm",
                         principalTable: "Message",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MessageUser_User_ToUserId",
-                        column: x => x.ToUserId,
+                        name: "fk_message_user_user_to_user_id",
+                        column: x => x.to_user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1289,25 +1306,25 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    PageId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false)
+                    page_id = table.Column<int>(type: "integer", nullable: false),
+                    tag_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PageTag", x => new { x.TagId, x.PageId });
+                    table.PrimaryKey("pk_page_tag", x => new { x.tag_id, x.page_id });
                     table.ForeignKey(
-                        name: "FK_PageTag_Page_PageId",
-                        column: x => x.PageId,
+                        name: "fk_page_tag_page_page_id",
+                        column: x => x.page_id,
                         principalSchema: "Cms",
                         principalTable: "Page",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PageTag_Tag_TagId",
-                        column: x => x.TagId,
+                        name: "fk_page_tag_tag_tag_id",
+                        column: x => x.tag_id,
                         principalSchema: "Cms",
                         principalTable: "Tag",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1316,25 +1333,25 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    DiscountId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    discount_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Discount_AppliedToProducts", x => new { x.DiscountId, x.ProductId });
+                    table.PrimaryKey("PK_Discount_AppliedToProducts", x => new { x.discount_id, x.product_id });
                     table.ForeignKey(
                         name: "FK_DiscountProduct_Discount",
-                        column: x => x.DiscountId,
+                        column: x => x.discount_id,
                         principalSchema: "Sale",
                         principalTable: "Discount",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DiscountProduct_Product",
-                        column: x => x.ProductId,
+                        column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1343,28 +1360,28 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    category_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product_Category_Mapping", x => x.Id);
+                    table.PrimaryKey("PK_Product_Category_Mapping", x => x.id);
                     table.ForeignKey(
                         name: "FK_ProductCategory_Category",
-                        column: x => x.CategoryId,
+                        column: x => x.category_id,
                         principalSchema: "Sale",
                         principalTable: "Category",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProductCategory_Product",
-                        column: x => x.ProductId,
+                        column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1373,30 +1390,30 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    AttributeId = table.Column<int>(type: "int", nullable: true),
-                    StockType = table.Column<int>(type: "int", nullable: false),
-                    StockQuantity = table.Column<int>(type: "int", nullable: false),
-                    ReservedQuantity = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    attribute_id = table.Column<int>(type: "integer", nullable: true),
+                    stock_type = table.Column<int>(type: "integer", nullable: false),
+                    stock_quantity = table.Column<int>(type: "integer", nullable: false),
+                    reserved_quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductWarehouseInventory", x => x.Id);
+                    table.PrimaryKey("PK_ProductWarehouseInventory", x => x.id);
                     table.ForeignKey(
                         name: "FK_ProductInventory_Attribute",
-                        column: x => x.AttributeId,
+                        column: x => x.attribute_id,
                         principalSchema: "Sale",
                         principalTable: "ProductAttribute",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProductInventory_Product",
-                        column: x => x.ProductId,
+                        column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1405,28 +1422,28 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ManufacturerId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    manufacturer_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product_Manufacturer_Mapping", x => x.Id);
+                    table.PrimaryKey("PK_Product_Manufacturer_Mapping", x => x.id);
                     table.ForeignKey(
                         name: "FK_ProductManufacturer_Manufacturer",
-                        column: x => x.ManufacturerId,
+                        column: x => x.manufacturer_id,
                         principalSchema: "Sale",
                         principalTable: "Manufacturer",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProductManufacturer_Product",
-                        column: x => x.ProductId,
+                        column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1435,29 +1452,29 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PictureId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    picture_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product_Picture_Mapping", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductPicture_FileUpload_PictureId",
-                        column: x => x.PictureId,
-                        principalSchema: "FS",
-                        principalTable: "FileUpload",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Product_Picture_Mapping", x => x.id);
                     table.ForeignKey(
                         name: "FK_ProductPicture_Product",
-                        column: x => x.ProductId,
+                        column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_product_picture_file_upload_picture_id",
+                        column: x => x.picture_id,
+                        principalSchema: "FS",
+                        principalTable: "FileUpload",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1465,27 +1482,27 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AttributeId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    attribute_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product_Attribute_Mapping", x => x.Id);
+                    table.PrimaryKey("PK_Product_Attribute_Mapping", x => x.id);
                     table.ForeignKey(
                         name: "FK_ProductAttribute_Attribute",
-                        column: x => x.AttributeId,
+                        column: x => x.attribute_id,
                         principalSchema: "Sale",
                         principalTable: "ProductAttribute",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProductAttribute_Product",
-                        column: x => x.ProductId,
+                        column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1494,25 +1511,25 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    ProductTagId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    product_tag_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductProductTag", x => new { x.ProductId, x.ProductTagId });
+                    table.PrimaryKey("pk_product_product_tag", x => new { x.product_id, x.product_tag_id });
                     table.ForeignKey(
-                        name: "FK_ProductProductTag_ProductTag_ProductTagId",
-                        column: x => x.ProductTagId,
-                        principalSchema: "Sale",
-                        principalTable: "ProductTag",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductProductTag_Product_ProductId",
-                        column: x => x.ProductId,
+                        name: "fk_product_product_tag_product_product_id",
+                        column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_product_product_tag_product_tag_product_tag_id",
+                        column: x => x.product_tag_id,
+                        principalSchema: "Sale",
+                        principalTable: "ProductTag",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1521,36 +1538,36 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ReviewText = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    ReplyText = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    CustomerNotifiedOfReply = table.Column<bool>(type: "bit", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
-                    HelpfulYesTotal = table.Column<int>(type: "int", nullable: false),
-                    HelpfulNoTotal = table.Column<int>(type: "int", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    is_approved = table.Column<bool>(type: "boolean", nullable: false),
+                    title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    review_text = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    reply_text = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    customer_notified_of_reply = table.Column<bool>(type: "boolean", nullable: false),
+                    rating = table.Column<int>(type: "integer", nullable: false),
+                    helpful_yes_total = table.Column<int>(type: "integer", nullable: false),
+                    helpful_no_total = table.Column<int>(type: "integer", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductReview", x => x.Id);
+                    table.PrimaryKey("pk_product_review", x => x.id);
                     table.ForeignKey(
                         name: "FK_ProductReview_Product",
-                        column: x => x.ProductId,
+                        column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProductReview_User",
-                        column: x => x.UserId,
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1559,28 +1576,28 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId1 = table.Column<int>(type: "int", nullable: false),
-                    ProductId2 = table.Column<int>(type: "int", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    product_id1 = table.Column<int>(type: "integer", nullable: false),
+                    product_id2 = table.Column<int>(type: "integer", nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RelatedProduct", x => x.Id);
+                    table.PrimaryKey("pk_related_product", x => x.id);
                     table.ForeignKey(
                         name: "FK_RelatedProduct_Product",
-                        column: x => x.ProductId1,
+                        column: x => x.product_id1,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RelatedProduct_Product1",
-                        column: x => x.ProductId2,
+                        column: x => x.product_id2,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1589,31 +1606,31 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    ShoppingCartTypeId = table.Column<byte>(type: "tinyint", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false),
-                    UpdatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    shopping_cart_type_id = table.Column<byte>(type: "smallint", nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
+                    updated_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShoppingCartItem", x => x.Id);
+                    table.PrimaryKey("pk_shopping_cart_item", x => x.id);
                     table.ForeignKey(
                         name: "FK_ShoppingCartItem_Product",
-                        column: x => x.ProductId,
+                        column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ShoppingCartItem_User",
-                        column: x => x.UserId,
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1622,25 +1639,25 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    ArticleId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false)
+                    article_id = table.Column<int>(type: "integer", nullable: false),
+                    tag_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleTag", x => new { x.TagId, x.ArticleId });
+                    table.PrimaryKey("pk_article_tag", x => new { x.tag_id, x.article_id });
                     table.ForeignKey(
-                        name: "FK_ArticleTag_Article_ArticleId",
-                        column: x => x.ArticleId,
+                        name: "fk_article_tag_article_article_id",
+                        column: x => x.article_id,
                         principalSchema: "Cms",
                         principalTable: "Article",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ArticleTag_Tag_TagId",
-                        column: x => x.TagId,
+                        name: "fk_article_tag_tag_tag_id",
+                        column: x => x.tag_id,
                         principalSchema: "Cms",
                         principalTable: "Tag",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1649,25 +1666,25 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 columns: table => new
                 {
-                    ArticleId = table.Column<int>(type: "int", nullable: false),
-                    TopicId = table.Column<int>(type: "int", nullable: false)
+                    article_id = table.Column<int>(type: "integer", nullable: false),
+                    topic_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleTopic", x => new { x.TopicId, x.ArticleId });
+                    table.PrimaryKey("pk_article_topic", x => new { x.topic_id, x.article_id });
                     table.ForeignKey(
-                        name: "FK_ArticleTopic_Article_ArticleId",
-                        column: x => x.ArticleId,
+                        name: "fk_article_topic_article_article_id",
+                        column: x => x.article_id,
                         principalSchema: "Cms",
                         principalTable: "Article",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ArticleTopic_Topic_TopicId",
-                        column: x => x.TopicId,
+                        name: "fk_article_topic_topic_topic_id",
+                        column: x => x.topic_id,
                         principalSchema: "Cms",
                         principalTable: "Topic",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1676,28 +1693,28 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ProductReviewId = table.Column<int>(type: "int", nullable: false),
-                    WasHelpful = table.Column<bool>(type: "bit", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    product_review_id = table.Column<int>(type: "integer", nullable: false),
+                    was_helpful = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductReviewHelpfulness", x => x.Id);
+                    table.PrimaryKey("pk_product_review_helpfulness", x => x.id);
                     table.ForeignKey(
                         name: "FK_ProductReviewHelpfulness_ProductReview",
-                        column: x => x.ProductReviewId,
+                        column: x => x.product_review_id,
                         principalSchema: "Sale",
                         principalTable: "ProductReview",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProductReviewHelpfulness_User",
-                        column: x => x.UserId,
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1706,59 +1723,59 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ShipmentId = table.Column<int>(type: "int", nullable: true),
-                    AddressId = table.Column<int>(type: "int", nullable: true),
-                    ShippingMethodId = table.Column<int>(type: "int", nullable: true),
-                    OrderStatusId = table.Column<byte>(type: "tinyint", nullable: false),
-                    ShippingStatusId = table.Column<byte>(type: "tinyint", nullable: false),
-                    PaymentStatusId = table.Column<byte>(type: "tinyint", nullable: false),
-                    PaymentMethodId = table.Column<byte>(type: "tinyint", nullable: true),
-                    UserCurrencyId = table.Column<int>(type: "int", nullable: true),
-                    ShippingTax = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    ShippingAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    ShippingAmountTax = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    TaxAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    DiscountAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    FinalPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    RefundedAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    CustomerIp = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PaymentId = table.Column<int>(type: "int", nullable: true),
-                    AllowStoringCreditCardNumber = table.Column<bool>(type: "bit", nullable: false),
-                    PaidDateUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    shipment_id = table.Column<int>(type: "integer", nullable: true),
+                    address_id = table.Column<int>(type: "integer", nullable: true),
+                    shipping_method_id = table.Column<int>(type: "integer", nullable: true),
+                    order_status_id = table.Column<byte>(type: "smallint", nullable: false),
+                    shipping_status_id = table.Column<byte>(type: "smallint", nullable: false),
+                    payment_status_id = table.Column<byte>(type: "smallint", nullable: false),
+                    payment_method_id = table.Column<byte>(type: "smallint", nullable: true),
+                    user_currency_id = table.Column<int>(type: "integer", nullable: true),
+                    shipping_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    shipping_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    shipping_amount_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    tax_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    discount_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    total_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    final_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    refunded_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    customer_ip = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    payment_id = table.Column<int>(type: "integer", nullable: true),
+                    allow_storing_credit_card_number = table.Column<bool>(type: "boolean", nullable: false),
+                    paid_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.PrimaryKey("pk_order", x => x.id);
                     table.ForeignKey(
                         name: "FK_Order_Address",
-                        column: x => x.AddressId,
+                        column: x => x.address_id,
                         principalSchema: "Sale",
                         principalTable: "Address",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_Order_Currency",
-                        column: x => x.UserCurrencyId,
+                        column: x => x.user_currency_id,
                         principalSchema: "Sale",
                         principalTable: "Currency",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_Order_ShippingMethod",
-                        column: x => x.ShippingMethodId,
+                        column: x => x.shipping_method_id,
                         principalSchema: "Sale",
                         principalTable: "ShippingMethod",
-                        principalColumn: "Id");
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_Order_User",
-                        column: x => x.UserId,
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1767,28 +1784,28 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DiscountId = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    discount_id = table.Column<int>(type: "integer", nullable: false),
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderDiscount", x => x.Id);
+                    table.PrimaryKey("pk_order_discount", x => x.id);
                     table.ForeignKey(
                         name: "FK_OrderDiscount_Discount",
-                        column: x => x.DiscountId,
+                        column: x => x.discount_id,
                         principalSchema: "Sale",
                         principalTable: "Discount",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OrderDiscount_Order",
-                        column: x => x.OrderId,
+                        column: x => x.order_id,
                         principalSchema: "Sale",
                         principalTable: "Order",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1797,40 +1814,40 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    DiscountId = table.Column<int>(type: "int", nullable: true),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    DiscountAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    TotalPriceTax = table.Column<decimal>(type: "decimal(18,4)", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    discount_id = table.Column<int>(type: "integer", nullable: true),
+                    quantity = table.Column<int>(type: "integer", nullable: false),
+                    discount_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    unit_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    total_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    total_price_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderItem_Discount_DiscountId",
-                        column: x => x.DiscountId,
-                        principalSchema: "Sale",
-                        principalTable: "Discount",
-                        principalColumn: "Id");
+                    table.PrimaryKey("pk_order_item", x => x.id);
                     table.ForeignKey(
                         name: "FK_OrderItem_Order",
-                        column: x => x.OrderId,
+                        column: x => x.order_id,
                         principalSchema: "Sale",
                         principalTable: "Order",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OrderItem_ProductId_Product_Id",
-                        column: x => x.ProductId,
+                        column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_order_item_discount_discount_id",
+                        column: x => x.discount_id,
+                        principalSchema: "Sale",
+                        principalTable: "Discount",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1838,30 +1855,30 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Note = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    IsRead = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    note = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    is_read = table.Column<bool>(type: "boolean", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderNote", x => x.Id);
+                    table.PrimaryKey("pk_order_note", x => x.id);
                     table.ForeignKey(
                         name: "FK_OrderNote_Order",
-                        column: x => x.OrderId,
+                        column: x => x.order_id,
                         principalSchema: "Sale",
                         principalTable: "Order",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OrderNote_User",
-                        column: x => x.UserId,
+                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1870,33 +1887,33 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    TransactionTrackingCode = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    PaymentTrackingCode = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    PaymentDateUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    PaymentTypeId = table.Column<byte>(type: "tinyint", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: true),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false),
-                    CardType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CardName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CardNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    MaskedCreditCardNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CardCvv2 = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    CardExpirationMonth = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    CardExpirationYear = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    transaction_tracking_code = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    payment_tracking_code = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    payment_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    payment_type_id = table.Column<byte>(type: "smallint", nullable: true),
+                    status = table.Column<int>(type: "integer", nullable: true),
+                    deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
+                    card_type = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    card_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    card_number = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    masked_credit_card_number = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    card_cvv2 = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    card_expiration_month = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    card_expiration_year = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecurringPayment", x => x.Id);
+                    table.PrimaryKey("PK_RecurringPayment", x => x.id);
                     table.ForeignKey(
                         name: "FK_Payment_Order",
-                        column: x => x.OrderId,
+                        column: x => x.order_id,
                         principalSchema: "Sale",
                         principalTable: "Order",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1905,26 +1922,26 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    TrackingNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    TotalWeight = table.Column<decimal>(type: "decimal(18,4)", nullable: true),
-                    ShippedDateUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    DeliveryDateUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    ReadyForPickupDateUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: true),
-                    AdminComment = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2(6)", precision: 6, nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    tracking_number = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    total_weight = table.Column<decimal>(type: "numeric(18,4)", nullable: true),
+                    shipped_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    delivery_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    ready_for_pickup_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    admin_comment = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shipment", x => x.Id);
+                    table.PrimaryKey("pk_shipment", x => x.id);
                     table.ForeignKey(
                         name: "FK_Shipment_Order",
-                        column: x => x.OrderId,
+                        column: x => x.order_id,
                         principalSchema: "Sale",
                         principalTable: "Order",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1933,45 +1950,45 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ShipmentId = table.Column<int>(type: "int", nullable: false),
-                    OrderItemId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    shipment_id = table.Column<int>(type: "integer", nullable: false),
+                    order_item_id = table.Column<int>(type: "integer", nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShipmentItem", x => x.Id);
+                    table.PrimaryKey("pk_shipment_item", x => x.id);
                     table.ForeignKey(
                         name: "FK_ShipmentItem_OrderItem",
-                        column: x => x.OrderItemId,
+                        column: x => x.order_item_id,
                         principalSchema: "Sale",
                         principalTable: "OrderItem",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ShipmentItem_Shipment",
-                        column: x => x.ShipmentId,
+                        column: x => x.shipment_id,
                         principalSchema: "Sale",
                         principalTable: "Shipment",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "Category",
-                columns: new[] { "Id", "CreatedOnUtc", "Deleted", "Description", "DisplayOrder", "MetaDescription", "MetaKeywords", "MetaTitle", "Name", "ParentCategoryId", "PictureId", "Published", "ShowOnHomepage", "UpdatedOnUtc" },
+                columns: new[] { "id", "created_on_utc", "deleted", "description", "display_order", "meta_description", "meta_keywords", "meta_title", "name", "parent_category_id", "picture_id", "published", "show_on_homepage", "updated_on_utc" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970), false, "Description of Category 1", 1, "MetaDescription", "MetaKeywords", "Title", "Category 1", null, null, true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970), false, "Description of Category 2", 2, "MetaDescription", "MetaKeywords", "Title", "Category 2", null, null, true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Description of Category 1", 1, "MetaDescription", "MetaKeywords", "Title", "Category 1", null, null, true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Description of Category 2", 2, "MetaDescription", "MetaKeywords", "Title", "Category 2", null, null, true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "Country",
-                columns: new[] { "Id", "AllowsBilling", "AllowsShipping", "DisplayOrder", "LimitedToStores", "Name", "NumericIsoCode", "Published", "SubjectToVat", "ThreeLetterIsoCode", "TwoLetterIsoCode" },
+                columns: new[] { "id", "allows_billing", "allows_shipping", "display_order", "limited_to_stores", "name", "numeric_iso_code", "published", "subject_to_vat", "three_letter_iso_code", "two_letter_iso_code" },
                 values: new object[,]
                 {
                     { 1, true, true, 100, false, "Afghanistan", 4, true, false, "AFG", "AF" },
@@ -2228,18 +2245,18 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "Currency",
-                columns: new[] { "Id", "CreatedOnUtc", "CurrencyCode", "CustomFormatting", "DisplayLocale", "DisplayOrder", "LimitedToStores", "Name", "Published", "Rate", "RoundingTypeId", "UpdatedOnUtc" },
+                columns: new[] { "id", "created_on_utc", "currency_code", "custom_formatting", "display_locale", "display_order", "limited_to_stores", "name", "published", "rate", "rounding_type_id", "updated_on_utc" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970), "USD", "", "en-US", 1, false, "US Dollar", true, 1m, 0, new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970) },
-                    { 2, new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970), "EUR", "€0.00", "", 2, false, "Euro", true, 0.86m, 0, new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970) },
-                    { 3, new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970), "Rial", "", "fa-IR", 3, false, "Iranian", true, 1m, 0, new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970) }
+                    { 1, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "USD", "", "en-US", 1, false, "US Dollar", true, 1m, 0, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc) },
+                    { 2, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "EUR", "€0.00", "", 2, false, "Euro", true, 0.86m, 0, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc) },
+                    { 3, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "Rial", "", "fa-IR", 3, false, "Iranian", true, 1m, 0, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc) }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "DeliveryDate",
-                columns: new[] { "Id", "DisplayOrder", "Name" },
+                columns: new[] { "id", "display_order", "name" },
                 values: new object[,]
                 {
                     { 1, 1, "1-2 days" },
@@ -2250,7 +2267,7 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "Discount",
-                columns: new[] { "Id", "AdminComment", "CouponCode", "DiscountAmount", "DiscountLimitationId", "DiscountPercentage", "DiscountTypeId", "EndDateUtc", "IsActive", "LimitationTimes", "MaximumDiscountAmount", "MaximumDiscountedQuantity", "Name", "RequiresCouponCode", "StartDateUtc", "UsePercentage" },
+                columns: new[] { "id", "admin_comment", "coupon_code", "discount_amount", "discount_limitation_id", "discount_percentage", "discount_type_id", "end_date_utc", "is_active", "limitation_times", "maximum_discount_amount", "maximum_discounted_quantity", "name", "requires_coupon_code", "start_date_utc", "use_percentage" },
                 values: new object[,]
                 {
                     { 1, "AdminComment", "CoponCode1", 0m, 0, 4m, 5, null, true, 1, null, null, "Discount 1", true, null, true },
@@ -2260,7 +2277,7 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 schema: "Cms",
                 table: "LinkSection",
-                columns: new[] { "Id", "IsVisible", "Key", "Title" },
+                columns: new[] { "id", "is_visible", "key", "title" },
                 values: new object[,]
                 {
                     { 1, true, "Categories", "Categories" },
@@ -2270,17 +2287,17 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "Manufacturer",
-                columns: new[] { "Id", "CreatedOnUtc", "Deleted", "Description", "DisplayOrder", "MetaDescription", "MetaKeywords", "MetaTitle", "Name", "PictureId", "Published", "UpdatedOnUtc" },
+                columns: new[] { "id", "created_on_utc", "deleted", "description", "display_order", "meta_description", "meta_keywords", "meta_title", "name", "picture_id", "published", "updated_on_utc" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970), false, "Description of Category 1", 1, "MetaDescription", "MetaKeywords", "Title", "Manufacturer 1", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, new DateTime(2024, 1, 10, 10, 58, 14, 739, DateTimeKind.Unspecified).AddTicks(8970), false, "Description of Category 2", 2, "MetaDescription", "MetaKeywords", "Title", "Manufacturer 2", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Description of Category 1", 1, "MetaDescription", "MetaKeywords", "Title", "Manufacturer 1", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Description of Category 2", 2, "MetaDescription", "MetaKeywords", "Title", "Manufacturer 2", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Cms",
                 table: "Menu",
-                columns: new[] { "Id", "Order", "ParentId", "PreviewImageId", "Title", "Url", "UserId" },
+                columns: new[] { "id", "order", "parent_id", "preview_image_id", "title", "url", "user_id" },
                 values: new object[,]
                 {
                     { 1, 0, null, null, "About", "/About", 1 },
@@ -2293,7 +2310,7 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 schema: "Auth",
                 table: "Permission",
-                columns: new[] { "Id", "Name", "NormalizedName" },
+                columns: new[] { "id", "name", "normalized_name" },
                 values: new object[,]
                 {
                     { 1, "AUTH.USER_MANAGEMENT", "AUTH.USER_MANAGEMENT" },
@@ -2345,7 +2362,7 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "ProductAttribute",
-                columns: new[] { "Id", "AttributeType", "Description", "DisplayOrder", "Name", "PictureId", "Value" },
+                columns: new[] { "id", "attribute_type", "description", "display_order", "name", "picture_id", "value" },
                 values: new object[,]
                 {
                     { 1, 0, null, 1, "Blue", null, "blue" },
@@ -2360,7 +2377,7 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "ProductTag",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "id", "name" },
                 values: new object[,]
                 {
                     { 1, "Tag 1" },
@@ -2371,7 +2388,7 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 schema: "Auth",
                 table: "Role",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                columns: new[] { "id", "concurrency_stamp", "name", "normalized_name" },
                 values: new object[,]
                 {
                     { 1, null, "SUPERADMIN", "SUPERADMIN" },
@@ -2384,7 +2401,7 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "ShippingMethod",
-                columns: new[] { "Id", "Description", "DisplayOrder", "Name" },
+                columns: new[] { "id", "description", "display_order", "name" },
                 values: new object[,]
                 {
                     { 1, "Shipping by land transport", 1, "Ground" },
@@ -2395,7 +2412,7 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "TaxCategory",
-                columns: new[] { "Id", "DisplayOrder", "Name" },
+                columns: new[] { "id", "display_order", "name" },
                 values: new object[,]
                 {
                     { 1, 1, "5% Tax" },
@@ -2404,9 +2421,20 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "infra",
+                table: "language",
+                columns: new[] { "id", "culture_info", "is_visible", "name" },
+                values: new object[,]
+                {
+                    { 1, "ar", true, "Arabic" },
+                    { 2, "fa-IR", true, "Persian" },
+                    { 3, "en-US", true, "English" }
+                });
+
+            migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "StateProvince",
-                columns: new[] { "Id", "Abbreviation", "CountryId", "DisplayOrder", "Name", "Published" },
+                columns: new[] { "id", "abbreviation", "country_id", "display_order", "name", "published" },
                 values: new object[,]
                 {
                     { 1, "", 12, 0, "Երևան", true },
@@ -4248,630 +4276,628 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Address_CountryId",
+                name: "ix_address_country_id",
                 schema: "Sale",
                 table: "Address",
-                column: "CountryId");
+                column: "country_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Address_StateProvinceId",
+                name: "ix_address_state_province_id",
                 schema: "Sale",
                 table: "Address",
-                column: "StateProvinceId");
+                column: "state_province_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Address_UserId",
+                name: "ix_address_user_id",
                 schema: "Sale",
                 table: "Address",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Article_EditorId",
+                name: "ix_article_editor_id",
                 schema: "Cms",
                 table: "Article",
-                column: "EditorId");
+                column: "editor_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Article_PreviewImageId",
+                name: "ix_article_preview_image_id",
                 schema: "Cms",
                 table: "Article",
-                column: "PreviewImageId");
+                column: "preview_image_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Article_WriterId",
+                name: "ix_article_writer_id",
                 schema: "Cms",
                 table: "Article",
-                column: "WriterId");
+                column: "writer_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleTag_ArticleId",
+                name: "ix_article_tag_article_id",
                 schema: "Cms",
                 table: "ArticleTag",
-                column: "ArticleId");
+                column: "article_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleTopic_ArticleId",
+                name: "ix_article_topic_article_id",
                 schema: "Cms",
                 table: "ArticleTopic",
-                column: "ArticleId");
+                column: "article_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Category_DisplayOrder",
+                name: "ix_category_display_order",
                 schema: "Sale",
                 table: "Category",
-                column: "DisplayOrder");
+                column: "display_order");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Category_ParentCategoryId",
+                name: "ix_category_parent_category_id",
                 schema: "Sale",
                 table: "Category",
-                column: "ParentCategoryId");
+                column: "parent_category_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Country_DisplayOrder",
+                name: "ix_country_display_order",
                 schema: "Sale",
                 table: "Country",
-                column: "DisplayOrder");
+                column: "display_order");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Currency_DisplayOrder",
+                name: "ix_currency_display_order",
                 schema: "Sale",
                 table: "Currency",
-                column: "DisplayOrder");
+                column: "display_order");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Discount_AppliedToCategories_Category_Id",
+                name: "ix_discount_category_category_id",
                 schema: "Sale",
                 table: "DiscountCategory",
-                column: "CategoryId");
+                column: "category_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Discount_AppliedToCategories_Discount_Id",
+                name: "ix_discount_category_discount_id",
                 schema: "Sale",
                 table: "DiscountCategory",
-                column: "DiscountId");
+                column: "discount_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Discount_AppliedToManufacturers_Discount_Id",
+                name: "ix_discount_manufacturer_discount_id",
                 schema: "Sale",
                 table: "DiscountManufacturer",
-                column: "DiscountId");
+                column: "discount_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Discount_AppliedToManufacturers_Manufacturer_Id",
+                name: "ix_discount_manufacturer_manufacturer_id",
                 schema: "Sale",
                 table: "DiscountManufacturer",
-                column: "ManufacturerId");
+                column: "manufacturer_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Discount_AppliedToProducts_Discount_Id",
+                name: "ix_discount_product_discount_id",
                 schema: "Sale",
                 table: "DiscountProduct",
-                column: "DiscountId");
+                column: "discount_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Discount_AppliedToProducts_Product_Id",
+                name: "ix_discount_product_product_id",
                 schema: "Sale",
                 table: "DiscountProduct",
-                column: "ProductId");
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmailInboxAttachment_EmailInboxId",
+                name: "ix_email_inbox_attachment_email_inbox_id",
                 schema: "Crm",
                 table: "EmailInboxAttachment",
-                column: "EmailInboxId");
+                column: "email_inbox_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmailInboxFromAddress_EmailInboxId",
+                name: "ix_email_inbox_from_address_email_inbox_id",
                 schema: "Crm",
                 table: "EmailInboxFromAddress",
-                column: "EmailInboxId");
+                column: "email_inbox_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmailInboxToAddress_EmailInboxId",
+                name: "ix_email_inbox_to_address_email_inbox_id",
                 schema: "Crm",
                 table: "EmailInboxToAddress",
-                column: "EmailInboxId");
+                column: "email_inbox_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmailOutbox_ReplayToId",
+                name: "ix_email_outbox_replay_to_id",
                 schema: "Crm",
                 table: "EmailOutbox",
-                column: "ReplayToId");
+                column: "replay_to_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmailOutboxAttachment_EmailOutboxId",
+                name: "ix_email_outbox_attachment_email_outbox_id",
                 schema: "Crm",
                 table: "EmailOutboxAttachment",
-                column: "EmailOutboxId");
+                column: "email_outbox_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmailOutboxFromAddress_EmailOutboxId",
+                name: "ix_email_outbox_from_address_email_outbox_id",
                 schema: "Crm",
                 table: "EmailOutboxFromAddress",
-                column: "EmailOutboxId");
+                column: "email_outbox_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmailOutboxToAddress_EmailOutboxId",
+                name: "ix_email_outbox_to_address_email_outbox_id",
                 schema: "Crm",
                 table: "EmailOutboxToAddress",
-                column: "EmailOutboxId");
+                column: "email_outbox_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FileUpload_UserId",
+                name: "ix_file_upload_user_id",
                 schema: "FS",
                 table: "FileUpload",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Link_LinkSectionId",
+                name: "ix_link_link_section_id",
                 schema: "Cms",
                 table: "Link",
-                column: "LinkSectionId");
+                column: "link_section_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Link_UserId",
+                name: "ix_link_user_id",
                 schema: "Cms",
                 table: "Link",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Manufacturer_DisplayOrder",
+                name: "ix_manufacturer_display_order",
                 schema: "Sale",
                 table: "Manufacturer",
-                column: "DisplayOrder");
+                column: "display_order");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Menu_ParentId",
+                name: "ix_menu_parent_id",
                 schema: "Cms",
                 table: "Menu",
-                column: "ParentId");
+                column: "parent_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Message_FromUserId",
+                name: "ix_message_from_user_id",
                 schema: "Crm",
                 table: "Message",
-                column: "FromUserId");
+                column: "from_user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MessageAttachment_MessageId",
+                name: "ix_message_attachment_message_id",
                 schema: "Crm",
                 table: "MessageAttachment",
-                column: "MessageId");
+                column: "message_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MessageUser_MessageId",
+                name: "ix_message_user_message_id",
                 schema: "Crm",
                 table: "MessageUser",
-                column: "MessageId");
+                column: "message_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MessageUser_ToUserId",
+                name: "ix_message_user_to_user_id",
                 schema: "Crm",
                 table: "MessageUser",
-                column: "ToUserId");
+                column: "to_user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_AddressId",
+                name: "ix_order_address_id",
                 schema: "Sale",
                 table: "Order",
-                column: "AddressId");
+                column: "address_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_CreatedOnUtc",
+                name: "ix_order_created_on_utc",
                 schema: "Sale",
                 table: "Order",
-                column: "CreatedOnUtc",
+                column: "created_on_utc",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_PaymentId",
+                name: "ix_order_payment_id",
                 schema: "Sale",
                 table: "Order",
-                column: "PaymentId");
+                column: "payment_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_ShippingAddressId",
+                name: "ix_order_shipment_id",
                 schema: "Sale",
                 table: "Order",
-                column: "ShipmentId");
+                column: "shipment_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_ShippingMethodId",
+                name: "ix_order_shipping_method_id",
                 schema: "Sale",
                 table: "Order",
-                column: "ShippingMethodId");
+                column: "shipping_method_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_UserCurrencyId",
+                name: "ix_order_user_currency_id",
                 schema: "Sale",
                 table: "Order",
-                column: "UserCurrencyId");
+                column: "user_currency_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_UserId",
+                name: "ix_order_user_id",
                 schema: "Sale",
                 table: "Order",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDiscount",
+                name: "ix_order_discount_discount_id_order_id",
                 schema: "Sale",
                 table: "OrderDiscount",
-                columns: new[] { "DiscountId", "OrderId" });
+                columns: new[] { "discount_id", "order_id" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDiscount_OrderId",
+                name: "ix_order_discount_order_id",
                 schema: "Sale",
                 table: "OrderDiscount",
-                column: "OrderId");
+                column: "order_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItem_DiscountId",
+                name: "ix_order_item_discount_id",
                 schema: "Sale",
                 table: "OrderItem",
-                column: "DiscountId");
+                column: "discount_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItem_OrderId",
+                name: "ix_order_item_order_id",
                 schema: "Sale",
                 table: "OrderItem",
-                column: "OrderId");
+                column: "order_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItem_ProductId",
+                name: "ix_order_item_product_id",
                 schema: "Sale",
                 table: "OrderItem",
-                column: "ProductId");
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderNote_OrderId",
+                name: "ix_order_note_order_id",
                 schema: "Sale",
                 table: "OrderNote",
-                column: "OrderId");
+                column: "order_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderNote_UserId",
+                name: "ix_order_note_user_id",
                 schema: "Sale",
                 table: "OrderNote",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Page_EditorId",
+                name: "ix_page_editor_id",
                 schema: "Cms",
                 table: "Page",
-                column: "EditorId");
+                column: "editor_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Page_WriterId",
+                name: "ix_page_writer_id",
                 schema: "Cms",
                 table: "Page",
-                column: "WriterId");
+                column: "writer_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PageTag_PageId",
+                name: "ix_page_tag_page_id",
                 schema: "Cms",
                 table: "PageTag",
-                column: "PageId");
+                column: "page_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RecurringPayment_InitialOrderId",
+                name: "ix_payment_order_id",
                 schema: "Sale",
                 table: "Payment",
-                column: "OrderId");
+                column: "order_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PermissionRole_RolesId",
+                name: "ix_permission_role_roles_id",
                 schema: "Auth",
-                table: "PermissionRole",
-                column: "RolesId");
+                table: "permission_role",
+                column: "roles_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_CreateUserId",
+                name: "ix_product_create_user_id",
                 schema: "Sale",
                 table: "Product",
-                column: "CreateUserId");
+                column: "create_user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_CurrencyId",
+                name: "ix_product_currency_id",
                 schema: "Sale",
                 table: "Product",
-                column: "CurrencyId");
+                column: "currency_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Deleted_and_Published",
+                name: "ix_product_delivery_date_id",
                 schema: "Sale",
                 table: "Product",
-                columns: new[] { "Published", "Deleted", "Id" });
+                column: "delivery_date_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_DeliveryDateId",
+                name: "ix_product_published_deleted_id",
                 schema: "Sale",
                 table: "Product",
-                column: "DeliveryDateId");
+                columns: new[] { "published", "deleted", "id" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_TaxCategoryId",
+                name: "ix_product_tax_category_id",
                 schema: "Sale",
                 table: "Product",
-                column: "TaxCategoryId");
+                column: "tax_category_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_UpdateUserId",
+                name: "ix_product_update_user_id",
                 schema: "Sale",
                 table: "Product",
-                column: "UpdateUserId");
+                column: "update_user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_AttributeType",
+                name: "ix_product_attribute_attribute_type",
                 schema: "Sale",
                 table: "ProductAttribute",
-                column: "AttributeType");
+                column: "attribute_type");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_DisplayOrder",
+                name: "ix_product_attribute_display_order",
                 schema: "Sale",
                 table: "ProductAttribute",
-                column: "DisplayOrder");
+                column: "display_order");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PCM_Product_and_Category",
+                name: "ix_product_category_category_id",
                 schema: "Sale",
                 table: "ProductCategory",
-                columns: new[] { "CategoryId", "ProductId" });
+                column: "category_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Category_Mapping_CategoryId",
+                name: "ix_product_category_category_id_product_id",
                 schema: "Sale",
                 table: "ProductCategory",
-                column: "CategoryId");
+                columns: new[] { "category_id", "product_id" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Category_Mapping_ProductId",
+                name: "ix_product_category_product_id",
                 schema: "Sale",
                 table: "ProductCategory",
-                column: "ProductId");
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductInventory_AttributeId",
+                name: "ix_product_inventory_attribute_id",
                 schema: "Sale",
                 table: "ProductInventory",
-                column: "AttributeId");
+                column: "attribute_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductWarehouseInventory_ProductId",
+                name: "ix_product_inventory_product_id",
                 schema: "Sale",
                 table: "ProductInventory",
-                column: "ProductId");
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PMM_Product_and_Manufacturer",
+                name: "ix_product_manufacturer_manufacturer_id",
                 schema: "Sale",
                 table: "ProductManufacturer",
-                columns: new[] { "ManufacturerId", "ProductId" });
+                column: "manufacturer_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Manufacturer_Mapping_ManufacturerId",
+                name: "ix_product_manufacturer_manufacturer_id_product_id",
                 schema: "Sale",
                 table: "ProductManufacturer",
-                column: "ManufacturerId");
+                columns: new[] { "manufacturer_id", "product_id" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Manufacturer_Mapping_ProductId",
+                name: "ix_product_manufacturer_product_id",
                 schema: "Sale",
                 table: "ProductManufacturer",
-                column: "ProductId");
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Picture_Mapping_PictureId",
+                name: "ix_product_picture_picture_id",
                 schema: "Sale",
                 table: "ProductPicture",
-                column: "PictureId");
+                column: "picture_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Picture_Mapping_ProductId",
+                name: "ix_product_picture_product_id",
                 schema: "Sale",
                 table: "ProductPicture",
-                column: "ProductId");
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PCM_Product_and_Attribute",
+                name: "ix_product_product_attribute_attribute_id",
                 schema: "Sale",
                 table: "ProductProductAttribute",
-                columns: new[] { "AttributeId", "ProductId" });
+                column: "attribute_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Attribute_Mapping_AttributeId",
+                name: "ix_product_product_attribute_attribute_id_product_id",
                 schema: "Sale",
                 table: "ProductProductAttribute",
-                column: "AttributeId");
+                columns: new[] { "attribute_id", "product_id" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Attribute_Mapping_ProductId",
+                name: "ix_product_product_attribute_product_id",
                 schema: "Sale",
                 table: "ProductProductAttribute",
-                column: "ProductId");
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductProductTag_ProductTagId",
+                name: "ix_product_product_tag_product_tag_id",
                 schema: "Sale",
                 table: "ProductProductTag",
-                column: "ProductTagId");
+                column: "product_tag_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductReview_CustomerId",
+                name: "ix_product_review_product_id",
                 schema: "Sale",
                 table: "ProductReview",
-                column: "UserId");
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductReview_ProductId",
+                name: "ix_product_review_user_id",
                 schema: "Sale",
                 table: "ProductReview",
-                column: "ProductId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductReviewHelpfulness_ProductReviewId",
+                name: "ix_product_review_helpfulness_product_review_id",
                 schema: "Sale",
                 table: "ProductReviewHelpfulness",
-                column: "ProductReviewId");
+                column: "product_review_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductReviewHelpfulness_UserId",
+                name: "ix_product_review_helpfulness_user_id",
                 schema: "Sale",
                 table: "ProductReviewHelpfulness",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductTag_Name",
+                name: "ix_product_tag_name",
                 schema: "Sale",
                 table: "ProductTag",
-                column: "Name");
+                column: "name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RelatedProduct_ProductId1",
+                name: "ix_related_product_product_id1",
                 schema: "Sale",
                 table: "RelatedProduct",
-                column: "ProductId1");
+                column: "product_id1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RelatedProduct_ProductId2",
+                name: "ix_related_product_product_id2",
                 schema: "Sale",
                 table: "RelatedProduct",
-                column: "ProductId2");
+                column: "product_id2");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 schema: "Auth",
                 table: "Role",
-                column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                column: "normalized_name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoleClaim_RoleId",
+                name: "ix_role_claim_role_id",
                 schema: "Auth",
                 table: "RoleClaim",
-                column: "RoleId");
+                column: "role_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Shipment_OrderId",
+                name: "ix_shipment_order_id",
                 schema: "Sale",
                 table: "Shipment",
-                column: "OrderId");
+                column: "order_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShipmentItem_OrderItemId",
+                name: "ix_shipment_item_order_item_id",
                 schema: "Sale",
                 table: "ShipmentItem",
-                column: "OrderItemId");
+                column: "order_item_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShipmentItem_ShipmentId",
+                name: "ix_shipment_item_shipment_id",
                 schema: "Sale",
                 table: "ShipmentItem",
-                column: "ShipmentId");
+                column: "shipment_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCartItem",
+                name: "ix_shopping_cart_item_id",
                 schema: "Sale",
                 table: "ShoppingCartItem",
-                column: "Id");
+                column: "id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCartItem_ProductId",
+                name: "ix_shopping_cart_item_product_id",
                 schema: "Sale",
                 table: "ShoppingCartItem",
-                column: "ProductId");
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCartItem_UserId",
+                name: "ix_shopping_cart_item_user_id",
                 schema: "Sale",
                 table: "ShoppingCartItem",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Slideshow_UserId",
+                name: "ix_slideshow_user_id",
                 schema: "Cms",
                 table: "Slideshow",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StateProvince_CountryId",
+                name: "ix_state_province_country_id",
                 schema: "Sale",
                 table: "StateProvince",
-                column: "CountryId");
+                column: "country_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscribe_SubscribeLabelId",
+                name: "ix_subscribe_subscribe_label_id",
                 schema: "Cms",
                 table: "Subscribe",
-                column: "SubscribeLabelId");
+                column: "subscribe_label_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaxRate_CountryId",
+                name: "ix_tax_rate_country_id",
                 schema: "Sale",
                 table: "TaxRate",
-                column: "CountryId");
+                column: "country_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaxRate_StateProvinceId",
+                name: "ix_tax_rate_state_province_id",
                 schema: "Sale",
                 table: "TaxRate",
-                column: "StateProvinceId");
+                column: "state_province_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaxRate_TaxCategoryId",
+                name: "ix_tax_rate_tax_category_id",
                 schema: "Sale",
                 table: "TaxRate",
-                column: "TaxCategoryId");
+                column: "tax_category_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Topic_ParentId",
+                name: "ix_topic_parent_id",
                 schema: "Cms",
                 table: "Topic",
-                column: "ParentId");
+                column: "parent_id");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 schema: "Auth",
                 table: "User",
-                column: "NormalizedEmail");
+                column: "normalized_email");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 schema: "Auth",
                 table: "User",
-                column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                column: "normalized_user_name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserClaim_UserId",
+                name: "ix_user_claim_user_id",
                 schema: "Auth",
                 table: "UserClaim",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserLogin_UserId",
+                name: "ix_user_login_user_id",
                 schema: "Auth",
                 table: "UserLogin",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRole_RoleId",
+                name: "ix_user_role_role_id",
                 schema: "Auth",
                 table: "UserRole",
-                column: "RoleId");
+                column: "role_id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Order_Payment_PaymentId",
+                name: "fk_order_payment_payment_id",
                 schema: "Sale",
                 table: "Order",
-                column: "PaymentId",
+                column: "payment_id",
                 principalSchema: "Sale",
                 principalTable: "Payment",
-                principalColumn: "Id");
+                principalColumn: "id");
         }
 
         /// <inheritdoc />
@@ -4913,7 +4939,12 @@ namespace Hydra.Infrastructure.Migrations
                 table: "Order");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Order_Payment_PaymentId",
+                name: "FK_Order_ShippingMethod",
+                schema: "Sale",
+                table: "Order");
+
+            migrationBuilder.DropForeignKey(
+                name: "fk_order_payment_payment_id",
                 schema: "Sale",
                 table: "Order");
 
@@ -4962,6 +4993,10 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm");
 
             migrationBuilder.DropTable(
+                name: "language",
+                schema: "infra");
+
+            migrationBuilder.DropTable(
                 name: "Link",
                 schema: "Cms");
 
@@ -4990,7 +5025,7 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms");
 
             migrationBuilder.DropTable(
-                name: "PermissionRole",
+                name: "permission_role",
                 schema: "Auth");
 
             migrationBuilder.DropTable(
@@ -5034,8 +5069,8 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale");
 
             migrationBuilder.DropTable(
-                name: "Setting",
-                schema: "Infra");
+                name: "setting",
+                schema: "infra");
 
             migrationBuilder.DropTable(
                 name: "ShipmentItem",
@@ -5150,11 +5185,11 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm");
 
             migrationBuilder.DropTable(
-                name: "Discount",
+                name: "Product",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
-                name: "Product",
+                name: "Discount",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
@@ -5186,15 +5221,15 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale");
 
             migrationBuilder.DropTable(
+                name: "ShippingMethod",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
                 name: "Payment",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
                 name: "Order",
-                schema: "Sale");
-
-            migrationBuilder.DropTable(
-                name: "ShippingMethod",
                 schema: "Sale");
         }
     }

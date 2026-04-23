@@ -1,0 +1,52 @@
+<Solution>
+  <Folder Name="/Modules/" />
+  <Folder Name="/Modules/Auth/">
+    <Project Path="Hydra.Auth.Api/Hydra.Auth.Api.csproj" />
+    <Project Path="Hydra.Auth.Core/Hydra.Auth.Core.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Cms/">
+    <Project Path="Hydra.Cms.Api/Hydra.Cms.Api.csproj" />
+    <Project Path="Hydra.Cms.Core/Hydra.Cms.Core.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Crm/">
+    <Project Path="Hydra.Crm.Api/Hydra.Crm.Api.csproj" />
+    <Project Path="Hydra.Crm.Core/Hydra.Crm.Core.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Ecommerce/">
+    <Project Path="Hydra.Ecommerce.Core/Hydra.Ecommerce.Core.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Ecommerce/Common/">
+    <Project Path="Hydra.Common.Api/Hydra.Common.Api.csproj" />
+    <Project Path="Hydra.Common.Core/Hydra.Common.Core.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Ecommerce/Inventory/">
+    <Project Path="Hydra.Inventory.Api/Hydra.Inventory.Api.csproj" />
+    <Project Path="Hydra.Inventory.Core/Hydra.Inventory.Core.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Ecommerce/Order/">
+    <Project Path="Hydra.Order.Api/Hydra.Order.Api.csproj" />
+    <Project Path="Hydra.Order.Core/Hydra.Order.Core.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Ecommerce/Payment/">
+    <Project Path="Hydra.Payment.Api/Hydra.Payment.Api.csproj" />
+    <Project Path="Hydra.Payment.Core/Hydra.Payment.Core.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Ecommerce/Product/">
+    <Project Path="Hydra.Product.Api/Hydra.Product.Api.csproj" />
+    <Project Path="Hydra.Product.Core/Hydra.Product.Core.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Ecommerce/ShoppingCart/">
+    <Project Path="Hydra.ShoppingCart.Api/Hydra.ShoppingCart.Api.csproj" />
+    <Project Path="Hydra.ShoppingCart.Core/Hydra.ShoppingCart.Core.csproj" />
+  </Folder>
+  <Folder Name="/Modules/FileStorage/">
+    <Project Path="Hydra.FileStorage.Api/Hydra.FileStorage.Api.csproj" />
+    <Project Path="Hydra.FileStorage.Core/Hydra.FileStorage.Core.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="Hydra.Infrastructure/Hydra.Infrastructure.csproj" />
+  <Project Path="Hydra.Kernel/Hydra.Kernel.csproj" />
+  <Project Path="Hydra.Web/Hydra.Web.csproj" />
+</Solution>

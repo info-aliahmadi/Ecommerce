@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Hydra.Kernel;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Exceptions;
@@ -13,10 +14,21 @@ namespace Hydra.Infrastructure.Logs
         {
             builder.Host.ConfigureAppConfiguration((context, config) =>
             {
-                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                // Get the base directory where the executable is located
+                var basePath = AppContext.BaseDirectory;
+
                 config.AddJsonFile(
-                    $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json",
-                    optional: true);
+                    Path.Combine(basePath, "appsettings.json"),
+                    optional: false,
+                    reloadOnChange: true);
+
+                var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                if (!string.IsNullOrEmpty(environment))
+                {
+                    config.AddJsonFile(
+                        Path.Combine(basePath, $"appsettings.{environment}.json"),
+                        optional: true);
+                }
             }).UseSerilog();
         }
         /// <summary>
@@ -25,12 +37,20 @@ namespace Hydra.Infrastructure.Logs
         public static void ConfigureLogging()
         {
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile(
-                    $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json",
-                    optional: true)
-                .Build();
+            var basePath = AppContext.BaseDirectory;
+
+            var configurationBuilder = new ConfigurationBuilder()
+                .SetBasePath(basePath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            if (!string.IsNullOrEmpty(environment))
+            {
+                configurationBuilder.AddJsonFile(
+                    $"appsettings.{environment}.json",
+                    optional: true);
+            }
+
+            var configuration = configurationBuilder.Build();
             var provider = configuration["Logging:Provider"];
             if (provider == "Elastic")
             {

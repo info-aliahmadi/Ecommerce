@@ -24,9 +24,10 @@ namespace Hydra.Infrastructure.Logs
             {
                 result.Status = ResultStatusEnum.ExceptionThrowed;
                 result.Errors.Add(new Error(ResultStatusEnum.ExceptionThrowed.Description(), ex.Message));
-                result.Message = ex.Message; 
-                context.Response.ContentType = "application/json";
-                await context.Response.WriteAsync(JsonSerializer.Serialize(result));
+                result.Message = ex.Message;
+                context.Response.StatusCode = 500;
+                context.Response.ContentType = "application/json; charset=utf-8";
+                await context.Response.WriteAsync(JsonSerializer.Serialize(result, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
             }
         }
     }

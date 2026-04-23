@@ -50,6 +50,16 @@ namespace Hydra.Infrastructure.Configuration
                 builder.AddAutoMigrate();
             }
 
+            services.AddCorsPolicy(builder.Configuration);
+
+            // Configure JSON serialization to handle custom date formats
+            services.ConfigureHttpJsonOptions(options =>
+            {
+                options.SerializerOptions.Converters.Add(new DateTimeJsonConverter());
+                options.SerializerOptions.Converters.Add(new NullableDateTimeJsonConverter());
+            });
+
+
             services.AddlocalizationConfig();
 
             services.AddServices();

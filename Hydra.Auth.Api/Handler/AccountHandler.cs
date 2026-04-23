@@ -354,7 +354,7 @@ namespace Hydra.Auth.Api.Handler
                     return Results.BadRequest("ERROR: PLEASE LOGIN");
 
                 }
-                var user = await _userManager.FindByIdAsync(userIdentity);
+                var user = await _userManager.FindByIdAsync(userIdentity.ToString());
 
                 var expireDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(userPrincipal.FindFirst("exp").Value)).DateTime;
 
@@ -391,7 +391,7 @@ namespace Hydra.Auth.Api.Handler
 
                 }
 
-                var userPermissions = permission.GetPermissionsOfUser(int.Parse(userIdentity));
+                var userPermissions = permission.GetPermissionsOfUser(userIdentity);
 
                 return Results.Ok(userPermissions);
 
@@ -455,7 +455,7 @@ namespace Hydra.Auth.Api.Handler
                 return Results.BadRequest("ERROR: PLEASE LOGIN");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
             var userModel = new UserModel()
             {
                 UserName = user.UserName,
@@ -488,7 +488,7 @@ namespace Hydra.Auth.Api.Handler
                     return Results.BadRequest("ERROR: PLEASE LOGIN");
                 }
 
-                var user = await _userManager.FindByIdAsync(userId);
+                var user = await _userManager.FindByIdAsync(userId.ToString());
                 user.Name = userModel.Name;
                 user.UserName = userModel.UserName;
                 user.Email = userModel.Email;
@@ -528,7 +528,7 @@ namespace Hydra.Auth.Api.Handler
                 return Results.BadRequest("ERROR: PLEASE LOGIN");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
 
             return Results.Ok(user.DefaultLanguage);
         }
@@ -550,7 +550,7 @@ namespace Hydra.Auth.Api.Handler
                 return Results.BadRequest("ERROR: PLEASE LOGIN");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
             user.DefaultLanguage = defaultLanguage;
             var result = await _userManager.UpdateAsync(user);
 
@@ -571,7 +571,7 @@ namespace Hydra.Auth.Api.Handler
                 return Results.BadRequest("ERROR: PLEASE LOGIN");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
 
             return Results.Ok(user.DefaultTheme);
         }
@@ -592,7 +592,7 @@ namespace Hydra.Auth.Api.Handler
                 return Results.BadRequest("ERROR: PLEASE LOGIN");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
             user.DefaultTheme = defaultTheme;
             var result = await _userManager.UpdateAsync(user);
 
@@ -757,7 +757,7 @@ namespace Hydra.Auth.Api.Handler
             if (MiniValidator.TryValidate(model, out var errors))
             {
                 var userId = userClaim?.GetUserId();
-                var user = await _userManager.FindByIdAsync(userId);
+                var user = await _userManager.FindByIdAsync(userId.ToString());
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed

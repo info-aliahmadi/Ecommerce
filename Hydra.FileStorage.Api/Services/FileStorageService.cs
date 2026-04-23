@@ -11,6 +11,7 @@ using Hydra.Infrastructure.Setting.Interface;
 using Hydra.Kernel.Interface;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
+using Hydra.Kernel;
 
 namespace Hydra.FileStorage.Api.Services
 {

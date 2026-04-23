@@ -1,7 +1,7 @@
 ﻿namespace Hydra.Infrastructure.Security.Extension
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-    public class PermissionAttribute : Attribute
+    public class PermissionAttribute : System.Attribute
     {
 
         public string PermissionName { get; private set; }

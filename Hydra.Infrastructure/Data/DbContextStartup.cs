@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCoreSecondLevelCacheInterceptor;
+using Hydra.Infrastructure.Cache;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using EFCoreSecondLevelCacheInterceptor;
-using Microsoft.AspNetCore.Builder;
-using Hydra.Infrastructure.Cache;
+using System;
 
 namespace Hydra.Infrastructure.Data
 {
@@ -19,15 +20,17 @@ namespace Hydra.Infrastructure.Data
             //Setting it too high may needlessly consume memory as
             //unused DbContext instances are maintained in the pool.
 
+            // POSTEGRESS
             builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
-                options.UseSqlServer(connectionString
-                             //,builder =>
-                             //{
-                             //    builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
-                             //}
-                             ).AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>())
+                     options.UseNpgsql(connectionString
+                                  //,builder =>
+                                  //{
+                                  //    builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                                  //}
+                                  ).UseSnakeCaseNamingConvention()
+                                  .AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>())
 
-            , ServiceLifetime.Transient); // the default pool size in 1024 
+                 , ServiceLifetime.Transient); // the default pool size in 1024 
 
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -41,6 +44,9 @@ namespace Hydra.Infrastructure.Data
         {
             using ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
             var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+
+            // Suppress pending model changes warning
+            context.Database.GetDbConnection();
             context.Database.Migrate();
         }
     }
