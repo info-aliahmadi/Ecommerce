@@ -23,20 +23,12 @@
         /// <returns></returns>
         public int DisplayOrder { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int Products { get; set; }
-
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public int TaxRates { get; set; }
 
-
+        public decimal Percentage { get; set; }
     }
 }

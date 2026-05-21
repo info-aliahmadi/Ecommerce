@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Domain\Currency.cs" />
+    <Compile Remove="Domain\DeliveryDate.cs" />
+    <Compile Remove="EntityConfiguration\CurrencyConfiguration.cs" />
+    <Compile Remove="EntityConfiguration\DeliveryDateConfiguration.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Hydra.Auth.Core\Hydra.Auth.Core.csproj" />
     <ProjectReference Include="..\Hydra.FileStorage.Core\Hydra.FileStorage.Core.csproj" />
     <ProjectReference Include="..\Hydra.Kernel\Hydra.Kernel.csproj" />

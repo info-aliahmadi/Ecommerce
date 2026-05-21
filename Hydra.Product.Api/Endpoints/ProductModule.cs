@@ -28,8 +28,8 @@ namespace Hydra.Product.Api.Endpoints
 
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapPost(API_SCHEMA + "/GetCategoryList", CategoryHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/GetCategoryListForSelect", CategoryHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetCategoryList", CategoryHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetCategoryListForSelect", CategoryHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetCategoryHierarchy", CategoryHandler.GetCategoryHierarchy).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetCategoryById", CategoryHandler.GetCategoryById).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddCategory", CategoryHandler.AddCategory).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
@@ -38,8 +38,8 @@ namespace Hydra.Product.Api.Endpoints
             endpoints.MapGet(API_SCHEMA + "/DeleteCategory", CategoryHandler.DeleteCategory).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
 
 
-            endpoints.MapPost(API_SCHEMA + "/GetProductAttributeList", ProductAttributeHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_ATTRIBUTE_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/GetProductAttributesForSelect", ProductAttributeHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_ATTRIBUTE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetProductAttributeList", ProductAttributeHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_ATTRIBUTE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetProductAttributesForSelect", ProductAttributeHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_ATTRIBUTE_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetProductAttributeById", ProductAttributeHandler.GetProductAttributeById).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_ATTRIBUTE_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddProductAttribute", ProductAttributeHandler.AddProductAttribute).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_ATTRIBUTE_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateProductAttribute", ProductAttributeHandler.UpdateProductAttribute).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_ATTRIBUTE_MANAGEMENT);
@@ -69,7 +69,7 @@ namespace Hydra.Product.Api.Endpoints
             endpoints.MapGet(API_SCHEMA + "/DeleteProductReviewHelpfulness", ProductReviewHelpfulnessHandler.DeleteProductReviewHelpfulness).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_REVIEW_HELPFULNESS_MANAGEMENT);
 
             endpoints.MapPost(API_SCHEMA + "/GetProductTagList", ProductTagHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_TAG_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/GetProductTagListForSelect", ProductTagHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_TAG_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetProductTagListForSelect", ProductTagHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_TAG_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetProductTagById", ProductTagHandler.GetProductTagById).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_TAG_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddProductTag", ProductTagHandler.AddProductTag).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_TAG_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateProductTag", ProductTagHandler.UpdateProductTag).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_TAG_MANAGEMENT);
@@ -77,8 +77,8 @@ namespace Hydra.Product.Api.Endpoints
 
 
 
-            endpoints.MapPost(API_SCHEMA + "/GetManufacturerList", ManufacturerHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_MANUFACTURER_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/GetManufacturersForSelect", ManufacturerHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_MANUFACTURER_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetManufacturerList", ManufacturerHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_MANUFACTURER_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetManufacturersForSelect", ManufacturerHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_MANUFACTURER_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetManufacturerById", ManufacturerHandler.GetManufacturerById).RequirePermission(EcommercePermissionTypes.SALE_MANUFACTURER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddManufacturer", ManufacturerHandler.AddManufacturer).RequirePermission(EcommercePermissionTypes.SALE_MANUFACTURER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateManufacturer", ManufacturerHandler.UpdateManufacturer).RequirePermission(EcommercePermissionTypes.SALE_MANUFACTURER_MANAGEMENT);

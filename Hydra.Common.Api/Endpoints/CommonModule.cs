@@ -17,8 +17,6 @@ namespace Hydra.Common.Api.Endpoints
         {
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<ICountryService, CountryService>();
-            services.AddScoped<ICurrencyService, CurrencyService>();
-            services.AddScoped<IDeliveryDateService, DeliveryDateService>();
             services.AddScoped<IDiscountService, DiscountService>();
             services.AddScoped<ISearchTermService, SearchTermService>();
             services.AddScoped<IStateProvinceService, StateProvinceService>();
@@ -39,19 +37,6 @@ namespace Hydra.Common.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/DeleteSearchTerm", SearchTermHandler.DeleteSearchTerm).RequirePermission(EcommercePermissionTypes.SALE_SEARCH_TERM_MANAGEMENT);
 
             #region BASE Entities
-
-            endpoints.MapPost(API_SCHEMA + "/GetCurrencyList", CurrencyHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_CURRENCY_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/GetAllCurrencies", CurrencyHandler.GetAllCurrencies).RequirePermission(EcommercePermissionTypes.SALE_CURRENCY_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/GetCurrencyById", CurrencyHandler.GetCurrencyById).RequirePermission(EcommercePermissionTypes.SALE_CURRENCY_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddCurrency", CurrencyHandler.AddCurrency).RequirePermission(EcommercePermissionTypes.SALE_CURRENCY_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/UpdateCurrency", CurrencyHandler.UpdateCurrency).RequirePermission(EcommercePermissionTypes.SALE_CURRENCY_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/DeleteCurrency", CurrencyHandler.DeleteCurrency).RequirePermission(EcommercePermissionTypes.SALE_CURRENCY_MANAGEMENT);
-
-            endpoints.MapPost(API_SCHEMA + "/GetDeliveryDateList", DeliveryDateHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_DELIVERY_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/GetDeliveryDateById", DeliveryDateHandler.GetDeliveryDateById).RequirePermission(EcommercePermissionTypes.SALE_DELIVERY_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddDeliveryDate", DeliveryDateHandler.AddDeliveryDate).RequirePermission(EcommercePermissionTypes.SALE_DELIVERY_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/UpdateDeliveryDate", DeliveryDateHandler.UpdateDeliveryDate).RequirePermission(EcommercePermissionTypes.SALE_DELIVERY_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/DeleteDeliveryDate", DeliveryDateHandler.DeleteDeliveryDate).RequirePermission(EcommercePermissionTypes.SALE_DELIVERY_MANAGEMENT);
 
             endpoints.MapPost(API_SCHEMA + "/GetDiscountList", DiscountHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/GetDiscountListForSelect", DiscountHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
@@ -80,7 +65,7 @@ namespace Hydra.Common.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/DeleteAddress", AddressHandler.DeleteAddress).RequirePermission(EcommercePermissionTypes.SALE_ADDRESS_MANAGEMENT);
 
 
-            endpoints.MapPost(API_SCHEMA + "/GetTaxCategoryList", TaxCategoryHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetTaxCategoryList", TaxCategoryHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetTaxCategoryById", TaxCategoryHandler.GetTaxCategoryById).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddTaxCategory", TaxCategoryHandler.AddTaxCategory).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateTaxCategory", TaxCategoryHandler.UpdateTaxCategory).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);

@@ -69,5 +69,4 @@ public class Order : BaseEntity<int>
 
     public virtual User User { get; set; }
 
-    public virtual Currency UserCurrency { get; set; }
 }

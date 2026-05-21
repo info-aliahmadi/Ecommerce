@@ -1,4 +1,5 @@
 ﻿using Hydra.Auth.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
@@ -19,7 +20,6 @@ public class Product : BaseEntity<int>
 
     public string? MetaDescription { get; set; }
 
-    public int DeliveryDateId { get; set; }
 
     public int TaxCategoryId { get; set; }
 
@@ -36,10 +36,6 @@ public class Product : BaseEntity<int>
     public decimal Price { get; set; }
     
     public decimal OldPrice { get; set; }
-
-    public int CurrencyId { get; set; }
-
-    public virtual Currency Currency { get; set; }
 
 
     public DateTime? AvailableStartDateTimeUtc { get; set; }
@@ -98,7 +94,9 @@ public class Product : BaseEntity<int>
 
     public DateTime? UpdatedOnUtc { get; set; }
 
-    public virtual DeliveryDate DeliveryDate { get; set; }
+    public DeliveryDateType DeliveryDate { get; set; }
+
+    public CurrencyType CurrencyType { get; set; }
 
     public virtual List<OrderItem> OrderItems { get; set; } = new();
 

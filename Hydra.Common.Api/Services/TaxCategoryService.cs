@@ -4,6 +4,7 @@ using Hydra.Ecommerce.Core.Domain;
 using Hydra.Common.Core.Interfaces;
 using Hydra.Common.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using EFCoreSecondLevelCacheInterceptor;
 
 namespace Hydra.Common.Api.Services
 {
@@ -26,16 +27,15 @@ namespace Hydra.Common.Api.Services
         {
             var result = new Result<List<TaxCategoryModel>>();
 
-            var list = await (from taxCategory in _queryRepository.Table<TaxCategory>()
+            var list = await (from taxRate in _queryRepository.Table<TaxRate>().Include(x=>x.TaxCategory)
                               select new TaxCategoryModel()
                               {
-                                  Id = taxCategory.Id,
-                                  Name = taxCategory.Name,
-                                  DisplayOrder = taxCategory.DisplayOrder,
-                                  //Products = taxCategory.Products,
-                                  //TaxRates = taxCategory.TaxRates,
+                                  Id = taxRate.TaxCategoryId,
+                                  Name = taxRate.TaxCategory.Name,
+                                  Percentage = taxRate.Percentage,
+                                  DisplayOrder = taxRate.TaxCategory.DisplayOrder
 
-                              }).OrderByDescending(x => x.Id).ToListAsync();
+                              }).OrderByDescending(x => x.Id).Cacheable().ToListAsync();
 
             result.Data = list;
 

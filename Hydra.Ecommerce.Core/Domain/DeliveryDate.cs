@@ -8,5 +8,5 @@ public class DeliveryDate : BaseEntity<int>
 
     public int DisplayOrder { get; set; }
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    //public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

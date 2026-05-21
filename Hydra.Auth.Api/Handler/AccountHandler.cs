@@ -211,9 +211,7 @@ namespace Hydra.Auth.Api.Handler
             ITokenService tokenService,
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
-            string username,
-            string password,
-            bool rememberMe)
+            LoginModel loginModel)
         {
             try
             {
@@ -221,14 +219,14 @@ namespace Hydra.Auth.Api.Handler
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
 
-                var user = await _userManager.FindByNameAsync(username);
+                var user = await _userManager.FindByNameAsync(loginModel.Username);
 
                 if (user == null)
                 {
                     result.Status = ResultStatusEnum.NotFound;
                     return Results.Ok(result);
                 }
-                var signInResult = await _signInManager.CheckPasswordSignInAsync(user, password, true);
+                var signInResult = await _signInManager.CheckPasswordSignInAsync(user, loginModel.Password, true);
                 if (signInResult.Succeeded)
                 {
                     if (signInResult.RequiresTwoFactor)
@@ -242,7 +240,7 @@ namespace Hydra.Auth.Api.Handler
                         result.Status = ResultStatusEnum.IsLockedOut;
                         return Results.Ok(result);
                     }
-                    DateTime expireDate = rememberMe ? DateTime.Now.AddMonths(6) : DateTime.Now.AddHours(3);
+                    DateTime expireDate = loginModel.RememberMe ? DateTime.Now.AddMonths(6) : DateTime.Now.AddHours(3);
                     var token = tokenService.CreateToken(user, expireDate);
 
                     var roles = await _userManager.GetRolesAsync(user);
