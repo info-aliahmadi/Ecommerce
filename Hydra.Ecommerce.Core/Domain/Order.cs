@@ -1,4 +1,5 @@
 ﻿using Hydra.Auth.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
@@ -21,8 +22,8 @@ public class Order : BaseEntity<int>
 
     public byte? PaymentMethodId { get; set; }
 
-    public int? UserCurrencyId { get; set; }
-    
+    public CurrencyType UserCurrencyType { get; set; }
+
     public decimal ShippingTax { get; set; }
     
     public decimal ShippingAmount { get; set; }

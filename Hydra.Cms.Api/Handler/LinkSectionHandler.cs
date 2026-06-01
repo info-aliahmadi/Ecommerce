@@ -1,5 +1,6 @@
 ﻿using Hydra.Cms.Core.Interfaces;
 using Hydra.Cms.Core.Models;
+using Hydra.Kernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -59,7 +60,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] LinkSectionModel linkSectionModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             var result = await _linkSectionService.Add(linkSectionModel);
 
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
@@ -77,7 +78,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] LinkSectionModel linkSectionModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             var result = await _linkSectionService.Update(linkSectionModel);
 
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);

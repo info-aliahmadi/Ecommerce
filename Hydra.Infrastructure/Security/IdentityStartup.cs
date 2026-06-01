@@ -16,16 +16,6 @@ namespace Hydra.Infrastructure.Security
         public static void AddIdentityConfig(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("ReactOrigin",
-                        builder =>
-                        {
-                            builder.WithOrigins(configuration["Authentication:Schemes:Bearer:Authority"]).AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-                            builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-                            builder.WithOrigins("http://localhost:9230").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-                        });
-            });
 
             services.AddIdentityCore<User>(o => o.SignIn.RequireConfirmedAccount = false)
                  .AddRoles<Role>()

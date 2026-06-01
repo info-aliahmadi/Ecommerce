@@ -32,7 +32,6 @@ namespace Hydra.Order.Api.Services
                     .Include(x => x.User)
                     .Include(x => x.ShippingMethod)
                     .Include(x => x.OrderNotes)
-                    .Include(x => x.UserCurrency)
                               join payment in _queryRepository.Table<Payment>() on order.Id equals payment.OrderId
                               into pays
                               from pay in pays.DefaultIfEmpty()
@@ -54,8 +53,7 @@ namespace Hydra.Order.Api.Services
                                   ShippingStatusId = order.ShippingStatusId,
                                   PaymentStatusId = order.PaymentStatusId,
                                   PaymentMethodId = order.PaymentMethodId,
-                                  UserCurrencyId = order.UserCurrencyId,
-                                  UserCurrency = order.UserCurrency.CurrencyCode,
+                                  UserCurrencyType = order.UserCurrencyType,
                                   ShippingTax = order.ShippingTax,
                                   ShippingAmount = order.ShippingAmount,
                                   ShippingAmountTax = order.ShippingAmountTax,
@@ -103,7 +101,7 @@ namespace Hydra.Order.Api.Services
                 ShippingStatusId = order.ShippingStatusId,
                 PaymentStatusId = order.PaymentStatusId,
                 PaymentMethodId = order.PaymentMethodId,
-                UserCurrencyId = order.UserCurrencyId,
+                UserCurrencyType = order.UserCurrencyType,
                 ShippingTax = order.ShippingTax,
                 ShippingAmount = order.ShippingAmount,
                 ShippingAmountTax = order.ShippingAmountTax,
@@ -152,7 +150,7 @@ namespace Hydra.Order.Api.Services
                     ShippingStatusId = orderModel.ShippingStatusId,
                     PaymentStatusId = orderModel.PaymentStatusId,
                     PaymentMethodId = orderModel.PaymentMethodId,
-                    UserCurrencyId = orderModel.UserCurrencyId,
+                    UserCurrencyType = orderModel.UserCurrencyType,
                     ShippingTax = orderModel.ShippingTax,
                     ShippingAmount = orderModel.ShippingAmount,
                     ShippingAmountTax = orderModel.ShippingAmountTax,
@@ -218,7 +216,7 @@ namespace Hydra.Order.Api.Services
                 order.ShippingStatusId = orderModel.ShippingStatusId;
                 order.PaymentStatusId = orderModel.PaymentStatusId;
                 order.PaymentMethodId = orderModel.PaymentMethodId;
-                order.UserCurrencyId = orderModel.UserCurrencyId;
+                order.UserCurrencyType = orderModel.UserCurrencyType;
                 order.ShippingTax = order.ShippingTax;
                 order.ShippingAmount = order.ShippingAmount;
                 order.ShippingAmountTax = order.ShippingAmountTax;

@@ -1,5 +1,6 @@
 ﻿
 using Hydra.Crm.Core.Interfaces;
+using Hydra.Kernel;
 using Hydra.Kernel.GeneralModels;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
@@ -17,9 +18,9 @@ namespace Hydra.Crm.Api.Handler
         public static async Task<IResult> LoadEmailInbox(IEmailInboxService _emailInboxService, ClaimsPrincipal userClaim)
         {
 
-            var currentUserId = int.Parse(userClaim.FindFirst("identity")!.Value);
+            var userId = userClaim.GetUserId();
 
-            var result = await _emailInboxService.LoadEmailInbox(currentUserId);
+            var result = await _emailInboxService.LoadEmailInbox(userId);
 
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
 
@@ -51,7 +52,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailInboxService _emailInboxService, GridDataBound dataGrid)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailInboxService.GetInbox(dataGrid, currentEmail);
 
@@ -68,7 +69,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailInboxService _emailInboxService, GridDataBound dataGrid)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailInboxService.GetDeletedInbox(dataGrid, currentEmail);
 
@@ -103,7 +104,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailInboxService _emailInboxService, int emailInboxId)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailInboxService.GetByIdForReceiver(emailInboxId, currentEmail);
 
@@ -120,7 +121,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailInboxService _emailInboxService, int emailInboxId)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailInboxService.Delete(emailInboxId, currentEmail);
 
@@ -137,7 +138,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailInboxService _emailInboxService, int emailInboxId)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailInboxService.Restore(emailInboxId, currentEmail);
 
@@ -155,7 +156,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailInboxService _emailInboxService, int emailInboxId)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailInboxService.Pin(emailInboxId, currentEmail);
 
@@ -172,7 +173,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailInboxService _emailInboxService, int emailInboxId)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailInboxService.Read(emailInboxId, currentEmail);
 
@@ -189,7 +190,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailInboxService _emailInboxService, int emailInboxId)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailInboxService.Remove(emailInboxId, currentEmail);
 

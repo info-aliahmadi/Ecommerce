@@ -1,5 +1,6 @@
 ﻿using Hydra.Cms.Core.Interfaces;
 using Hydra.Cms.Core.Models;
+using Hydra.Kernel;
 using Hydra.Kernel.GeneralModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -76,7 +77,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] PageModel pageModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             pageModel.WriterId = userId;
             var result = await _pageService.Add(pageModel);
 
@@ -95,7 +96,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] PageModel pageModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             pageModel.EditorId = userId;
             var result = await _pageService.Update(pageModel);
 

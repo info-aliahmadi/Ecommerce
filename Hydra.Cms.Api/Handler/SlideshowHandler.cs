@@ -1,6 +1,7 @@
 ﻿
 using Hydra.Cms.Core.Interfaces;
 using Hydra.Cms.Core.Models;
+using Hydra.Kernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -59,7 +60,7 @@ namespace Hydra.Cms.Api.Handler
         {
             try
             {
-                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+                var userId = userClaim.GetUserId();
                 slideshowModel.UserId = userId;
                 var result = await _slideshowService.Add(slideshowModel);
 
@@ -85,7 +86,7 @@ namespace Hydra.Cms.Api.Handler
         {
             try
             {
-                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+                var userId = userClaim.GetUserId();
                 foreach (var slideshowModel in slideshowModelList.Where(x => x.IsVisible))
                 {
                     slideshowModel.UserId = userId;
@@ -116,7 +117,7 @@ namespace Hydra.Cms.Api.Handler
         {
             try
             {
-                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+                var userId = userClaim.GetUserId();
                 slideshowModel.UserId = userId;
                 var result = await _slideshowService.Update(slideshowModel);
 

@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Hydra.Infrastructure.localization;
+using Hydra.Infrastructure.Logs;
+using Hydra.Infrastructure.ModuleExtension;
+using Hydra.Infrastructure.Security;
+using Hydra.Infrastructure.Security.Extension;
+using Hydra.Infrastructure.StaticFiles;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Hydra.Infrastructure.localization;
-using Hydra.Infrastructure.ModuleExtension;
-using Hydra.Infrastructure.StaticFiles;
-using Hydra.Infrastructure.Logs;
-using Hydra.Infrastructure.Security.Extension;
 
 namespace Hydra.Infrastructure.Configuration
 {
@@ -34,7 +35,7 @@ namespace Hydra.Infrastructure.Configuration
 
             app.UseStaticFiles();
 
-            app.UseCors("ReactOrigin");
+            app.UseCorsFrontend();
 
             app.UseAuthentication();
 
@@ -44,6 +45,7 @@ namespace Hydra.Infrastructure.Configuration
 
             // Collect all Endpoints from Modules
             app.MapModulesEndpoints();
+
 
             app.UseLocalization();
 

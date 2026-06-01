@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hydra.Infrastructure.Security
 {
@@ -10,16 +11,21 @@ namespace Hydra.Infrastructure.Security
             IConfiguration configuration)
         {
             var coreOriginUrl = configuration["CoreOrigin:Url"];
+            var authorityUrl = configuration["Authentication:Schemes:Bearer:Authority"];
 
             services.AddCors(options =>
             {
                 options.AddPolicy(FRONTEND_CORS,
                         builder =>
                         {
-                            builder.WithOrigins(configuration["Authentication:Schemes:Bearer:Authority"]).AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-                            builder.WithOrigins(coreOriginUrl).AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                            builder.WithOrigins(authorityUrl, coreOriginUrl).AllowAnyHeader().AllowAnyMethod();
                         });
             });
+        }
+
+        public static void UseCorsFrontend(this IApplicationBuilder services)
+        {
+            services.UseCors(FRONTEND_CORS);
         }
     }
 }

@@ -447,7 +447,7 @@ namespace Hydra.Auth.Api.Handler
         public static async Task<IResult> GetCurrentUserHandler(
             ClaimsPrincipal userClaim, UserManager<User> _userManager)
         {
-            var userId = userClaim?.GetUserId();
+            var userId = userClaim.GetUserId();
             if (userId == null)
             {
                 return Results.BadRequest("ERROR: PLEASE LOGIN");
@@ -479,7 +479,7 @@ namespace Hydra.Auth.Api.Handler
             try
             {
                 var result = new Result<UserModel>();
-                var userId = userClaim?.GetUserId();
+                var userId = userClaim.GetUserId();
 
                 if (userId == null)
                 {
@@ -519,7 +519,7 @@ namespace Hydra.Auth.Api.Handler
         public static async Task<IResult> GetDefaultLanguageHandler(
             ClaimsPrincipal userClaim, UserManager<User> _userManager)
         {
-            var userId = userClaim?.GetUserId();
+            var userId = userClaim.GetUserId();
 
             if (userId == null)
             {
@@ -541,7 +541,7 @@ namespace Hydra.Auth.Api.Handler
         public static async Task<IResult> SetDefaultLanguageHandler(string defaultLanguage, UserManager<User> _userManager,
             ClaimsPrincipal userClaim)
         {
-            var userId = userClaim?.GetUserId();
+            var userId = userClaim.GetUserId();
 
             if (userId == null)
             {
@@ -563,7 +563,7 @@ namespace Hydra.Auth.Api.Handler
         public static async Task<IResult> GetDefaultThemeHandler(
             ClaimsPrincipal userClaim, UserManager<User> _userManager)
         {
-            var userId = userClaim?.GetUserId();
+            var userId = userClaim.GetUserId();
             if (userId == null)
             {
                 return Results.BadRequest("ERROR: PLEASE LOGIN");
@@ -584,7 +584,7 @@ namespace Hydra.Auth.Api.Handler
         public static async Task<IResult> SetDefaultThemeHandler(string defaultTheme, UserManager<User> _userManager,
             ClaimsPrincipal userClaim)
         {
-            var userId = userClaim?.GetUserId();
+            var userId = userClaim.GetUserId();
             if (userId == null)
             {
                 return Results.BadRequest("ERROR: PLEASE LOGIN");
@@ -754,7 +754,7 @@ namespace Hydra.Auth.Api.Handler
             var result = new AccountResult();
             if (MiniValidator.TryValidate(model, out var errors))
             {
-                var userId = userClaim?.GetUserId();
+                var userId = userClaim.GetUserId();
                 var user = await _userManager.FindByIdAsync(userId.ToString());
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {

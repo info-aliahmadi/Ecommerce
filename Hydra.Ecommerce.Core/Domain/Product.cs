@@ -94,7 +94,7 @@ public class Product : BaseEntity<int>
 
     public DateTime? UpdatedOnUtc { get; set; }
 
-    public DeliveryDateType DeliveryDate { get; set; }
+    public DeliveryDateType DeliveryDateType { get; set; }
 
     public CurrencyType CurrencyType { get; set; }
 

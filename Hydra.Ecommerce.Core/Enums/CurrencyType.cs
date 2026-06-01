@@ -1,4 +1,6 @@
-﻿namespace Hydra.Ecommerce.Core.Enums
+﻿using System.ComponentModel;
+
+namespace Hydra.Ecommerce.Core.Enums
 {
 
     /// <summary>
@@ -6,11 +8,17 @@
     /// </summary>
     public enum CurrencyType
     {
-        Dinar = 1, // IQD
-        Rial = 2, // IRR
-        Toman = 3, // IRT
-        Dollar = 4, // USD
-        Euro = 5, // EU
+        [Description("None")]
         None = 0,
+        [Description("IRR")]
+        Rial = 1,
+        [Description("IRT")]
+        Toman = 2,
+        [Description("IQD")]
+        Dinar = 3,
+        [Description("USD")]
+        Dollar = 4,
+        [Description("EUR")]
+        Euro = 5
     }
 }

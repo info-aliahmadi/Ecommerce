@@ -59,6 +59,8 @@ namespace Hydra.Infrastructure.Configuration
                 options.SerializerOptions.Converters.Add(new NullableDateTimeJsonConverter());
             });
 
+            services.AddAntiforgery();
+
 
             services.AddlocalizationConfig();
 

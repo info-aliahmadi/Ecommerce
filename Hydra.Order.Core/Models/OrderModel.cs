@@ -89,13 +89,7 @@ namespace Hydra.Order.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public int? UserCurrencyId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string? UserCurrency { get; set; }
+        public CurrencyType UserCurrencyType { get; set; }
 
         /// <summary>
         /// 

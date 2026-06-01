@@ -85,6 +85,25 @@ namespace Hydra.Kernel
             }
             return int.Parse(userId);
         }
+
+        public static string GetEmail(this ClaimsPrincipal userPrincipal)
+        {
+            var email = userPrincipal.FindFirst(ClaimTypes.Email).Value;
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new Exception("USER DOES NOT LOGINED!");
+            }
+            return email;
+        }
+        public static string GetName(this ClaimsPrincipal userPrincipal)
+        {
+            var name = userPrincipal.FindFirst(ClaimTypes.Name).Value;
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new Exception("USER DOES NOT LOGINED!");
+            }
+            return name;
+        }
         public static string GetIdentityName(this ClaimsPrincipal userPrincipal)
         {
             var identityName = userPrincipal.Identity.Name;

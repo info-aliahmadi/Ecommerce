@@ -6,6 +6,7 @@ using Hydra.Kernel.GeneralModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Hydra.Kernel;
 
 namespace Hydra.Cms.Api.Handler
 {
@@ -100,7 +101,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] TopicModel topicModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             topicModel.UserId = userId;
             var result = await _topicService.Add(topicModel);
 
@@ -118,7 +119,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] TopicModel topicModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             topicModel.UserId = userId;
             var result = await _topicService.Update(topicModel);
 
@@ -135,7 +136,7 @@ namespace Hydra.Cms.Api.Handler
             int topicId
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             try
             {
                 var result = await _topicService.Delete(topicId);

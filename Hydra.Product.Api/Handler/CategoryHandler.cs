@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Hydra.Kernel;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
 using Microsoft.AspNetCore.Http;
@@ -120,7 +121,7 @@ namespace Hydra.Product.Api.Handler
         {
             try
             {
-                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+                var userId = userClaim.GetUserId();
                
                 var result = await _menuService.UpdateOrder(categoryList);
 

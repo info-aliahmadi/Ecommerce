@@ -36,10 +36,10 @@ namespace Hydra.FileStorage.Api.Endpoints
             endpoints.MapGet(API_SCHEMA + "/GetFilesByDirectory", FileStorageHandler.GetFilesByDirectory).RequirePermission(FileStoragePermissionTypes.FS_GALLEY_VIEW);
 
             endpoints.MapGet(API_SCHEMA + "/DeleteFile", FileStorageHandler.DeleteFile).RequirePermission(FileStoragePermissionTypes.FS_FILE_UPLOAD);
-            endpoints.MapPost(API_SCHEMA + "/UploadFile", FileStorageHandler.UploadFile).RequirePermission(FileStoragePermissionTypes.FS_FILE_UPLOAD);
+            endpoints.MapPost(API_SCHEMA + "/UploadFile", FileStorageHandler.UploadFile).DisableAntiforgery().RequirePermission(FileStoragePermissionTypes.FS_FILE_UPLOAD);
             endpoints.MapPost(API_SCHEMA + "/UploadBase64File", FileStorageHandler.UploadBase64File).RequirePermission(FileStoragePermissionTypes.FS_FILE_UPLOAD);
-            endpoints.MapPost(API_SCHEMA + "/UploadSmallFile", FileStorageHandler.UploadSmallFile).RequirePermission(FileStoragePermissionTypes.FS_FILE_UPLOAD);
-            endpoints.MapPost(API_SCHEMA + "/UploadLargeFile", FileStorageHandler.UploadLargeFile).RequirePermission(FileStoragePermissionTypes.FS_FILE_UPLOAD);
+            endpoints.MapPost(API_SCHEMA + "/UploadSmallFile", FileStorageHandler.UploadSmallFile).DisableAntiforgery().RequirePermission(FileStoragePermissionTypes.FS_FILE_UPLOAD);
+            endpoints.MapPost(API_SCHEMA + "/UploadLargeFile", FileStorageHandler.UploadLargeFile).DisableAntiforgery().RequirePermission(FileStoragePermissionTypes.FS_FILE_UPLOAD);
 
             endpoints.MapGet(API_SCHEMA + "/DownloadFile", FileStorageHandler.DownloadFile).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/DownloadFileStream", FileStorageHandler.DownloadFileStream).AllowAnonymous();

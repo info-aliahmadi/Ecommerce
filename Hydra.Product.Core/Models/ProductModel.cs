@@ -1,4 +1,5 @@
-﻿using Hydra.FileStorage.Core.Models;
+﻿using Hydra.Ecommerce.Core.Enums;
+using Hydra.FileStorage.Core.Models;
 using Hydra.Kernel.GeneralModels;
 
 
@@ -98,7 +99,7 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public int DeliveryDateId { get; set; }
+        public DeliveryDateType DeliveryDateType { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -176,7 +177,7 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public int CurrencyId { get; set; }
+        public CurrencyType CurrencyType { get; set; }
 
         /// <summary>
         /// 

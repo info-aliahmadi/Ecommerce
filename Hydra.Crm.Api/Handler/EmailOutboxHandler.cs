@@ -1,6 +1,7 @@
 ﻿
 using Hydra.Crm.Core.Interfaces;
 using Hydra.Crm.Core.Models.Email;
+using Hydra.Kernel;
 using Hydra.Kernel.Extension;
 using Hydra.Kernel.GeneralModels;
 using Microsoft.AspNetCore.Http;
@@ -34,7 +35,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailOutboxService _emailOutboxService, GridDataBound dataGrid)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailOutboxService.GetOutbox(dataGrid, currentEmail);
 
@@ -66,7 +67,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailOutboxService _emailOutboxService, int emailOutboxId)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailOutboxService.GetByIdForSender(emailOutboxId, currentEmail);
 
@@ -86,8 +87,8 @@ namespace Hydra.Crm.Api.Handler
             [FromBody] EmailOutboxModel emailOutboxModel
             )
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
-            var currentName = userClaim.FindFirst(ClaimTypes.Name)!.Value;
+            var currentEmail = userClaim.GetEmail();
+            var currentName = userClaim.GetName();
 
             var fromUser = new AuthorModel()
             {
@@ -113,8 +114,8 @@ namespace Hydra.Crm.Api.Handler
             [FromBody] EmailOutboxModel emailOutboxModel
             )
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
-            var currentName = userClaim.FindFirst(ClaimTypes.Name)!.Value;
+            var currentEmail = userClaim.GetEmail();
+            var currentName = userClaim.GetName();;
 
             var fromUser = new AuthorModel()
             {
@@ -137,7 +138,7 @@ namespace Hydra.Crm.Api.Handler
             ClaimsPrincipal userClaim,
              IEmailOutboxService _emailOutboxService, int emailOutboxId)
         {
-            var currentEmail = userClaim.FindFirst(ClaimTypes.Email)!.Value;
+            var currentEmail = userClaim.GetEmail();
 
             var result = await _emailOutboxService.Remove(emailOutboxId, currentEmail);
 

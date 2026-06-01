@@ -5,6 +5,7 @@ using Hydra.Cms.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Hydra.Kernel;
 
 namespace Hydra.Cms.Api.Handler
 {
@@ -102,7 +103,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] TagModel tagModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             var result = await _tagService.Add(tagModel);
 
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
@@ -119,7 +120,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] TagModel tagModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             var result = await _tagService.Update(tagModel);
 
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
@@ -135,7 +136,7 @@ namespace Hydra.Cms.Api.Handler
             int tagId
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             try
             {
                 var result = await _tagService.Delete(tagId);

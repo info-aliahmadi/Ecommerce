@@ -88,45 +88,6 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Currency",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    currency_code = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: false),
-                    display_locale = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    custom_formatting = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    rate = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    limited_to_stores = table.Column<bool>(type: "boolean", nullable: false),
-                    published = table.Column<bool>(type: "boolean", nullable: false),
-                    display_order = table.Column<int>(type: "integer", nullable: false),
-                    created_on_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    updated_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
-                    rounding_type_id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_currency", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DeliveryDate",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    display_order = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_delivery_date", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Discount",
                 schema: "Sale",
                 columns: table => new
@@ -848,7 +809,6 @@ namespace Hydra.Infrastructure.Migrations
                     full_description = table.Column<string>(type: "text", nullable: false),
                     admin_comment = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
                     meta_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
-                    delivery_date_id = table.Column<int>(type: "integer", nullable: false),
                     tax_category_id = table.Column<int>(type: "integer", nullable: false),
                     stock_quantity = table.Column<int>(type: "integer", nullable: false),
                     min_stock_quantity = table.Column<int>(type: "integer", nullable: false),
@@ -857,7 +817,6 @@ namespace Hydra.Infrastructure.Migrations
                     order_maximum_quantity = table.Column<int>(type: "integer", nullable: false),
                     price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
                     old_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    currency_id = table.Column<int>(type: "integer", nullable: false),
                     available_start_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
                     available_end_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
                     display_order = table.Column<int>(type: "integer", nullable: false),
@@ -885,7 +844,9 @@ namespace Hydra.Infrastructure.Migrations
                     create_user_id = table.Column<int>(type: "integer", nullable: false),
                     created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
                     update_user_id = table.Column<int>(type: "integer", nullable: true),
-                    updated_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true)
+                    updated_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    delivery_date_type = table.Column<int>(type: "integer", nullable: false),
+                    currency_type = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -897,20 +858,6 @@ namespace Hydra.Infrastructure.Migrations
                         principalTable: "User",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Product_Currency",
-                        column: x => x.currency_id,
-                        principalSchema: "Sale",
-                        principalTable: "Currency",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Product_DeliveryDate",
-                        column: x => x.delivery_date_id,
-                        principalSchema: "Sale",
-                        principalTable: "DeliveryDate",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Product_TaxCategory",
                         column: x => x.tax_category_id,
@@ -1733,7 +1680,7 @@ namespace Hydra.Infrastructure.Migrations
                     shipping_status_id = table.Column<byte>(type: "smallint", nullable: false),
                     payment_status_id = table.Column<byte>(type: "smallint", nullable: false),
                     payment_method_id = table.Column<byte>(type: "smallint", nullable: true),
-                    user_currency_id = table.Column<int>(type: "integer", nullable: true),
+                    user_currency_type = table.Column<int>(type: "integer", nullable: false),
                     shipping_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
                     shipping_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
                     shipping_amount_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
@@ -1757,12 +1704,6 @@ namespace Hydra.Infrastructure.Migrations
                         column: x => x.address_id,
                         principalSchema: "Sale",
                         principalTable: "Address",
-                        principalColumn: "id");
-                    table.ForeignKey(
-                        name: "FK_Order_Currency",
-                        column: x => x.user_currency_id,
-                        principalSchema: "Sale",
-                        principalTable: "Currency",
                         principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_Order_ShippingMethod",
@@ -2240,28 +2181,6 @@ namespace Hydra.Infrastructure.Migrations
                     { 247, true, true, 100, false, "Yemen", 887, true, false, "YEM", "YE" },
                     { 248, true, true, 100, false, "Zambia", 894, true, false, "ZMB", "ZM" },
                     { 249, true, true, 100, false, "Zimbabwe", 716, true, false, "ZWE", "ZW" }
-                });
-
-            migrationBuilder.InsertData(
-                schema: "Sale",
-                table: "Currency",
-                columns: new[] { "id", "created_on_utc", "currency_code", "custom_formatting", "display_locale", "display_order", "limited_to_stores", "name", "published", "rate", "rounding_type_id", "updated_on_utc" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "USD", "", "en-US", 1, false, "US Dollar", true, 1m, 0, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc) },
-                    { 2, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "EUR", "€0.00", "", 2, false, "Euro", true, 0.86m, 0, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc) },
-                    { 3, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "Rial", "", "fa-IR", 3, false, "Iranian", true, 1m, 0, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc) }
-                });
-
-            migrationBuilder.InsertData(
-                schema: "Sale",
-                table: "DeliveryDate",
-                columns: new[] { "id", "display_order", "name" },
-                values: new object[,]
-                {
-                    { 1, 1, "1-2 days" },
-                    { 2, 2, "3-5 days" },
-                    { 3, 3, "1 week" }
                 });
 
             migrationBuilder.InsertData(
@@ -4342,12 +4261,6 @@ namespace Hydra.Infrastructure.Migrations
                 column: "display_order");
 
             migrationBuilder.CreateIndex(
-                name: "ix_currency_display_order",
-                schema: "Sale",
-                table: "Currency",
-                column: "display_order");
-
-            migrationBuilder.CreateIndex(
                 name: "ix_discount_category_category_id",
                 schema: "Sale",
                 table: "DiscountCategory",
@@ -4511,12 +4424,6 @@ namespace Hydra.Infrastructure.Migrations
                 column: "shipping_method_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_order_user_currency_id",
-                schema: "Sale",
-                table: "Order",
-                column: "user_currency_id");
-
-            migrationBuilder.CreateIndex(
                 name: "ix_order_user_id",
                 schema: "Sale",
                 table: "Order",
@@ -4599,18 +4506,6 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 table: "Product",
                 column: "create_user_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_product_currency_id",
-                schema: "Sale",
-                table: "Product",
-                column: "currency_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_product_delivery_date_id",
-                schema: "Sale",
-                table: "Product",
-                column: "delivery_date_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_product_published_deleted_id",
@@ -4934,11 +4829,6 @@ namespace Hydra.Infrastructure.Migrations
                 table: "Order");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Order_Currency",
-                schema: "Sale",
-                table: "Order");
-
-            migrationBuilder.DropForeignKey(
                 name: "FK_Order_ShippingMethod",
                 schema: "Sale",
                 table: "Order");
@@ -5193,10 +5083,6 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale");
 
             migrationBuilder.DropTable(
-                name: "DeliveryDate",
-                schema: "Sale");
-
-            migrationBuilder.DropTable(
                 name: "TaxCategory",
                 schema: "Sale");
 
@@ -5214,10 +5100,6 @@ namespace Hydra.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Address",
-                schema: "Sale");
-
-            migrationBuilder.DropTable(
-                name: "Currency",
                 schema: "Sale");
 
             migrationBuilder.DropTable(

@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Hydra.Kernel;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
@@ -98,7 +99,7 @@ namespace Hydra.Product.Api.Handler
         {
             try
             {
-                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+                var userId = userClaim.GetUserId();
 
                 var result = await manufacturerService.UpdateOrder(manufacturerList);
 

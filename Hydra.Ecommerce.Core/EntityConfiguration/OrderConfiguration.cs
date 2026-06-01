@@ -37,10 +37,6 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             .HasForeignKey(d => d.ShippingMethodId)
             .HasConstraintName("FK_Order_ShippingMethod");
 
-            entity.HasOne(d => d.UserCurrency).WithMany(p => p.Orders)
-            .HasForeignKey(d => d.UserCurrencyId)
-            .HasConstraintName("FK_Order_Currency");
-
             entity.HasOne(d => d.User).WithMany()
             .HasForeignKey(d => d.UserId)
             .OnDelete(DeleteBehavior.Restrict)

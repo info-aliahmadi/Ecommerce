@@ -1,5 +1,6 @@
 ﻿using Hydra.Cms.Core.Interfaces;
 using Hydra.Cms.Core.Models;
+using Hydra.Kernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -80,7 +81,7 @@ namespace Hydra.Cms.Api.Handler
         {
             try
             {
-                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+                var userId = userClaim.GetUserId();
                 menuModel.UserId = userId;
                 var result = await _menuService.Add(menuModel);
 
@@ -106,7 +107,7 @@ namespace Hydra.Cms.Api.Handler
         {
             try
             {
-                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+                var userId = userClaim.GetUserId();
                 foreach (var menuModel in menuModelList.Where(x => x.isEdited))
                 {
                     menuModel.UserId = userId;
@@ -135,7 +136,7 @@ namespace Hydra.Cms.Api.Handler
         {
             try
             {
-                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+                var userId = userClaim.GetUserId();
                 menuModel.UserId = userId;
                 var result = await _menuService.Update(menuModel);
 

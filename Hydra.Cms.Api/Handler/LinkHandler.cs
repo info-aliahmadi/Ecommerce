@@ -1,5 +1,6 @@
 ﻿using Hydra.Cms.Core.Interfaces;
 using Hydra.Cms.Core.Models;
+using Hydra.Kernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -83,7 +84,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] LinkModel linkModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             linkModel.UserId = userId;
             var result = await _linkService.Add(linkModel);
 
@@ -102,7 +103,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] LinkModel linkModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             linkModel.UserId = userId;
             var result = await _linkService.Update(linkModel);
 
@@ -122,7 +123,7 @@ namespace Hydra.Cms.Api.Handler
         {
             try
             {
-                var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+                var userId = userClaim.GetUserId();
 
                 var result = await _linkService.UpdateOrder(linkModelList);
 

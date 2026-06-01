@@ -4,6 +4,7 @@ using Hydra.Cms.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Hydra.Kernel;
 
 namespace Hydra.Cms.Api.Handler
 {
@@ -169,7 +170,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] ArticleModel articleModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             articleModel.WriterId = userId;
             var result = await _articleService.Add(articleModel);
 
@@ -189,7 +190,7 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] ArticleModel articleModel
             )
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             articleModel.EditorId = userId;
             var result = await _articleService.Update(articleModel);
 

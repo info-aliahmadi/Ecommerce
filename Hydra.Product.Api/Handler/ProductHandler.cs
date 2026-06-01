@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Hydra.Kernel;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
@@ -77,7 +78,7 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> AddProduct(ClaimsPrincipal userClaim, IProductService productService, [FromBody] ProductModel productModel)
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             productModel.CreateUserId = userId;
             var result = await productService.Add(productModel);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
@@ -92,7 +93,7 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> UpdateProduct(ClaimsPrincipal userClaim, IProductService productService, [FromBody] ProductModel productModel)
         {
-            var userId = int.Parse(userClaim?.FindFirst("identity")?.Value);
+            var userId = userClaim.GetUserId();
             productModel.UpdateUserId = userId;
 
             var result = await productService.Update(productModel);

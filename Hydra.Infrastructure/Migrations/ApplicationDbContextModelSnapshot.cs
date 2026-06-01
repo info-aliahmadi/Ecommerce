@@ -5408,169 +5408,6 @@ namespace Hydra.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Currency", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedOnUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_on_utc");
-
-                    b.Property<string>("CurrencyCode")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("character varying(5)")
-                        .HasColumnName("currency_code");
-
-                    b.Property<string>("CustomFormatting")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("custom_formatting");
-
-                    b.Property<string>("DisplayLocale")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("display_locale");
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("integer")
-                        .HasColumnName("display_order");
-
-                    b.Property<bool>("LimitedToStores")
-                        .HasColumnType("boolean")
-                        .HasColumnName("limited_to_stores");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("name");
-
-                    b.Property<bool>("Published")
-                        .HasColumnType("boolean")
-                        .HasColumnName("published");
-
-                    b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18, 4)")
-                        .HasColumnName("rate");
-
-                    b.Property<int>("RoundingTypeId")
-                        .HasColumnType("integer")
-                        .HasColumnName("rounding_type_id");
-
-                    b.Property<DateTime>("UpdatedOnUtc")
-                        .HasPrecision(6)
-                        .HasColumnType("timestamp(6) with time zone")
-                        .HasColumnName("updated_on_utc");
-
-                    b.HasKey("Id")
-                        .HasName("pk_currency");
-
-                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Currency_DisplayOrder")
-                        .HasDatabaseName("ix_currency_display_order");
-
-                    b.ToTable("Currency", "Sale");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CurrencyCode = "USD",
-                            CustomFormatting = "",
-                            DisplayLocale = "en-US",
-                            DisplayOrder = 1,
-                            LimitedToStores = false,
-                            Name = "US Dollar",
-                            Published = true,
-                            Rate = 1m,
-                            RoundingTypeId = 0,
-                            UpdatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CurrencyCode = "EUR",
-                            CustomFormatting = "€0.00",
-                            DisplayLocale = "",
-                            DisplayOrder = 2,
-                            LimitedToStores = false,
-                            Name = "Euro",
-                            Published = true,
-                            Rate = 0.86m,
-                            RoundingTypeId = 0,
-                            UpdatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CurrencyCode = "Rial",
-                            CustomFormatting = "",
-                            DisplayLocale = "fa-IR",
-                            DisplayOrder = 3,
-                            LimitedToStores = false,
-                            Name = "Iranian",
-                            Published = true,
-                            Rate = 1m,
-                            RoundingTypeId = 0,
-                            UpdatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc)
-                        });
-                });
-
-            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.DeliveryDate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("integer")
-                        .HasColumnName("display_order");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id")
-                        .HasName("pk_delivery_date");
-
-                    b.ToTable("DeliveryDate", "Sale");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DisplayOrder = 1,
-                            Name = "1-2 days"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DisplayOrder = 2,
-                            Name = "3-5 days"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DisplayOrder = 3,
-                            Name = "1 week"
-                        });
-                });
-
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Discount", b =>
                 {
                     b.Property<int>("Id")
@@ -5884,9 +5721,9 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("decimal(18, 4)")
                         .HasColumnName("total_amount");
 
-                    b.Property<int?>("UserCurrencyId")
+                    b.Property<int>("UserCurrencyType")
                         .HasColumnType("integer")
-                        .HasColumnName("user_currency_id");
+                        .HasColumnName("user_currency_type");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
@@ -5903,9 +5740,6 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.HasIndex("ShippingMethodId")
                         .HasDatabaseName("ix_order_shipping_method_id");
-
-                    b.HasIndex("UserCurrencyId")
-                        .HasDatabaseName("ix_order_user_currency_id");
 
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_order_user_id");
@@ -6209,17 +6043,17 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("timestamp(6) with time zone")
                         .HasColumnName("created_on_utc");
 
-                    b.Property<int>("CurrencyId")
+                    b.Property<int>("CurrencyType")
                         .HasColumnType("integer")
-                        .HasColumnName("currency_id");
+                        .HasColumnName("currency_type");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("boolean")
                         .HasColumnName("deleted");
 
-                    b.Property<int>("DeliveryDateId")
+                    b.Property<int>("DeliveryDateType")
                         .HasColumnType("integer")
-                        .HasColumnName("delivery_date_id");
+                        .HasColumnName("delivery_date_type");
 
                     b.Property<bool>("DisableBuyButton")
                         .HasColumnType("boolean")
@@ -6360,12 +6194,6 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.HasIndex("CreateUserId")
                         .HasDatabaseName("ix_product_create_user_id");
-
-                    b.HasIndex("CurrencyId")
-                        .HasDatabaseName("ix_product_currency_id");
-
-                    b.HasIndex("DeliveryDateId")
-                        .HasDatabaseName("ix_product_delivery_date_id");
 
                     b.HasIndex("TaxCategoryId")
                         .HasDatabaseName("ix_product_tax_category_id");
@@ -24370,11 +24198,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasForeignKey("ShippingMethodId")
                         .HasConstraintName("FK_Order_ShippingMethod");
 
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.Currency", "UserCurrency")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserCurrencyId")
-                        .HasConstraintName("FK_Order_Currency");
-
                     b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -24389,8 +24212,6 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("ShippingMethod");
 
                     b.Navigation("User");
-
-                    b.Navigation("UserCurrency");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.OrderDiscount", b =>
@@ -24484,20 +24305,6 @@ namespace Hydra.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Product_CreateUser");
 
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.Currency", "Currency")
-                        .WithMany("Products")
-                        .HasForeignKey("CurrencyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Product_Currency");
-
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.DeliveryDate", "DeliveryDate")
-                        .WithMany("Products")
-                        .HasForeignKey("DeliveryDateId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Product_DeliveryDate");
-
                     b.HasOne("Hydra.Ecommerce.Core.Domain.TaxCategory", "TaxCategory")
                         .WithMany("Products")
                         .HasForeignKey("TaxCategoryId")
@@ -24511,10 +24318,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasConstraintName("FK_Product_UpdateUser");
 
                     b.Navigation("CreateUser");
-
-                    b.Navigation("Currency");
-
-                    b.Navigation("DeliveryDate");
 
                     b.Navigation("TaxCategory");
 
@@ -24922,18 +24725,6 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("StateProvinces");
 
                     b.Navigation("TaxRates");
-                });
-
-            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Currency", b =>
-                {
-                    b.Navigation("Orders");
-
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.DeliveryDate", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Discount", b =>

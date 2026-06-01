@@ -34,7 +34,6 @@ namespace Hydra.Product.Api.Services
             var list = await (from product in _queryRepository.Table<Ecommerce.Core.Domain.Product>()
                                 .Include(x => x.ProductInventories)
                                 .ThenInclude(x => x.ProductAttribute)
-                                .Include(x => x.Currency)
                                 .Include(x => x.ProductCategories)
                                 .Include(x => x.ProductManufacturers)
                                 .Include(x => x.ProductAttributes)
@@ -50,8 +49,7 @@ namespace Hydra.Product.Api.Services
                                   FullDescription = product.FullDescription,
                                   AdminComment = product.AdminComment,
                                   MetaDescription = product.MetaDescription,
-                                  DeliveryDateId = product.DeliveryDateId,
-                                  DeliveryDateName = product.DeliveryDate.Name,
+                                  DeliveryDateType = product.DeliveryDateType,
                                   TaxCategoryId = product.TaxCategoryId,
                                   TaxCategoryName = product.TaxCategory.Name,
                                   StockQuantity = product.StockQuantity,
@@ -61,8 +59,7 @@ namespace Hydra.Product.Api.Services
                                   OrderMaximumQuantity = product.OrderMaximumQuantity,
                                   Price = product.Price,
                                   OldPrice = product.OldPrice,
-                                  CurrencyId = product.CurrencyId,
-                                  CurrencyCode = product.Currency.CurrencyCode,
+                                  CurrencyType = product.CurrencyType,
                                   AvailableStartDateTimeUtc = product.AvailableStartDateTimeUtc,
                                   AvailableEndDateTimeUtc = product.AvailableEndDateTimeUtc,
                                   DisplayOrder = product.DisplayOrder,
@@ -148,7 +145,7 @@ namespace Hydra.Product.Api.Services
                 FullDescription = product.FullDescription,
                 AdminComment = product.AdminComment,
                 MetaDescription = product.MetaDescription,
-                DeliveryDateId = product.DeliveryDateId,
+                DeliveryDateType = product.DeliveryDateType,
                 TaxCategoryId = product.TaxCategoryId,
                 StockQuantity = product.StockQuantity,
                 MinStockQuantity = product.MinStockQuantity,
@@ -157,7 +154,7 @@ namespace Hydra.Product.Api.Services
                 OrderMaximumQuantity = product.OrderMaximumQuantity,
                 Price = product.Price,
                 OldPrice = product.OldPrice,
-                CurrencyId = product.CurrencyId,
+                CurrencyType = product.CurrencyType,
                 AvailableStartDateTimeUtc = product.AvailableStartDateTimeUtc,
                 AvailableEndDateTimeUtc = product.AvailableEndDateTimeUtc,
                 DisplayOrder = product.DisplayOrder,
@@ -291,7 +288,7 @@ namespace Hydra.Product.Api.Services
                     FullDescription = productModel.FullDescription,
                     AdminComment = productModel.AdminComment,
                     MetaDescription = productModel.MetaDescription,
-                    DeliveryDateId = productModel.DeliveryDateId,
+                    DeliveryDateType = productModel.DeliveryDateType,
                     TaxCategoryId = productModel.TaxCategoryId,
                     StockQuantity = productModel.StockQuantity,
                     MinStockQuantity = productModel.MinStockQuantity,
@@ -300,7 +297,7 @@ namespace Hydra.Product.Api.Services
                     OrderMaximumQuantity = productModel.OrderMaximumQuantity,
                     Price = productModel.Price,
                     OldPrice = productModel.OldPrice,
-                    CurrencyId = productModel.CurrencyId,
+                    CurrencyType = productModel.CurrencyType,
                     //Weight = productModel.Weight,
                     //Length = productModel.Length,
                     //Width = productModel.Width,
@@ -479,7 +476,7 @@ namespace Hydra.Product.Api.Services
                 product.FullDescription = productModel.FullDescription;
                 product.AdminComment = productModel.AdminComment;
                 product.MetaDescription = productModel.MetaDescription;
-                product.DeliveryDateId = productModel.DeliveryDateId;
+                product.DeliveryDateType = productModel.DeliveryDateType;
                 product.TaxCategoryId = productModel.TaxCategoryId;
                 product.StockQuantity = productModel.StockQuantity;
                 product.MinStockQuantity = productModel.MinStockQuantity;
@@ -488,7 +485,7 @@ namespace Hydra.Product.Api.Services
                 product.OrderMaximumQuantity = productModel.OrderMaximumQuantity;
                 product.Price = productModel.Price;
                 product.OldPrice = productModel.OldPrice;
-                product.CurrencyId = productModel.CurrencyId;
+                product.CurrencyType = productModel.CurrencyType;
                 //product.Weight = productModel.Weight;
                 //product.Length = productModel.Length;
                 //product.Width = productModel.Width;
