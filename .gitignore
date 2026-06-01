@@ -371,3 +371,4 @@ appsettings.Production.json
 /.cloud/
 .cloud/
 /.cloud
+/Hydra.Web/appsettings.Production.json
