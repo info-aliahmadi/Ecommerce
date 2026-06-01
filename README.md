@@ -24,6 +24,7 @@ The goal of Hydra is to provide a practical backend foundation for modern ecomme
 - [Project Structure](#project-structure)
 - [Modules](#modules)
 - [Request Flow](#request-flow)
+- [Frontend Project](#frontend-project)
 - [Prerequisites](#prerequisites)
 - [Configuration](#configuration)
 - [Run Locally](#run-locally)
@@ -150,6 +151,22 @@ Current business modules include:
 6. Services use shared repositories and `ApplicationDbContext`.
 7. Results are returned as standard Minimal API responses.
 
+## Frontend Project
+
+Hydra also has a companion frontend project built with Next.js. The frontend consumes these APIs and provides the user-facing ecommerce experience on top of this backend.
+
+The Next.js frontend is also open source and ready for contributions. Contributors can help on both sides of the platform:
+
+- Backend features, APIs, modules, permissions, integrations, and database improvements in this repository.
+- Frontend pages, components, UX, API integrations, and ecommerce flows in the Next.js project.
+- End-to-end improvements that connect frontend features with backend modules.
+
+Add the frontend repository link here when publishing:
+
+```text
+Frontend: https://github.com/info-aliahmadi/Ecommerce.Next
+```
+
 ## Prerequisites
 
 - [.NET SDK 9](https://dotnet.microsoft.com/)
@@ -202,7 +219,7 @@ dotnet user-secrets set "Authentication:Schemes:Bearer:Secret" "your-long-local-
 Clone the repository:
 
 ```bash
-git clone https://github.com/<your-org>/<your-repo>.git
+git clone https://github.com/info-aliahmadi/Ecommerce
 cd <your-repo>
 ```
 
@@ -440,4 +457,3 @@ These improvements can make the project more useful and attractive for open-sour
 ## License
 
 Add a `LICENSE` file before publishing the project as open source. MIT or Apache-2.0 are common choices for developer-friendly open-source projects.
-
