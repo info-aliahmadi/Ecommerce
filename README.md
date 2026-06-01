@@ -456,4 +456,6 @@ These improvements can make the project more useful and attractive for open-sour
 
 ## License
 
-Add a `LICENSE` file before publishing the project as open source. MIT or Apache-2.0 are common choices for developer-friendly open-source projects.
+MIT License
+
+Copyright (c) 2020 Hydra Ecommerce | [Ali Ahmadi](mailto: info.aliahmadi@gmail.com).
