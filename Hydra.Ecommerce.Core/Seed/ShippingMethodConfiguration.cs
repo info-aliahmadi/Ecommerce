@@ -1,0 +1,42 @@
+﻿using Hydra.Ecommerce.Core.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
+{
+    public class ShippingMethodConfiguration : IEntityTypeConfiguration<ShippingMethod>
+    {
+        public void Configure(EntityTypeBuilder<ShippingMethod> entity)
+        {
+
+            #region ShippingMethod Seed
+
+            entity.HasData(
+                new ShippingMethod()
+                {
+                    Id = 1,
+                    Name = "Ground",
+                    Description = "Shipping by land transport",
+                    DisplayOrder = 1
+                },
+
+                new ShippingMethod()
+                {
+                    Id = 2,
+                    Name = "Next Day Air",
+                    Description = "The one day air shipping",
+                    DisplayOrder = 2
+                },
+
+                new ShippingMethod()
+                {
+                    Id = 3,
+                    Name = "2nd Day Air",
+                    Description = "The two day air shipping",
+                    DisplayOrder = 3
+                }
+                );
+            #endregion
+        }
+    }
+}

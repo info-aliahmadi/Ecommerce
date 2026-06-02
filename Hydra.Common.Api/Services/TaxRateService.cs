@@ -33,7 +33,6 @@ namespace Hydra.Common.Api.Services
                                   Id = taxRate.Id,
                                   TaxCategoryId = taxRate.TaxCategoryId,
                                   CountryId = taxRate.CountryId,
-                                  StateProvinceId = taxRate.StateProvinceId,
                                   Percentage = taxRate.Percentage,
 
                               }).OrderByDescending(x => x.Id).ToPaginatedListAsync(dataGrid);
@@ -58,7 +57,6 @@ namespace Hydra.Common.Api.Services
                 Id = taxRate.Id,
                 TaxCategoryId = taxRate.TaxCategoryId,
                 CountryId = taxRate.CountryId,
-                StateProvinceId = taxRate.StateProvinceId,
                 Percentage = taxRate.Percentage,
 
             };
@@ -89,7 +87,6 @@ namespace Hydra.Common.Api.Services
                 {
                     TaxCategoryId = taxRateModel.TaxCategoryId,
                     CountryId = taxRateModel.CountryId,
-                    StateProvinceId = taxRateModel.StateProvinceId,
                     Percentage = taxRateModel.Percentage,
 
                 };
@@ -138,7 +135,6 @@ namespace Hydra.Common.Api.Services
                 }
                 taxRate.TaxCategoryId = taxRateModel.TaxCategoryId;
                 taxRate.CountryId = taxRateModel.CountryId;
-                taxRate.StateProvinceId = taxRateModel.StateProvinceId;
                 taxRate.Percentage = taxRateModel.Percentage;
 
                 _commandRepository.UpdateAsync(taxRate);

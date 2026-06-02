@@ -22,6 +22,7 @@ namespace Hydra.Common.Api.Endpoints
             services.AddScoped<IStateProvinceService, StateProvinceService>();
             services.AddScoped<ITaxCategoryService, TaxCategoryService>();
             services.AddScoped<ITaxRateService, TaxRateService>();
+            services.AddScoped<IShippingMethodService, ShippingMethodService>();
 
             return services;
         }
@@ -76,6 +77,14 @@ namespace Hydra.Common.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/AddTaxRate", TaxRateHandler.AddTaxRate).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateTaxRate", TaxRateHandler.UpdateTaxRate).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/DeleteTaxRate", TaxRateHandler.DeleteTaxRate).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
+
+            endpoints.MapPost(API_SCHEMA + "/GetShippingMethodList", ShippingMethodHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetAllShippingMethods", ShippingMethodHandler.GetAllShippingMethods).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetShippingMethodById", ShippingMethodHandler.GetShippingMethodById).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddShippingMethod", ShippingMethodHandler.AddShippingMethod).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateShippingMethod", ShippingMethodHandler.UpdateShippingMethod).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/DeleteShippingMethod", ShippingMethodHandler.DeleteShippingMethod).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT);
+
 
             #endregion
 

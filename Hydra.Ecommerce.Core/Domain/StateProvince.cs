@@ -18,5 +18,4 @@ public class StateProvince : BaseEntity<int>
 
     public virtual Country Country { get; set; }
 
-    public virtual ICollection<TaxRate> TaxRates { get; set; } = new List<TaxRate>();
 }

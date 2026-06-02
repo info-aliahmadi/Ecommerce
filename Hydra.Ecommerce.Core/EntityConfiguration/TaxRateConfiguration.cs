@@ -17,15 +17,11 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("FK_TaxRate_Country");
 
-            entity.HasOne(d => d.StateProvince).WithMany(p => p.TaxRates)
-            .HasForeignKey(d => d.StateProvinceId)
-            .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("FK_TaxRate_StateProvince");
-
             entity.HasOne(d => d.TaxCategory).WithMany(p => p.TaxRates)
             .HasForeignKey(d => d.TaxCategoryId)
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("FK_TaxRate_TaxCategory");
+
         }
     }
 }

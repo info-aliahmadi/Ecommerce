@@ -28,13 +28,6 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        public int StateProvinceId { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public decimal Percentage { get; set; }
 
 

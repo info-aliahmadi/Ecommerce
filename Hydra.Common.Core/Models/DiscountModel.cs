@@ -117,33 +117,6 @@ namespace Hydra.Common.Core.Models
         public bool IsActive { get; set; }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int OrderDiscounts { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int Categories { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int Manufacturers { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int Products { get; set; }
-
 
     }
 }

@@ -457,4 +457,5 @@ These improvements can make the project more useful and attractive for open-sour
 ## License
 
 MIT License
+
 Copyright (c) 2026 Hydra Ecommerce | [Ali Ahmadi](mailto:info.aliahmadi@gmail.com).

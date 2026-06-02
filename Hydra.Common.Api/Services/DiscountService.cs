@@ -45,11 +45,7 @@ namespace Hydra.Common.Api.Services
                                   DiscountLimitationId = discount.DiscountLimitationId,
                                   LimitationTimes = discount.LimitationTimes,
                                   MaximumDiscountedQuantity = discount.MaximumDiscountedQuantity,
-                                  IsActive = discount.IsActive,
-                                  //OrderDiscounts = discount.OrderDiscounts,
-                                  //Categories = discount.Categories,
-                                  //Manufacturers = discount.Manufacturers,
-                                  //Products = discount.Products,
+                                  IsActive = discount.IsActive
 
                               }).OrderByDescending(x => x.Id).ToPaginatedListAsync(dataGrid);
 
@@ -194,7 +190,7 @@ namespace Hydra.Common.Api.Services
                     result.Message = "The Discount not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<Discount>().AnyAsync(x => x.Id != discountModel.Id);
+                bool isExist = await _queryRepository.Table<Discount>().AnyAsync(x => x.Id != discountModel.Id && x.CouponCode == discountModel.CouponCode);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;

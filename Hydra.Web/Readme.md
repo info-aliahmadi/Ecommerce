@@ -20,7 +20,7 @@ Remove-Migration -Context ApplicationDbContext -StartupProject Hydra.Web
 
 ===============================================================================
 
-Update-Database dbVersion_03 -Context ApplicationDbContext -verbose
+Update-Database dbVersion_1 -Context ApplicationDbContext -verbose
 
 Remove-Migration -Context ApplicationDbContext -StartupProject Hydra.Web
 

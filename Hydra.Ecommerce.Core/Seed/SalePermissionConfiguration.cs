@@ -89,8 +89,8 @@ namespace Hydra.Ecommerce.Core.Seed
             }, new Permission()
             {
                 Id = INCREMENTER + 16,
-                Name = EcommercePermissionTypes.SALE_CURRENCY_MANAGEMENT,
-                NormalizedName = EcommercePermissionTypes.SALE_CURRENCY_MANAGEMENT,
+                Name = EcommercePermissionTypes.SALE_BASE_INFORMATION_MANAGEMENT,
+                NormalizedName = EcommercePermissionTypes.SALE_BASE_INFORMATION_MANAGEMENT,
             }, new Permission()
             {
                 Id = INCREMENTER + 17,
