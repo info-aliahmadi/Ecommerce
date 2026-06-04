@@ -316,8 +316,8 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 5016,
-                            Name = "SALE.CURRENCY_MANAGEMENT",
-                            NormalizedName = "SALE.CURRENCY_MANAGEMENT"
+                            Name = "SALE.BASE_INFORMATION_MANAGEMENT",
+                            NormalizedName = "SALE.BASE_INFORMATION_MANAGEMENT"
                         },
                         new
                         {
@@ -3313,12 +3313,12 @@ namespace Hydra.Infrastructure.Migrations
                             AllowsShipping = true,
                             DisplayOrder = 100,
                             LimitedToStores = false,
-                            Name = "Honduras",
-                            NumericIsoCode = 340,
+                            Name = "Iran",
+                            NumericIsoCode = 364,
                             Published = true,
                             SubjectToVat = false,
-                            ThreeLetterIsoCode = "HND",
-                            TwoLetterIsoCode = "HN"
+                            ThreeLetterIsoCode = "IRN",
+                            TwoLetterIsoCode = "IR"
                         },
                         new
                         {
@@ -3397,12 +3397,12 @@ namespace Hydra.Infrastructure.Migrations
                             AllowsShipping = true,
                             DisplayOrder = 100,
                             LimitedToStores = false,
-                            Name = "Iran (Islamic Republic of)",
-                            NumericIsoCode = 364,
+                            Name = "Honduras",
+                            NumericIsoCode = 340,
                             Published = true,
                             SubjectToVat = false,
-                            ThreeLetterIsoCode = "IRN",
-                            TwoLetterIsoCode = "IR"
+                            ThreeLetterIsoCode = "HND",
+                            TwoLetterIsoCode = "HN"
                         },
                         new
                         {
@@ -23511,18 +23511,30 @@ namespace Hydra.Infrastructure.Migrations
                         {
                             Id = 1,
                             DisplayOrder = 1,
-                            Name = "5% Tax"
+                            Name = "0% Tax"
                         },
                         new
                         {
                             Id = 2,
                             DisplayOrder = 2,
+                            Name = "2% Tax"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DisplayOrder = 3,
+                            Name = "5% Tax"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DisplayOrder = 4,
                             Name = "9% Tax"
                         },
                         new
                         {
-                            Id = 3,
-                            DisplayOrder = 3,
+                            Id = 20,
+                            DisplayOrder = 5,
                             Name = "20% Tax"
                         });
                 });
@@ -23544,10 +23556,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("decimal(18, 4)")
                         .HasColumnName("percentage");
 
-                    b.Property<int>("StateProvinceId")
-                        .HasColumnType("integer")
-                        .HasColumnName("state_province_id");
-
                     b.Property<int>("TaxCategoryId")
                         .HasColumnType("integer")
                         .HasColumnName("tax_category_id");
@@ -23558,13 +23566,47 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasIndex("CountryId")
                         .HasDatabaseName("ix_tax_rate_country_id");
 
-                    b.HasIndex("StateProvinceId")
-                        .HasDatabaseName("ix_tax_rate_state_province_id");
-
                     b.HasIndex("TaxCategoryId")
                         .HasDatabaseName("ix_tax_rate_tax_category_id");
 
                     b.ToTable("TaxRate", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryId = 100,
+                            Percentage = 0m,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CountryId = 100,
+                            Percentage = 2m,
+                            TaxCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CountryId = 100,
+                            Percentage = 5m,
+                            TaxCategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CountryId = 100,
+                            Percentage = 9m,
+                            TaxCategoryId = 9
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CountryId = 100,
+                            Percentage = 20m,
+                            TaxCategoryId = 20
+                        });
                 });
 
             modelBuilder.Entity("Hydra.FileStorage.Core.Domain.FileUpload", b =>
@@ -24587,13 +24629,6 @@ namespace Hydra.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_TaxRate_Country");
 
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.StateProvince", "StateProvince")
-                        .WithMany("TaxRates")
-                        .HasForeignKey("StateProvinceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_TaxRate_StateProvince");
-
                     b.HasOne("Hydra.Ecommerce.Core.Domain.TaxCategory", "TaxCategory")
                         .WithMany("TaxRates")
                         .HasForeignKey("TaxCategoryId")
@@ -24602,8 +24637,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasConstraintName("FK_TaxRate_TaxCategory");
 
                     b.Navigation("Country");
-
-                    b.Navigation("StateProvince");
 
                     b.Navigation("TaxCategory");
                 });
@@ -24817,8 +24850,6 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.StateProvince", b =>
                 {
                     b.Navigation("Addresses");
-
-                    b.Navigation("TaxRates");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.TaxCategory", b =>
