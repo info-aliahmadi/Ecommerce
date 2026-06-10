@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Hydra.Kernel.Extension;
 using Hydra.Common.Core.Models;
 using Hydra.Common.Core.Interfaces;
+using EFCoreSecondLevelCacheInterceptor;
 
 namespace Hydra.Common.Api.Services
 {
@@ -23,9 +24,9 @@ namespace Hydra.Common.Api.Services
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        public async Task<Result<PaginatedList<ShippingMethodModel>>> GetList(GridDataBound dataGrid)
+        public async Task<Result<List<ShippingMethodModel>>> GetList()
         {
-            var result = new Result<PaginatedList<ShippingMethodModel>>();
+            var result = new Result<List<ShippingMethodModel>>();
 
             var list = await (from shippingMethod in _queryRepository.Table<ShippingMethod>()
                               select new ShippingMethodModel()
@@ -36,13 +37,33 @@ namespace Hydra.Common.Api.Services
                                   DisplayOrder = shippingMethod.DisplayOrder,
                                   //Orders = shippingMethod.Orders,
 
-                              }).OrderByDescending(x => x.Id).ToPaginatedListAsync(dataGrid);
+                              }).OrderByDescending(x => x.Id).Cacheable().ToListAsync();
 
             result.Data = list;
 
             return result;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="dataGrid"></param>
+        /// <returns></returns>
+        public async Task<Result<List<ShippingMethodModel>>> GetShippingMethodListForSelect()
+        {
+            var result = new Result<List<ShippingMethodModel>>();
+            var list = await (from taxCategory in _queryRepository.Table<ShippingMethod>()
+                              select new ShippingMethodModel()
+                              {
+                                  Id = taxCategory.Id,
+                                  Name = taxCategory.Name,
+                                  DisplayOrder = taxCategory.DisplayOrder
+                              }).OrderByDescending(x => x.DisplayOrder).Cacheable().ToListAsync();
+
+            result.Data = list;
+
+            return result;
+        }
         /// <summary>
         ///
         /// </summary>
@@ -77,7 +98,7 @@ namespace Hydra.Common.Api.Services
             var result = new Result<ShippingMethodModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<ShippingMethod>().AnyAsync(x => x.Id == shippingMethodModel.Id);
+                bool isExist = await _queryRepository.Table<ShippingMethod>().AnyAsync(x => x.Name == shippingMethodModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -128,7 +149,7 @@ namespace Hydra.Common.Api.Services
                     result.Message = "The ShippingMethod not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<ShippingMethod>().AnyAsync(x => x.Id != shippingMethodModel.Id);
+                bool isExist = await _queryRepository.Table<ShippingMethod>().AnyAsync(x => x.Id != shippingMethodModel.Id && x.Name == shippingMethodModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;

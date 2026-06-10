@@ -73,7 +73,7 @@ namespace Hydra.Common.Api.Services
             var result = new Result<SearchTermModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<SearchTerm>().AnyAsync(x => x.Id == searchTermModel.Id);
+                bool isExist = await _queryRepository.Table<SearchTerm>().AnyAsync(x => x.Keyword == searchTermModel.Keyword);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -122,7 +122,7 @@ namespace Hydra.Common.Api.Services
                     result.Message = "The SearchTerm not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<SearchTerm>().AnyAsync(x => x.Id != searchTermModel.Id);
+                bool isExist = await _queryRepository.Table<SearchTerm>().AnyAsync(x => x.Id != searchTermModel.Id && x.Keyword == searchTermModel.Keyword);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;

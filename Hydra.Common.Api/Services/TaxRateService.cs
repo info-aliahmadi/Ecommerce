@@ -1,10 +1,11 @@
-﻿using Hydra.Kernel.GeneralModels;
-using Hydra.Kernel.Interface;
-using Hydra.Ecommerce.Core.Domain;
+﻿using EFCoreSecondLevelCacheInterceptor;
 using Hydra.Common.Core.Interfaces;
 using Hydra.Common.Core.Models;
-using Microsoft.EntityFrameworkCore;
+using Hydra.Ecommerce.Core.Domain;
 using Hydra.Kernel.Extension;
+using Hydra.Kernel.GeneralModels;
+using Hydra.Kernel.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hydra.Common.Api.Services
 {
@@ -27,12 +28,14 @@ namespace Hydra.Common.Api.Services
         {
             var result = new Result<PaginatedList<TaxRateModel>>();
 
-            var list = await (from taxRate in _queryRepository.Table<TaxRate>()
+            var list = await (from taxRate in _queryRepository.Table<TaxRate>().Include(x => x.TaxCategory).Include(x => x.Country)
                               select new TaxRateModel()
                               {
                                   Id = taxRate.Id,
                                   TaxCategoryId = taxRate.TaxCategoryId,
+                                  TaxCategoryName = taxRate.TaxCategory.Name,
                                   CountryId = taxRate.CountryId,
+                                  CountryName = taxRate.Country.Name,
                                   Percentage = taxRate.Percentage,
 
                               }).OrderByDescending(x => x.Id).ToPaginatedListAsync(dataGrid);
@@ -41,7 +44,25 @@ namespace Hydra.Common.Api.Services
 
             return result;
         }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Result<List<TaxRateModel>>> GetTaxRateListForSelect()
+        {
+            var result = new Result<List<TaxRateModel>>();
+            var list = await (from taxCategory in _queryRepository.Table<TaxRate>().Include(x=>x.TaxCategory)
+                              select new TaxRateModel()
+                              {
+                                  Id = taxCategory.Id,
+                                  TaxCategoryName = taxCategory.TaxCategory.Name,
+                                  Percentage = taxCategory.Percentage,
+                              }).OrderByDescending(x => x.Percentage).Cacheable().ToListAsync();
 
+            result.Data = list;
+
+            return result;
+        }
         /// <summary>
         ///
         /// </summary>
@@ -75,7 +96,9 @@ namespace Hydra.Common.Api.Services
             var result = new Result<TaxRateModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<TaxRate>().AnyAsync(x => x.Id == taxRateModel.Id);
+                bool isExist = await _queryRepository.Table<TaxRate>().AnyAsync(x =>
+                                                x.TaxCategoryId == taxRateModel.TaxCategoryId &&
+                                                x.CountryId == taxRateModel.CountryId);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -88,7 +111,6 @@ namespace Hydra.Common.Api.Services
                     TaxCategoryId = taxRateModel.TaxCategoryId,
                     CountryId = taxRateModel.CountryId,
                     Percentage = taxRateModel.Percentage,
-
                 };
 
                 await _commandRepository.InsertAsync(taxRate);
@@ -125,12 +147,15 @@ namespace Hydra.Common.Api.Services
                     result.Message = "The TaxRate not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<TaxRate>().AnyAsync(x => x.Id != taxRateModel.Id);
+                bool isExist = await _queryRepository.Table<TaxRate>().AnyAsync(x =>
+                                            x.Id != taxRateModel.Id &&
+                                            x.TaxCategoryId == taxRateModel.TaxCategoryId &&
+                                            x.CountryId == taxRateModel.CountryId);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(taxRateModel.Id), "The Id already exist"));
+                    result.Message = "The TaxRate already exist";
+                    result.Errors.Add(new Error(nameof(taxRateModel.Id), "The TaxRate already exist"));
                     return result;
                 }
                 taxRate.TaxCategoryId = taxRateModel.TaxCategoryId;

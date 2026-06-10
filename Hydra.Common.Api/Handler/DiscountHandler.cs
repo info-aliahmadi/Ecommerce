@@ -17,15 +17,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IDiscountService discountService, GridDataBound dataGrid)
         {
-            try
-            {
                 var result = await discountService.GetList(dataGrid);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
         /// <summary>
@@ -35,15 +28,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetListForSelect(IDiscountService discountService)
         {
-            try
-            {
                 var result = await discountService.GetListForSelect();
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
         /// <summary>
@@ -92,15 +78,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteDiscount(IDiscountService discountService, int discountId)
         {
-            try
-            {
                 var result = await discountService.Delete(discountId);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }

@@ -1,9 +1,10 @@
-﻿using System.Security.Claims;
-using Hydra.Kernel.GeneralModels;
+﻿using Hydra.Common.Api.Services;
 using Hydra.Common.Core.Interfaces;
 using Hydra.Common.Core.Models;
+using Hydra.Kernel.GeneralModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Hydra.Common.Api.Handler
 {
@@ -18,15 +19,20 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(ITaxRateService taxRateService, GridDataBound dataGrid)
         {
-            try
-            {
                 var result = await taxRateService.GetList(dataGrid);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="taxCategoryService"></param>
+        /// <returns></returns>
+        public static async Task<IResult> GetTaxRateListForSelect(ITaxRateService taxCategoryService)
+        {
+            var result = await taxCategoryService.GetTaxRateListForSelect();
+            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
         /// <summary>
@@ -75,15 +81,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteTaxRate(ITaxRateService taxRateService, int taxRateId)
         {
-            try
-            {
                 var result = await taxRateService.Delete(taxRateId);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }

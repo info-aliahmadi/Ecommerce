@@ -27,15 +27,32 @@ namespace Hydra.Common.Api.Services
         {
             var result = new Result<List<TaxCategoryModel>>();
 
-            var list = await (from taxRate in _queryRepository.Table<TaxRate>().Include(x=>x.TaxCategory)
+            var list = await (from taxCategory in _queryRepository.Table<TaxCategory>()
                               select new TaxCategoryModel()
                               {
-                                  Id = taxRate.TaxCategoryId,
-                                  Name = taxRate.TaxCategory.Name,
-                                  Percentage = taxRate.Percentage,
-                                  DisplayOrder = taxRate.TaxCategory.DisplayOrder
-
+                                  Id = taxCategory.Id,
+                                  Name = taxCategory.Name,
+                                  DisplayOrder = taxCategory.DisplayOrder
                               }).OrderByDescending(x => x.Id).Cacheable().ToListAsync();
+
+            result.Data = list;
+
+            return result;
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Result<List<TaxCategoryModel>>> GetTaxCategoryListForSelect()
+        {
+            var result = new Result<List<TaxCategoryModel>>();
+            var list = await (from taxCategory in _queryRepository.Table<TaxCategory>()
+                              select new TaxCategoryModel()
+                              {
+                                  Id = taxCategory.Id,
+                                  Name = taxCategory.Name,
+                                  DisplayOrder = taxCategory.DisplayOrder
+                              }).OrderByDescending(x => x.DisplayOrder).Cacheable().ToListAsync();
 
             result.Data = list;
 
@@ -76,7 +93,7 @@ namespace Hydra.Common.Api.Services
             var result = new Result<TaxCategoryModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<TaxCategory>().AnyAsync(x => x.Id == taxCategoryModel.Id);
+                bool isExist = await _queryRepository.Table<TaxCategory>().AnyAsync(x => x.Name == taxCategoryModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -127,7 +144,7 @@ namespace Hydra.Common.Api.Services
                     result.Message = "The TaxCategory not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<TaxCategory>().AnyAsync(x => x.Id != taxCategoryModel.Id);
+                bool isExist = await _queryRepository.Table<TaxCategory>().AnyAsync(x => x.Id != taxCategoryModel.Id && x.Name == taxCategoryModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;

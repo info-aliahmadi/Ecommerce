@@ -16,11 +16,11 @@ namespace Hydra.Common.Api.Handler
         /// <param name="countryService"></param>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        public static async Task<IResult> GetList(ICountryService countryService, GridDataBound dataGrid)
+        public static async Task<IResult> GetCountryListForSelect(ICountryService countryService)
         {
             try
             {
-                var result = await countryService.GetList(dataGrid);
+                var result = await countryService.GetCountryListForSelect();
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
             }
             catch (Exception e)

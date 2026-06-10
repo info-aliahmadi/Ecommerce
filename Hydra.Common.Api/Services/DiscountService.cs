@@ -124,14 +124,6 @@ namespace Hydra.Common.Api.Services
             var result = new Result<DiscountModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<Discount>().AnyAsync(x => x.Id == discountModel.Id);
-                if (isExist)
-                {
-                    result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(discountModel.Id), "The Id already exist"));
-                    return result;
-                }
                 var discount = new Discount()
                 {
                     Name = discountModel.Name,
@@ -148,11 +140,7 @@ namespace Hydra.Common.Api.Services
                     DiscountLimitationId = discountModel.DiscountLimitationId,
                     LimitationTimes = discountModel.LimitationTimes,
                     MaximumDiscountedQuantity = discountModel.MaximumDiscountedQuantity,
-                    IsActive = discountModel.IsActive,
-                    //OrderDiscounts = discountModel.OrderDiscounts,
-                    //Categories = discountModel.Categories,
-                    //Manufacturers = discountModel.Manufacturers,
-                    //Products = discountModel.Products,
+                    IsActive = discountModel.IsActive
 
                 };
 
@@ -213,10 +201,6 @@ namespace Hydra.Common.Api.Services
                 discount.LimitationTimes = discountModel.LimitationTimes;
                 discount.MaximumDiscountedQuantity = discountModel.MaximumDiscountedQuantity;
                 discount.IsActive = discountModel.IsActive;
-                //discount.OrderDiscounts = discountModel.OrderDiscounts;
-                //discount.Categories = discountModel.Categories;
-                //discount.Manufacturers = discountModel.Manufacturers;
-                //discount.Products = discountModel.Products;
 
                 _commandRepository.UpdateAsync(discount);
                 await _commandRepository.SaveChangesAsync();

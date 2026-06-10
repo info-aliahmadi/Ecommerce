@@ -6,6 +6,7 @@ using Hydra.Common.Core.Interfaces;
 using Hydra.Common.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Hydra.Kernel.Extension;
+using EFCoreSecondLevelCacheInterceptor;
 
 namespace Hydra.Common.Api.Services
 {
@@ -18,6 +19,40 @@ namespace Hydra.Common.Api.Services
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Result<List<CountryModel>>> GetCountryListForSelect()
+        {
+            var result = new Result<List<CountryModel>>();
+
+            var list = await (from country in _queryRepository.Table<Country>().Where(x=>x.Published)
+                        select new CountryModel()
+                        {
+                            Id = country.Id,
+                            Name = country.Name,
+                            TwoLetterIsoCode = country.TwoLetterIsoCode,
+                            ThreeLetterIsoCode = country.ThreeLetterIsoCode,
+                            AllowsBilling = country.AllowsBilling,
+                            AllowsShipping = country.AllowsShipping,
+                            NumericIsoCode = country.NumericIsoCode,
+                            SubjectToVat = country.SubjectToVat,
+                            Published = country.Published,
+                            DisplayOrder = country.DisplayOrder,
+                            LimitedToStores = country.LimitedToStores,
+                            //Addresses = country.Addresses,
+                            //StateProvinces = country.StateProvinces,
+                            //TaxRates = country.TaxRates,
+
+                        }).OrderByDescending(x => x.Id).Cacheable().ToListAsync();
+
+            result.Data = list;
+
+            return result;
+        }
+
 
         public async Task<string> GetCountrySeed()
         {
@@ -101,7 +136,6 @@ $@"
 
             return result;
         }
-
         /// <summary>
         ///
         /// </summary>

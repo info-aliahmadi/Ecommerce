@@ -18,15 +18,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IStateProvinceService stateProvinceService, GridDataBound dataGrid)
         {
-            try
-            {
                 var result = await stateProvinceService.GetList(dataGrid);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
         /// <summary>
@@ -75,15 +68,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteStateProvince(IStateProvinceService stateProvinceService, int stateProvinceId)
         {
-            try
-            {
                 var result = await stateProvinceService.Delete(stateProvinceId);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }

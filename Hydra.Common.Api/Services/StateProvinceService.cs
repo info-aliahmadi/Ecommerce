@@ -27,17 +27,16 @@ namespace Hydra.Common.Api.Services
         {
             var result = new Result<PaginatedList<StateProvinceModel>>();
 
-            var list = await (from stateProvince in _queryRepository.Table<StateProvince>()
+            var list = await (from stateProvince in _queryRepository.Table<StateProvince>().Include(x => x.Country)
                               select new StateProvinceModel()
                               {
                                   Id = stateProvince.Id,
                                   Name = stateProvince.Name,
                                   Abbreviation = stateProvince.Abbreviation,
                                   CountryId = stateProvince.CountryId,
+                                  CountryName = stateProvince.Country.Name,
                                   Published = stateProvince.Published,
-                                  DisplayOrder = stateProvince.DisplayOrder,
-                                  //Addresses = stateProvince.Addresses,
-                                  //TaxRates = stateProvince.TaxRates,
+                                  DisplayOrder = stateProvince.DisplayOrder
 
                               }).OrderByDescending(x => x.Id).ToPaginatedListAsync(dataGrid);
 
@@ -83,7 +82,9 @@ namespace Hydra.Common.Api.Services
             var result = new Result<StateProvinceModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<StateProvince>().AnyAsync(x => x.Id == stateProvinceModel.Id);
+                bool isExist = await _queryRepository.Table<StateProvince>().AnyAsync(x => 
+                                                                                        x.CountryId == stateProvinceModel.CountryId 
+                                                                                        && x.Name == stateProvinceModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -137,7 +138,9 @@ namespace Hydra.Common.Api.Services
                     result.Message = "The StateProvince not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<StateProvince>().AnyAsync(x => x.Id != stateProvinceModel.Id);
+                bool isExist = await _queryRepository.Table<StateProvince>().AnyAsync(x => x.Id != stateProvinceModel.Id &&
+                                                                                            x.CountryId == stateProvinceModel.CountryId &&
+                                                                                            x.Name == stateProvinceModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;

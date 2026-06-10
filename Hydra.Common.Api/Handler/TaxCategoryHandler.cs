@@ -17,15 +17,19 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(ITaxCategoryService taxCategoryService)
         {
-            try
-            {
                 var result = await taxCategoryService.GetList();
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="taxCategoryService"></param>
+        /// <returns></returns>
+        public static async Task<IResult> GetTaxCategoryListForSelect(ITaxCategoryService taxCategoryService)
+        {
+                var result = await taxCategoryService.GetTaxCategoryListForSelect();
+                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
         /// <summary>
@@ -74,15 +78,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteTaxCategory(ITaxCategoryService taxCategoryService, int taxCategoryId)
         {
-            try
-            {
                 var result = await taxCategoryService.Delete(taxCategoryId);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }

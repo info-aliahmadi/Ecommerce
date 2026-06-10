@@ -16,17 +16,20 @@ namespace Hydra.Common.Api.Handler
         /// <param name="shippingMethodService"></param>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        public static async Task<IResult> GetList(IShippingMethodService shippingMethodService, GridDataBound dataGrid)
+        public static async Task<IResult> GetList(IShippingMethodService shippingMethodService)
         {
-            try
-            {
-                var result = await shippingMethodService.GetList(dataGrid);
+                var result = await shippingMethodService.GetList();
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shippingMethodService"></param>
+        /// <returns></returns>
+        public static async Task<IResult> GetShippingMethodListForSelect(IShippingMethodService shippingMethodService)
+        {
+                var result = await shippingMethodService.GetShippingMethodListForSelect();
+                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
         /// <summary>
@@ -75,34 +78,10 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteShippingMethod(IShippingMethodService shippingMethodService, int shippingMethodId)
         {
-            try
-            {
                 var result = await shippingMethodService.Delete(shippingMethodId);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="shippingMethodService"></param>
-        /// <returns></returns>
-        public static async Task<IResult> GetAllShippingMethods(IShippingMethodService shippingMethodService)
-        {
-            try
-            {
-                var result = await shippingMethodService.GetAllShippingMethods();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-        }
 
     }
 }

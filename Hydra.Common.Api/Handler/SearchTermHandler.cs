@@ -18,15 +18,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(ISearchTermService searchTermService, GridDataBound dataGrid)
         {
-            try
-            {
                 var result = await searchTermService.GetList(dataGrid);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
         /// <summary>
@@ -75,15 +68,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteSearchTerm(ISearchTermService searchTermService, int searchTermId)
         {
-            try
-            {
                 var result = await searchTermService.Delete(searchTermId);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }
