@@ -6,17 +6,18 @@ namespace Hydra.Common.Core.Interfaces
     public interface ICountryService
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
+        /// <param name="dataGrid"></param>
         /// <returns></returns>
-        Task<string> GetCountrySeed();
+        Task<Result<PaginatedList<CountryModel>>> GetList(GridDataBound dataGrid);
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        Task<Result<PaginatedList<CountryModel>>> GetList(GridDataBound dataGrid);
+        Task<Result<List<CountryModel>>> GetCountryListForSelect();
 
         /// <summary>
         /// 

@@ -15,6 +15,13 @@ namespace Hydra.Common.Core.Interfaces
         Task<Result<PaginatedList<TaxRateModel>>> GetList(GridDataBound dataGrid);
 
         /// <summary>
+        ///
+        /// </summary>
+        /// <param name="dataGrid"></param>
+        /// <returns></returns>
+        Task<Result<List<TaxRateModel>>> GetTaxRateListForSelect();
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
@@ -41,6 +48,5 @@ namespace Hydra.Common.Core.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<Result> Delete(int id);
-
     }
 }

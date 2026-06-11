@@ -15,6 +15,13 @@ namespace Hydra.Common.Core.Interfaces
         Task<Result<List<TaxCategoryModel>>> GetList();
 
         /// <summary>
+        ///
+        /// </summary>
+        /// <param name="dataGrid"></param>
+        /// <returns></returns>
+        Task<Result<List<TaxCategoryModel>>> GetTaxCategoryListForSelect();
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>

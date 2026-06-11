@@ -30,13 +30,5 @@
         /// <returns></returns>
         public int DisplayOrder { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int Orders { get; set; }
-
-
     }
 }

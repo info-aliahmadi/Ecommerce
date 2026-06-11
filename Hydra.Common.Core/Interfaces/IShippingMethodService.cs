@@ -11,7 +11,13 @@ namespace Hydra.Common.Core.Interfaces
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        Task<Result<PaginatedList<ShippingMethodModel>>> GetList(GridDataBound dataGrid);
+        Task<Result<List<ShippingMethodModel>>> GetList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task<Result<List<ShippingMethodModel>>> GetShippingMethodListForSelect();
 
         /// <summary>
         /// 
@@ -41,10 +47,5 @@ namespace Hydra.Common.Core.Interfaces
         /// <returns></returns>
         Task<Result> Delete(int id);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        Task<Result<List<ShippingMethodPairModel>>> GetAllShippingMethods();
     }
 }
