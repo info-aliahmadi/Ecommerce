@@ -10,7 +10,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
         {
             entity.ToTable("Country", "Sale");
 
-            entity.HasIndex(e => e.DisplayOrder, "IX_Country_DisplayOrder");
+            entity.HasIndex(e => e.DisplayOrder);
 
             entity.Property(e => e.Name)
                 .IsRequired()

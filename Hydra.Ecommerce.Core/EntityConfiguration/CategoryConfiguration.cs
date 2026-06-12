@@ -10,9 +10,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
         {
             entity.ToTable("Category", "Sale");
 
-            entity.HasIndex(e => e.DisplayOrder, "IX_Category_DisplayOrder");
+            entity.HasIndex(e => e.DisplayOrder);
 
-            entity.HasIndex(e => e.ParentCategoryId, "IX_Category_ParentCategoryId");
+            entity.HasIndex(e => e.ParentCategoryId);
 
             entity.Property(e => e.Description).HasMaxLength(200);
             entity.Property(e => e.MetaDescription).HasMaxLength(300);
@@ -24,8 +24,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.Property(e => e.UpdatedOnUtc).HasPrecision(6);
 
             entity.HasOne(d => d.ParentCategory).WithMany()
-            .HasForeignKey(d => d.ParentCategoryId)
-            .HasConstraintName("FK_Category_Category");
+            .HasForeignKey(d => d.ParentCategoryId);
 
             entity.HasData(new Category()
             {

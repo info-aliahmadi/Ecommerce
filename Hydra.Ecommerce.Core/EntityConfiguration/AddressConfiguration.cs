@@ -10,9 +10,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
         {
             entity.ToTable("Address", "Sale");
 
-            entity.HasIndex(e => e.CountryId, "IX_Address_CountryId");
+            entity.HasIndex(e => e.CountryId);
 
-            entity.HasIndex(e => e.StateProvinceId, "IX_Address_StateProvinceId");
+            entity.HasIndex(e => e.StateProvinceId);
 
             entity.Property(e => e.Address1).HasMaxLength(300);
             entity.Property(e => e.Address2).HasMaxLength(300);
@@ -31,18 +31,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasOne(d => d.Country).WithMany(p => p.Addresses)
             .HasForeignKey(d => d.CountryId)
-            .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("FK_Address_Country");
+            .OnDelete(DeleteBehavior.Restrict);
 
             entity.HasOne(d => d.StateProvince).WithMany(p => p.Addresses)
             .HasForeignKey(d => d.StateProvinceId)
-            .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("FK_Address_StateProvince");
+            .OnDelete(DeleteBehavior.Restrict);
 
             entity.HasOne(d => d.User).WithMany()
             .HasForeignKey(d => d.UserId)
-            .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("FK_Address_User");
+            .OnDelete(DeleteBehavior.Restrict);
 
 
         }

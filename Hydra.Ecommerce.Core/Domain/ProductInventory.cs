@@ -17,17 +17,30 @@ public class ProductInventory : BaseEntity<int>
     /// <summary>
     /// 
     /// </summary>
-    public StockType StockType { get; set; }
+    public decimal StockQuantity { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
-    public int StockQuantity { get; set; }
+    public decimal ReservedQuantity { get; set; }
 
     /// <summary>
-    /// 
+    /// قیمت خرید
     /// </summary>
-    public int ReservedQuantity { get; set; }
+    public decimal BuyUnitPrice { get; set; }
+
+    /// <summary>
+    /// تاریخ ساخت
+    /// </summary>
+    public DateTime CreatedDatetime { get; set; }
+
+    /// <summary>
+    /// تاریخ شروع کسر از موجودی
+    /// برای بازگشت کالا اگر تاریخ خرید قبل از این تاریخ بود  کمتر بود باید یک رکورد جدید موجودی ثبت شود
+    /// چون برای هر فاکتور خرید باید یک رکورد جدید ثبت شود
+    /// در صورت اتمام موجودی این رکورد پاک می شود
+    /// </summary>
+    public DateTime? StartDatetime { get; set; }
 
     /// <summary>
     /// 
@@ -38,9 +51,4 @@ public class ProductInventory : BaseEntity<int>
     /// 
     /// </summary>
     public virtual ProductAttribute? ProductAttribute { get; set; }
-}
-public enum StockType
-{
-    Total = 0,
-    PerAttribute = 1
 }

@@ -6,6 +6,8 @@ namespace Hydra.Ecommerce.Core.Domain;
 
 public class Product : BaseEntity<int>
 {
+    public int Code { get; set; }
+
     public string Name { get; set; }
 
     public string? MetaKeywords { get; set; }
@@ -20,8 +22,9 @@ public class Product : BaseEntity<int>
 
     public string? MetaDescription { get; set; }
 
-
     public int TaxCategoryId { get; set; }
+
+    public StockType StockType { get; set; }
 
     public int StockQuantity { get; set; }
 
@@ -33,10 +36,15 @@ public class Product : BaseEntity<int>
 
     public int OrderMaximumQuantity { get; set; }
 
-    public decimal Price { get; set; }
-    
-    public decimal OldPrice { get; set; }
+    /// <summary>
+    /// قیمت فروش
+    /// </summary>
+    public decimal SellUnitPrice { get; set; }
 
+    /// <summary>
+    /// قیمت قدیم فروش
+    /// </summary>
+    public decimal OldSellUnitPrice { get; set; }
 
     public DateTime? AvailableStartDateTimeUtc { get; set; }
 
@@ -98,6 +106,8 @@ public class Product : BaseEntity<int>
 
     public CurrencyType CurrencyType { get; set; }
 
+    public MeasureType MeasureType { get; set; }
+
     public virtual List<OrderItem> OrderItems { get; set; } = new();
 
     public virtual List<ProductCategory> ProductCategories { get; set; } = new();
@@ -129,3 +139,4 @@ public class Product : BaseEntity<int>
     public virtual List<ProductProductAttribute> ProductAttributes { get; set; } = new();
 
 }
+

@@ -24,8 +24,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.Property(e => e.Name)
             .IsRequired()
             .HasMaxLength(100);
-            entity.Property(e => e.OldPrice).HasColumnType("decimal(18, 4)");
-            entity.Property(e => e.Price).HasColumnType("decimal(18, 4)");
+            entity.Property(e => e.OldSellUnitPrice).HasColumnType("decimal(18, 4)");
+            entity.Property(e => e.SellUnitPrice).HasColumnType("decimal(18, 4)");
             entity.Property(e => e.ShortDescription).HasMaxLength(300);
 
             entity.HasOne(d => d.TaxCategory).WithMany(p => p.Products)

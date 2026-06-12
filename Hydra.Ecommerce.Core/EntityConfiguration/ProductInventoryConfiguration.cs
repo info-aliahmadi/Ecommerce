@@ -8,21 +8,19 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<ProductInventory> entity)
         {
-            entity.HasKey(e => e.Id).HasName("PK_ProductWarehouseInventory");
+            entity.HasKey(e => e.Id);
 
             entity.ToTable("ProductInventory", "Sale");
 
-            entity.HasIndex(e => e.ProductId, "IX_ProductWarehouseInventory_ProductId");
+            entity.HasIndex(e => e.ProductId);
 
             entity.HasOne(d => d.ProductAttribute).WithMany(p => p.ProductInventories)
             .HasForeignKey(d => d.AttributeId)
-            .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("FK_ProductInventory_Attribute");
+            .OnDelete(DeleteBehavior.Restrict);
 
             entity.HasOne(d => d.Product).WithMany(p => p.ProductInventories)
             .HasForeignKey(d => d.ProductId)
-            .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("FK_ProductInventory_Product");
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
