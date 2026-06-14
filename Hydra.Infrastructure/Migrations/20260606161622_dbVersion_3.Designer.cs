@@ -3,6 +3,7 @@ using System;
 using Hydra.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hydra.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260606161622_dbVersion_3")]
+    partial class dbVersion_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1728,14 +1731,14 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_address");
 
-                    b.HasIndex("CountryId")
-                        .HasDatabaseName("ix_address_country_id");
-
-                    b.HasIndex("StateProvinceId")
-                        .HasDatabaseName("ix_address_state_province_id");
-
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_address_user_id");
+
+                    b.HasIndex(new[] { "CountryId" }, "IX_Address_CountryId")
+                        .HasDatabaseName("ix_address_country_id");
+
+                    b.HasIndex(new[] { "StateProvinceId" }, "IX_Address_StateProvinceId")
+                        .HasDatabaseName("ix_address_state_province_id");
 
                     b.ToTable("Address", "Sale");
                 });
@@ -1815,10 +1818,10 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_category");
 
-                    b.HasIndex("DisplayOrder")
+                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Category_DisplayOrder")
                         .HasDatabaseName("ix_category_display_order");
 
-                    b.HasIndex("ParentCategoryId")
+                    b.HasIndex(new[] { "ParentCategoryId" }, "IX_Category_ParentCategoryId")
                         .HasDatabaseName("ix_category_parent_category_id");
 
                     b.ToTable("Category", "Sale");
@@ -1914,7 +1917,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_country");
 
-                    b.HasIndex("DisplayOrder")
+                    b.HasIndex(new[] { "DisplayOrder" }, "IX_Country_DisplayOrder")
                         .HasDatabaseName("ix_country_display_order");
 
                     b.ToTable("Country", "Sale");
@@ -6034,10 +6037,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("call_for_price");
 
-                    b.Property<int>("Code")
-                        .HasColumnType("integer")
-                        .HasColumnName("code");
-
                     b.Property<int>("CreateUserId")
                         .HasColumnType("integer")
                         .HasColumnName("create_user_id");
@@ -6183,10 +6182,6 @@ namespace Hydra.Infrastructure.Migrations
                     b.Property<int>("StockQuantity")
                         .HasColumnType("integer")
                         .HasColumnName("stock_quantity");
-
-                    b.Property<int>("StockType")
-                        .HasColumnType("integer")
-                        .HasColumnName("stock_type");
 
                     b.Property<int>("TaxCategoryId")
                         .HasColumnType("integer")
@@ -6383,10 +6378,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("numeric")
                         .HasColumnName("buy_unit_price");
 
-                    b.Property<DateTime>("CreatedDatetime")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_datetime");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("integer")
                         .HasColumnName("product_id");
@@ -6395,21 +6386,21 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("numeric")
                         .HasColumnName("reserved_quantity");
 
-                    b.Property<DateTime?>("StartDatetime")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("start_datetime");
-
                     b.Property<decimal>("StockQuantity")
                         .HasColumnType("numeric")
                         .HasColumnName("stock_quantity");
 
+                    b.Property<int>("StockType")
+                        .HasColumnType("integer")
+                        .HasColumnName("stock_type");
+
                     b.HasKey("Id")
-                        .HasName("pk_product_inventory");
+                        .HasName("PK_ProductWarehouseInventory");
 
                     b.HasIndex("AttributeId")
                         .HasDatabaseName("ix_product_inventory_attribute_id");
 
-                    b.HasIndex("ProductId")
+                    b.HasIndex(new[] { "ProductId" }, "IX_ProductWarehouseInventory_ProductId")
                         .HasDatabaseName("ix_product_inventory_product_id");
 
                     b.ToTable("ProductInventory", "Sale");
@@ -24210,21 +24201,21 @@ namespace Hydra.Infrastructure.Migrations
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("fk_address_country_country_id");
+                        .HasConstraintName("FK_Address_Country");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.StateProvince", "StateProvince")
                         .WithMany("Addresses")
                         .HasForeignKey("StateProvinceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("fk_address_state_province_state_province_id");
+                        .HasConstraintName("FK_Address_StateProvince");
 
                     b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("fk_address_user_user_id");
+                        .HasConstraintName("FK_Address_User");
 
                     b.Navigation("Country");
 
@@ -24238,7 +24229,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Category", "ParentCategory")
                         .WithMany()
                         .HasForeignKey("ParentCategoryId")
-                        .HasConstraintName("fk_category_category_parent_category_id");
+                        .HasConstraintName("FK_Category_Category");
 
                     b.Navigation("ParentCategory");
                 });
@@ -24413,14 +24404,14 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany("ProductInventories")
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .HasConstraintName("fk_product_inventory_product_attribute_attribute_id");
+                        .HasConstraintName("FK_ProductInventory_Attribute");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
                         .WithMany("ProductInventories")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("fk_product_inventory_product_product_id");
+                        .HasConstraintName("FK_ProductInventory_Product");
 
                     b.Navigation("Product");
 
