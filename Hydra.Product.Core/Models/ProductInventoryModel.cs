@@ -28,18 +28,17 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public StockType StockType { get; set; }
+        public decimal StockQuantity { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int StockQuantity { get; set; }
+        public decimal ReservedQuantity { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int ReservedQuantity { get; set; }
-
+        public decimal BuyUnitPrice { get; set; }
 
     }
 }

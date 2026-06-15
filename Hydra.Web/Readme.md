@@ -8,7 +8,7 @@ http://localhost:5601
 Test the redis container :
 
 
-Add-Migration dbVersion_2 -Context ApplicationDbContext -StartupProject Hydra.Web
+Add-Migration dbVersion_3 -Context ApplicationDbContext -StartupProject Hydra.Web
 
 Update-Database -Context ApplicationDbContext -verbose -StartupProject Hydra.Web
 

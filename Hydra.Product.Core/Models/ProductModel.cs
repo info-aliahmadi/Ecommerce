@@ -1,4 +1,5 @@
-﻿using Hydra.Ecommerce.Core.Enums;
+﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.FileStorage.Core.Models;
 using Hydra.Kernel.GeneralModels;
 
@@ -145,6 +146,10 @@ namespace Hydra.Product.Core.Models
         /// <returns></returns>
         public bool NotifyAdminForQuantityBelow { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public StockType StockType { get; set; }
 
         /// <summary>
         /// 
@@ -160,18 +165,24 @@ namespace Hydra.Product.Core.Models
         public int OrderMaximumQuantity { get; set; }
 
 
+
+        /// <summary>
+        /// قیمت خرید
+        /// </summary>
+        public decimal BuyPrice { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public decimal Price { get; set; }
+        public decimal SellUnitPrice { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public decimal OldPrice { get; set; }
+        public decimal OldSellUnitPrice { get; set; }
 
         /// <summary>
         /// 
@@ -422,11 +433,14 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         /// <returns></returns>
         public List<int> AttributeIds { get; set; } = new();
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public List<string> AttributeNames { get; set; } = new();
+
+        public MeasureType MeasureType { get; set; }
 
         /// <summary>
         /// 
@@ -464,4 +478,5 @@ namespace Hydra.Product.Core.Models
 
 
     }
+
 }

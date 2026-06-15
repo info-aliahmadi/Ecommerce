@@ -57,8 +57,8 @@ namespace Hydra.Product.Api.Services
                                   NotifyAdminForQuantityBelow = product.NotifyAdminForQuantityBelow,
                                   OrderMinimumQuantity = product.OrderMinimumQuantity,
                                   OrderMaximumQuantity = product.OrderMaximumQuantity,
-                                  Price = product.Price,
-                                  OldPrice = product.OldPrice,
+                                  SellUnitPrice = product.SellUnitPrice,
+                                  OldSellUnitPrice = product.OldSellUnitPrice,
                                   CurrencyType = product.CurrencyType,
                                   AvailableStartDateTimeUtc = product.AvailableStartDateTimeUtc,
                                   AvailableEndDateTimeUtc = product.AvailableEndDateTimeUtc,
@@ -86,6 +86,7 @@ namespace Hydra.Product.Api.Services
                                   Deleted = product.Deleted,
                                   CreatedOnUtc = product.CreatedOnUtc,
                                   UpdatedOnUtc = product.UpdatedOnUtc,
+                                  StockType = product.StockType,
                                   PreviewImage = product.ProductPictures.OrderBy(r => r.Id).Select(image => new FileUploadModel()
                                   {
                                       Id = image.PictureId,
@@ -96,15 +97,14 @@ namespace Hydra.Product.Api.Services
                                   CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
                                   ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
                                   AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList(),
-                                  Inventories = product.ProductInventories.Where(c => c.StockType == StockType.PerAttribute).Select(x => new ProductInventoryModel()
+                                  Inventories = product.ProductInventories.Select(x => new ProductInventoryModel()
                                   {
                                       Id = x.Id,
                                       ProductId = x.ProductId,
                                       AttributeId = x.AttributeId,
                                       AttributeName = x.ProductAttribute.Name,
                                       StockQuantity = x.StockQuantity,
-                                      ReservedQuantity = x.ReservedQuantity,
-                                      StockType = x.StockType
+                                      ReservedQuantity = x.ReservedQuantity
                                   }).ToList()
 
                               }).OrderByDescending(x => x.Id).Cacheable().ToPaginatedListAsync(dataGrid);
@@ -152,8 +152,8 @@ namespace Hydra.Product.Api.Services
                 NotifyAdminForQuantityBelow = product.NotifyAdminForQuantityBelow,
                 OrderMinimumQuantity = product.OrderMinimumQuantity,
                 OrderMaximumQuantity = product.OrderMaximumQuantity,
-                Price = product.Price,
-                OldPrice = product.OldPrice,
+                SellUnitPrice = product.SellUnitPrice,
+                OldSellUnitPrice = product.OldSellUnitPrice,
                 CurrencyType = product.CurrencyType,
                 AvailableStartDateTimeUtc = product.AvailableStartDateTimeUtc,
                 AvailableEndDateTimeUtc = product.AvailableEndDateTimeUtc,
@@ -181,6 +181,7 @@ namespace Hydra.Product.Api.Services
                 Deleted = product.Deleted,
                 CreatedOnUtc = product.CreatedOnUtc,
                 UpdatedOnUtc = product.UpdatedOnUtc,
+                StockType = product.StockType,
                 CreateUser = new AuthorModel()
                 {
                     Id = product.CreateUser.Id,
@@ -201,7 +202,7 @@ namespace Hydra.Product.Api.Services
                 AttributeIds = product.ProductAttributes.Select(cat => cat.AttributeId).ToList(),
                 RelatedProductIds = product.RelatedProductProductId1Navigations.Select(cat => cat.ProductId2).ToList(),
                 ProductTags = product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
-                Inventories = product.ProductInventories.Where(c => c.StockType == StockType.PerAttribute).Select(x => new ProductInventoryModel()
+                Inventories = product.ProductInventories.Select(x => new ProductInventoryModel()
                 {
                     Id = x.Id,
                     ProductId = x.ProductId,
@@ -209,7 +210,7 @@ namespace Hydra.Product.Api.Services
                     AttributeName = x.ProductAttribute.Name,
                     StockQuantity = x.StockQuantity,
                     ReservedQuantity = x.ReservedQuantity,
-                    StockType = x.StockType
+                    
                 }).ToList()
 
             };
@@ -295,8 +296,8 @@ namespace Hydra.Product.Api.Services
                     NotifyAdminForQuantityBelow = productModel.NotifyAdminForQuantityBelow,
                     OrderMinimumQuantity = productModel.OrderMinimumQuantity,
                     OrderMaximumQuantity = productModel.OrderMaximumQuantity,
-                    Price = productModel.Price,
-                    OldPrice = productModel.OldPrice,
+                    SellUnitPrice = productModel.SellUnitPrice,
+                    OldSellUnitPrice = productModel.OldSellUnitPrice,
                     CurrencyType = productModel.CurrencyType,
                     //Weight = productModel.Weight,
                     //Length = productModel.Length,
@@ -325,6 +326,7 @@ namespace Hydra.Product.Api.Services
                     AvailableForPreOrder = productModel.AvailableForPreOrder,
                     CallForPrice = productModel.CallForPrice,
                     Published = productModel.Published,
+                    StockType = productModel.StockType,
                     Deleted = false,
                     CreatedOnUtc = currentDateTime,
                     UpdatedOnUtc = null
@@ -399,8 +401,7 @@ namespace Hydra.Product.Api.Services
                         ProductId = product.Id,
                         AttributeId = productModel.Inventories[i].AttributeId,
                         StockQuantity = productModel.Inventories[i].StockQuantity,
-                        ReservedQuantity = productModel.Inventories[i].ReservedQuantity,
-                        StockType = StockType.PerAttribute
+                        ReservedQuantity = productModel.Inventories[i].ReservedQuantity
                     });
                 }
                 await _commandRepository.InsertAsync(new ProductInventory()
@@ -408,8 +409,7 @@ namespace Hydra.Product.Api.Services
                     ProductId = product.Id,
                     AttributeId = null,
                     StockQuantity = productModel.StockQuantity,
-                    ReservedQuantity = 0,
-                    StockType = StockType.Total
+                    ReservedQuantity = 0
                 });
 
 
@@ -483,8 +483,8 @@ namespace Hydra.Product.Api.Services
                 product.NotifyAdminForQuantityBelow = productModel.NotifyAdminForQuantityBelow;
                 product.OrderMinimumQuantity = productModel.OrderMinimumQuantity;
                 product.OrderMaximumQuantity = productModel.OrderMaximumQuantity;
-                product.Price = productModel.Price;
-                product.OldPrice = productModel.OldPrice;
+                product.SellUnitPrice = productModel.SellUnitPrice;
+                product.OldSellUnitPrice = productModel.OldSellUnitPrice;
                 product.CurrencyType = productModel.CurrencyType;
                 //product.Weight = productModel.Weight;
                 //product.Length = productModel.Length;
@@ -528,7 +528,7 @@ namespace Hydra.Product.Api.Services
 
                 await UpdateProductInventories(product.Id, productModel.Inventories);
 
-                var productInventory = _queryRepository.Table<ProductInventory>().FirstOrDefault(x => x.ProductId == product.Id && x.StockType == StockType.Total);
+                var productInventory = _queryRepository.Table<ProductInventory>().FirstOrDefault(x => x.ProductId == product.Id);
                 productInventory.StockQuantity = product.StockQuantity;
 
 
@@ -728,7 +728,7 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productInventories = _queryRepository.Table<ProductInventory>().Where(x => x.ProductId == productId && x.StockType == StockType.PerAttribute).ToList();
+                var productInventories = _queryRepository.Table<ProductInventory>().Where(x => x.ProductId == productId).ToList();
 
                 var notExistInventories = productInventories.Where(x => !inventoris.Select(c => c.Id).Contains(x.Id));
 
@@ -758,7 +758,6 @@ namespace Hydra.Product.Api.Services
                     {
                         ProductId = productId,
                         AttributeId = newInv.AttributeId,
-                        StockType = StockType.PerAttribute,
                         StockQuantity = newInv.StockQuantity,
                         ReservedQuantity = 0
                     });
