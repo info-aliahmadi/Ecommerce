@@ -35,10 +35,6 @@
     <Project Path="Hydra.Product.Api/Hydra.Product.Api.csproj" />
     <Project Path="Hydra.Product.Core/Hydra.Product.Core.csproj" />
   </Folder>
-  <Folder Name="/Modules/Ecommerce/ShoppingCart/">
-    <Project Path="Hydra.ShoppingCart.Api/Hydra.ShoppingCart.Api.csproj" />
-    <Project Path="Hydra.ShoppingCart.Core/Hydra.ShoppingCart.Core.csproj" />
-  </Folder>
   <Folder Name="/Modules/FileStorage/">
     <Project Path="Hydra.FileStorage.Api/Hydra.FileStorage.Api.csproj" />
     <Project Path="Hydra.FileStorage.Core/Hydra.FileStorage.Core.csproj" />

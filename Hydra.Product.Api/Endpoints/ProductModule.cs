@@ -28,6 +28,10 @@ namespace Hydra.Product.Api.Endpoints
 
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
+            // Home page Api's
+            endpoints.MapGet(API_SCHEMA + "/GetProducts", ProductHandler.GetList).AllowAnonymous();
+
+
             endpoints.MapGet(API_SCHEMA + "/GetCategoryList", CategoryHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetCategoryListForSelect", CategoryHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetCategoryHierarchy", CategoryHandler.GetCategoryHierarchy).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);

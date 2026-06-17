@@ -2,6 +2,7 @@
 using Hydra.Infrastructure.ModuleExtension;
 using Hydra.Infrastructure.Security.Extension;
 using Hydra.Order.Api.Handler;
+using Hydra.Order.Api.Service;
 using Hydra.Order.Api.Services;
 using Hydra.Order.Core.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -21,6 +22,7 @@ namespace Hydra.Order.Api.Endpoints
             services.AddScoped<IOrderNoteService, OrderNoteService>();
             services.AddScoped<IShipmentService, ShipmentService>();
             services.AddScoped<IShipmentItemService, ShipmentItemService>();
+            services.AddScoped<IShoppingCartItemService, ShoppingCartItemService>();
 
             return services;
         }
@@ -67,6 +69,13 @@ namespace Hydra.Order.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/AddShipmentItem", ShipmentItemHandler.AddShipmentItem).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateShipmentItem", ShipmentItemHandler.UpdateShipmentItem).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/DeleteShipmentItem", ShipmentItemHandler.DeleteShipmentItem).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_MANAGEMENT);
+
+
+            endpoints.MapPost(API_SCHEMA + "/GetShoppingCartItemList", ShoppingCartItemHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_SHOPPING_CART_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetShoppingCartItemById", ShoppingCartItemHandler.GetShoppingCartItemById).RequirePermission(EcommercePermissionTypes.SALE_SHOPPING_CART_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddShoppingCartItem", ShoppingCartItemHandler.AddShoppingCartItem).RequirePermission(EcommercePermissionTypes.SALE_SHOPPING_CART_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateShoppingCartItem", ShoppingCartItemHandler.UpdateShoppingCartItem).RequirePermission(EcommercePermissionTypes.SALE_SHOPPING_CART_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/DeleteShoppingCartItem", ShoppingCartItemHandler.DeleteShoppingCartItem).RequirePermission(EcommercePermissionTypes.SALE_SHOPPING_CART_MANAGEMENT);
 
 
 

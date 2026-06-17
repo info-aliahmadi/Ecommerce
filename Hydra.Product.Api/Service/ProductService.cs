@@ -27,6 +27,98 @@ namespace Hydra.Product.Api.Services
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
+        public async Task<Result<PaginatedList<ProductModel>>> GetProducts(GridDataBound dataGrid)
+        {
+            var result = new Result<PaginatedList<ProductModel>>();
+
+            var list = await (from product in _queryRepository.Table<Ecommerce.Core.Domain.Product>()
+                                .Include(x => x.ProductInventories)
+                                .ThenInclude(x => x.ProductAttribute)
+                                .Include(x => x.ProductCategories)
+                                .Include(x => x.ProductManufacturers)
+                                .Include(x => x.ProductAttributes)
+                                .Where(x => !x.Deleted)
+                              select new ProductModel()
+                              {
+                                  Id = product.Id,
+                                  CreateUserId = product.CreateUserId,
+                                  UpdateUserId = product.UpdateUserId,
+                                  Name = product.Name,
+                                  MetaKeywords = product.MetaKeywords,
+                                  MetaTitle = product.MetaTitle,
+                                  FullDescription = product.FullDescription,
+                                  AdminComment = product.AdminComment,
+                                  MetaDescription = product.MetaDescription,
+                                  DeliveryDateType = product.DeliveryDateType,
+                                  TaxCategoryId = product.TaxCategoryId,
+                                  TaxCategoryName = product.TaxCategory.Name,
+                                  StockQuantity = product.StockQuantity,
+                                  MinStockQuantity = product.MinStockQuantity,
+                                  NotifyAdminForQuantityBelow = product.NotifyAdminForQuantityBelow,
+                                  OrderMinimumQuantity = product.OrderMinimumQuantity,
+                                  OrderMaximumQuantity = product.OrderMaximumQuantity,
+                                  SellUnitPrice = product.SellUnitPrice,
+                                  OldSellUnitPrice = product.OldSellUnitPrice,
+                                  CurrencyType = product.CurrencyType,
+                                  AvailableStartDateTimeUtc = product.AvailableStartDateTimeUtc,
+                                  AvailableEndDateTimeUtc = product.AvailableEndDateTimeUtc,
+                                  DisplayOrder = product.DisplayOrder,
+                                  ApprovedRatingSum = product.ApprovedRatingSum,
+                                  NotApprovedRatingSum = product.NotApprovedRatingSum,
+                                  ApprovedTotalReviews = product.ApprovedTotalReviews,
+                                  NotApprovedTotalReviews = product.NotApprovedTotalReviews,
+                                  HasDiscountsApplied = product.HasDiscountsApplied,
+                                  MarkAsNew = product.MarkAsNew,
+                                  MarkAsNewStartDateTimeUtc = product.MarkAsNewStartDateTimeUtc,
+                                  MarkAsNewEndDateTimeUtc = product.MarkAsNewEndDateTimeUtc,
+                                  NotReturnable = product.NotReturnable,
+                                  AllowedQuantities = product.AllowedQuantities,
+                                  IsTaxExempt = product.IsTaxExempt,
+                                  ShowOnHomepage = product.ShowOnHomepage,
+                                  IsFreeShipping = product.IsFreeShipping,
+                                  AllowCustomerReviews = product.AllowCustomerReviews,
+                                  DisplayStockQuantity = product.DisplayStockQuantity,
+                                  DisableBuyButton = product.DisableBuyButton,
+                                  DisableWishlistButton = product.DisableWishlistButton,
+                                  AvailableForPreOrder = product.AvailableForPreOrder,
+                                  CallForPrice = product.CallForPrice,
+                                  Published = product.Published,
+                                  Deleted = product.Deleted,
+                                  CreatedOnUtc = product.CreatedOnUtc,
+                                  UpdatedOnUtc = product.UpdatedOnUtc,
+                                  StockType = product.StockType,
+                                  PreviewImage = product.ProductPictures.OrderBy(r => r.Id).Select(image => new FileUploadModel()
+                                  {
+                                      Id = image.PictureId,
+                                      FileName = image.Picture.FileName,
+                                      Directory = image.Picture.Directory,
+                                      Thumbnail = image.Picture.Thumbnail,
+                                  }).FirstOrDefault(),
+                                  CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
+                                  ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
+                                  AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList(),
+                                  Inventories = product.ProductInventories.Select(x => new ProductInventoryModel()
+                                  {
+                                      Id = x.Id,
+                                      ProductId = x.ProductId,
+                                      AttributeId = x.AttributeId,
+                                      AttributeName = x.ProductAttribute.Name,
+                                      StockQuantity = x.StockQuantity,
+                                      ReservedQuantity = x.ReservedQuantity
+                                  }).ToList()
+
+                              }).OrderByDescending(x => x.Id).Cacheable().ToPaginatedListAsync(dataGrid);
+
+            result.Data = list;
+
+            return result;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="dataGrid"></param>
+        /// <returns></returns>
         public async Task<Result<PaginatedList<ProductModel>>> GetList(GridDataBound dataGrid)
         {
             var result = new Result<PaginatedList<ProductModel>>();

@@ -32,7 +32,6 @@
 		<ProjectReference Include="..\Hydra.Order.Api\Hydra.Order.Api.csproj" />
 		<ProjectReference Include="..\Hydra.Payment.Api\Hydra.Payment.Api.csproj" />
 		<ProjectReference Include="..\Hydra.Product.Api\Hydra.Product.Api.csproj" />
-		<ProjectReference Include="..\Hydra.ShoppingCart.Api\Hydra.ShoppingCart.Api.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
