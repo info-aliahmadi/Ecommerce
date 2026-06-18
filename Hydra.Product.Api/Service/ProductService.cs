@@ -23,21 +23,79 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        ///
+        /// Retrieves a paginated list of products that match the specified filter criteria.
+        /// this method used for customers in homepage and product listing page, so it only returns products that are published and not deleted.
+        /// For admin product listing, use GetList method instead which returns all products regardless of their published or deleted status.
         /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
-        public async Task<Result<PaginatedList<ProductModel>>> GetProducts(GridDataBound dataGrid)
+        /// <remarks>The returned list is paginated according to the page index and page size specified in
+        /// the filter. Filtering supports searching by product name, metadata, descriptions, tags, price range, stock
+        /// status, categories, and manufacturers. Only products that are published and not deleted are included in the
+        /// results.</remarks>
+        /// <param name="productFilter">An object containing filtering and pagination options to apply when retrieving products. Cannot be null.
+        /// Filtering options may include search terms, price range, stock availability, category, manufacturer, and
+        /// product tags.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a Result object wrapping a
+        /// PaginatedList of ProductModel instances that match the filter criteria. The list will be empty if no
+        /// products are found.</returns>
+        public async Task<Result<PaginatedList<ProductModel>>> GetPublishedProducts(ProductFilterModel productFilter)
         {
             var result = new Result<PaginatedList<ProductModel>>();
+            var currentDateTime = DateTime.UtcNow;
+            var query = _queryRepository.Table<Ecommerce.Core.Domain.Product>()
+                            .Include(x => x.ProductInventories)
+                            .ThenInclude(x => x.ProductAttribute)
+                            .Include(x => x.ProductCategories)
+                            .Include(x => x.ProductManufacturers)
+                            .Include(x => x.ProductAttributes)
+                            .Where(x => !x.Deleted && x.Published &&
+                            (x.AvailableStartDateTimeUtc != null && x.AvailableStartDateTimeUtc >= currentDateTime) &&
+                            (x.AvailableEndDateTimeUtc != null && x.AvailableEndDateTimeUtc <= currentDateTime));
 
-            var list = await (from product in _queryRepository.Table<Ecommerce.Core.Domain.Product>()
-                                .Include(x => x.ProductInventories)
-                                .ThenInclude(x => x.ProductAttribute)
-                                .Include(x => x.ProductCategories)
-                                .Include(x => x.ProductManufacturers)
-                                .Include(x => x.ProductAttributes)
-                                .Where(x => !x.Deleted)
+            // Apply search filter
+            if (!string.IsNullOrEmpty(productFilter.SearchInput))
+            {
+                query = query.Where(x => x.Name.Contains(productFilter.SearchInput) ||
+                                         x.MetaKeywords.Contains(productFilter.SearchInput) ||
+                                         x.MetaTitle.Contains(productFilter.SearchInput) ||
+                                         x.MetaDescription.Contains(productFilter.SearchInput) ||
+                                         x.FullDescription.Contains(productFilter.SearchInput) ||
+                                         x.ShortDescription.Contains(productFilter.SearchInput));
+
+                // Apply search input on tags
+                query = query.Where(x => x.ProductProductTags.Any(m => m.ProductTag.Name.Contains(productFilter.SearchInput)));
+
+            }
+
+            // Apply price range filter
+            if (productFilter.FromSellUnitPrice.HasValue)
+            {
+                query = query.Where(x => x.SellUnitPrice >= productFilter.FromSellUnitPrice.Value);
+            }
+
+            if (productFilter.ToSellUnitPrice.HasValue)
+            {
+                query = query.Where(x => x.SellUnitPrice <= productFilter.ToSellUnitPrice.Value);
+            }
+
+            // Apply stock availability filter
+            if (productFilter.HasStockQuantity.HasValue && productFilter.HasStockQuantity.Value)
+            {
+                query = query.Where(x => x.StockQuantity > 0);
+            }
+
+            // Apply category filter
+            if (productFilter.CategoryIds.Count > 0)
+            {
+                query = query.Where(x => x.ProductCategories.Any(c => productFilter.CategoryIds.Contains(c.CategoryId)));
+            }
+
+            // Apply manufacturer filter
+            if (productFilter.ManufacturerIds.Count > 0)
+            {
+                query = query.Where(x => x.ProductManufacturers.Any(m => productFilter.ManufacturerIds.Contains(m.ManufacturerId)));
+            }
+
+            var list = (from product in query
                               select new ProductModel()
                               {
                                   Id = product.Id,
@@ -87,29 +145,21 @@ namespace Hydra.Product.Api.Services
                                   CreatedOnUtc = product.CreatedOnUtc,
                                   UpdatedOnUtc = product.UpdatedOnUtc,
                                   StockType = product.StockType,
-                                  PreviewImage = product.ProductPictures.OrderBy(r => r.Id).Select(image => new FileUploadModel()
-                                  {
-                                      Id = image.PictureId,
-                                      FileName = image.Picture.FileName,
-                                      Directory = image.Picture.Directory,
-                                      Thumbnail = image.Picture.Thumbnail,
-                                  }).FirstOrDefault(),
+                                  PreviewImage = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
                                   CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
                                   ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
-                                  AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList(),
-                                  Inventories = product.ProductInventories.Select(x => new ProductInventoryModel()
-                                  {
-                                      Id = x.Id,
-                                      ProductId = x.ProductId,
-                                      AttributeId = x.AttributeId,
-                                      AttributeName = x.ProductAttribute.Name,
-                                      StockQuantity = x.StockQuantity,
-                                      ReservedQuantity = x.ReservedQuantity
-                                  }).ToList()
+                                  AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList()
 
-                              }).OrderByDescending(x => x.Id).Cacheable().ToPaginatedListAsync(dataGrid);
+                              });
 
-            result.Data = list;
+            if (productFilter.Sorting != null )
+            {
+                var orders = new string[1] { productFilter.Sorting.Order };
+
+                list = list.AddOrderBy(orders);
+            }
+
+            result.Data = await list.Cacheable().ToPaginatedListAsync(productFilter.PageIndex, productFilter.PageSize);
 
             return result;
         }
@@ -302,7 +352,7 @@ namespace Hydra.Product.Api.Services
                     AttributeName = x.ProductAttribute.Name,
                     StockQuantity = x.StockQuantity,
                     ReservedQuantity = x.ReservedQuantity,
-                    
+
                 }).ToList()
 
             };

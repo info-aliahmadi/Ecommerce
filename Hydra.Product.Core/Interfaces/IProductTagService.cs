@@ -6,6 +6,13 @@ namespace Hydra.Product.Core.Interfaces
 {
     public interface IProductTagService
     {
+        /// <summary>
+        /// Retrieves a list of published product tags.
+        /// </summary>
+        /// <returns>A <see cref="Result{T}"/> containing a list of <see cref="ProductTagModel"/> objects representing the
+        /// published product tags. If no tags are published, the list will be empty. The result includes status
+        /// information about the operation.</returns>
+        Result<List<ProductTagModel>> GetPublishedList();
 
         /// <summary>
         ///

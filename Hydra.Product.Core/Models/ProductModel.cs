@@ -54,7 +54,7 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public FileUploadModel? PreviewImage { get; set; }
+        public string? PreviewImage { get; set; }
 
         /// <summary>
         /// 

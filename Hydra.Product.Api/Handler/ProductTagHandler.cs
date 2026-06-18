@@ -9,6 +9,24 @@ namespace Hydra.Product.Api.Handler
 {
     public static class ProductTagHandler
     {
+        /// <summary>
+        /// Retrieves a list of published product tags and returns the result as an HTTP response.
+        /// </summary>
+        /// <param name="productTagService">The service used to access product tag data. Cannot be null.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains an HTTP 200 response with the
+        /// published product tags if successful; otherwise, an HTTP 400 response with error details.</returns>
+        public static IResult GetPublishedList(IProductTagService productTagService)
+        {
+            try
+            {
+                var result = productTagService.GetPublishedList();
+                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
+        }
 
         /// <summary>
         ///

@@ -21,14 +21,39 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
+        /// For AdminPage
+        /// </summary>
+        /// <returns></returns>
+        public Result<List<CategoryModel>> GetPublishedCategories()
+        {
+            var result = new Result<List<CategoryModel>>();
+
+            var list = GetCategories(true);
+
+            var parents = list.Where(x => x.ParentCategoryId == null).ToList();
+            foreach (var topic in parents)
+            {
+                var childs = GetChild(topic, list);
+                if (childs != null)
+                {
+                    topic.Childs.AddRange(childs);
+                }
+            }
+
+            result.Data = parents;
+
+            return result;
+        }
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        private List<CategoryModel> GetCategoriesList()
+        private List<CategoryModel> GetCategories(bool? isPublished = null)
         {
 
-            var list = (from category in _queryRepository.Table<Category>()
+            var query = (from category in _queryRepository.Table<Category>()
                         select new CategoryModel()
                         {
                             Id = category.Id,
@@ -47,8 +72,14 @@ namespace Hydra.Product.Api.Services
                             UpdatedOnUtc = category.UpdatedOnUtc,
 
 
-                        }).Where(x => x.Deleted == false).OrderBy(x => x.DisplayOrder).Cacheable().ToList();
+                        }).Where(x => x.Deleted == false);
 
+            if (isPublished != null)
+            {
+                query = query.Where(x => x.Published == isPublished);
+            }
+            var list = query.OrderBy(x => x.DisplayOrder).Cacheable().ToList();
+            
             var listIds = list.Where(x => x.PictureId != null).Select(x => x.PictureId).ToArray();
             var files = _queryRepository.Table<FileUpload>().Where(x => listIds.Contains(x.Id));
             foreach (var item in list)
@@ -78,21 +109,21 @@ namespace Hydra.Product.Api.Services
         {
             var result = new Result<List<CategoryModel>>();
 
-            result.Data = GetCategoriesList();
+            result.Data = GetCategories();
 
             return result;
         }
 
 
         /// <summary>
-        /// 
+        /// For AdminPage
         /// </summary>
         /// <returns></returns>
         public Result<List<CategoryModel>> GetHierarchy()
         {
             var result = new Result<List<CategoryModel>>();
 
-            var list = GetCategoriesList();
+            var list = GetCategories();
 
             var parents = list.Where(x => x.ParentCategoryId == null).ToList();
             foreach (var topic in parents)
@@ -108,6 +139,18 @@ namespace Hydra.Product.Api.Services
 
             return result;
         }
+
+        /// <summary>
+        /// Recursively retrieves the immediate child categories of the specified category, including all nested
+        /// descendants.
+        /// </summary>
+        /// <remarks>The returned list includes all levels of descendants, with each child's Childs
+        /// collection populated recursively. The method does not modify the input list except for updating the Childs
+        /// property of the returned category objects.</remarks>
+        /// <param name="topic">The parent category for which to retrieve child categories. Cannot be null.</param>
+        /// <param name="topics">The complete list of available categories to search for child relationships. Cannot be null.</param>
+        /// <returns>A list of child categories directly under the specified parent category, including their nested descendants.
+        /// Returns null if the parent category has no children.</returns>
         private List<CategoryModel> GetChild(CategoryModel topic, List<CategoryModel> topics)
         {
 
@@ -126,14 +169,17 @@ namespace Hydra.Product.Api.Services
         List<CategoryModel> resultList = new List<CategoryModel>();
 
         /// <summary>
-        /// 
+        /// Retrieves a list of categories formatted for use in selection controls, excluding deleted categories.
         /// </summary>
-        /// <returns></returns>
+        /// <remarks>The returned list includes only categories that are not marked as deleted.
+        /// Parent-child relationships are preserved to support hierarchical selection scenarios.</remarks>
+        /// <returns>A <see cref="Result{T}"/> containing a list of <see cref="CategoryModel"/> objects representing the
+        /// available categories for selection. The list will be empty if no categories are available.</returns>
         public Result<List<CategoryModel>> GetListForSelect()
         {
             var result = new Result<List<CategoryModel>>();
 
-            var list = GetCategoriesList().Where(x => !x.Deleted).Select(category => new CategoryModel()
+            var list = GetCategories().Where(x => !x.Deleted).Select(category => new CategoryModel()
             {
                 Id = category.Id,
                 Name = category.Name
@@ -150,7 +196,20 @@ namespace Hydra.Product.Api.Services
 
             return result;
         }
-
+        /// <summary>
+        /// Recursively finds and returns the immediate child categories of the specified category within the provided
+        /// list.
+        /// </summary>
+        /// <remarks>This method modifies the Name property of the input category by prefixing it with the
+        /// specified indentation string. It also adds the processed category to an external result list. The method is
+        /// intended for use in recursive traversal scenarios, such as building hierarchical category
+        /// structures.</remarks>
+        /// <param name="topic">The parent category for which to find child categories. The category's name will be prefixed with the
+        /// specified indentation.</param>
+        /// <param name="space">A string used to prefix the category name, typically for indentation purposes in hierarchical displays.</param>
+        /// <param name="topics">The complete list of categories to search for child categories. Must not be null.</param>
+        /// <returns>A list of immediate child categories of the specified parent category. Returns null if no child categories
+        /// are found.</returns>
         private List<CategoryModel> GetChildOfSelect(CategoryModel topic, string space, List<CategoryModel> topics)
         {
             topic.Name = space + topic.Name;
@@ -177,7 +236,7 @@ namespace Hydra.Product.Api.Services
         {
             var result = new Result<CategoryModel>();
 
-            result.Data = GetCategoriesList().FirstOrDefault(x => x.Id == id) ?? new CategoryModel();
+            result.Data = GetCategories().FirstOrDefault(x => x.Id == id) ?? new CategoryModel();
 
             return result;
         }

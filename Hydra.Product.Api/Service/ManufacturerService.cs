@@ -25,6 +25,36 @@ namespace Hydra.Product.Api.Services
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
+        public async Task<Result<List<ManufacturerModel>>> GetPublishedManufacturers()
+        {
+            var result = new Result<List<ManufacturerModel>>();
+
+            var list = await (from manufacturer in _queryRepository.Table<Manufacturer>()
+                              select new ManufacturerModel()
+                              {
+                                  Id = manufacturer.Id,
+                                  Name = manufacturer.Name,
+                                  MetaKeywords = manufacturer.MetaKeywords,
+                                  MetaTitle = manufacturer.MetaTitle,
+                                  Description = manufacturer.Description,
+                                  MetaDescription = manufacturer.MetaDescription,
+                                  PictureId = manufacturer.PictureId,
+                                  Published = manufacturer.Published,
+                                  Deleted = manufacturer.Deleted,
+                                  DisplayOrder = manufacturer.DisplayOrder,
+                                  CreatedOnUtc = manufacturer.CreatedOnUtc,
+                                  UpdatedOnUtc = manufacturer.UpdatedOnUtc
+
+                              }).OrderBy(x => x.DisplayOrder).Cacheable().ToListAsync();
+            result.Data = list;
+            return result;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="dataGrid"></param>
+        /// <returns></returns>
         public async Task<Result<List<ManufacturerModel>>> GetManufacturersList()
         {
             var result = new Result<List<ManufacturerModel>>();

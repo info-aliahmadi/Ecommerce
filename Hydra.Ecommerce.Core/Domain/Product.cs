@@ -96,6 +96,9 @@ public class Product : BaseEntity<int>
 
     public int CreateUserId { get; set; }
 
+    public int? PicturePreviewId { get; set; }
+    public ProductPicture? PicturePreview { get; set; }
+
     public DateTime CreatedOnUtc { get; set; }
 
     public int? UpdateUserId { get; set; }

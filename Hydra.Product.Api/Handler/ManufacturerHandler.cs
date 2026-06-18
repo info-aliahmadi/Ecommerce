@@ -17,6 +17,25 @@ namespace Hydra.Product.Api.Handler
         /// <param name="manufacturerService"></param>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
+        public static async Task<IResult> GetPublishedManufacturers(IManufacturerService manufacturerService)
+        {
+            try
+            {
+                var result = await manufacturerService.GetPublishedManufacturers();
+                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="manufacturerService"></param>
+        /// <param name="dataGrid"></param>
+        /// <returns></returns>
         public static async Task<IResult> GetList(IManufacturerService manufacturerService)
         {
             try

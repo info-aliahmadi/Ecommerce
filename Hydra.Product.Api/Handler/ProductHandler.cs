@@ -10,18 +10,20 @@ namespace Hydra.Product.Api.Handler
 {
     public static class ProductHandler
     {
-
         /// <summary>
-        ///
+        /// Retrieves a list of products that match the specified filter criteria.
         /// </summary>
-        /// <param name="productService"></param>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
-        public static async Task<IResult> GetProducts(IProductService productService, GridDataBound dataGrid)
+        /// <param name="productService">The service used to query and retrieve product data.</param>
+        /// <param name="productFilter">The filter criteria to apply when retrieving products. May include properties such as category, price range,
+        /// or search terms.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains an <see cref="IResult"/> that is
+        /// <see langword="Ok"/> with the product data if the operation succeeds, or <see langword="BadRequest"/> with
+        /// error details if it fails.</returns>
+        public static async Task<IResult> GetPublishedProducts(IProductService productService, ProductFilterModel productFilter)
         {
             try
             {
-                var result = await productService.GetList(dataGrid);
+                var result = await productService.GetPublishedProducts(productFilter);
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
             }
             catch (Exception e)

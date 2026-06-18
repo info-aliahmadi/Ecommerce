@@ -21,5 +21,13 @@ namespace Hydra.FileStorage.Core.Models
         public DateTime UploadDate { get; set; }
         public string UserName { get; set; }
         public int UserId { get; set; }
+
+        public string FullPath
+        {
+            get
+            {
+                return $"{Directory}/{FileName}";
+            }
+        }
     }
 }

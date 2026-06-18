@@ -5,6 +5,7 @@ using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Hydra.Kernel.Extension;
+using EFCoreSecondLevelCacheInterceptor;
 
 namespace Hydra.Product.Api.Services
 {
@@ -16,6 +17,29 @@ namespace Hydra.Product.Api.Services
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
+        }
+
+        /// <summary>
+        /// Asynchronously retrieves a list of published product tags.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object
+        /// with a list of <see cref="ProductTagModel"/> instances representing the published product tags. The list
+        /// will be empty if no product tags are found.</returns>
+        public Result<List<ProductTagModel>> GetPublishedList()
+        {
+            var result = new Result<List<ProductTagModel>>();
+
+            var list = (from productTag in _queryRepository.Table<ProductTag>()
+                        select new ProductTagModel()
+                        {
+                            Id = productTag.Id,
+                            Name = productTag.Name,
+
+                        }).OrderByDescending(x => x.Id).Cacheable().ToList();
+
+            result.Data = list;
+
+            return result;
         }
 
         /// <summary>

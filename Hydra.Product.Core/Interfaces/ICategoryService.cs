@@ -8,6 +8,12 @@ namespace Hydra.Product.Core.Interfaces
     {
 
         /// <summary>
+        /// Retrieves a list of all published categories.
+        /// </summary>
+        /// <returns>A <see cref="Result{T}"/> containing a list of <see cref="CategoryModel"/> objects representing the
+        /// published categories. If no categories are published, the list will be empty.</returns>
+        Result<List<CategoryModel>> GetPublishedCategories();
+        /// <summary>
         ///
         /// </summary>
         /// <param name="dataGrid"></param>

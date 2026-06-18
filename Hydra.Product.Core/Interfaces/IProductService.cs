@@ -8,6 +8,15 @@ namespace Hydra.Product.Core.Interfaces
     {
 
         /// <summary>
+        /// Retrieves a paginated list of products that match the specified filter criteria.
+        /// </summary>
+        /// <param name="productFilter">An object containing the criteria used to filter and paginate the list of products. Cannot be null.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a Result object with a
+        /// PaginatedList of ProductModel instances that match the filter. The list may be empty if no products meet the
+        /// criteria.</returns>
+        Task<Result<PaginatedList<ProductModel>>> GetPublishedProducts(ProductFilterModel productFilter);
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="dataGrid"></param>

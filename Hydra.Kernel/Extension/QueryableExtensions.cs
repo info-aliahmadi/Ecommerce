@@ -144,6 +144,41 @@ namespace Hydra.Kernel.Extension
         }
 
         /// <summary>
+        /// Asynchronously applies the specified ordering to the elements of an <see cref="IQueryable{T}"/> sequence
+        /// according to the provided order definitions and pagination specification.
+        /// </summary>
+        /// <remarks>The ordering is applied dynamically based on the provided order definitions. The
+        /// method does not execute the query; it returns a queryable sequence with the specified ordering applied. The
+        /// actual query execution is deferred until the sequence is enumerated.</remarks>
+        /// <typeparam name="T">The type of the elements in the source sequence.</typeparam>
+        /// <param name="source">The sequence of elements to order. Cannot be null.</param>
+        /// <param name="orders">An array of strings specifying the ordering criteria. Each string typically represents a property name and
+        /// sort direction (e.g., "Name asc", "DateCreated desc").</param>
+        /// <param name="specification">The pagination specification that may include additional query options such as paging or filtering.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used to cancel the asynchronous operation.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains an <see cref="IQueryable{T}"/>
+        /// with the applied ordering.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> is null.</exception>
+        public static IQueryable<T> AddOrderBy<T>(
+            this IQueryable<T> source,
+            string[] orders,
+            CancellationToken cancellationToken = default)
+            where T : class
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            source = source.GetSpecifiedQuery(new SpecificationBaseDynamic<T>()
+            {
+                OrderBys = orders
+            });
+
+            return source;
+        }
+
+        /// <summary>
         /// Convert the <see cref="IQueryable{T}"/> into paginated list.
         /// </summary>
         /// <typeparam name="T">Type of the <see cref="IQueryable"/>.</typeparam>

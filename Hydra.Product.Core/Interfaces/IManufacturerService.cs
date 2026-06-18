@@ -8,6 +8,14 @@ namespace Hydra.Product.Core.Interfaces
     public interface IManufacturerService
     {
         /// <summary>
+        /// Asynchronously retrieves a list of all published manufacturers.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object
+        /// with a list of <see cref="ManufacturerModel"/> instances representing the published manufacturers. The list
+        /// is empty if no manufacturers are published.</returns>
+        Task<Result<List<ManufacturerModel>>> GetPublishedManufacturers();
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="dataGrid"></param>
