@@ -95,6 +95,18 @@ namespace Hydra.Product.Api.Services
                 query = query.Where(x => x.ProductManufacturers.Any(m => productFilter.ManufacturerIds.Contains(m.ManufacturerId)));
             }
 
+            // Apply TopRate filter
+            if (productFilter.TopRate.HasValue)
+            {
+                query = query.OrderByDescending(c => c.ApprovedRatingSum);
+            }
+
+            // Apply manufacturer filter
+            if (productFilter.TopSell.HasValue)
+            {
+                query = query.Include(x=>x.OrderItems).OrderByDescending(c => c.OrderItems.Count());
+            }
+
             var list = (from product in query
                               select new ProductModel()
                               {
@@ -148,15 +160,15 @@ namespace Hydra.Product.Api.Services
                                   PreviewImage = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
                                   CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
                                   ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
-                                  AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList()
-
+                                  AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList(),
+                                  ProductTags = product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
                               });
 
             if (productFilter.Sorting != null )
             {
                 var orders = new string[1] { productFilter.Sorting.Order };
 
-                list = list.AddOrderBy(orders);
+                list = list.AddOrderBy(new Sort[] { productFilter.Sorting });
             }
 
             result.Data = await list.Cacheable().ToPaginatedListAsync(productFilter.PageIndex, productFilter.PageSize);
@@ -229,13 +241,7 @@ namespace Hydra.Product.Api.Services
                                   CreatedOnUtc = product.CreatedOnUtc,
                                   UpdatedOnUtc = product.UpdatedOnUtc,
                                   StockType = product.StockType,
-                                  PreviewImage = product.ProductPictures.OrderBy(r => r.Id).Select(image => new FileUploadModel()
-                                  {
-                                      Id = image.PictureId,
-                                      FileName = image.Picture.FileName,
-                                      Directory = image.Picture.Directory,
-                                      Thumbnail = image.Picture.Thumbnail,
-                                  }).FirstOrDefault(),
+                                  PreviewImage = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
                                   CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
                                   ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
                                   AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList(),
@@ -247,7 +253,8 @@ namespace Hydra.Product.Api.Services
                                       AttributeName = x.ProductAttribute.Name,
                                       StockQuantity = x.StockQuantity,
                                       ReservedQuantity = x.ReservedQuantity
-                                  }).ToList()
+                                  }).ToList(),
+                                  ProductTags = product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList()
 
                               }).OrderByDescending(x => x.Id).Cacheable().ToPaginatedListAsync(dataGrid);
 
@@ -353,7 +360,7 @@ namespace Hydra.Product.Api.Services
                     StockQuantity = x.StockQuantity,
                     ReservedQuantity = x.ReservedQuantity,
 
-                }).ToList()
+                }).ToList(),
 
             };
             result.Data = productModel;

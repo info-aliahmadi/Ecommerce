@@ -17,7 +17,15 @@ namespace Hydra.Cms.Core.EntityConfiguration
 
             builder.Property(o => o.Url).HasMaxLength(300);
 
-            builder.HasData(new Menu()
+            builder.HasData(
+                new Menu()
+            {
+                Id = 6,
+                Order = -1,
+                Title = "Home",
+                Url = "/",
+                UserId = 1,
+            },new Menu()
             {
                 Id = 1,
                 Order = 0,

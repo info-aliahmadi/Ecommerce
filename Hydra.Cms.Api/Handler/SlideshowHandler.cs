@@ -15,6 +15,27 @@ namespace Hydra.Cms.Api.Handler
         /// </summary>
         /// <param name="_slideshowService"></param>
         /// <returns></returns>
+        public static async Task<IResult> GetPublishedSlideshow(ISlideshowService _slideshowService)
+        {
+            try
+            {
+                var result = await _slideshowService.GetPublishedSlideshow();
+
+                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_slideshowService"></param>
+        /// <returns></returns>
         public static async Task<IResult> GetList(ISlideshowService _slideshowService)
         {
             try

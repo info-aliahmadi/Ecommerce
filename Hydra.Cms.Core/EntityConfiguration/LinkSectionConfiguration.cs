@@ -27,6 +27,12 @@ namespace Hydra.Cms.Core.EntityConfiguration
                 Title = "Recent Post",
                 Key = "RecentPosts",
                 IsVisible = true,
+            }, new LinkSection()
+            {
+                Id = 3,
+                Title = "Footer",
+                Key = "Footer",
+                IsVisible = true,
             });
         }
     }

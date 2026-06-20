@@ -161,7 +161,7 @@ namespace Hydra.Kernel.Extension
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> is null.</exception>
         public static IQueryable<T> AddOrderBy<T>(
             this IQueryable<T> source,
-            string[] orders,
+            Sort[] orders,
             CancellationToken cancellationToken = default)
             where T : class
         {
@@ -172,7 +172,7 @@ namespace Hydra.Kernel.Extension
 
             source = source.GetSpecifiedQuery(new SpecificationBaseDynamic<T>()
             {
-                OrderBys = orders
+                OrderBys = orders.Select(x=>x.Order).ToList()
             });
 
             return source;

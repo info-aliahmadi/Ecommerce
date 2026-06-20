@@ -24,9 +24,63 @@ namespace Hydra.Cms.Api.Services
         }
 
         /// <summary>
+        /// Asynchronously retrieves a list of published slideshows, including associated author and preview image
+        /// information.
+        /// </summary>
+        /// <remarks>Only slideshows marked as visible are included in the result. Each slideshow includes
+        /// author details and, if available, preview image information.</remarks>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object
+        /// with a list of <see cref="SlideshowModel"/> instances for all published slideshows. The list is empty if no
+        /// published slideshows are found.</returns>
+        public async Task<Result<List<SlideshowModel>>> GetPublishedSlideshow()
+        {
+            var result = new Result<List<SlideshowModel>>();
+
+            var list = await (from slideshow in _queryRepository.Table<Slideshow>().Include(x => x.User)
+                              select new SlideshowModel()
+                              {
+                                  Id = slideshow.Id,
+                                  Header = slideshow.Header,
+                                  Description = slideshow.Description,
+                                  PreviewImageId = slideshow.PreviewImageId,
+                                  PreviewImageUrl = slideshow.PreviewImageUrl,
+                                  IsVisible = slideshow.IsVisible,
+                                  Order = slideshow.Order,
+                                  CreateDate = slideshow.CreateDate,
+                                  UserId = slideshow.UserId,
+                                  User = new AuthorModel()
+                                  {
+                                      Id = slideshow.User.Id,
+                                      Name = slideshow.User.Name,
+                                      UserName = slideshow.User.UserName,
+                                      Avatar = slideshow.User.Avatar
+                                  }
+                              }).Where(x=>x.IsVisible).OrderByDescending(x => x.Order).ToListAsync();
+            var listIds = list.Where(x => x.PreviewImageId != null).Select(x => x.PreviewImageId).ToArray();
+            var files = _queryRepository.Table<FileUpload>().Where(x => listIds.Contains(x.Id));
+            foreach (var item in list)
+            {
+                var file = files.FirstOrDefault(x => x.Id == item.PreviewImageId);
+                if (file != null)
+                    item.PreviewImage = new FileUploadModel()
+                    {
+                        Id = file.Id,
+                        FileName = file.FileName,
+                        Directory = file.Directory,
+                        Extension = file.Extension,
+                        Size = file.Size,
+                        Thumbnail = file.Thumbnail
+                    };
+            }
+
+            result.Data = list;
+
+            return result;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
-        /// <param name="dataGrid"></param>
         /// <returns></returns>
         public async Task<Result<List<SlideshowModel>>> GetList()
         {

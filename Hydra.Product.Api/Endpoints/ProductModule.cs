@@ -25,17 +25,24 @@ namespace Hydra.Product.Api.Endpoints
 
             return services;
         }
-
+        /// <summary>
+        /// Configures and maps the e-commerce API endpoints for products, categories, manufacturers, product
+        /// attributes, product tags, product reviews, and related resources to the specified endpoint route builder.
+        /// </summary>
+        /// <remarks>This method registers a comprehensive set of endpoints for managing e-commerce
+        /// resources, including both public and permission-restricted APIs. Some endpoints are accessible anonymously,
+        /// while others require specific permissions. Call this method during application startup to ensure all
+        /// e-commerce routes are available.</remarks>
+        /// <param name="endpoints">The endpoint route builder to which the e-commerce API endpoints will be mapped. Must not be null.</param>
+        /// <returns>The same <see cref="IEndpointRouteBuilder"/> instance provided in <paramref name="endpoints"/>, with the
+        /// e-commerce API endpoints configured.</returns>
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
-            // Home Page API
+            // Anonymous Endpoints
             endpoints.MapPost(API_SCHEMA + "/GetProducts", ProductHandler.GetPublishedProducts).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetCategories", CategoryHandler.GetPublishedCategories).AllowAnonymous();
             endpoints.MapPost(API_SCHEMA + "/GetProductTags", ProductTagHandler.GetPublishedList).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetManufacturers", ManufacturerHandler.GetPublishedManufacturers).AllowAnonymous();
-
-
-
 
 
 

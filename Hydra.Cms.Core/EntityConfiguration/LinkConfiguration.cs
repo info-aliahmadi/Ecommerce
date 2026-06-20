@@ -19,6 +19,54 @@ namespace Hydra.Cms.Core.EntityConfiguration
 
             builder.HasOne(x => x.LinkSection).WithMany(x => x.Links).HasForeignKey(x => x.LinkSectionId);
 
+            // seed some public links
+            builder.HasData(
+                new Link()
+                {
+                    Id = 1,
+                    Title = "All Categories",
+                    Url = "/categories",
+                    Description = "Browse all product categories",
+                    LinkSectionId = 1,
+                    Order = 1,
+                    UserId = 1,
+                    ImagePreviewId = null
+                },
+                new Link()
+                {
+                    Id = 2,
+                    Title = "Latest Posts",
+                    Url = "/blog",
+                    Description = "Read our latest blog posts",
+                    LinkSectionId = 2,
+                    Order = 1,
+                    UserId = 1,
+                    ImagePreviewId = null
+                },
+                new Link()
+                {
+                    Id = 3,
+                    Title = "Deals & Offers",
+                    Url = "/deals",
+                    Description = "Check current deals and offers",
+                    LinkSectionId = 1,
+                    Order = 2,
+                    UserId = 1,
+                    ImagePreviewId = null
+                },
+                new Link()
+                {
+                    Id = 4,
+                    Title = "Editor Picks",
+                    Url = "/editor-picks",
+                    Description = "Recommended reads",
+                    LinkSectionId = 2,
+                    Order = 2,
+                    UserId = 1,
+                    ImagePreviewId = null
+                }
+            );
+
         }
     }
 }

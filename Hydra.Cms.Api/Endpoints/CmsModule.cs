@@ -33,14 +33,15 @@ namespace Hydra.Cms.Api.Endpoints
 
             endpoints.MapGet(API_SCHEMA + "/GetSettings", SettingsHandler.GetSettings).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetMenu", MenuHandler.GetMenu).AllowAnonymous();
-            endpoints.MapGet(API_SCHEMA + "/GetArticlesList", ArticleHandler.GetListForVisitors).AllowAnonymous();
-            endpoints.MapGet(API_SCHEMA + "/GetRelatedArticlesList", ArticleHandler.GetRelatedArticlesForVisitors).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetArticles", ArticleHandler.GetListForVisitors).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetRelatedArticles", ArticleHandler.GetRelatedArticlesForVisitors).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetTopArticle", ArticleHandler.GetTopArticleForVisitors).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetArticle", ArticleHandler.GetArticleByIdForVisitors).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetPage", PageHandler.GetPageByIdForVisitors).AllowAnonymous();
-            endpoints.MapGet(API_SCHEMA + "/GetTopicsList", TopicHandler.GetList).AllowAnonymous();
-            endpoints.MapGet(API_SCHEMA + "/GetTagsList", TagHandler.GetAllList).AllowAnonymous();
-            endpoints.MapGet(API_SCHEMA + "/GetLinksByKeyList", LinkHandler.GetLinksByKeyList).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetTopics", TopicHandler.GetList).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetTags", TagHandler.GetAllList).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetLinksByKey", LinkHandler.GetLinksByKeyList).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetSlideshows", SlideshowHandler.GetPublishedSlideshow).AllowAnonymous();
 
 
 
