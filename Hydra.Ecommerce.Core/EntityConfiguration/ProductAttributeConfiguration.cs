@@ -75,6 +75,43 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                 Value = "#Large",
                 AttributeType = AttributeType.Size,
                 Description = "Small Means XL US Size"
+            }, new ProductAttribute()
+            {
+                Id = 8,
+                DisplayOrder = 8,
+                Name = "Green",
+                Value = "green",
+                AttributeType = AttributeType.Color
+            }, new ProductAttribute()
+            {
+                Id = 9,
+                DisplayOrder = 9,
+                Name = "Yellow",
+                Value = "yellow",
+                AttributeType = AttributeType.Color
+            }, new ProductAttribute()
+            {
+                Id = 10,
+                DisplayOrder = 10,
+                Name = "Purple",
+                Value = "purple",
+                AttributeType = AttributeType.Color
+            }, new ProductAttribute()
+            {
+                Id = 11,
+                DisplayOrder = 11,
+                Name = "Extra Small",
+                Value = "XS",
+                AttributeType = AttributeType.Size,
+                Description = "Extra Small size"
+            }, new ProductAttribute()
+            {
+                Id = 12,
+                DisplayOrder = 12,
+                Name = "Extra Large",
+                Value = "XL",
+                AttributeType = AttributeType.Size,
+                Description = "Extra Large size"
             });
         }
     }

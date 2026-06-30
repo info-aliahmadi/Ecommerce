@@ -3,6 +3,7 @@ using System;
 using Hydra.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hydra.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260619135245_dbVersion_5")]
+    partial class dbVersion_5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -859,48 +862,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_link_user_id");
 
                     b.ToTable("Link", "Cms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Browse all product categories",
-                            LinkSectionId = 1,
-                            Order = 1,
-                            Title = "All Categories",
-                            Url = "/categories",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Read our latest blog posts",
-                            LinkSectionId = 2,
-                            Order = 1,
-                            Title = "Latest Posts",
-                            Url = "/blog",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Check current deals and offers",
-                            LinkSectionId = 1,
-                            Order = 2,
-                            Title = "Deals & Offers",
-                            Url = "/deals",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Recommended reads",
-                            LinkSectionId = 2,
-                            Order = 2,
-                            Title = "Editor Picks",
-                            Url = "/editor-picks",
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("Hydra.Cms.Core.Domain.LinkSection", b =>
@@ -945,13 +906,6 @@ namespace Hydra.Infrastructure.Migrations
                             IsVisible = true,
                             Key = "RecentPosts",
                             Title = "Recent Post"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsVisible = true,
-                            Key = "Footer",
-                            Title = "Footer"
                         });
                 });
 
@@ -1001,14 +955,6 @@ namespace Hydra.Infrastructure.Migrations
                     b.ToTable("Menu", "Cms");
 
                     b.HasData(
-                        new
-                        {
-                            Id = 6,
-                            Order = -1,
-                            Title = "Home",
-                            Url = "/",
-                            UserId = 1
-                        },
                         new
                         {
                             Id = 1,
@@ -1233,50 +1179,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_topic_parent_id");
 
                     b.ToTable("Topic", "Cms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Title = "General",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Title = "Announcements",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Title = "Guides",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Title = "How To",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Title = "News",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Title = "Product",
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("Hydra.Crm.Core.Domain.Email.EmailInbox", b =>
@@ -1927,222 +1829,32 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 3,
+                            Id = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
-                            Description = "Electronic products category",
-                            DisplayOrder = 3,
-                            MetaDescription = "Electronic devices and accessories",
-                            MetaKeywords = "electronics, devices, gadgets",
-                            MetaTitle = "Electronics",
-                            Name = "Electronics",
+                            Description = "Description of Category 1",
+                            DisplayOrder = 1,
+                            MetaDescription = "MetaDescription",
+                            MetaKeywords = "MetaKeywords",
+                            MetaTitle = "Title",
+                            Name = "Category 1",
                             Published = true,
                             ShowOnHomepage = true,
                             UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 2,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
-                            Description = "Computers and related products",
-                            DisplayOrder = 4,
-                            MetaDescription = "Desktops, components and accessories",
-                            MetaKeywords = "computers, desktops, components",
-                            MetaTitle = "Computers",
-                            Name = "Computers",
-                            ParentCategoryId = 3,
-                            Published = true,
-                            ShowOnHomepage = false,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Laptops and portable computers",
-                            DisplayOrder = 5,
-                            MetaDescription = "Portable computers and notebooks",
-                            MetaKeywords = "laptops, notebooks, ultrabooks",
-                            MetaTitle = "Laptops",
-                            Name = "Laptops",
-                            ParentCategoryId = 4,
-                            Published = true,
-                            ShowOnHomepage = false,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Mobile phones and accessories",
-                            DisplayOrder = 6,
-                            MetaDescription = "Smartphones and mobile devices",
-                            MetaKeywords = "phones, smartphones, mobiles",
-                            MetaTitle = "Mobile Phones",
-                            Name = "Mobile Phones",
-                            ParentCategoryId = 3,
+                            Description = "Description of Category 2",
+                            DisplayOrder = 2,
+                            MetaDescription = "MetaDescription",
+                            MetaKeywords = "MetaKeywords",
+                            MetaTitle = "Title",
+                            Name = "Category 2",
                             Published = true,
                             ShowOnHomepage = true,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Accessories for electronic devices",
-                            DisplayOrder = 7,
-                            MetaDescription = "Electronics accessories",
-                            MetaKeywords = "accessories, chargers, cases",
-                            MetaTitle = "Accessories",
-                            Name = "Accessories",
-                            ParentCategoryId = 3,
-                            Published = true,
-                            ShowOnHomepage = false,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Home and kitchen appliances",
-                            DisplayOrder = 8,
-                            MetaDescription = "Appliances for home use",
-                            MetaKeywords = "home, appliances, kitchen",
-                            MetaTitle = "Home Appliances",
-                            Name = "Home Appliances",
-                            Published = true,
-                            ShowOnHomepage = true,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Kitchen related appliances",
-                            DisplayOrder = 9,
-                            MetaDescription = "Kitchen appliances and tools",
-                            MetaKeywords = "kitchen, appliances, cookware",
-                            MetaTitle = "Kitchen",
-                            Name = "Kitchen",
-                            ParentCategoryId = 8,
-                            Published = true,
-                            ShowOnHomepage = false,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Televisions, projectors and video accessories",
-                            DisplayOrder = 10,
-                            MetaDescription = "Televisions and video equipment",
-                            MetaKeywords = "tv, video, televisions",
-                            MetaTitle = "TV & Video",
-                            Name = "TV & Video",
-                            ParentCategoryId = 3,
-                            Published = true,
-                            ShowOnHomepage = false,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Audio equipment and accessories",
-                            DisplayOrder = 11,
-                            MetaDescription = "Speakers, headphones and audio devices",
-                            MetaKeywords = "audio, speakers, headphones",
-                            MetaTitle = "Audio",
-                            Name = "Audio",
-                            ParentCategoryId = 3,
-                            Published = true,
-                            ShowOnHomepage = false,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Wearable devices and accessories",
-                            DisplayOrder = 12,
-                            MetaDescription = "Smartwatches and fitness trackers",
-                            MetaKeywords = "wearables, smartwatches, trackers",
-                            MetaTitle = "Wearables",
-                            Name = "Wearables",
-                            ParentCategoryId = 3,
-                            Published = true,
-                            ShowOnHomepage = false,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Small home and kitchen appliances",
-                            DisplayOrder = 13,
-                            MetaDescription = "Small kitchen and home appliances",
-                            MetaKeywords = "small appliances, blenders, toasters",
-                            MetaTitle = "Small Appliances",
-                            Name = "Small Appliances",
-                            ParentCategoryId = 8,
-                            Published = true,
-                            ShowOnHomepage = false,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Furniture for home and office",
-                            DisplayOrder = 14,
-                            MetaDescription = "Home and office furniture",
-                            MetaKeywords = "furniture, sofa, table",
-                            MetaTitle = "Furniture",
-                            Name = "Furniture",
-                            Published = true,
-                            ShowOnHomepage = true,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Living room furniture",
-                            DisplayOrder = 15,
-                            MetaDescription = "Sofas, coffee tables and more",
-                            MetaKeywords = "living room, sofa, coffee table",
-                            MetaTitle = "Living Room",
-                            Name = "Living Room",
-                            ParentCategoryId = 14,
-                            Published = true,
-                            ShowOnHomepage = false,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Outdoor and garden supplies",
-                            DisplayOrder = 16,
-                            MetaDescription = "Garden tools and outdoor equipment",
-                            MetaKeywords = "garden, outdoor, tools",
-                            MetaTitle = "Outdoor & Garden",
-                            Name = "Outdoor & Garden",
-                            Published = true,
-                            ShowOnHomepage = false,
                             UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -5887,85 +5599,29 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 3,
+                            Id = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
-                            Description = "Samsung Electronics",
-                            DisplayOrder = 3,
-                            MetaDescription = "Samsung electronics",
-                            MetaKeywords = "samsung, electronics",
-                            MetaTitle = "Samsung",
-                            Name = "Samsung",
+                            Description = "Description of Category 1",
+                            DisplayOrder = 1,
+                            MetaDescription = "MetaDescription",
+                            MetaKeywords = "MetaKeywords",
+                            MetaTitle = "Title",
+                            Name = "Manufacturer 1",
                             Published = true,
                             UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 2,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
-                            Description = "Apple Inc.",
-                            DisplayOrder = 4,
-                            MetaDescription = "Apple products",
-                            MetaKeywords = "apple, iphone, mac",
-                            MetaTitle = "Apple",
-                            Name = "Apple",
-                            Published = true,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "LG Electronics",
-                            DisplayOrder = 5,
-                            MetaDescription = "LG Electronics",
-                            MetaKeywords = "lg, electronics",
-                            MetaTitle = "LG",
-                            Name = "LG",
-                            Published = true,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Sony Corporation",
-                            DisplayOrder = 6,
-                            MetaDescription = "Sony electronics",
-                            MetaKeywords = "sony, audio, tv",
-                            MetaTitle = "Sony",
-                            Name = "Sony",
-                            Published = true,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "Bosch Home Appliances",
-                            DisplayOrder = 7,
-                            MetaDescription = "Bosch home appliances",
-                            MetaKeywords = "bosch, appliances",
-                            MetaTitle = "Bosch",
-                            Name = "Bosch",
-                            Published = true,
-                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Deleted = false,
-                            Description = "IKEA",
-                            DisplayOrder = 8,
-                            MetaDescription = "IKEA furniture",
-                            MetaKeywords = "ikea, furniture",
-                            MetaTitle = "Ikea",
-                            Name = "Ikea",
+                            Description = "Description of Category 2",
+                            DisplayOrder = 2,
+                            MetaDescription = "MetaDescription",
+                            MetaKeywords = "MetaKeywords",
+                            MetaTitle = "Title",
+                            Name = "Manufacturer 2",
                             Published = true,
                             UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -6681,48 +6337,6 @@ namespace Hydra.Infrastructure.Migrations
                             DisplayOrder = 7,
                             Name = "Large",
                             Value = "#Large"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AttributeType = 0,
-                            DisplayOrder = 8,
-                            Name = "Green",
-                            Value = "green"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AttributeType = 0,
-                            DisplayOrder = 9,
-                            Name = "Yellow",
-                            Value = "yellow"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AttributeType = 0,
-                            DisplayOrder = 10,
-                            Name = "Purple",
-                            Value = "purple"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AttributeType = 1,
-                            Description = "Extra Small size",
-                            DisplayOrder = 11,
-                            Name = "Extra Small",
-                            Value = "XS"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            AttributeType = 1,
-                            Description = "Extra Large size",
-                            DisplayOrder = 12,
-                            Name = "Extra Large",
-                            Value = "XL"
                         });
                 });
 

@@ -7,6 +7,14 @@ namespace Hydra.Cms.Core.Interfaces
     public interface ISlideshowService
     {
         /// <summary>
+        /// Asynchronously retrieves a list of all published slideshows.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object
+        /// with a list of <see cref="SlideshowModel"/> instances representing the published slideshows. The list is
+        /// empty if no published slideshows are found.</returns>
+        Task<Result<List<SlideshowModel>>> GetPublishedSlideshow();
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
