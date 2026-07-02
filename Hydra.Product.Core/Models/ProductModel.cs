@@ -49,12 +49,12 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public int? PreviewImageId { get; set; }
+        public int? PicturePreviewId { get; set; }
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public string? PreviewImage { get; set; }
+        public string? PicturePreview { get; set; }
 
         /// <summary>
         /// 
@@ -125,13 +125,6 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         /// <returns></returns>
         public int StockQuantity { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int InventoryStockQuantity { get; set; }
-
 
         /// <summary>
         /// 

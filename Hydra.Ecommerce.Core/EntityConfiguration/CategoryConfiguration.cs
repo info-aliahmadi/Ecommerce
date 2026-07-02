@@ -21,6 +21,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.Property(e => e.Name)
             .IsRequired()
             .HasMaxLength(70);
+            entity.Property(e => e.NormalizedName)
+            .IsRequired()
+            .HasMaxLength(70);
             entity.Property(e => e.UpdatedOnUtc).HasPrecision(6);
 
             entity.HasOne(d => d.ParentCategory).WithMany()
@@ -32,6 +35,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 3,
                     DisplayOrder = 3,
                     Name = "Electronics",
+                    NormalizedName = "electronics",
                     MetaDescription = "Electronic devices and accessories",
                     MetaKeywords = "electronics, devices, gadgets",
                     MetaTitle = "Electronics",
@@ -47,6 +51,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 4,
                     DisplayOrder = 4,
                     Name = "Computers",
+                    NormalizedName = "computers",
                     ParentCategoryId = 3,
                     MetaDescription = "Desktops, components and accessories",
                     MetaKeywords = "computers, desktops, components",
@@ -63,6 +68,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 5,
                     DisplayOrder = 5,
                     Name = "Laptops",
+                    NormalizedName = "laptops",
                     ParentCategoryId = 4,
                     MetaDescription = "Portable computers and notebooks",
                     MetaKeywords = "laptops, notebooks, ultrabooks",
@@ -79,6 +85,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 6,
                     DisplayOrder = 6,
                     Name = "Mobile Phones",
+                    NormalizedName = "mobilephones",
                     ParentCategoryId = 3,
                     MetaDescription = "Smartphones and mobile devices",
                     MetaKeywords = "phones, smartphones, mobiles",
@@ -95,6 +102,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 7,
                     DisplayOrder = 7,
                     Name = "Accessories",
+                    NormalizedName = "accessories",
                     ParentCategoryId = 3,
                     MetaDescription = "Electronics accessories",
                     MetaKeywords = "accessories, chargers, cases",
@@ -111,6 +119,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 8,
                     DisplayOrder = 8,
                     Name = "Home Appliances",
+                    NormalizedName = "home-appliances",
                     MetaDescription = "Appliances for home use",
                     MetaKeywords = "home, appliances, kitchen",
                     MetaTitle = "Home Appliances",
@@ -126,6 +135,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 9,
                     DisplayOrder = 9,
                     Name = "Kitchen",
+                    NormalizedName = "kitchen",
                     ParentCategoryId = 8,
                     MetaDescription = "Kitchen appliances and tools",
                     MetaKeywords = "kitchen, appliances, cookware",
@@ -142,6 +152,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 10,
                     DisplayOrder = 10,
                     Name = "TV & Video",
+                    NormalizedName = "tv-video",
                     ParentCategoryId = 3,
                     MetaDescription = "Televisions and video equipment",
                     MetaKeywords = "tv, video, televisions",
@@ -158,6 +169,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 11,
                     DisplayOrder = 11,
                     Name = "Audio",
+                    NormalizedName = "audio",
                     ParentCategoryId = 3,
                     MetaDescription = "Speakers, headphones and audio devices",
                     MetaKeywords = "audio, speakers, headphones",
@@ -174,6 +186,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 12,
                     DisplayOrder = 12,
                     Name = "Wearables",
+                    NormalizedName = "wearables",
                     ParentCategoryId = 3,
                     MetaDescription = "Smartwatches and fitness trackers",
                     MetaKeywords = "wearables, smartwatches, trackers",
@@ -190,6 +203,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 13,
                     DisplayOrder = 13,
                     Name = "Small Appliances",
+                    NormalizedName = "small-appliances",
                     ParentCategoryId = 8,
                     MetaDescription = "Small kitchen and home appliances",
                     MetaKeywords = "small appliances, blenders, toasters",
@@ -206,6 +220,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 14,
                     DisplayOrder = 14,
                     Name = "Furniture",
+                    NormalizedName = "furniture",
                     MetaDescription = "Home and office furniture",
                     MetaKeywords = "furniture, sofa, table",
                     MetaTitle = "Furniture",
@@ -221,6 +236,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 15,
                     DisplayOrder = 15,
                     Name = "Living Room",
+                    NormalizedName = "living-room",
                     ParentCategoryId = 14,
                     MetaDescription = "Sofas, coffee tables and more",
                     MetaKeywords = "living room, sofa, coffee table",
@@ -237,6 +253,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Id = 16,
                     DisplayOrder = 16,
                     Name = "Outdoor & Garden",
+                    NormalizedName = "outdoor-garden",
                     MetaDescription = "Garden tools and outdoor equipment",
                     MetaKeywords = "garden, outdoor, tools",
                     MetaTitle = "Outdoor & Garden",

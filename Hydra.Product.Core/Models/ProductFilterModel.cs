@@ -38,6 +38,18 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
+        public bool? TopRate { get; set; } = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool? TopSell { get; set; } = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public decimal? FromSellUnitPrice { get; set; } = null;
 
         /// <summary>
@@ -69,13 +81,13 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<int> CategoryIds { get; set; } = new();
+        public List<int>? CategoryIds { get; set; } = new();
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<int> ManufacturerIds { get; set; } = new();
+        public List<int>? ManufacturerIds { get; set; } = new();
 
     }
 

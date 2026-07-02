@@ -19,15 +19,33 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.HasData(new ProductTag()
             {
                 Id = 1,
-                Name = "Tag 1"
+                Name = "Bestseller",
+                NormalizedName = "bestseller"
             }, new ProductTag()
             {
                 Id = 2,
-                Name = "Tag 2"
+                Name = "New",
+                NormalizedName = "new"
             }, new ProductTag()
             {
                 Id = 3,
-                Name = "Tag 3"
+                Name = "Popular",
+                NormalizedName = "popular"
+            }, new ProductTag()
+            {
+                Id = 4,
+                Name = "Sale",
+                NormalizedName = "sale"
+            }, new ProductTag()
+            {
+                Id = 5,
+                Name = "Sustainable",
+                NormalizedName = "sustainable"
+            }, new ProductTag()
+            {
+                Id = 6,
+                Name = "Trending",
+                NormalizedName = "trending"
             });
         }
     }

@@ -5,6 +5,7 @@ namespace Hydra.Ecommerce.Core.Domain;
 public class Category : BaseEntity<int>
 {
     public string Name { get; set; }
+    public string NormalizedName { get; set; }
 
     public string MetaKeywords { get; set; }
 

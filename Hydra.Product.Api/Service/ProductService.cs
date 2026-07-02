@@ -157,7 +157,7 @@ namespace Hydra.Product.Api.Services
                                   CreatedOnUtc = product.CreatedOnUtc,
                                   UpdatedOnUtc = product.UpdatedOnUtc,
                                   StockType = product.StockType,
-                                  PreviewImage = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
+                                  PicturePreview = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
                                   CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
                                   ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
                                   AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList(),
@@ -241,7 +241,7 @@ namespace Hydra.Product.Api.Services
                                   CreatedOnUtc = product.CreatedOnUtc,
                                   UpdatedOnUtc = product.UpdatedOnUtc,
                                   StockType = product.StockType,
-                                  PreviewImage = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
+                                  PicturePreview = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
                                   CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
                                   ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
                                   AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList(),
@@ -383,7 +383,7 @@ namespace Hydra.Product.Api.Services
             {
                 Id = x.Id,
                 Name = x.Id + " | " + x.Name,
-                PreviewImageId = x.ProductPictures.OrderBy(v => v.DisplayOrder).FirstOrDefault().PictureId,
+                PicturePreviewId = x.ProductPictures.OrderBy(v => v.DisplayOrder).FirstOrDefault().PictureId,
             }).ToListAsync();
             result.Data = products;
 
@@ -448,6 +448,7 @@ namespace Hydra.Product.Api.Services
                     SellUnitPrice = productModel.SellUnitPrice,
                     OldSellUnitPrice = productModel.OldSellUnitPrice,
                     CurrencyType = productModel.CurrencyType,
+                    PicturePreviewId = productModel.PicturePreviewId,
                     //Weight = productModel.Weight,
                     //Length = productModel.Length,
                     //Width = productModel.Width,
@@ -550,18 +551,10 @@ namespace Hydra.Product.Api.Services
                         ProductId = product.Id,
                         AttributeId = productModel.Inventories[i].AttributeId,
                         StockQuantity = productModel.Inventories[i].StockQuantity,
-                        ReservedQuantity = productModel.Inventories[i].ReservedQuantity
+                        ReservedQuantity = productModel.Inventories[i].ReservedQuantity,
+                        BuyUnitPrice = productModel.Inventories[i].BuyUnitPrice
                     });
                 }
-                await _commandRepository.InsertAsync(new ProductInventory()
-                {
-                    ProductId = product.Id,
-                    AttributeId = null,
-                    StockQuantity = productModel.StockQuantity,
-                    ReservedQuantity = 0
-                });
-
-
 
                 await _commandRepository.SaveChangesAsync();
 
