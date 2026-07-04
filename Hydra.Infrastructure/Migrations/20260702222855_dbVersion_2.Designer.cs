@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hydra.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260611190121_dbVersion_4")]
-    partial class dbVersion_4
+    [Migration("20260702222855_dbVersion_2")]
+    partial class dbVersion_2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -848,7 +848,7 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("character varying(300)")
                         .HasColumnName("url");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer")
                         .HasColumnName("user_id");
 
@@ -862,6 +862,143 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_link_user_id");
 
                     b.ToTable("Link", "Cms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 11,
+                            Description = "Browse all products",
+                            LinkSectionId = 1,
+                            Order = 1,
+                            Title = "All Products",
+                            Url = "/products"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "New Products",
+                            LinkSectionId = 1,
+                            Order = 2,
+                            Title = "New Arrivals",
+                            Url = "/products?sorting=date-new"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "Products with most sell",
+                            LinkSectionId = 1,
+                            Order = 3,
+                            Title = "Best Sellers",
+                            Url = "/products?sorting=orders-high"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "Recommended Products",
+                            LinkSectionId = 1,
+                            Order = 4,
+                            Title = "Deals & Offers",
+                            Url = "/products/?sorting=price-lower"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "Gift Cards",
+                            LinkSectionId = 1,
+                            Order = 5,
+                            Title = "Gift Cards",
+                            Url = "/products"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Description = "Help Center",
+                            LinkSectionId = 2,
+                            Order = 1,
+                            Title = "Help Center",
+                            Url = "/pages/help"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Description = "Shipping Info",
+                            LinkSectionId = 2,
+                            Order = 2,
+                            Title = "Shipping Info",
+                            Url = "/pages/shipping-info"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Description = "Returns Rules",
+                            LinkSectionId = 2,
+                            Order = 3,
+                            Title = "Returns",
+                            Url = "/pages/returns"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Description = "Order Tracking",
+                            LinkSectionId = 2,
+                            Order = 4,
+                            Title = "Order Tracking",
+                            Url = "/profile"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Description = "Contact Us",
+                            LinkSectionId = 2,
+                            Order = 5,
+                            Title = "Contact Us",
+                            Url = "/contact-us"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Description = "About Us",
+                            LinkSectionId = 3,
+                            Order = 1,
+                            Title = "About Us",
+                            Url = "/pages/about-us"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Description = "About",
+                            LinkSectionId = 3,
+                            Order = 2,
+                            Title = "Careers",
+                            Url = "/pages/about"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Description = "About",
+                            LinkSectionId = 3,
+                            Order = 3,
+                            Title = "Press",
+                            Url = "/pages/about"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Description = "Privacy Policy",
+                            LinkSectionId = 3,
+                            Order = 4,
+                            Title = "Privacy Policy",
+                            Url = "/pages/privacy-policy"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Description = "Terms of Service",
+                            LinkSectionId = 3,
+                            Order = 5,
+                            Title = "Terms of Service",
+                            Url = "/pages/terms-service"
+                        });
                 });
 
             modelBuilder.Entity("Hydra.Cms.Core.Domain.LinkSection", b =>
@@ -897,15 +1034,22 @@ namespace Hydra.Infrastructure.Migrations
                         {
                             Id = 1,
                             IsVisible = true,
-                            Key = "Categories",
-                            Title = "Categories"
+                            Key = "shop",
+                            Title = "Shop"
                         },
                         new
                         {
                             Id = 2,
                             IsVisible = true,
-                            Key = "RecentPosts",
-                            Title = "Recent Post"
+                            Key = "support",
+                            Title = "Support"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsVisible = true,
+                            Key = "company",
+                            Title = "Company"
                         });
                 });
 
@@ -917,6 +1061,11 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Color")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("color");
 
                     b.Property<int>("Order")
                         .HasColumnType("integer")
@@ -942,7 +1091,7 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("character varying(300)")
                         .HasColumnName("url");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer")
                         .HasColumnName("user_id");
 
@@ -958,42 +1107,84 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Order = 0,
-                            Title = "About",
-                            Url = "/About",
-                            UserId = 1
+                            Order = 1,
+                            Title = "Home",
+                            Url = "/"
                         },
                         new
                         {
                             Id = 2,
-                            Order = 1,
-                            Title = "Service",
-                            Url = "/Service",
-                            UserId = 1
+                            Order = 2,
+                            Title = "Shop",
+                            Url = "/Products"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Color = "#6A5ACD",
+                            Order = 2,
+                            ParentId = 2,
+                            Title = "Electronics",
+                            Url = "/products/?category=electronics"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Color = "#E63946",
+                            Order = 3,
+                            ParentId = 2,
+                            Title = "Fashion",
+                            Url = "/products/?category=fashion"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Color = "#20B2AA",
+                            Order = 3,
+                            ParentId = 2,
+                            Title = "Home & Living",
+                            Url = "/products/?category=home-living"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Color = "#FFC107",
+                            Order = 3,
+                            ParentId = 2,
+                            Title = "Sports",
+                            Url = "/products/?category=sports"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Color = "#FF69B4",
+                            Order = 3,
+                            ParentId = 2,
+                            Title = "Beauty",
+                            Url = "/products/?category=beauty"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Color = "#10B981",
+                            Order = 3,
+                            ParentId = 2,
+                            Title = "Books",
+                            Url = "/products/?category=books"
                         },
                         new
                         {
                             Id = 3,
-                            Order = 2,
-                            Title = "Pricing",
-                            Url = "/Pricing",
-                            UserId = 1
+                            Order = 3,
+                            Title = "Discover",
+                            Url = "/products"
                         },
                         new
                         {
                             Id = 4,
-                            Order = 3,
-                            Title = "Contact",
-                            Url = "/Contact",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
                             Order = 4,
-                            Title = "Blog",
-                            Url = "/Blog",
-                            UserId = 1
+                            Title = "Deals",
+                            Url = "/products/?sorting=price-lower"
                         });
                 });
 
@@ -1179,6 +1370,50 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_topic_parent_id");
 
                     b.ToTable("Topic", "Cms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Title = "General",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Title = "Announcements",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Title = "Guides",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Title = "How To",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Title = "News",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            RegisterDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Title = "Product",
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("Hydra.Crm.Core.Domain.Email.EmailInbox", b =>
@@ -1752,6 +1987,10 @@ namespace Hydra.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Color")
+                        .HasColumnType("text")
+                        .HasColumnName("color");
+
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_on_utc");
@@ -1769,6 +2008,12 @@ namespace Hydra.Infrastructure.Migrations
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("integer")
                         .HasColumnName("display_order");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("key");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
@@ -1829,30 +2074,102 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 3,
+                            Color = "#6A5ACD",
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
-                            Description = "Description of Category 1",
-                            DisplayOrder = 1,
-                            MetaDescription = "MetaDescription",
-                            MetaKeywords = "MetaKeywords",
-                            MetaTitle = "Title",
-                            Name = "Category 1",
+                            Description = "Electronic products category",
+                            DisplayOrder = 3,
+                            Key = "electronics",
+                            MetaDescription = "Electronic devices and accessories",
+                            MetaKeywords = "electronics, devices, gadgets",
+                            MetaTitle = "Electronics",
+                            Name = "Electronics",
                             Published = true,
                             ShowOnHomepage = true,
                             UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 4,
+                            Color = "#E63946",
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
-                            Description = "Description of Category 2",
-                            DisplayOrder = 2,
-                            MetaDescription = "MetaDescription",
-                            MetaKeywords = "MetaKeywords",
-                            MetaTitle = "Title",
-                            Name = "Category 2",
+                            Description = "Fashion products",
+                            DisplayOrder = 4,
+                            Key = "fashion",
+                            MetaDescription = "Fashion accessories",
+                            MetaKeywords = "Fashion components",
+                            MetaTitle = "Fashion",
+                            Name = "Fashion",
+                            Published = true,
+                            ShowOnHomepage = false,
+                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Color = "#20B2AA",
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Deleted = false,
+                            Description = "Home products, Living products",
+                            DisplayOrder = 5,
+                            Key = "home-living",
+                            MetaDescription = "Home products, Living products",
+                            MetaKeywords = "Home products, Living products",
+                            MetaTitle = "Home products, Living products",
+                            Name = "Home & Living",
+                            Published = true,
+                            ShowOnHomepage = false,
+                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Color = "#FFC107",
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Deleted = false,
+                            Description = "Sports products",
+                            DisplayOrder = 6,
+                            Key = "sports",
+                            MetaDescription = "Sports products",
+                            MetaKeywords = "Sports products",
+                            MetaTitle = "Sports products",
+                            Name = "Sports",
+                            Published = true,
+                            ShowOnHomepage = true,
+                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Color = "#FF69B4",
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Deleted = false,
+                            Description = "Beauty products",
+                            DisplayOrder = 7,
+                            Key = "beauty",
+                            MetaDescription = "Beauty products",
+                            MetaKeywords = "Beauty products",
+                            MetaTitle = "Beauty products",
+                            Name = "Beauty",
+                            Published = true,
+                            ShowOnHomepage = false,
+                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Color = "#10B981",
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Deleted = false,
+                            Description = "Books",
+                            DisplayOrder = 8,
+                            Key = "books",
+                            MetaDescription = "Books",
+                            MetaKeywords = "Books",
+                            MetaTitle = "Books",
+                            Name = "Books",
                             Published = true,
                             ShowOnHomepage = true,
                             UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -5599,29 +5916,85 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 3,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
-                            Description = "Description of Category 1",
-                            DisplayOrder = 1,
-                            MetaDescription = "MetaDescription",
-                            MetaKeywords = "MetaKeywords",
-                            MetaTitle = "Title",
-                            Name = "Manufacturer 1",
+                            Description = "Samsung Electronics",
+                            DisplayOrder = 3,
+                            MetaDescription = "Samsung electronics",
+                            MetaKeywords = "samsung, electronics",
+                            MetaTitle = "Samsung",
+                            Name = "Samsung",
                             Published = true,
                             UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 4,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             Deleted = false,
-                            Description = "Description of Category 2",
-                            DisplayOrder = 2,
-                            MetaDescription = "MetaDescription",
-                            MetaKeywords = "MetaKeywords",
-                            MetaTitle = "Title",
-                            Name = "Manufacturer 2",
+                            Description = "Apple Inc.",
+                            DisplayOrder = 4,
+                            MetaDescription = "Apple products",
+                            MetaKeywords = "apple, iphone, mac",
+                            MetaTitle = "Apple",
+                            Name = "Apple",
+                            Published = true,
+                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Deleted = false,
+                            Description = "LG Electronics",
+                            DisplayOrder = 5,
+                            MetaDescription = "LG Electronics",
+                            MetaKeywords = "lg, electronics",
+                            MetaTitle = "LG",
+                            Name = "LG",
+                            Published = true,
+                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Deleted = false,
+                            Description = "Sony Corporation",
+                            DisplayOrder = 6,
+                            MetaDescription = "Sony electronics",
+                            MetaKeywords = "sony, audio, tv",
+                            MetaTitle = "Sony",
+                            Name = "Sony",
+                            Published = true,
+                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Deleted = false,
+                            Description = "Bosch Home Appliances",
+                            DisplayOrder = 7,
+                            MetaDescription = "Bosch home appliances",
+                            MetaKeywords = "bosch, appliances",
+                            MetaTitle = "Bosch",
+                            Name = "Bosch",
+                            Published = true,
+                            UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Deleted = false,
+                            Description = "IKEA",
+                            DisplayOrder = 8,
+                            MetaDescription = "IKEA furniture",
+                            MetaKeywords = "ikea, furniture",
+                            MetaTitle = "Ikea",
+                            Name = "Ikea",
                             Published = true,
                             UpdatedOnUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -6166,6 +6539,10 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("order_minimum_quantity");
 
+                    b.Property<int?>("PicturePreviewId")
+                        .HasColumnType("integer")
+                        .HasColumnName("picture_preview_id");
+
                     b.Property<bool>("Published")
                         .HasColumnType("boolean")
                         .HasColumnName("published");
@@ -6209,6 +6586,9 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.HasIndex("CreateUserId")
                         .HasDatabaseName("ix_product_create_user_id");
+
+                    b.HasIndex("PicturePreviewId")
+                        .HasDatabaseName("ix_product_picture_preview_id");
 
                     b.HasIndex("TaxCategoryId")
                         .HasDatabaseName("ix_product_tax_category_id");
@@ -6330,6 +6710,48 @@ namespace Hydra.Infrastructure.Migrations
                             DisplayOrder = 7,
                             Name = "Large",
                             Value = "#Large"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AttributeType = 0,
+                            DisplayOrder = 8,
+                            Name = "Green",
+                            Value = "green"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AttributeType = 0,
+                            DisplayOrder = 9,
+                            Name = "Yellow",
+                            Value = "yellow"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AttributeType = 0,
+                            DisplayOrder = 10,
+                            Name = "Purple",
+                            Value = "purple"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AttributeType = 1,
+                            Description = "Extra Small size",
+                            DisplayOrder = 11,
+                            Name = "Extra Small",
+                            Value = "XS"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AttributeType = 1,
+                            Description = "Extra Large size",
+                            DisplayOrder = 12,
+                            Name = "Extra Large",
+                            Value = "XL"
                         });
                 });
 
@@ -6658,6 +7080,11 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("character varying(70)")
                         .HasColumnName("name");
 
+                    b.Property<string>("NormalizedName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("normalized_name");
+
                     b.HasKey("Id")
                         .HasName("pk_product_tag");
 
@@ -6670,17 +7097,38 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Tag 1"
+                            Name = "Bestseller",
+                            NormalizedName = "bestseller"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Tag 2"
+                            Name = "New",
+                            NormalizedName = "new"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Tag 3"
+                            Name = "Popular",
+                            NormalizedName = "popular"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Sale",
+                            NormalizedName = "sale"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Sustainable",
+                            NormalizedName = "sustainable"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Trending",
+                            NormalizedName = "trending"
                         });
                 });
 
@@ -23988,8 +24436,6 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_link_user_user_id");
 
                     b.Navigation("LinkSection");
@@ -24370,6 +24816,12 @@ namespace Hydra.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Product_CreateUser");
 
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductPicture", "PicturePreview")
+                        .WithMany()
+                        .HasForeignKey("PicturePreviewId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("FK_Product_PicturePreview");
+
                     b.HasOne("Hydra.Ecommerce.Core.Domain.TaxCategory", "TaxCategory")
                         .WithMany("Products")
                         .HasForeignKey("TaxCategoryId")
@@ -24383,6 +24835,8 @@ namespace Hydra.Infrastructure.Migrations
                         .HasConstraintName("FK_Product_UpdateUser");
 
                     b.Navigation("CreateUser");
+
+                    b.Navigation("PicturePreview");
 
                     b.Navigation("TaxCategory");
 

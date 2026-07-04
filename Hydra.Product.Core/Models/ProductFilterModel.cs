@@ -1,4 +1,5 @@
-﻿using Hydra.Kernel.GeneralModels;
+﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Kernel.GeneralModels;
 
 
 namespace Hydra.Product.Core.Models
@@ -82,6 +83,12 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         /// <returns></returns>
         public List<int>? CategoryIds { get; set; } = new();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<AttributeType>? AttributeTypes { get; set; } = new();
 
         /// <summary>
         /// 

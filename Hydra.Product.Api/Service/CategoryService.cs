@@ -1,12 +1,13 @@
 ﻿using EFCoreSecondLevelCacheInterceptor;
-using Hydra.Kernel.Interface;
-using Hydra.Kernel.GeneralModels;
 using Hydra.Ecommerce.Core.Domain;
+using Hydra.FileStorage.Core.Domain;
+using Hydra.FileStorage.Core.Models;
+using Hydra.Kernel.GeneralModels;
+using Hydra.Kernel.Interface;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using Hydra.FileStorage.Core.Domain;
-using Hydra.FileStorage.Core.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Hydra.Product.Api.Services
 {
@@ -50,36 +51,36 @@ namespace Hydra.Product.Api.Services
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
-        private List<CategoryModel> GetCategories(bool? isPublished = null)
+        private List<CategoryModel> GetCategories(bool? isPublished = false)
         {
-
             var query = (from category in _queryRepository.Table<Category>()
-                        select new CategoryModel()
-                        {
-                            Id = category.Id,
-                            Name = category.Name,
-                            MetaKeywords = category.MetaKeywords,
-                            MetaTitle = category.MetaTitle,
-                            Description = category.Description,
-                            MetaDescription = category.MetaDescription,
-                            ParentCategoryId = category.ParentCategoryId,
-                            PictureId = category.PictureId,
-                            ShowOnHomepage = category.ShowOnHomepage,
-                            Published = category.Published,
-                            Deleted = category.Deleted,
-                            DisplayOrder = category.DisplayOrder,
-                            CreatedOnUtc = category.CreatedOnUtc,
-                            UpdatedOnUtc = category.UpdatedOnUtc,
-
-
-                        }).Where(x => x.Deleted == false);
+                         select new CategoryModel()
+                         {
+                             Id = category.Id,
+                             Name = category.Name,
+                             Key = category.Key,
+                             MetaKeywords = category.MetaKeywords,
+                             MetaTitle = category.MetaTitle,
+                             Description = category.Description,
+                             MetaDescription = category.MetaDescription,
+                             ParentCategoryId = category.ParentCategoryId,
+                             PictureId = category.PictureId,
+                             ShowOnHomepage = category.ShowOnHomepage,
+                             Published = category.Published,
+                             Deleted = category.Deleted,
+                             DisplayOrder = category.DisplayOrder,
+                             CreatedOnUtc = category.CreatedOnUtc,
+                             UpdatedOnUtc = category.UpdatedOnUtc,
+                             Color = category.Color,
+                             ProductsCount = category.ProductCategories.Where(c => c.Product.Published == isPublished && c.Product.Deleted == !isPublished).Count()
+                         }).Where(x => x.Deleted == false);
 
             if (isPublished != null)
             {
-                query = query.Where(x => x.Published == isPublished);
+                query = query.Where(x => x.Published == isPublished && x.Deleted == !isPublished);
             }
             var list = query.OrderBy(x => x.DisplayOrder).Cacheable().ToList();
-            
+
             var listIds = list.Where(x => x.PictureId != null).Select(x => x.PictureId).ToArray();
             var files = _queryRepository.Table<FileUpload>().Where(x => listIds.Contains(x.Id));
             foreach (var item in list)
@@ -262,6 +263,7 @@ namespace Hydra.Product.Api.Services
                 var category = new Category()
                 {
                     Name = categoryModel.Name,
+                    Key = categoryModel.Key,
                     MetaKeywords = categoryModel.MetaKeywords,
                     MetaTitle = categoryModel.MetaTitle,
                     Description = categoryModel.Description,
@@ -274,6 +276,7 @@ namespace Hydra.Product.Api.Services
                     DisplayOrder = categoryModel.DisplayOrder,
                     CreatedOnUtc = categoryModel.CreatedOnUtc,
                     UpdatedOnUtc = categoryModel.UpdatedOnUtc,
+                    Color = categoryModel.Color,
                     //ProductCategories = categoryModel.ProductCategories,
                     //Discounts = categoryModel.Discounts,
 
@@ -322,6 +325,7 @@ namespace Hydra.Product.Api.Services
                     return result;
                 }
                 category.Name = categoryModel.Name;
+                category.Key = categoryModel.Key;
                 category.MetaKeywords = categoryModel.MetaKeywords;
                 category.MetaTitle = categoryModel.MetaTitle;
                 category.Description = categoryModel.Description;
@@ -334,6 +338,7 @@ namespace Hydra.Product.Api.Services
                 category.DisplayOrder = categoryModel.DisplayOrder;
                 category.CreatedOnUtc = categoryModel.CreatedOnUtc;
                 category.UpdatedOnUtc = categoryModel.UpdatedOnUtc;
+                category.Color = categoryModel.Color;
                 //category.ProductCategories = categoryModel.ProductCategories;
                 //category.Discounts = categoryModel.Discounts;
 

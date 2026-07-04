@@ -1,4 +1,5 @@
-﻿using Hydra.Kernel.Data;
+﻿using Hydra.FileStorage.Core.Domain;
+using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
 
@@ -26,7 +27,17 @@ public class ProductAttribute : BaseEntity<int>
     /// <summary>
     /// 
     /// </summary>
+    public FileUpload? Picture { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public int DisplayOrder { get; set; }
+
+    /// <summary>
+    /// show in homepage
+    /// </summary>
+    public bool IsFeatured { get; set; } = false;
 
     /// <summary>
     /// 

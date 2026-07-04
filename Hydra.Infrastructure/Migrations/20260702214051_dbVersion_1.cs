@@ -40,6 +40,7 @@ namespace Hydra.Infrastructure.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
+                    key = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
                     meta_keywords = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     meta_title = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
@@ -57,7 +58,7 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     table.PrimaryKey("pk_category", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Category_Category",
+                        name: "fk_category_category_parent_category_id",
                         column: x => x.parent_category_id,
                         principalSchema: "Sale",
                         principalTable: "Category",
@@ -203,7 +204,7 @@ namespace Hydra.Infrastructure.Migrations
                     url = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     preview_image_id = table.Column<int>(type: "integer", nullable: true),
                     order = table.Column<int>(type: "integer", nullable: false),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: true),
                     parent_id = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -258,7 +259,8 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false)
+                    name = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
+                    normalized_name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -672,6 +674,36 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TaxRate",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    country_id = table.Column<int>(type: "integer", nullable: false),
+                    tax_category_id = table.Column<int>(type: "integer", nullable: false),
+                    percentage = table.Column<decimal>(type: "numeric(18,4)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_tax_rate", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_TaxRate_Country",
+                        column: x => x.country_id,
+                        principalSchema: "Sale",
+                        principalTable: "Country",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TaxRate_TaxCategory",
+                        column: x => x.tax_category_id,
+                        principalSchema: "Sale",
+                        principalTable: "TaxCategory",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FileUpload",
                 schema: "FS",
                 columns: table => new
@@ -713,7 +745,7 @@ namespace Hydra.Infrastructure.Migrations
                     description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
                     link_section_id = table.Column<int>(type: "integer", nullable: false),
                     order = table.Column<int>(type: "integer", nullable: false),
-                    user_id = table.Column<int>(type: "integer", nullable: false)
+                    user_id = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -730,8 +762,7 @@ namespace Hydra.Infrastructure.Migrations
                         column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -793,84 +824,6 @@ namespace Hydra.Infrastructure.Migrations
                         principalTable: "User",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Product",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    meta_keywords = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
-                    meta_title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    short_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
-                    full_description = table.Column<string>(type: "text", nullable: false),
-                    admin_comment = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
-                    meta_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
-                    tax_category_id = table.Column<int>(type: "integer", nullable: false),
-                    stock_quantity = table.Column<int>(type: "integer", nullable: false),
-                    min_stock_quantity = table.Column<int>(type: "integer", nullable: false),
-                    notify_admin_for_quantity_below = table.Column<bool>(type: "boolean", nullable: false),
-                    order_minimum_quantity = table.Column<int>(type: "integer", nullable: false),
-                    order_maximum_quantity = table.Column<int>(type: "integer", nullable: false),
-                    price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    old_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    available_start_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
-                    available_end_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
-                    display_order = table.Column<int>(type: "integer", nullable: false),
-                    approved_rating_sum = table.Column<int>(type: "integer", nullable: false),
-                    not_approved_rating_sum = table.Column<int>(type: "integer", nullable: false),
-                    approved_total_reviews = table.Column<int>(type: "integer", nullable: false),
-                    not_approved_total_reviews = table.Column<int>(type: "integer", nullable: false),
-                    has_discounts_applied = table.Column<bool>(type: "boolean", nullable: false),
-                    mark_as_new = table.Column<bool>(type: "boolean", nullable: false),
-                    mark_as_new_start_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
-                    mark_as_new_end_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
-                    not_returnable = table.Column<bool>(type: "boolean", nullable: false),
-                    allowed_quantities = table.Column<bool>(type: "boolean", nullable: false),
-                    is_tax_exempt = table.Column<bool>(type: "boolean", nullable: false),
-                    show_on_homepage = table.Column<bool>(type: "boolean", nullable: false),
-                    is_free_shipping = table.Column<bool>(type: "boolean", nullable: false),
-                    allow_customer_reviews = table.Column<bool>(type: "boolean", nullable: false),
-                    display_stock_quantity = table.Column<bool>(type: "boolean", nullable: false),
-                    disable_buy_button = table.Column<bool>(type: "boolean", nullable: false),
-                    disable_wishlist_button = table.Column<bool>(type: "boolean", nullable: false),
-                    available_for_pre_order = table.Column<bool>(type: "boolean", nullable: false),
-                    call_for_price = table.Column<bool>(type: "boolean", nullable: false),
-                    published = table.Column<bool>(type: "boolean", nullable: false),
-                    deleted = table.Column<bool>(type: "boolean", nullable: false),
-                    create_user_id = table.Column<int>(type: "integer", nullable: false),
-                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
-                    update_user_id = table.Column<int>(type: "integer", nullable: true),
-                    updated_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
-                    delivery_date_type = table.Column<int>(type: "integer", nullable: false),
-                    currency_type = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_product", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Product_CreateUser",
-                        column: x => x.create_user_id,
-                        principalSchema: "Auth",
-                        principalTable: "User",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Product_TaxCategory",
-                        column: x => x.tax_category_id,
-                        principalSchema: "Sale",
-                        principalTable: "TaxCategory",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Product_UpdateUser",
-                        column: x => x.update_user_id,
-                        principalSchema: "Auth",
-                        principalTable: "User",
-                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1022,62 +975,24 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     table.PrimaryKey("pk_address", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Address_Country",
+                        name: "fk_address_country_country_id",
                         column: x => x.country_id,
                         principalSchema: "Sale",
                         principalTable: "Country",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Address_StateProvince",
+                        name: "fk_address_state_province_state_province_id",
                         column: x => x.state_province_id,
                         principalSchema: "Sale",
                         principalTable: "StateProvince",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Address_User",
+                        name: "fk_address_user_user_id",
                         column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TaxRate",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    tax_category_id = table.Column<int>(type: "integer", nullable: false),
-                    country_id = table.Column<int>(type: "integer", nullable: false),
-                    state_province_id = table.Column<int>(type: "integer", nullable: false),
-                    percentage = table.Column<decimal>(type: "numeric(18,4)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_tax_rate", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_TaxRate_Country",
-                        column: x => x.country_id,
-                        principalSchema: "Sale",
-                        principalTable: "Country",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TaxRate_StateProvince",
-                        column: x => x.state_province_id,
-                        principalSchema: "Sale",
-                        principalTable: "StateProvince",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TaxRate_TaxCategory",
-                        column: x => x.tax_category_id,
-                        principalSchema: "Sale",
-                        principalTable: "TaxCategory",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1276,6 +1191,60 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ArticleTag",
+                schema: "Cms",
+                columns: table => new
+                {
+                    article_id = table.Column<int>(type: "integer", nullable: false),
+                    tag_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_article_tag", x => new { x.tag_id, x.article_id });
+                    table.ForeignKey(
+                        name: "fk_article_tag_article_article_id",
+                        column: x => x.article_id,
+                        principalSchema: "Cms",
+                        principalTable: "Article",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_article_tag_tag_tag_id",
+                        column: x => x.tag_id,
+                        principalSchema: "Cms",
+                        principalTable: "Tag",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ArticleTopic",
+                schema: "Cms",
+                columns: table => new
+                {
+                    article_id = table.Column<int>(type: "integer", nullable: false),
+                    topic_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_article_topic", x => new { x.topic_id, x.article_id });
+                    table.ForeignKey(
+                        name: "fk_article_topic_article_article_id",
+                        column: x => x.article_id,
+                        principalSchema: "Cms",
+                        principalTable: "Article",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_article_topic_topic_topic_id",
+                        column: x => x.topic_id,
+                        principalSchema: "Cms",
+                        principalTable: "Topic",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DiscountProduct",
                 schema: "Sale",
                 columns: table => new
@@ -1293,13 +1262,332 @@ namespace Hydra.Infrastructure.Migrations
                         principalTable: "Discount",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    shipment_id = table.Column<int>(type: "integer", nullable: true),
+                    address_id = table.Column<int>(type: "integer", nullable: true),
+                    shipping_method_id = table.Column<int>(type: "integer", nullable: true),
+                    order_status_id = table.Column<byte>(type: "smallint", nullable: false),
+                    shipping_status_id = table.Column<byte>(type: "smallint", nullable: false),
+                    payment_status_id = table.Column<byte>(type: "smallint", nullable: false),
+                    payment_method_id = table.Column<byte>(type: "smallint", nullable: true),
+                    user_currency_type = table.Column<int>(type: "integer", nullable: false),
+                    shipping_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    shipping_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    shipping_amount_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    tax_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    discount_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    total_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    final_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    refunded_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    customer_ip = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    payment_id = table.Column<int>(type: "integer", nullable: true),
+                    allow_storing_credit_card_number = table.Column<bool>(type: "boolean", nullable: false),
+                    paid_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_order", x => x.id);
                     table.ForeignKey(
-                        name: "FK_DiscountProduct_Product",
-                        column: x => x.product_id,
+                        name: "FK_Order_Address",
+                        column: x => x.address_id,
                         principalSchema: "Sale",
-                        principalTable: "Product",
+                        principalTable: "Address",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_Order_ShippingMethod",
+                        column: x => x.shipping_method_id,
+                        principalSchema: "Sale",
+                        principalTable: "ShippingMethod",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_Order_User",
+                        column: x => x.user_id,
+                        principalSchema: "Auth",
+                        principalTable: "User",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderDiscount",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    discount_id = table.Column<int>(type: "integer", nullable: false),
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_order_discount", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_OrderDiscount_Discount",
+                        column: x => x.discount_id,
+                        principalSchema: "Sale",
+                        principalTable: "Discount",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderDiscount_Order",
+                        column: x => x.order_id,
+                        principalSchema: "Sale",
+                        principalTable: "Order",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderNote",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    note = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    is_read = table.Column<bool>(type: "boolean", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_order_note", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_OrderNote_Order",
+                        column: x => x.order_id,
+                        principalSchema: "Sale",
+                        principalTable: "Order",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderNote_User",
+                        column: x => x.user_id,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payment",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    transaction_tracking_code = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    payment_tracking_code = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    payment_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    payment_type_id = table.Column<byte>(type: "smallint", nullable: true),
+                    status = table.Column<int>(type: "integer", nullable: true),
+                    deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
+                    card_type = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    card_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    card_number = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    masked_credit_card_number = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    card_cvv2 = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    card_expiration_month = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    card_expiration_year = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecurringPayment", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Payment_Order",
+                        column: x => x.order_id,
+                        principalSchema: "Sale",
+                        principalTable: "Order",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Shipment",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    tracking_number = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    total_weight = table.Column<decimal>(type: "numeric(18,4)", nullable: true),
+                    shipped_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    delivery_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    ready_for_pickup_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    admin_comment = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_shipment", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Shipment_Order",
+                        column: x => x.order_id,
+                        principalSchema: "Sale",
+                        principalTable: "Order",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItem",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    discount_id = table.Column<int>(type: "integer", nullable: true),
+                    quantity = table.Column<int>(type: "integer", nullable: false),
+                    discount_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    unit_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    total_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    total_price_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_order_item", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Order",
+                        column: x => x.order_id,
+                        principalSchema: "Sale",
+                        principalTable: "Order",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_order_item_discount_discount_id",
+                        column: x => x.discount_id,
+                        principalSchema: "Sale",
+                        principalTable: "Discount",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShipmentItem",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    shipment_id = table.Column<int>(type: "integer", nullable: false),
+                    order_item_id = table.Column<int>(type: "integer", nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_shipment_item", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ShipmentItem_OrderItem",
+                        column: x => x.order_item_id,
+                        principalSchema: "Sale",
+                        principalTable: "OrderItem",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ShipmentItem_Shipment",
+                        column: x => x.shipment_id,
+                        principalSchema: "Sale",
+                        principalTable: "Shipment",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Product",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    code = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    meta_keywords = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    meta_title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    short_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    full_description = table.Column<string>(type: "text", nullable: false),
+                    admin_comment = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    meta_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    tax_category_id = table.Column<int>(type: "integer", nullable: false),
+                    stock_type = table.Column<int>(type: "integer", nullable: false),
+                    stock_quantity = table.Column<int>(type: "integer", nullable: false),
+                    min_stock_quantity = table.Column<int>(type: "integer", nullable: false),
+                    notify_admin_for_quantity_below = table.Column<bool>(type: "boolean", nullable: false),
+                    order_minimum_quantity = table.Column<int>(type: "integer", nullable: false),
+                    order_maximum_quantity = table.Column<int>(type: "integer", nullable: false),
+                    sell_unit_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    old_sell_unit_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    available_start_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    available_end_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    display_order = table.Column<int>(type: "integer", nullable: false),
+                    approved_rating_sum = table.Column<int>(type: "integer", nullable: false),
+                    not_approved_rating_sum = table.Column<int>(type: "integer", nullable: false),
+                    approved_total_reviews = table.Column<int>(type: "integer", nullable: false),
+                    not_approved_total_reviews = table.Column<int>(type: "integer", nullable: false),
+                    has_discounts_applied = table.Column<bool>(type: "boolean", nullable: false),
+                    mark_as_new = table.Column<bool>(type: "boolean", nullable: false),
+                    mark_as_new_start_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    mark_as_new_end_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    not_returnable = table.Column<bool>(type: "boolean", nullable: false),
+                    allowed_quantities = table.Column<bool>(type: "boolean", nullable: false),
+                    is_tax_exempt = table.Column<bool>(type: "boolean", nullable: false),
+                    show_on_homepage = table.Column<bool>(type: "boolean", nullable: false),
+                    is_free_shipping = table.Column<bool>(type: "boolean", nullable: false),
+                    allow_customer_reviews = table.Column<bool>(type: "boolean", nullable: false),
+                    display_stock_quantity = table.Column<bool>(type: "boolean", nullable: false),
+                    disable_buy_button = table.Column<bool>(type: "boolean", nullable: false),
+                    disable_wishlist_button = table.Column<bool>(type: "boolean", nullable: false),
+                    available_for_pre_order = table.Column<bool>(type: "boolean", nullable: false),
+                    call_for_price = table.Column<bool>(type: "boolean", nullable: false),
+                    published = table.Column<bool>(type: "boolean", nullable: false),
+                    deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    create_user_id = table.Column<int>(type: "integer", nullable: false),
+                    picture_preview_id = table.Column<int>(type: "integer", nullable: true),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
+                    update_user_id = table.Column<int>(type: "integer", nullable: true),
+                    updated_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    delivery_date_type = table.Column<int>(type: "integer", nullable: false),
+                    currency_type = table.Column<int>(type: "integer", nullable: false),
+                    measure_type = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_product", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Product_CreateUser",
+                        column: x => x.create_user_id,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Product_TaxCategory",
+                        column: x => x.tax_category_id,
+                        principalSchema: "Sale",
+                        principalTable: "TaxCategory",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Product_UpdateUser",
+                        column: x => x.update_user_id,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1341,22 +1629,24 @@ namespace Hydra.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     product_id = table.Column<int>(type: "integer", nullable: false),
                     attribute_id = table.Column<int>(type: "integer", nullable: true),
-                    stock_type = table.Column<int>(type: "integer", nullable: false),
-                    stock_quantity = table.Column<int>(type: "integer", nullable: false),
-                    reserved_quantity = table.Column<int>(type: "integer", nullable: false)
+                    stock_quantity = table.Column<decimal>(type: "numeric", nullable: false),
+                    reserved_quantity = table.Column<decimal>(type: "numeric", nullable: false),
+                    buy_unit_price = table.Column<decimal>(type: "numeric", nullable: false),
+                    created_datetime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    start_datetime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductWarehouseInventory", x => x.id);
+                    table.PrimaryKey("pk_product_inventory", x => x.id);
                     table.ForeignKey(
-                        name: "FK_ProductInventory_Attribute",
+                        name: "fk_product_inventory_product_attribute_attribute_id",
                         column: x => x.attribute_id,
                         principalSchema: "Sale",
                         principalTable: "ProductAttribute",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ProductInventory_Product",
+                        name: "fk_product_inventory_product_product_id",
                         column: x => x.product_id,
                         principalSchema: "Sale",
                         principalTable: "Product",
@@ -1582,60 +1872,6 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArticleTag",
-                schema: "Cms",
-                columns: table => new
-                {
-                    article_id = table.Column<int>(type: "integer", nullable: false),
-                    tag_id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_article_tag", x => new { x.tag_id, x.article_id });
-                    table.ForeignKey(
-                        name: "fk_article_tag_article_article_id",
-                        column: x => x.article_id,
-                        principalSchema: "Cms",
-                        principalTable: "Article",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_article_tag_tag_tag_id",
-                        column: x => x.tag_id,
-                        principalSchema: "Cms",
-                        principalTable: "Tag",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ArticleTopic",
-                schema: "Cms",
-                columns: table => new
-                {
-                    article_id = table.Column<int>(type: "integer", nullable: false),
-                    topic_id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_article_topic", x => new { x.topic_id, x.article_id });
-                    table.ForeignKey(
-                        name: "fk_article_topic_article_article_id",
-                        column: x => x.article_id,
-                        principalSchema: "Cms",
-                        principalTable: "Article",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_article_topic_topic_topic_id",
-                        column: x => x.topic_id,
-                        principalSchema: "Cms",
-                        principalTable: "Topic",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProductReviewHelpfulness",
                 schema: "Sale",
                 columns: table => new
@@ -1665,265 +1901,18 @@ namespace Hydra.Infrastructure.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Order",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
-                    shipment_id = table.Column<int>(type: "integer", nullable: true),
-                    address_id = table.Column<int>(type: "integer", nullable: true),
-                    shipping_method_id = table.Column<int>(type: "integer", nullable: true),
-                    order_status_id = table.Column<byte>(type: "smallint", nullable: false),
-                    shipping_status_id = table.Column<byte>(type: "smallint", nullable: false),
-                    payment_status_id = table.Column<byte>(type: "smallint", nullable: false),
-                    payment_method_id = table.Column<byte>(type: "smallint", nullable: true),
-                    user_currency_type = table.Column<int>(type: "integer", nullable: false),
-                    shipping_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    shipping_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    shipping_amount_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    tax_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    discount_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    total_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    final_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    refunded_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    customer_ip = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    payment_id = table.Column<int>(type: "integer", nullable: true),
-                    allow_storing_credit_card_number = table.Column<bool>(type: "boolean", nullable: false),
-                    paid_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
-                    deleted = table.Column<bool>(type: "boolean", nullable: false),
-                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_order", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Order_Address",
-                        column: x => x.address_id,
-                        principalSchema: "Sale",
-                        principalTable: "Address",
-                        principalColumn: "id");
-                    table.ForeignKey(
-                        name: "FK_Order_ShippingMethod",
-                        column: x => x.shipping_method_id,
-                        principalSchema: "Sale",
-                        principalTable: "ShippingMethod",
-                        principalColumn: "id");
-                    table.ForeignKey(
-                        name: "FK_Order_User",
-                        column: x => x.user_id,
-                        principalSchema: "Auth",
-                        principalTable: "User",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrderDiscount",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    discount_id = table.Column<int>(type: "integer", nullable: false),
-                    order_id = table.Column<int>(type: "integer", nullable: false),
-                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_order_discount", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_OrderDiscount_Discount",
-                        column: x => x.discount_id,
-                        principalSchema: "Sale",
-                        principalTable: "Discount",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OrderDiscount_Order",
-                        column: x => x.order_id,
-                        principalSchema: "Sale",
-                        principalTable: "Order",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrderItem",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    order_id = table.Column<int>(type: "integer", nullable: false),
-                    product_id = table.Column<int>(type: "integer", nullable: false),
-                    discount_id = table.Column<int>(type: "integer", nullable: true),
-                    quantity = table.Column<int>(type: "integer", nullable: false),
-                    discount_amount = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    unit_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    total_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    total_price_tax = table.Column<decimal>(type: "numeric(18,4)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_order_item", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_OrderItem_Order",
-                        column: x => x.order_id,
-                        principalSchema: "Sale",
-                        principalTable: "Order",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OrderItem_ProductId_Product_Id",
-                        column: x => x.product_id,
-                        principalSchema: "Sale",
-                        principalTable: "Product",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_order_item_discount_discount_id",
-                        column: x => x.discount_id,
-                        principalSchema: "Sale",
-                        principalTable: "Discount",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrderNote",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    note = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
-                    order_id = table.Column<int>(type: "integer", nullable: false),
-                    is_read = table.Column<bool>(type: "boolean", nullable: false),
-                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_order_note", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_OrderNote_Order",
-                        column: x => x.order_id,
-                        principalSchema: "Sale",
-                        principalTable: "Order",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OrderNote_User",
-                        column: x => x.user_id,
-                        principalSchema: "Auth",
-                        principalTable: "User",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Payment",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    order_id = table.Column<int>(type: "integer", nullable: false),
-                    transaction_tracking_code = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    payment_tracking_code = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    payment_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
-                    payment_type_id = table.Column<byte>(type: "smallint", nullable: true),
-                    status = table.Column<int>(type: "integer", nullable: true),
-                    deleted = table.Column<bool>(type: "boolean", nullable: false),
-                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
-                    card_type = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    card_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    card_number = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    masked_credit_card_number = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    card_cvv2 = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    card_expiration_month = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
-                    card_expiration_year = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RecurringPayment", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Payment_Order",
-                        column: x => x.order_id,
-                        principalSchema: "Sale",
-                        principalTable: "Order",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Shipment",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    order_id = table.Column<int>(type: "integer", nullable: false),
-                    tracking_number = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    total_weight = table.Column<decimal>(type: "numeric(18,4)", nullable: true),
-                    shipped_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
-                    delivery_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
-                    ready_for_pickup_date_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
-                    admin_comment = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
-                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_shipment", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Shipment_Order",
-                        column: x => x.order_id,
-                        principalSchema: "Sale",
-                        principalTable: "Order",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ShipmentItem",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    shipment_id = table.Column<int>(type: "integer", nullable: false),
-                    order_item_id = table.Column<int>(type: "integer", nullable: false),
-                    quantity = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_shipment_item", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_ShipmentItem_OrderItem",
-                        column: x => x.order_item_id,
-                        principalSchema: "Sale",
-                        principalTable: "OrderItem",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ShipmentItem_Shipment",
-                        column: x => x.shipment_id,
-                        principalSchema: "Sale",
-                        principalTable: "Shipment",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "Category",
-                columns: new[] { "id", "created_on_utc", "deleted", "description", "display_order", "meta_description", "meta_keywords", "meta_title", "name", "parent_category_id", "picture_id", "published", "show_on_homepage", "updated_on_utc" },
+                columns: new[] { "id", "created_on_utc", "deleted", "description", "display_order", "key", "meta_description", "meta_keywords", "meta_title", "name", "parent_category_id", "picture_id", "published", "show_on_homepage", "updated_on_utc" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Description of Category 1", 1, "MetaDescription", "MetaKeywords", "Title", "Category 1", null, null, true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Description of Category 2", 2, "MetaDescription", "MetaKeywords", "Title", "Category 2", null, null, true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 3, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Electronic products category", 3, "electronics", "Electronic devices and accessories", "electronics, devices, gadgets", "Electronics", "Electronics", null, null, true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Fashion products", 4, "fashion", "Fashion accessories", "Fashion components", "Fashion", "Fashion", null, null, true, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Home products, Living products", 5, "home-living", "Home products, Living products", "Home products, Living products", "Home products, Living products", "Home & Living", null, null, true, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 6, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Sports products", 6, "sports", "Sports products", "Sports products", "Sports products", "Sports", null, null, true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 7, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Beauty products", 7, "beauty", "Beauty products", "Beauty products", "Beauty products", "Beauty", null, null, true, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 8, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Books", 8, "books", "Books", "Books", "Books", "Books", null, null, true, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -2031,13 +2020,13 @@ namespace Hydra.Infrastructure.Migrations
                     { 97, true, true, 100, false, "Haiti", 332, true, false, "HTI", "HT" },
                     { 98, true, true, 100, false, "Heard Island and McDonald Islands", 334, true, false, "HMD", "HM" },
                     { 99, true, true, 100, false, "Holy See", 336, true, false, "VAT", "VA" },
-                    { 100, true, true, 100, false, "Honduras", 340, true, false, "HND", "HN" },
+                    { 100, true, true, 100, false, "Iran", 364, true, false, "IRN", "IR" },
                     { 101, true, true, 100, false, "Hong Kong", 344, true, false, "HKG", "HK" },
                     { 102, true, true, 100, false, "Hungary", 348, true, true, "HUN", "HU" },
                     { 103, true, true, 100, false, "Iceland", 352, true, false, "ISL", "IS" },
                     { 104, true, true, 100, false, "India", 356, true, false, "IND", "IN" },
                     { 105, true, true, 100, false, "Indonesia", 360, true, false, "IDN", "ID" },
-                    { 106, true, true, 100, false, "Iran (Islamic Republic of)", 364, true, false, "IRN", "IR" },
+                    { 106, true, true, 100, false, "Honduras", 340, true, false, "HND", "HN" },
                     { 107, true, true, 100, false, "Iraq", 368, true, false, "IRQ", "IQ" },
                     { 108, true, true, 100, false, "Ireland", 372, true, true, "IRL", "IE" },
                     { 109, true, true, 100, false, "Isle of Man", 833, true, false, "IMN", "IM" },
@@ -2199,8 +2188,9 @@ namespace Hydra.Infrastructure.Migrations
                 columns: new[] { "id", "is_visible", "key", "title" },
                 values: new object[,]
                 {
-                    { 1, true, "Categories", "Categories" },
-                    { 2, true, "RecentPosts", "Recent Post" }
+                    { 1, true, "shop", "Shop" },
+                    { 2, true, "support", "Support" },
+                    { 3, true, "company", "Company" }
                 });
 
             migrationBuilder.InsertData(
@@ -2209,8 +2199,12 @@ namespace Hydra.Infrastructure.Migrations
                 columns: new[] { "id", "created_on_utc", "deleted", "description", "display_order", "meta_description", "meta_keywords", "meta_title", "name", "picture_id", "published", "updated_on_utc" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Description of Category 1", 1, "MetaDescription", "MetaKeywords", "Title", "Manufacturer 1", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Description of Category 2", 2, "MetaDescription", "MetaKeywords", "Title", "Manufacturer 2", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 3, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Samsung Electronics", 3, "Samsung electronics", "samsung, electronics", "Samsung", "Samsung", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Apple Inc.", 4, "Apple products", "apple, iphone, mac", "Apple", "Apple", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "LG Electronics", 5, "LG Electronics", "lg, electronics", "LG", "LG", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 6, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Sony Corporation", 6, "Sony electronics", "sony, audio, tv", "Sony", "Sony", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 7, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "Bosch Home Appliances", 7, "Bosch home appliances", "bosch, appliances", "Bosch", "Bosch", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 8, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, "IKEA", 8, "IKEA furniture", "ikea, furniture", "Ikea", "Ikea", null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -2219,11 +2213,10 @@ namespace Hydra.Infrastructure.Migrations
                 columns: new[] { "id", "order", "parent_id", "preview_image_id", "title", "url", "user_id" },
                 values: new object[,]
                 {
-                    { 1, 0, null, null, "About", "/About", 1 },
-                    { 2, 1, null, null, "Service", "/Service", 1 },
-                    { 3, 2, null, null, "Pricing", "/Pricing", 1 },
-                    { 4, 3, null, null, "Contact", "/Contact", 1 },
-                    { 5, 4, null, null, "Blog", "/Blog", 1 }
+                    { 1, 1, null, null, "Home", "/", null },
+                    { 2, 2, null, null, "Shop", "/Products", null },
+                    { 3, 3, null, null, "Discover", "/products", null },
+                    { 4, 4, null, null, "Deals", "/products/?sorting=price-lower", null }
                 });
 
             migrationBuilder.InsertData(
@@ -2267,7 +2260,7 @@ namespace Hydra.Infrastructure.Migrations
                     { 5013, "SALE.SEARCH_TERM_MANAGEMENT", "SALE.SEARCH_TERM_MANAGEMENT" },
                     { 5014, "SALE.SHIPMENT_MANAGEMENT", "SALE.SHIPMENT_MANAGEMENT" },
                     { 5015, "SALE.SHOPPING_CART_MANAGEMENT", "SALE.SHOPPING_CART_MANAGEMENT" },
-                    { 5016, "SALE.CURRENCY_MANAGEMENT", "SALE.CURRENCY_MANAGEMENT" },
+                    { 5016, "SALE.BASE_INFORMATION_MANAGEMENT", "SALE.BASE_INFORMATION_MANAGEMENT" },
                     { 5017, "SALE.DELIVERY_MANAGEMENT", "SALE.DELIVERY_MANAGEMENT" },
                     { 5018, "SALE.DISCOUNT_MANAGEMENT", "SALE.DISCOUNT_MANAGEMENT" },
                     { 5019, "SALE.MANUFACTURER_MANAGEMENT", "SALE.MANUFACTURER_MANAGEMENT" },
@@ -2290,18 +2283,26 @@ namespace Hydra.Infrastructure.Migrations
                     { 4, 0, null, 4, "Black", null, "#000" },
                     { 5, 1, "Small Means S US Size", 5, "Small size", null, "#Small" },
                     { 6, 1, "Small Means M US Size", 6, "Medium", null, "#Medium" },
-                    { 7, 1, "Small Means XL US Size", 7, "Large", null, "#Large" }
+                    { 7, 1, "Small Means XL US Size", 7, "Large", null, "#Large" },
+                    { 8, 0, null, 8, "Green", null, "green" },
+                    { 9, 0, null, 9, "Yellow", null, "yellow" },
+                    { 10, 0, null, 10, "Purple", null, "purple" },
+                    { 11, 1, "Extra Small size", 11, "Extra Small", null, "XS" },
+                    { 12, 1, "Extra Large size", 12, "Extra Large", null, "XL" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "ProductTag",
-                columns: new[] { "id", "name" },
+                columns: new[] { "id", "name", "normalized_name" },
                 values: new object[,]
                 {
-                    { 1, "Tag 1" },
-                    { 2, "Tag 2" },
-                    { 3, "Tag 3" }
+                    { 1, "Bestseller", "bestseller" },
+                    { 2, "New", "new" },
+                    { 3, "Popular", "popular" },
+                    { 4, "Sale", "sale" },
+                    { 5, "Sustainable", "sustainable" },
+                    { 6, "Trending", "trending" }
                 });
 
             migrationBuilder.InsertData(
@@ -2334,9 +2335,25 @@ namespace Hydra.Infrastructure.Migrations
                 columns: new[] { "id", "display_order", "name" },
                 values: new object[,]
                 {
-                    { 1, 1, "5% Tax" },
-                    { 2, 2, "9% Tax" },
-                    { 3, 3, "20% Tax" }
+                    { 1, 1, "0% Tax" },
+                    { 2, 2, "2% Tax" },
+                    { 5, 3, "5% Tax" },
+                    { 9, 4, "9% Tax" },
+                    { 20, 5, "20% Tax" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Cms",
+                table: "Topic",
+                columns: new[] { "id", "parent_id", "register_date", "title", "user_id" },
+                values: new object[,]
+                {
+                    { 1, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "General", 1 },
+                    { 2, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "Announcements", 1 },
+                    { 3, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "Guides", 1 },
+                    { 4, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "How To", 1 },
+                    { 5, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "News", 1 },
+                    { 6, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "Product", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -2348,6 +2365,43 @@ namespace Hydra.Infrastructure.Migrations
                     { 1, "ar", true, "Arabic" },
                     { 2, "fa-IR", true, "Persian" },
                     { 3, "en-US", true, "English" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Cms",
+                table: "Link",
+                columns: new[] { "id", "description", "image_preview_id", "link_section_id", "order", "title", "url", "user_id" },
+                values: new object[,]
+                {
+                    { 11, "Browse all products", null, 1, 1, "All Products", "/products", null },
+                    { 12, "New Products", null, 1, 2, "New Arrivals", "/products?sorting=date-new", null },
+                    { 13, "Products with most sell", null, 1, 3, "Best Sellers", "/products?sorting=orders-high", null },
+                    { 14, "Recommended Products", null, 1, 4, "Deals & Offers", "/products/?sorting=price-lower", null },
+                    { 15, "Gift Cards", null, 1, 5, "Gift Cards", "/products", null },
+                    { 21, "Help Center", null, 2, 1, "Help Center", "/pages/help", null },
+                    { 22, "Shipping Info", null, 2, 2, "Shipping Info", "/pages/shipping-info", null },
+                    { 23, "Returns Rules", null, 2, 3, "Returns", "/pages/returns", null },
+                    { 24, "Order Tracking", null, 2, 4, "Order Tracking", "/profile", null },
+                    { 25, "Contact Us", null, 2, 5, "Contact Us", "/contact-us", null },
+                    { 31, "About Us", null, 3, 1, "About Us", "/pages/about-us", null },
+                    { 32, "About", null, 3, 2, "Careers", "/pages/about", null },
+                    { 33, "About", null, 3, 3, "Press", "/pages/about", null },
+                    { 34, "Privacy Policy", null, 3, 4, "Privacy Policy", "/pages/privacy-policy", null },
+                    { 35, "Terms of Service", null, 3, 5, "Terms of Service", "/pages/terms-service", null }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Cms",
+                table: "Menu",
+                columns: new[] { "id", "order", "parent_id", "preview_image_id", "title", "url", "user_id" },
+                values: new object[,]
+                {
+                    { 22, 2, 2, null, "Electronics", "/products/?category=electronics", null },
+                    { 23, 3, 2, null, "Fashion", "/products/?category=fashion", null },
+                    { 24, 3, 2, null, "Home & Living", "/products/?category=home-living", null },
+                    { 25, 3, 2, null, "Sports", "/products/?category=sports", null },
+                    { 26, 3, 2, null, "Beauty", "/products/?category=beauty", null },
+                    { 27, 3, 2, null, "Books", "/products/?category=books", null }
                 });
 
             migrationBuilder.InsertData(
@@ -4194,6 +4248,19 @@ namespace Hydra.Infrastructure.Migrations
                     { 1836, "MI", 249, 0, "Midlands", true }
                 });
 
+            migrationBuilder.InsertData(
+                schema: "Sale",
+                table: "TaxRate",
+                columns: new[] { "id", "country_id", "percentage", "tax_category_id" },
+                values: new object[,]
+                {
+                    { 1, 100, 0m, 1 },
+                    { 2, 100, 2m, 2 },
+                    { 3, 100, 5m, 5 },
+                    { 4, 100, 9m, 9 },
+                    { 5, 100, 20m, 20 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "ix_address_country_id",
                 schema: "Sale",
@@ -4508,6 +4575,12 @@ namespace Hydra.Infrastructure.Migrations
                 column: "create_user_id");
 
             migrationBuilder.CreateIndex(
+                name: "ix_product_picture_preview_id",
+                schema: "Sale",
+                table: "Product",
+                column: "picture_preview_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_product_published_deleted_id",
                 schema: "Sale",
                 table: "Product",
@@ -4737,12 +4810,6 @@ namespace Hydra.Infrastructure.Migrations
                 column: "country_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_tax_rate_state_province_id",
-                schema: "Sale",
-                table: "TaxRate",
-                column: "state_province_id");
-
-            migrationBuilder.CreateIndex(
                 name: "ix_tax_rate_tax_category_id",
                 schema: "Sale",
                 table: "TaxRate",
@@ -4786,6 +4853,16 @@ namespace Hydra.Infrastructure.Migrations
                 column: "role_id");
 
             migrationBuilder.AddForeignKey(
+                name: "FK_DiscountProduct_Product",
+                schema: "Sale",
+                table: "DiscountProduct",
+                column: "product_id",
+                principalSchema: "Sale",
+                principalTable: "Product",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
                 name: "fk_order_payment_payment_id",
                 schema: "Sale",
                 table: "Order",
@@ -4793,13 +4870,33 @@ namespace Hydra.Infrastructure.Migrations
                 principalSchema: "Sale",
                 principalTable: "Payment",
                 principalColumn: "id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_OrderItem_ProductId_Product_Id",
+                schema: "Sale",
+                table: "OrderItem",
+                column: "product_id",
+                principalSchema: "Sale",
+                principalTable: "Product",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Product_PicturePreview",
+                schema: "Sale",
+                table: "Product",
+                column: "picture_preview_id",
+                principalSchema: "Sale",
+                principalTable: "ProductPicture",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Address_Country",
+                name: "fk_address_country_country_id",
                 schema: "Sale",
                 table: "Address");
 
@@ -4809,19 +4906,44 @@ namespace Hydra.Infrastructure.Migrations
                 table: "StateProvince");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Address_StateProvince",
+                name: "fk_address_state_province_state_province_id",
                 schema: "Sale",
                 table: "Address");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Address_User",
+                name: "fk_address_user_user_id",
                 schema: "Sale",
                 table: "Address");
+
+            migrationBuilder.DropForeignKey(
+                name: "fk_file_upload_user_user_id",
+                schema: "FS",
+                table: "FileUpload");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Order_User",
                 schema: "Sale",
                 table: "Order");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Product_CreateUser",
+                schema: "Sale",
+                table: "Product");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Product_UpdateUser",
+                schema: "Sale",
+                table: "Product");
+
+            migrationBuilder.DropForeignKey(
+                name: "fk_product_picture_file_upload_picture_id",
+                schema: "Sale",
+                table: "ProductPicture");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_ProductPicture_Product",
+                schema: "Sale",
+                table: "ProductPicture");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Order_Address",
@@ -4928,10 +5050,6 @@ namespace Hydra.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductManufacturer",
-                schema: "Sale");
-
-            migrationBuilder.DropTable(
-                name: "ProductPicture",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
@@ -5067,23 +5185,11 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth");
 
             migrationBuilder.DropTable(
-                name: "FileUpload",
-                schema: "FS");
-
-            migrationBuilder.DropTable(
                 name: "EmailInbox",
                 schema: "Crm");
 
             migrationBuilder.DropTable(
-                name: "Product",
-                schema: "Sale");
-
-            migrationBuilder.DropTable(
                 name: "Discount",
-                schema: "Sale");
-
-            migrationBuilder.DropTable(
-                name: "TaxCategory",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
@@ -5097,6 +5203,22 @@ namespace Hydra.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "User",
                 schema: "Auth");
+
+            migrationBuilder.DropTable(
+                name: "FileUpload",
+                schema: "FS");
+
+            migrationBuilder.DropTable(
+                name: "Product",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
+                name: "ProductPicture",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
+                name: "TaxCategory",
+                schema: "Sale");
 
             migrationBuilder.DropTable(
                 name: "Address",

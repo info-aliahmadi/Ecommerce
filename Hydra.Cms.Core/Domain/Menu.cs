@@ -18,6 +18,10 @@ namespace Hydra.Cms.Core.Domain
         /// 
         /// </summary>
         public int? PreviewImageId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string? Color { get; set; }
 
         /// <summary>
         /// 
@@ -27,7 +31,7 @@ namespace Hydra.Cms.Core.Domain
         /// <summary>
         /// 
         /// </summary>
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>
         /// 

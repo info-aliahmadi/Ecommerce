@@ -21,12 +21,17 @@ namespace Hydra.Cms.Core.Models
         /// <summary>
         /// 
         /// </summary>
+        public string? Color { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public int Order { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         /// <summary>
         /// 
         /// </summary>

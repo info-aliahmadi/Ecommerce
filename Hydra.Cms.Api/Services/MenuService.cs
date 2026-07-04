@@ -36,7 +36,8 @@ namespace Hydra.Cms.Api.Services
                 Url = x.Url,
                 PreviewImageId = x.PreviewImageId,
                 Order = x.Order,
-                ParentId = x.ParentId
+                ParentId = x.ParentId,
+                Color = x.Color
             }).OrderBy(x => x.Order).Cacheable().ToListAsync();
 
             result.Data = list;
@@ -58,7 +59,8 @@ namespace Hydra.Cms.Api.Services
                 Url = x.Url,
                 PreviewImageId = x.PreviewImageId,
                 Order = x.Order,
-                ParentId = x.ParentId
+                ParentId = x.ParentId,
+                Color = x.Color
             }).OrderBy(x => x.Order).ToListAsync();
 
             var parents = list.Where(x => x.ParentId == null).ToList();
@@ -110,6 +112,7 @@ namespace Hydra.Cms.Api.Services
                 menu.PreviewImageId = record.PreviewImageId;
                 menu.Order = record.Order;
                 menu.ParentId = record.ParentId;
+                menu.Color = record.Color;
             }
             result.Data = menu;
             return result;
@@ -143,7 +146,8 @@ namespace Hydra.Cms.Api.Services
                 PreviewImageId = menuModel.PreviewImageId,
                 Order = maxOrder + 1,
                 ParentId = menuModel.ParentId,
-                UserId = menuModel.UserId
+                UserId = menuModel.UserId,
+                Color = menuModel.Color
             };
             await _commandRepository.InsertAsync(menu);
 

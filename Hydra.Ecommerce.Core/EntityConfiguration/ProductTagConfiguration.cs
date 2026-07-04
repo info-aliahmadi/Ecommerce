@@ -46,6 +46,11 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                 Id = 6,
                 Name = "Trending",
                 NormalizedName = "trending"
+            }, new ProductTag()
+            {
+                Id = 7,
+                Name = "Featured",
+                NormalizedName = "Featured"
             });
         }
     }

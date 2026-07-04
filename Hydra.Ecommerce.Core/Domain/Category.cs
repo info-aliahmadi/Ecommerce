@@ -5,7 +5,7 @@ namespace Hydra.Ecommerce.Core.Domain;
 public class Category : BaseEntity<int>
 {
     public string Name { get; set; }
-    public string NormalizedName { get; set; }
+    public string Key { get; set; }
 
     public string MetaKeywords { get; set; }
 
@@ -18,6 +18,8 @@ public class Category : BaseEntity<int>
     public int? ParentCategoryId { get; set; }
 
     public int? PictureId { get; set; }
+
+    public string? Color { get; set; }
 
     public bool ShowOnHomepage { get; set; }
 

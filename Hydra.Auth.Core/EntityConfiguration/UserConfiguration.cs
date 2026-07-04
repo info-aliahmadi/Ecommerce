@@ -25,6 +25,8 @@ namespace Hydra.Auth.EntityConfiguration
             builder.Property(o => o.PasswordHash).HasMaxLength(100);
             builder.Property(o => o.ConcurrencyStamp).HasMaxLength(50);
 
+
+
         }
     }
 }

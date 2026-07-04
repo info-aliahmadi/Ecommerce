@@ -23,6 +23,12 @@ namespace Hydra.Product.Core.Models
         /// <returns></returns>
         public string Name { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string Key { get; set; }
+
 
         /// <summary>
         /// 
@@ -64,6 +70,12 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         /// <returns></returns>
         public int? PictureId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the color associated with the object.
+        /// </summary>
+        public string? Color { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -117,7 +129,7 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public int ProductCategories { get; set; }
+        public int ProductsCount { get; set; }
 
 
         /// <summary>

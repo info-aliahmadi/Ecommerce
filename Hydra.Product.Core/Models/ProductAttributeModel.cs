@@ -1,6 +1,7 @@
 ﻿
 
 using Hydra.Ecommerce.Core.Domain;
+using Hydra.FileStorage.Core.Models;
 
 namespace Hydra.Product.Core.Models
 {
@@ -30,6 +31,16 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         public int? PictureId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public FileUploadModel? Picture { get; set; }
+
+
+        /// <summary>
+        /// show in homepage
+        /// </summary>
+        public bool IsFeatured { get; set; } = false;
 
         /// <summary>
         /// 

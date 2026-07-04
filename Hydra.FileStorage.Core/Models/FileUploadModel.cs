@@ -26,7 +26,7 @@ namespace Hydra.FileStorage.Core.Models
         {
             get
             {
-                return $"{Directory}/{FileName}";
+                return $"/{Directory}{FileName}";
             }
         }
     }

@@ -18,20 +18,20 @@ namespace Hydra.Cms.Core.EntityConfiguration
             builder.HasData(new LinkSection()
             {
                 Id = 1,
-                Title = "Categories",
-                Key = "Categories",
+                Title = "Shop",
+                Key = "shop",
                 IsVisible = true,
             }, new LinkSection()
             {
                 Id = 2,
-                Title = "Recent Post",
-                Key = "RecentPosts",
+                Title = "Support",
+                Key = "support",
                 IsVisible = true,
             }, new LinkSection()
             {
                 Id = 3,
-                Title = "Footer",
-                Key = "Footer",
+                Title = "Company",
+                Key = "company",
                 IsVisible = true,
             });
         }

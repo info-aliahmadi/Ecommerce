@@ -45,7 +45,7 @@ namespace Hydra.Cms.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>
         /// 

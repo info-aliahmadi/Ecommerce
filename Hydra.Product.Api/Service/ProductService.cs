@@ -95,6 +95,13 @@ namespace Hydra.Product.Api.Services
                 query = query.Where(x => x.ProductManufacturers.Any(m => productFilter.ManufacturerIds.Contains(m.ManufacturerId)));
             }
 
+
+            // Apply Attribute Types filter
+            if (productFilter.AttributeTypes.Count > 0)
+            {
+                query = query.Where(x => x.ProductAttributes.Any(c => productFilter.AttributeTypes.Contains(c.Attribute.AttributeType)));
+            }
+
             // Apply TopRate filter
             if (productFilter.TopRate.HasValue)
             {
@@ -104,67 +111,76 @@ namespace Hydra.Product.Api.Services
             // Apply manufacturer filter
             if (productFilter.TopSell.HasValue)
             {
-                query = query.Include(x=>x.OrderItems).OrderByDescending(c => c.OrderItems.Count());
+                query = query.Include(x => x.OrderItems).OrderByDescending(c => c.OrderItems.Count());
             }
 
             var list = (from product in query
-                              select new ProductModel()
-                              {
-                                  Id = product.Id,
-                                  CreateUserId = product.CreateUserId,
-                                  UpdateUserId = product.UpdateUserId,
-                                  Name = product.Name,
-                                  MetaKeywords = product.MetaKeywords,
-                                  MetaTitle = product.MetaTitle,
-                                  FullDescription = product.FullDescription,
-                                  AdminComment = product.AdminComment,
-                                  MetaDescription = product.MetaDescription,
-                                  DeliveryDateType = product.DeliveryDateType,
-                                  TaxCategoryId = product.TaxCategoryId,
-                                  TaxCategoryName = product.TaxCategory.Name,
-                                  StockQuantity = product.StockQuantity,
-                                  MinStockQuantity = product.MinStockQuantity,
-                                  NotifyAdminForQuantityBelow = product.NotifyAdminForQuantityBelow,
-                                  OrderMinimumQuantity = product.OrderMinimumQuantity,
-                                  OrderMaximumQuantity = product.OrderMaximumQuantity,
-                                  SellUnitPrice = product.SellUnitPrice,
-                                  OldSellUnitPrice = product.OldSellUnitPrice,
-                                  CurrencyType = product.CurrencyType,
-                                  AvailableStartDateTimeUtc = product.AvailableStartDateTimeUtc,
-                                  AvailableEndDateTimeUtc = product.AvailableEndDateTimeUtc,
-                                  DisplayOrder = product.DisplayOrder,
-                                  ApprovedRatingSum = product.ApprovedRatingSum,
-                                  NotApprovedRatingSum = product.NotApprovedRatingSum,
-                                  ApprovedTotalReviews = product.ApprovedTotalReviews,
-                                  NotApprovedTotalReviews = product.NotApprovedTotalReviews,
-                                  HasDiscountsApplied = product.HasDiscountsApplied,
-                                  MarkAsNew = product.MarkAsNew,
-                                  MarkAsNewStartDateTimeUtc = product.MarkAsNewStartDateTimeUtc,
-                                  MarkAsNewEndDateTimeUtc = product.MarkAsNewEndDateTimeUtc,
-                                  NotReturnable = product.NotReturnable,
-                                  AllowedQuantities = product.AllowedQuantities,
-                                  IsTaxExempt = product.IsTaxExempt,
-                                  ShowOnHomepage = product.ShowOnHomepage,
-                                  IsFreeShipping = product.IsFreeShipping,
-                                  AllowCustomerReviews = product.AllowCustomerReviews,
-                                  DisplayStockQuantity = product.DisplayStockQuantity,
-                                  DisableBuyButton = product.DisableBuyButton,
-                                  DisableWishlistButton = product.DisableWishlistButton,
-                                  AvailableForPreOrder = product.AvailableForPreOrder,
-                                  CallForPrice = product.CallForPrice,
-                                  Published = product.Published,
-                                  Deleted = product.Deleted,
-                                  CreatedOnUtc = product.CreatedOnUtc,
-                                  UpdatedOnUtc = product.UpdatedOnUtc,
-                                  StockType = product.StockType,
-                                  PicturePreview = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
-                                  CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
-                                  ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
-                                  AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList(),
-                                  ProductTags = product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
-                              });
+                        select new ProductModel()
+                        {
+                            Id = product.Id,
+                            CreateUserId = product.CreateUserId,
+                            UpdateUserId = product.UpdateUserId,
+                            Name = product.Name,
+                            MetaKeywords = product.MetaKeywords,
+                            MetaTitle = product.MetaTitle,
+                            FullDescription = product.FullDescription,
+                            AdminComment = product.AdminComment,
+                            MetaDescription = product.MetaDescription,
+                            DeliveryDateType = product.DeliveryDateType,
+                            TaxCategoryId = product.TaxCategoryId,
+                            TaxCategoryName = product.TaxCategory.Name,
+                            StockQuantity = product.StockQuantity,
+                            MinStockQuantity = product.MinStockQuantity,
+                            NotifyAdminForQuantityBelow = product.NotifyAdminForQuantityBelow,
+                            OrderMinimumQuantity = product.OrderMinimumQuantity,
+                            OrderMaximumQuantity = product.OrderMaximumQuantity,
+                            SellUnitPrice = product.SellUnitPrice,
+                            OldSellUnitPrice = product.OldSellUnitPrice,
+                            CurrencyType = product.CurrencyType,
+                            AvailableStartDateTimeUtc = product.AvailableStartDateTimeUtc,
+                            AvailableEndDateTimeUtc = product.AvailableEndDateTimeUtc,
+                            DisplayOrder = product.DisplayOrder,
+                            ApprovedRatingSum = product.ApprovedRatingSum,
+                            NotApprovedRatingSum = product.NotApprovedRatingSum,
+                            ApprovedTotalReviews = product.ApprovedTotalReviews,
+                            NotApprovedTotalReviews = product.NotApprovedTotalReviews,
+                            HasDiscountsApplied = product.HasDiscountsApplied,
+                            MarkAsNew = product.MarkAsNew,
+                            MarkAsNewStartDateTimeUtc = product.MarkAsNewStartDateTimeUtc,
+                            MarkAsNewEndDateTimeUtc = product.MarkAsNewEndDateTimeUtc,
+                            NotReturnable = product.NotReturnable,
+                            AllowedQuantities = product.AllowedQuantities,
+                            IsTaxExempt = product.IsTaxExempt,
+                            ShowOnHomepage = product.ShowOnHomepage,
+                            IsFreeShipping = product.IsFreeShipping,
+                            AllowCustomerReviews = product.AllowCustomerReviews,
+                            DisplayStockQuantity = product.DisplayStockQuantity,
+                            DisableBuyButton = product.DisableBuyButton,
+                            DisableWishlistButton = product.DisableWishlistButton,
+                            AvailableForPreOrder = product.AvailableForPreOrder,
+                            CallForPrice = product.CallForPrice,
+                            Published = product.Published,
+                            Deleted = product.Deleted,
+                            CreatedOnUtc = product.CreatedOnUtc,
+                            UpdatedOnUtc = product.UpdatedOnUtc,
+                            StockType = product.StockType,
+                            PicturePreview = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
+                            CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
+                            ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
+                            Attributes = product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeModel()
+                            {
+                                AttributeType = z.AttributeType,
+                                Description = z.Description,
+                                DisplayOrder = z.DisplayOrder,
+                                Id = z.Id,
+                                Name = z.Name,
+                                PictureId = z.PictureId,
+                                Value = z.Value,
+                            }).ToList(),
+                            ProductTags = product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
+                        });
 
-            if (productFilter.Sorting != null )
+            if (productFilter.Sorting != null)
             {
                 var orders = new string[1] { productFilter.Sorting.Order };
 
@@ -172,6 +188,109 @@ namespace Hydra.Product.Api.Services
             }
 
             result.Data = await list.Cacheable().ToPaginatedListAsync(productFilter.PageIndex, productFilter.PageSize);
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Retrieves a paginated list of products that match the specified filter criteria.
+        /// this method used for customers in homepage and product listing page, so it only returns products that are published and not deleted.
+        /// For admin product listing, use GetList method instead which returns all products regardless of their published or deleted status.
+        /// </summary>
+        /// <remarks>The returned list is paginated according to the page index and page size specified in
+        /// the filter. Filtering supports searching by product name, metadata, descriptions, tags, price range, stock
+        /// status, categories, and manufacturers. Only products that are published and not deleted are included in the
+        /// results.</remarks>
+        /// <param name="productFilter">An object containing filtering and pagination options to apply when retrieving products. Cannot be null.
+        /// Filtering options may include search terms, price range, stock availability, category, manufacturer, and
+        /// product tags.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a Result object wrapping a
+        /// PaginatedList of ProductModel instances that match the filter criteria. The list will be empty if no
+        /// products are found.</returns>
+        public async Task<Result<List<ProductModel>>> GetPublishedCuratedProducts()
+        {
+            var result = new Result<List<ProductModel>>();
+            var currentDateTime = DateTime.UtcNow;
+            var query = _queryRepository.Table<Ecommerce.Core.Domain.Product>()
+                            .Include(x => x.ProductInventories)
+                            .ThenInclude(x => x.ProductAttribute)
+                            .Include(x => x.ProductCategories)
+                            .Include(x => x.ProductManufacturers)
+                            .Include(x => x.ProductAttributes)
+                            .Where(x => !x.Deleted && x.Published &&
+                            (x.AvailableStartDateTimeUtc != null && x.AvailableStartDateTimeUtc >= currentDateTime) &&
+                            (x.AvailableEndDateTimeUtc != null && x.AvailableEndDateTimeUtc <= currentDateTime));
+
+            query = query.Where(x => x.ProductAttributes.Any(c => c.Attribute.AttributeType == AttributeType.Style));
+
+            var list = (from product in query
+                        select new ProductModel()
+                        {
+                            Id = product.Id,
+                            CreateUserId = product.CreateUserId,
+                            UpdateUserId = product.UpdateUserId,
+                            Name = product.Name,
+                            MetaKeywords = product.MetaKeywords,
+                            MetaTitle = product.MetaTitle,
+                            FullDescription = product.FullDescription,
+                            AdminComment = product.AdminComment,
+                            MetaDescription = product.MetaDescription,
+                            DeliveryDateType = product.DeliveryDateType,
+                            TaxCategoryId = product.TaxCategoryId,
+                            TaxCategoryName = product.TaxCategory.Name,
+                            StockQuantity = product.StockQuantity,
+                            MinStockQuantity = product.MinStockQuantity,
+                            NotifyAdminForQuantityBelow = product.NotifyAdminForQuantityBelow,
+                            OrderMinimumQuantity = product.OrderMinimumQuantity,
+                            OrderMaximumQuantity = product.OrderMaximumQuantity,
+                            SellUnitPrice = product.SellUnitPrice,
+                            OldSellUnitPrice = product.OldSellUnitPrice,
+                            CurrencyType = product.CurrencyType,
+                            AvailableStartDateTimeUtc = product.AvailableStartDateTimeUtc,
+                            AvailableEndDateTimeUtc = product.AvailableEndDateTimeUtc,
+                            DisplayOrder = product.DisplayOrder,
+                            ApprovedRatingSum = product.ApprovedRatingSum,
+                            NotApprovedRatingSum = product.NotApprovedRatingSum,
+                            ApprovedTotalReviews = product.ApprovedTotalReviews,
+                            NotApprovedTotalReviews = product.NotApprovedTotalReviews,
+                            HasDiscountsApplied = product.HasDiscountsApplied,
+                            MarkAsNew = product.MarkAsNew,
+                            MarkAsNewStartDateTimeUtc = product.MarkAsNewStartDateTimeUtc,
+                            MarkAsNewEndDateTimeUtc = product.MarkAsNewEndDateTimeUtc,
+                            NotReturnable = product.NotReturnable,
+                            AllowedQuantities = product.AllowedQuantities,
+                            IsTaxExempt = product.IsTaxExempt,
+                            ShowOnHomepage = product.ShowOnHomepage,
+                            IsFreeShipping = product.IsFreeShipping,
+                            AllowCustomerReviews = product.AllowCustomerReviews,
+                            DisplayStockQuantity = product.DisplayStockQuantity,
+                            DisableBuyButton = product.DisableBuyButton,
+                            DisableWishlistButton = product.DisableWishlistButton,
+                            AvailableForPreOrder = product.AvailableForPreOrder,
+                            CallForPrice = product.CallForPrice,
+                            Published = product.Published,
+                            Deleted = product.Deleted,
+                            CreatedOnUtc = product.CreatedOnUtc,
+                            UpdatedOnUtc = product.UpdatedOnUtc,
+                            StockType = product.StockType,
+                            PicturePreview = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
+                            CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
+                            ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
+                            Attributes = product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeModel()
+                            {
+                                AttributeType = z.AttributeType,
+                                Description = z.Description,
+                                DisplayOrder = z.DisplayOrder,
+                                Id = z.Id,
+                                Name = z.Name,
+                                PictureId = z.PictureId,
+                                Value = z.Value,
+                            }).ToList(),
+                            ProductTags = product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
+                        });
+
+            result.Data = list.ToList();
 
             return result;
         }
@@ -244,7 +363,16 @@ namespace Hydra.Product.Api.Services
                                   PicturePreview = product.PicturePreview.Picture.Directory + product.PicturePreview.Picture.FileName,
                                   CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
                                   ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
-                                  AttributeNames = product.ProductAttributes.Select(c => c.Attribute.Name).ToList(),
+                                  Attributes = product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeModel()
+                                  {
+                                      AttributeType = z.AttributeType,
+                                      Description = z.Description,
+                                      DisplayOrder = z.DisplayOrder,
+                                      Id = z.Id,
+                                      Name = z.Name,
+                                      PictureId = z.PictureId,
+                                      Value = z.Value,
+                                  }).ToList(),
                                   Inventories = product.ProductInventories.Select(x => new ProductInventoryModel()
                                   {
                                       Id = x.Id,
