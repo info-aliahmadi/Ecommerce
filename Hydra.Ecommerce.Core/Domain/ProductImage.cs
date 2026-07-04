@@ -3,10 +3,10 @@ using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
 
-public class ProductPicture : BaseEntity<int>
+public class ProductImage : BaseEntity<int>
 {
-    public int PictureId { get; set; }
-    public FileUpload Picture { get; set; }
+    public int ImageId { get; set; }
+    public FileUpload Image { get; set; }
     
     public int ProductId { get; set; }
 

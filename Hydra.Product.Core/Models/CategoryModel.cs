@@ -69,7 +69,7 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public int? PictureId { get; set; }
+        public int? ImagePreviewId { get; set; }
 
         /// <summary>
         /// Gets or sets the color associated with the object.
@@ -80,7 +80,7 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public FileUploadModel? PictureInfo { get; set; }
+        public FileUploadModel? ImagePreview { get; set; }
 
 
         /// <summary>
@@ -123,14 +123,6 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         /// <returns></returns>
         public DateTime UpdatedOnUtc { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int ProductsCount { get; set; }
-
 
         /// <summary>
         /// 

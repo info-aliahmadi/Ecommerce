@@ -16,13 +16,5 @@
         /// <returns></returns>
         public string Name { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int Products { get; set; }
-
-
     }
 }

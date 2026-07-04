@@ -1,6 +1,6 @@
 ﻿namespace Hydra.Product.Core.Models
 {
-    public class ProductPictureModel
+    public class ProductTagDisplayModel
     {
 
         /// <summary>
@@ -14,21 +14,14 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        public int PictureId { get; set; }
+        public string Name { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public int ProductId { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int DisplayOrder { get; set; }
+        public int ProductsCount { get; set; }
 
 
     }

@@ -1,4 +1,5 @@
-﻿using Hydra.Kernel.Data;
+﻿using Hydra.FileStorage.Core.Domain;
+using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
 
@@ -17,7 +18,8 @@ public class Category : BaseEntity<int>
 
     public int? ParentCategoryId { get; set; }
 
-    public int? PictureId { get; set; }
+    public int? ImagePreviewId { get; set; }
+    public FileUpload? ImagePreview { get; set; }
 
     public string? Color { get; set; }
 

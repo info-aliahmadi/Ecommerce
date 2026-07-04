@@ -1,9 +1,10 @@
-﻿using Hydra.Ecommerce.Core.Domain;
-using Hydra.FileStorage.Core.Models;
+﻿
+
+using Hydra.Ecommerce.Core.Domain;
 
 namespace Hydra.Product.Core.Models
 {
-    public class ProductAttributeModel
+    public class ProductAttributeDisplayModel
     {
         /// <summary>
         /// 
@@ -28,12 +29,7 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public int? ImagePreviewId { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public FileUploadModel? ImagePreview { get; set; }
-
+        public string? ImagePreviewPath { get; set; }
 
         /// <summary>
         /// show in homepage

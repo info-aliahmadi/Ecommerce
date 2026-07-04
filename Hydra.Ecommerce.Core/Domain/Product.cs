@@ -1,5 +1,6 @@
 ﻿using Hydra.Auth.Domain;
 using Hydra.Ecommerce.Core.Enums;
+using Hydra.FileStorage.Core.Domain;
 using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
@@ -96,8 +97,8 @@ public class Product : BaseEntity<int>
 
     public int CreateUserId { get; set; }
 
-    public int? PicturePreviewId { get; set; }
-    public ProductPicture? PicturePreview { get; set; }
+    public int? ImagePreviewId { get; set; }
+    public FileUpload? ImagePreview { get; set; }
 
     public DateTime CreatedOnUtc { get; set; }
 
@@ -119,7 +120,7 @@ public class Product : BaseEntity<int>
 
     public virtual List<ProductManufacturer> ProductManufacturers { get; set; } = new();
 
-    public virtual List<ProductPicture> ProductPictures { get; set; } = new();
+    public virtual List<ProductImage> ProductImages { get; set; } = new();
 
     public virtual List<ProductReview> ProductReviews { get; set; } = new();
 

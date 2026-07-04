@@ -1,4 +1,4 @@
-﻿using Hydra.Kernel.GeneralModels;
+using Hydra.Kernel.GeneralModels;
 
 using Hydra.Product.Core.Models;
 
@@ -14,7 +14,7 @@ namespace Hydra.Product.Core.Interfaces
         /// <returns>A task that represents the asynchronous operation. The task result contains a Result object with a
         /// PaginatedList of ProductModel instances that match the filter. The list may be empty if no products meet the
         /// criteria.</returns>
-        Task<Result<PaginatedList<ProductModel>>> GetPublishedProducts(ProductFilterModel productFilter);
+        Task<Result<PaginatedList<ProductDisplayModel>>> GetPublishedProducts(ProductFilterDisplayModel productFilter);
 
         /// <summary>
         ///
@@ -71,6 +71,12 @@ namespace Hydra.Product.Core.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<Result> Remove(int id);
+
+        /// <summary>
+        /// Retrieves published products grouped by featured Style attributes.
+        /// Returns up to 5 products per attribute.
+        /// </summary>
+        Task<Result<List<CuratedProductGroupModel>>> GetPublishedCuratedProducts();
 
     }
 }

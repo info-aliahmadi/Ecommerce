@@ -22,12 +22,12 @@ public class ProductAttribute : BaseEntity<int>
     /// <summary>
     /// 
     /// </summary>
-    public int? PictureId { get; set; }
+    public int? ImagePreviewId { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
-    public FileUpload? Picture { get; set; }
+    public FileUpload? ImagePreview { get; set; }
 
     /// <summary>
     /// 
@@ -65,6 +65,7 @@ public enum AttributeType
     Width = 4,
     Height = 5,
     Material = 6,
+    // Curated Products which show in CuratedProducts Looks in homepage
     Style = 7,
     Pattern = 8,
     Brand = 9,

@@ -64,7 +64,7 @@ namespace Hydra.Product.Api.Services
                              Description = category.Description,
                              MetaDescription = category.MetaDescription,
                              ParentCategoryId = category.ParentCategoryId,
-                             PictureId = category.PictureId,
+                             ImagePreviewId = category.ImagePreviewId,
                              ShowOnHomepage = category.ShowOnHomepage,
                              Published = category.Published,
                              Deleted = category.Deleted,
@@ -81,13 +81,13 @@ namespace Hydra.Product.Api.Services
             }
             var list = query.OrderBy(x => x.DisplayOrder).Cacheable().ToList();
 
-            var listIds = list.Where(x => x.PictureId != null).Select(x => x.PictureId).ToArray();
+            var listIds = list.Where(x => x.PreviewImageId != null).Select(x => x.PreviewImageId).ToArray();
             var files = _queryRepository.Table<FileUpload>().Where(x => listIds.Contains(x.Id));
             foreach (var item in list)
             {
-                var file = files.FirstOrDefault(x => x.Id == item.PictureId);
+                var file = files.FirstOrDefault(x => x.Id == item.PreviewImageId);
                 if (file != null)
-                    item.PictureInfo = new FileUploadModel()
+                    item.PreviewImage = new FileUploadModel()
                     {
                         Id = file.Id,
                         FileName = file.FileName,
@@ -269,7 +269,7 @@ namespace Hydra.Product.Api.Services
                     Description = categoryModel.Description,
                     MetaDescription = categoryModel.MetaDescription,
                     ParentCategoryId = categoryModel.ParentCategoryId,
-                    PictureId = categoryModel.PictureId,
+                    ImagePreviewId = categoryModel.ImagePreviewId,
                     ShowOnHomepage = categoryModel.ShowOnHomepage,
                     Published = categoryModel.Published,
                     Deleted = categoryModel.Deleted,
@@ -331,7 +331,7 @@ namespace Hydra.Product.Api.Services
                 category.Description = categoryModel.Description;
                 category.MetaDescription = categoryModel.MetaDescription;
                 category.ParentCategoryId = categoryModel.ParentCategoryId;
-                category.PictureId = categoryModel.PictureId;
+                category.ImagePreviewId = categoryModel.ImagePreviewId;
                 category.ShowOnHomepage = categoryModel.ShowOnHomepage;
                 category.Published = categoryModel.Published;
                 category.Deleted = categoryModel.Deleted;

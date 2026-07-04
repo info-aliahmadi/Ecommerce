@@ -1,101 +1,102 @@
-﻿using Hydra.Ecommerce.Core.Domain;
-using Hydra.Kernel.GeneralModels;
-
+﻿using Hydra.FileStorage.Core.Models;
 
 namespace Hydra.Product.Core.Models
 {
-    public class ProductFilterModel
+    public class CategoryDisplayModel
     {
         /// <summary>
         /// 
         /// </summary>
-        public int PageIndex { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
-        public int PageSize { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Sort? Sorting { get; set; }
+        public int Id { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public string? SearchInput { get; set; } = null;
+        public string Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool? HasStockQuantity { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool? TopRate { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool? TopSell { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public decimal? FromSellUnitPrice { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public decimal? ToSellUnitPrice { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public DateTime? FromAvailableStartDateTimeUtc { get; set; } = null;
+        public string Key { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public DateTime? ToAvailableStartDateTimeUtc { get; set; } = null;
+        public string MetaKeywords { get; set; }
+
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool? HasDiscounts { get; set; }
+        public string MetaTitle { get; set; }
+
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<int>? CategoryIds { get; set; } = new();
+        public string Description { get; set; }
+
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<AttributeType>? AttributeTypes { get; set; } = new();
+        public string MetaDescription { get; set; }
+
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<int>? ManufacturerIds { get; set; } = new();
+        public int? ParentCategoryId { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string? ImagePreviewPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the color associated with the object.
+        /// </summary>
+        public string? Color { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool ShowOnHomepage { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public int DisplayOrder { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public int ProductsCount { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public int Discounts { get; set; }
+
+
+        public List<CategoryModel>? Childs { get; set; } = new List<CategoryModel>();
 
     }
-
 }
