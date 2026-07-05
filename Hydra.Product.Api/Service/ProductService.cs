@@ -600,6 +600,7 @@ namespace Hydra.Product.Api.Services
                     return result;
                 }
 
+                // create product entity
                 var product = new Ecommerce.Core.Domain.Product()
                 {
                     CreateUserId = productModel.CreateUserId,
@@ -651,81 +652,71 @@ namespace Hydra.Product.Api.Services
                     UpdatedOnUtc = null
                 };
 
-                await _commandRepository.InsertAsync(product);
-                await _commandRepository.SaveChangesAsync();
-
-                for (int i = 0; i < productModel.CategoryIds.Count; i++)
+                // use a transaction and minimize SaveChanges calls
+                var transaction = await _commandRepository.BeginTransactionAsync();
+                try
                 {
-                    await _commandRepository.InsertAsync(new ProductCategory()
-                    {
-                        ProductId = product.Id,
-                        CategoryId = productModel.CategoryIds[i],
-                        DisplayOrder = i
-                    });
-                }
+                    // insert base product and persist to obtain Id
+                    await _commandRepository.InsertAsync(product);
+                    await _commandRepository.SaveChangesAsync();
 
-                for (int i = 0; i < productModel.ManufacturerIds.Count; i++)
-                {
-                    await _commandRepository.InsertAsync(new ProductManufacturer()
-                    {
-                        ProductId = product.Id,
-                        ManufacturerId = productModel.ManufacturerIds[i],
-                        DisplayOrder = i
-                    });
-                }
+                    // prepare related entities in-memory
+                    var categories = (productModel.CategoryIds ?? Enumerable.Empty<int>())
+                        .Select((catId, idx) => new ProductCategory { ProductId = product.Id, CategoryId = catId, DisplayOrder = idx })
+                        .ToList();
 
-                for (int i = 0; i < productModel.Images.Count; i++)
-                {
-                    var img = productModel.Images[i];
-                    var displayOrder = img.DisplayOrder != 0 ? img.DisplayOrder : i;
-                    await _commandRepository.InsertAsync(new ProductImage()
-                    {
-                        ProductId = product.Id,
-                        ImageId = img.ImageId,
-                        DisplayOrder = displayOrder
-                    });
-                }
+                    var manufacturers = (productModel.ManufacturerIds ?? Enumerable.Empty<int>())
+                        .Select((mId, idx) => new ProductManufacturer { ProductId = product.Id, ManufacturerId = mId, DisplayOrder = idx })
+                        .ToList();
 
-                for (int i = 0; i < productModel.AttributeIds.Count; i++)
-                {
-                    await _commandRepository.InsertAsync(new ProductProductAttribute()
-                    {
-                        ProductId = product.Id,
-                        AttributeId = productModel.AttributeIds[i]
-                    });
-                }
+                    var images = (productModel.Images ?? Enumerable.Empty<ProductImageModel>())
+                        .Select((img, idx) => new ProductImage { ProductId = product.Id, ImageId = img.ImageId, DisplayOrder = img.DisplayOrder != 0 ? img.DisplayOrder : idx })
+                        .ToList();
 
-                for (int i = 0; i < productModel.RelatedProductIds.Count; i++)
-                {
-                    await _commandRepository.InsertAsync(new RelatedProduct()
-                    {
-                        ProductId1 = product.Id,
-                        ProductId2 = productModel.RelatedProductIds[i],
-                        DisplayOrder = i
-                    });
-                }
+                    var attributes = (productModel.AttributeIds ?? Enumerable.Empty<int>())
+                        .Select(attrId => new ProductProductAttribute { ProductId = product.Id, AttributeId = attrId })
+                        .ToList();
 
-                for (int i = 0; i < productModel.TagIds.Count; i++)
-                {
-                    await _commandRepository.InsertAsync(new ProductProductTag()
-                    {
-                        ProductId = product.Id,
-                        ProductTagId = productModel.TagIds[i],
-                    });
-                }
-                for (int i = 0; i < productModel.Inventories.Count; i++)
-                {
-                    await _commandRepository.InsertAsync(new ProductInventory()
-                    {
-                        ProductId = product.Id,
-                        AttributeId = productModel.Inventories[i].AttributeId,
-                        StockQuantity = productModel.Inventories[i].StockQuantity,
-                        ReservedQuantity = productModel.Inventories[i].ReservedQuantity,
-                        BuyUnitPrice = productModel.Inventories[i].BuyUnitPrice
-                    });
-                }
+                    var related = (productModel.RelatedProductIds ?? Enumerable.Empty<int>())
+                        .Select((rid, idx) => new RelatedProduct { ProductId1 = product.Id, ProductId2 = rid, DisplayOrder = idx })
+                        .ToList();
 
-                await _commandRepository.SaveChangesAsync();
+                    var tags = (productModel.TagIds ?? Enumerable.Empty<int>())
+                        .Select(tagId => new ProductProductTag { ProductId = product.Id, ProductTagId = tagId })
+                        .ToList();
+
+                    var inventories = (productModel.Inventories ?? Enumerable.Empty<ProductInventoryModel>())
+                        .Select(inv => new ProductInventory { ProductId = product.Id, AttributeId = inv.AttributeId, StockQuantity = inv.StockQuantity, ReservedQuantity = inv.ReservedQuantity, BuyUnitPrice = inv.BuyUnitPrice })
+                        .ToList();
+
+                    // bulk insert related entities where applicable
+                    var insertTasks = new List<Task>();
+
+                    if (categories.Any())
+                        insertTasks.Add(_commandRepository.InsertAsync(categories));
+                    if (manufacturers.Any())
+                        insertTasks.Add(_commandRepository.InsertAsync(manufacturers));
+                    if (images.Any())
+                        insertTasks.Add(_commandRepository.InsertAsync(images));
+                    if (attributes.Any())
+                        insertTasks.Add(_commandRepository.InsertAsync(attributes));
+                    if (related.Any())
+                        insertTasks.Add(_commandRepository.InsertAsync(related));
+                    if (tags.Any())
+                        insertTasks.Add(_commandRepository.InsertAsync(tags));
+                    if (inventories.Any())
+                        insertTasks.Add(_commandRepository.InsertAsync(inventories));
+
+                    if (insertTasks.Any())
+                        await Task.WhenAll(insertTasks);
+
+                    await transaction.CommitAsync();
+                }
+                catch
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
 
                 result.Data = productModel;
 
