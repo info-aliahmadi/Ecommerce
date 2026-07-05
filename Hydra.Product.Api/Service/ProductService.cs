@@ -767,7 +767,7 @@ namespace Hydra.Product.Api.Services
 
                     await UpdateRelatedProducts(product.Id, productModel.RelatedProductIds.ToArray());
 
-                    await UpdateProductInventories(product.Id, productModel.StockType, productModel.Inventories);
+                    await UpdateProductInventories(product.Id, product.StockType, productModel.StockType, productModel.Inventories);
 
                     await _commandRepository.SaveChangesAsync();
 
@@ -997,48 +997,80 @@ namespace Hydra.Product.Api.Services
             }
         }
         /// <summary>
-        /// Synchronizes product inventory records: updates existing, deletes removed, and inserts new records.
+        /// Synchronizes product inventory records based on stock type transition.
+        /// Total: exactly one row with no AttributeId. PerAttribute: multiple rows keyed by AttributeId.
         /// </summary>
-        /// <param name="productId"></param>
-        /// <param name="inventoris"></param>
-        /// <returns></returns>
-        private async Task<Result> UpdateProductInventories(int productId, StockType stockType, List<ProductInventoryModel> inventoris)
+        private async Task<Result> UpdateProductInventories(int productId, StockType oldStockType, StockType newStockType, List<ProductInventoryModel> newInventories)
         {
             var result = new Result();
             try
             {
-                var productInventories = _queryRepository.Table<ProductInventory>().Where(x => x.ProductId == productId).ToList();
+                var existingInventories = await _queryRepository.Table<ProductInventory>()
+                    .Where(x => x.ProductId == productId)
+                    .ToListAsync();
 
-                var notExistInventories = productInventories.Where(x => !inventoris.Select(c => c.Id).Contains(x.Id));
-
-                var existedInventories = productInventories.Where(x => inventoris.Select(c => c.Id).Contains(x.Id));
-
-                foreach (var product in notExistInventories)
+                if (oldStockType == newStockType)
                 {
-                    _commandRepository.DeleteAsync(product);
+                    if (newStockType == StockType.Total)
+                    {
+                        // Total → Total: update the single row
+                        var existing = existingInventories[0];
+                        var incoming = newInventories[0];
+                        existing.StockQuantity = incoming.StockQuantity;
+                        existing.ReservedQuantity = incoming.ReservedQuantity;
+                        existing.BuyUnitPrice = incoming.BuyUnitPrice;
+                        _commandRepository.UpdateAsync(existing);
+                    }
+                    else
+                    {
+                        // PerAttribute → PerAttribute: diff by Id
+                        var incomingById = newInventories.Where(x => x.Id > 0).ToDictionary(x => x.Id);
+                        //var existingIds = existingInventories.Select(x => x.Id).ToHashSet();
+
+                        // delete rows removed by the caller
+                        foreach (var inv in existingInventories.Where(x => !incomingById.ContainsKey(x.Id)))
+                            _commandRepository.DeleteAsync(inv);
+
+                        // update rows that still exist
+                        foreach (var inv in existingInventories.Where(x => incomingById.ContainsKey(x.Id)))
+                        {
+                            var incoming = incomingById[inv.Id];
+                            inv.AttributeId = incoming.AttributeId;
+                            inv.StockQuantity = incoming.StockQuantity;
+                            inv.ReservedQuantity = incoming.ReservedQuantity;
+                            inv.BuyUnitPrice = incoming.BuyUnitPrice;
+                            _commandRepository.UpdateAsync(inv);
+                        }
+
+                        // insert brand-new rows
+                        var newRows = newInventories.Where(x => x.Id == 0).ToList();
+                        if (newRows.Count > 0)
+                        {
+                            await _commandRepository.InsertAsync(newRows.Select(x => new ProductInventory
+                            {
+                                ProductId = productId,
+                                AttributeId = x.AttributeId,
+                                StockQuantity = x.StockQuantity,
+                                ReservedQuantity = x.ReservedQuantity,
+                                BuyUnitPrice = x.BuyUnitPrice
+                            }).ToList());
+                        }
+                    }
                 }
-
-                existedInventories = existedInventories.Where(x => !notExistInventories.Select(c => c.Id).Contains(x.Id));
-
-                foreach (var product in existedInventories)
+                else
                 {
-                    var newProduct = inventoris.FirstOrDefault(x => x.Id == product.Id);
+                    // Stock type changed (Total ↔ PerAttribute): wipe and recreate
+                    foreach (var inv in existingInventories)
+                        _commandRepository.DeleteAsync(inv);
 
-                    product.StockQuantity = newProduct.StockQuantity;
-
-                    _commandRepository.UpdateAsync(product);
-                }
-                var newInventories = inventoris.Where(x => x.Id == 0);
-
-                foreach (var newInv in newInventories)
-                {
-                    await _commandRepository.InsertAsync(new ProductInventory()
+                    await _commandRepository.InsertAsync(newInventories.Select(x => new ProductInventory
                     {
                         ProductId = productId,
-                        AttributeId = newInv.AttributeId,
-                        StockQuantity = newInv.StockQuantity,
-                        ReservedQuantity = 0
-                    });
+                        AttributeId = x.AttributeId,
+                        StockQuantity = x.StockQuantity,
+                        ReservedQuantity = x.ReservedQuantity,
+                        BuyUnitPrice = x.BuyUnitPrice
+                    }).ToList());
                 }
 
                 return result;
@@ -1130,7 +1162,7 @@ namespace Hydra.Product.Api.Services
             if (productModel.StockType == StockType.Total
                 && productModel.Inventories.Count != 1
                 && productModel.Inventories.Any(x => x.AttributeId != null))
-                errors.Add(new Error(nameof(productModel.StockType), "for Total StockType have to has one inventory."));
+                errors.Add(new Error(nameof(productModel.StockType), "for Total StockType have to has one inventory and withot select attribute."));
 
             if (productModel.StockType == StockType.PerAttribute && productModel.Inventories.Any(x => x.AttributeId == null))
                 errors.Add(new Error(nameof(productModel.StockType), "for Per Attribute StockType select Attribute in required."));
