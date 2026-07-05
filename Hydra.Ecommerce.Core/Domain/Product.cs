@@ -27,7 +27,7 @@ public class Product : BaseEntity<int>
 
     public StockType StockType { get; set; }
 
-    public int StockQuantity { get; set; }
+    public decimal StockQuantity { get; set; }
 
     public int MinStockQuantity { get; set; }
 

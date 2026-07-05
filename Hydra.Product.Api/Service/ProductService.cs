@@ -6,6 +6,7 @@ using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Hydra.Kernel.Extension;
+using Hydra.Ecommerce.Core.Enums;
 
 namespace Hydra.Product.Api.Services
 {
@@ -13,12 +14,10 @@ namespace Hydra.Product.Api.Services
     {
         private readonly IQueryRepository _queryRepository;
         private readonly ICommandRepository _commandRepository;
-        private readonly IProductTagService _productTagService;
-        public ProductService(IQueryRepository queryRepository, ICommandRepository commandRepository, IProductTagService productTagService)
+        public ProductService(IQueryRepository queryRepository, ICommandRepository commandRepository)
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
-            _productTagService = productTagService;
         }
 
         /// <summary>
@@ -550,184 +549,122 @@ namespace Hydra.Product.Api.Services
         public async Task<Result<ProductModel>> Add(ProductModel productModel)
         {
             var result = new Result<ProductModel>();
+
+            var validationErrors = ValidateProductModel(productModel);
+            if (validationErrors.Count > 0)
+            {
+                result.Status = ResultStatusEnum.InvalidValidation;
+                result.Message = "Validation failed.";
+                result.Errors.AddRange(validationErrors);
+                return result;
+            }
+
+            var currentDateTime = DateTime.UtcNow;
+
+            var product = new Ecommerce.Core.Domain.Product
+            {
+                CreateUserId = productModel.CreateUserId,
+                Name = productModel.Name,
+                MetaKeywords = productModel.MetaKeywords,
+                MetaTitle = productModel.MetaTitle,
+                ShortDescription = productModel.ShortDescription,
+                FullDescription = productModel.FullDescription,
+                AdminComment = productModel.AdminComment,
+                MetaDescription = productModel.MetaDescription,
+                DeliveryDateType = productModel.DeliveryDateType,
+                TaxCategoryId = productModel.TaxCategoryId,
+                StockQuantity = productModel.Inventories.Sum(x => x.StockQuantity),
+                MinStockQuantity = productModel.MinStockQuantity,
+                DisplayStockQuantity = productModel.DisplayStockQuantity,
+                StockType = productModel.StockType,
+                NotifyAdminForQuantityBelow = productModel.NotifyAdminForQuantityBelow,
+                OrderMinimumQuantity = productModel.OrderMinimumQuantity,
+                OrderMaximumQuantity = productModel.OrderMaximumQuantity,
+                SellUnitPrice = productModel.SellUnitPrice,
+                OldSellUnitPrice = productModel.OldSellUnitPrice,
+                CurrencyType = productModel.CurrencyType,
+                ImagePreviewId = productModel.ImagePreviewId,
+                AvailableStartDateTimeUtc = productModel.AvailableStartDateTimeUtc,
+                AvailableEndDateTimeUtc = productModel.AvailableEndDateTimeUtc,
+                DisplayOrder = productModel.DisplayOrder,
+                ApprovedRatingSum = productModel.ApprovedRatingSum,
+                NotApprovedRatingSum = productModel.NotApprovedRatingSum,
+                ApprovedTotalReviews = productModel.ApprovedTotalReviews,
+                NotApprovedTotalReviews = productModel.NotApprovedTotalReviews,
+                HasDiscountsApplied = productModel.HasDiscountsApplied,
+                MarkAsNew = productModel.MarkAsNew,
+                MarkAsNewStartDateTimeUtc = productModel.MarkAsNewStartDateTimeUtc,
+                MarkAsNewEndDateTimeUtc = productModel.MarkAsNewEndDateTimeUtc,
+                NotReturnable = productModel.NotReturnable,
+                AllowedQuantities = productModel.AllowedQuantities,
+                IsTaxExempt = productModel.IsTaxExempt,
+                ShowOnHomepage = productModel.ShowOnHomepage,
+                IsFreeShipping = productModel.IsFreeShipping,
+                AllowCustomerReviews = productModel.AllowCustomerReviews,
+                DisableBuyButton = productModel.DisableBuyButton,
+                DisableWishlistButton = productModel.DisableWishlistButton,
+                AvailableForPreOrder = productModel.AvailableForPreOrder,
+                CallForPrice = productModel.CallForPrice,
+                Published = productModel.Published,
+                Deleted = false,
+                CreatedOnUtc = currentDateTime,
+                UpdatedOnUtc = null
+            };
+
+            await using var transaction = await _commandRepository.BeginTransactionAsync();
             try
             {
-                var currentDateTime = DateTime.UtcNow;
+                await _commandRepository.InsertAsync(product);
+                await _commandRepository.SaveChangesAsync();
 
-                // Validation
-                var validationErrors = new List<Error>();
-                if (string.IsNullOrWhiteSpace(productModel.Name))
-                    validationErrors.Add(new Error(nameof(productModel.Name), "Product name is required."));
+                var pid = product.Id;
 
-                if (productModel.SellUnitPrice < 0)
-                    validationErrors.Add(new Error(nameof(productModel.SellUnitPrice), "SellUnitPrice must be zero or positive."));
+                var categories = productModel.CategoryIds
+                    .Select((catId, idx) => new ProductCategory { ProductId = pid, CategoryId = catId, DisplayOrder = idx })
+                    .ToList();
 
-                if (productModel.OldSellUnitPrice < 0)
-                    validationErrors.Add(new Error(nameof(productModel.OldSellUnitPrice), "OldSellUnitPrice must be zero or positive."));
+                var manufacturers = productModel.ManufacturerIds
+                    .Select((mId, idx) => new ProductManufacturer { ProductId = pid, ManufacturerId = mId, DisplayOrder = idx })
+                    .ToList();
 
-                if (!productModel.Inventories.Any())
-                    validationErrors.Add(new Error(nameof(productModel.Inventories), "input Inventory(StockQuantity) is required."));
+                var images = productModel.Images
+                    .Select((img, idx) => new ProductImage { ProductId = pid, ImageId = img.ImageId, DisplayOrder = img.DisplayOrder != 0 ? img.DisplayOrder : idx })
+                    .ToList();
 
-                if (productModel.Inventories != null)
-                {
-                    for (int i = 0; i < productModel.Inventories.Count; i++)
-                    {
-                        var inv = productModel.Inventories[i];
-                        if (inv.StockQuantity < 0)
-                            validationErrors.Add(new Error($"Inventories[{i}].StockQuantity", "StockQuantity cannot be negative."));
-                        if (inv.BuyUnitPrice < 0)
-                            validationErrors.Add(new Error($"Inventories[{i}].BuyUnitPrice", "BuyUnitPrice cannot be negative."));
-                    }
-                }
+                var attributes = productModel.AttributeIds
+                    .Select(attrId => new ProductProductAttribute { ProductId = pid, AttributeId = attrId })
+                    .ToList();
 
-                if (!productModel.ManufacturerIds.Any())
-                    validationErrors.Add(new Error(nameof(productModel.ManufacturerIds), "Manufacturer is required."));
+                var related = productModel.RelatedProductIds
+                    .Select((rid, idx) => new RelatedProduct { ProductId1 = pid, ProductId2 = rid, DisplayOrder = idx })
+                    .ToList();
 
-                if (!productModel.CategoryIds.Any())
-                    validationErrors.Add(new Error(nameof(productModel.CategoryIds), "Category is required."));
+                var tags = productModel.TagIds
+                    .Select(tagId => new ProductProductTag { ProductId = pid, ProductTagId = tagId })
+                    .ToList();
 
-                if (productModel.MeasureType == null)
-                    validationErrors.Add(new Error(nameof(productModel.MeasureType), "MeasureType is required."));
+                var inventories = productModel.Inventories
+                    .Select(inv => new ProductInventory { ProductId = pid, AttributeId = inv.AttributeId, StockQuantity = inv.StockQuantity, ReservedQuantity = inv.ReservedQuantity, BuyUnitPrice = inv.BuyUnitPrice })
+                    .ToList();
 
-                if (productModel.CurrencyType == null)
-                    validationErrors.Add(new Error(nameof(productModel.CurrencyType), "CurrencyType is required."));
+                if (categories.Count > 0) await _commandRepository.BulkInsertAsync(categories);
+                if (manufacturers.Count > 0) await _commandRepository.BulkInsertAsync(manufacturers);
+                if (images.Count > 0) await _commandRepository.BulkInsertAsync(images);
+                if (attributes.Count > 0) await _commandRepository.BulkInsertAsync(attributes);
+                if (related.Count > 0) await _commandRepository.BulkInsertAsync(related);
+                if (tags.Count > 0) await _commandRepository.BulkInsertAsync(tags);
+                if (inventories.Count > 0) await _commandRepository.BulkInsertAsync(inventories);
 
-                if (validationErrors.Any())
-                {
-                    result.Status = ResultStatusEnum.InvalidValidation;
-                    result.Message = "Validation failed.";
-                    result.Errors.AddRange(validationErrors);
-                    return result;
-                }
-
-                // create product entity
-                var product = new Ecommerce.Core.Domain.Product()
-                {
-                    CreateUserId = productModel.CreateUserId,
-                    UpdateUserId = null,
-                    Name = productModel.Name,
-                    MetaKeywords = productModel.MetaKeywords,
-                    MetaTitle = productModel.MetaTitle,
-                    ShortDescription = productModel.ShortDescription,
-                    FullDescription = productModel.FullDescription,
-                    AdminComment = productModel.AdminComment,
-                    MetaDescription = productModel.MetaDescription,
-                    DeliveryDateType = productModel.DeliveryDateType,
-                    TaxCategoryId = productModel.TaxCategoryId,
-                    StockQuantity = productModel.StockQuantity,
-                    MinStockQuantity = productModel.MinStockQuantity,
-                    NotifyAdminForQuantityBelow = productModel.NotifyAdminForQuantityBelow,
-                    OrderMinimumQuantity = productModel.OrderMinimumQuantity,
-                    OrderMaximumQuantity = productModel.OrderMaximumQuantity,
-                    SellUnitPrice = productModel.SellUnitPrice,
-                    OldSellUnitPrice = productModel.OldSellUnitPrice,
-                    CurrencyType = productModel.CurrencyType,
-                    ImagePreviewId = productModel.ImagePreviewId,
-                    AvailableStartDateTimeUtc = productModel.AvailableStartDateTimeUtc,
-                    AvailableEndDateTimeUtc = productModel.AvailableEndDateTimeUtc,
-                    DisplayOrder = productModel.DisplayOrder,
-                    ApprovedRatingSum = productModel.ApprovedRatingSum,
-                    NotApprovedRatingSum = productModel.NotApprovedRatingSum,
-                    ApprovedTotalReviews = productModel.ApprovedTotalReviews,
-                    NotApprovedTotalReviews = productModel.NotApprovedTotalReviews,
-                    HasDiscountsApplied = productModel.HasDiscountsApplied,
-                    MarkAsNew = productModel.MarkAsNew,
-                    MarkAsNewStartDateTimeUtc = productModel.MarkAsNewStartDateTimeUtc,
-                    MarkAsNewEndDateTimeUtc = productModel.MarkAsNewEndDateTimeUtc,
-                    NotReturnable = productModel.NotReturnable,
-                    AllowedQuantities = productModel.AllowedQuantities,
-                    IsTaxExempt = productModel.IsTaxExempt,
-                    ShowOnHomepage = productModel.ShowOnHomepage,
-                    IsFreeShipping = productModel.IsFreeShipping,
-                    AllowCustomerReviews = productModel.AllowCustomerReviews,
-                    DisplayStockQuantity = productModel.DisplayStockQuantity,
-                    DisableBuyButton = productModel.DisableBuyButton,
-                    DisableWishlistButton = productModel.DisableWishlistButton,
-                    AvailableForPreOrder = productModel.AvailableForPreOrder,
-                    CallForPrice = productModel.CallForPrice,
-                    Published = productModel.Published,
-                    StockType = productModel.StockType,
-                    Deleted = false,
-                    CreatedOnUtc = currentDateTime,
-                    UpdatedOnUtc = null
-                };
-
-                // use a transaction and minimize SaveChanges calls
-                var transaction = await _commandRepository.BeginTransactionAsync();
-                try
-                {
-                    // insert base product and persist to obtain Id
-                    await _commandRepository.InsertAsync(product);
-                    await _commandRepository.SaveChangesAsync();
-
-                    // prepare related entities in-memory
-                    var categories = (productModel.CategoryIds ?? Enumerable.Empty<int>())
-                        .Select((catId, idx) => new ProductCategory { ProductId = product.Id, CategoryId = catId, DisplayOrder = idx })
-                        .ToList();
-
-                    var manufacturers = (productModel.ManufacturerIds ?? Enumerable.Empty<int>())
-                        .Select((mId, idx) => new ProductManufacturer { ProductId = product.Id, ManufacturerId = mId, DisplayOrder = idx })
-                        .ToList();
-
-                    var images = (productModel.Images ?? Enumerable.Empty<ProductImageModel>())
-                        .Select((img, idx) => new ProductImage { ProductId = product.Id, ImageId = img.ImageId, DisplayOrder = img.DisplayOrder != 0 ? img.DisplayOrder : idx })
-                        .ToList();
-
-                    var attributes = (productModel.AttributeIds ?? Enumerable.Empty<int>())
-                        .Select(attrId => new ProductProductAttribute { ProductId = product.Id, AttributeId = attrId })
-                        .ToList();
-
-                    var related = (productModel.RelatedProductIds ?? Enumerable.Empty<int>())
-                        .Select((rid, idx) => new RelatedProduct { ProductId1 = product.Id, ProductId2 = rid, DisplayOrder = idx })
-                        .ToList();
-
-                    var tags = (productModel.TagIds ?? Enumerable.Empty<int>())
-                        .Select(tagId => new ProductProductTag { ProductId = product.Id, ProductTagId = tagId })
-                        .ToList();
-
-                    var inventories = (productModel.Inventories ?? Enumerable.Empty<ProductInventoryModel>())
-                        .Select(inv => new ProductInventory { ProductId = product.Id, AttributeId = inv.AttributeId, StockQuantity = inv.StockQuantity, ReservedQuantity = inv.ReservedQuantity, BuyUnitPrice = inv.BuyUnitPrice })
-                        .ToList();
-
-                    // bulk insert related entities where applicable
-                    var insertTasks = new List<Task>();
-
-                    if (categories.Any())
-                        insertTasks.Add(_commandRepository.InsertAsync(categories));
-                    if (manufacturers.Any())
-                        insertTasks.Add(_commandRepository.InsertAsync(manufacturers));
-                    if (images.Any())
-                        insertTasks.Add(_commandRepository.InsertAsync(images));
-                    if (attributes.Any())
-                        insertTasks.Add(_commandRepository.InsertAsync(attributes));
-                    if (related.Any())
-                        insertTasks.Add(_commandRepository.InsertAsync(related));
-                    if (tags.Any())
-                        insertTasks.Add(_commandRepository.InsertAsync(tags));
-                    if (inventories.Any())
-                        insertTasks.Add(_commandRepository.InsertAsync(inventories));
-
-                    if (insertTasks.Any())
-                        await Task.WhenAll(insertTasks);
-
-                    await transaction.CommitAsync();
-                }
-                catch
-                {
-                    await transaction.RollbackAsync();
-                    throw;
-                }
-
-                result.Data = productModel;
-
-                return result;
+                await transaction.CommitAsync();
             }
-            catch (Exception e)
+            catch
             {
-                result.Message = e.Message;
-                result.Status = ResultStatusEnum.ExceptionThrowed;
-                return result;
+                await transaction.RollbackAsync();
+                throw;
             }
+
+            result.Data = productModel;
+            return result;
         }
 
         /// <summary>
@@ -740,45 +677,8 @@ namespace Hydra.Product.Api.Services
             var result = new Result<ProductModel>();
             try
             {
-                // Validation
-                var validationErrors = new List<Error>();
-                if (string.IsNullOrWhiteSpace(productModel.Name))
-                    validationErrors.Add(new Error(nameof(productModel.Name), "Product name is required."));
-
-                if (productModel.SellUnitPrice < 0)
-                    validationErrors.Add(new Error(nameof(productModel.SellUnitPrice), "SellUnitPrice must be zero or positive."));
-
-                if (productModel.OldSellUnitPrice < 0)
-                    validationErrors.Add(new Error(nameof(productModel.OldSellUnitPrice), "OldSellUnitPrice must be zero or positive."));
-
-                if (!productModel.Inventories.Any())
-                    validationErrors.Add(new Error(nameof(productModel.Inventories), "input Inventory(StockQuantity) is required."));
-
-                if (productModel.Inventories != null)
-                {
-                    for (int i = 0; i < productModel.Inventories.Count; i++)
-                    {
-                        var inv = productModel.Inventories[i];
-                        if (inv.StockQuantity < 0)
-                            validationErrors.Add(new Error($"Inventories[{i}].StockQuantity", "StockQuantity cannot be negative."));
-                        if (inv.BuyUnitPrice < 0)
-                            validationErrors.Add(new Error($"Inventories[{i}].BuyUnitPrice", "BuyUnitPrice cannot be negative."));
-                    }
-                }
-
-                if (!productModel.ManufacturerIds.Any())
-                    validationErrors.Add(new Error(nameof(productModel.ManufacturerIds), "Manufacturer is required."));
-
-                if (!productModel.CategoryIds.Any())
-                    validationErrors.Add(new Error(nameof(productModel.CategoryIds), "Category is required."));
-
-                if (productModel.MeasureType == null)
-                    validationErrors.Add(new Error(nameof(productModel.MeasureType), "MeasureType is required."));
-
-                if (productModel.CurrencyType == null)
-                    validationErrors.Add(new Error(nameof(productModel.CurrencyType), "CurrencyType is required."));
-
-                if (validationErrors.Any())
+                var validationErrors = ValidateProductModel(productModel);
+                if (validationErrors.Count > 0)
                 {
                     result.Status = ResultStatusEnum.InvalidValidation;
                     result.Message = "Validation failed.";
@@ -786,94 +686,93 @@ namespace Hydra.Product.Api.Services
                     return result;
                 }
 
-                var product = await _queryRepository.Table<Ecommerce.Core.Domain.Product>().AsNoTracking().FirstAsync(x => x.Id == productModel.Id);
-                if (product is null)
+                // start transaction
+                var transaction = await _commandRepository.BeginTransactionAsync();
+                try
                 {
-                    result.Status = ResultStatusEnum.NotFound;
-                    result.Message = "The Product not found";
-                    return result;
+                    // load tracked product
+                    var product = await _queryRepository.Table<Ecommerce.Core.Domain.Product>().FirstOrDefaultAsync(x => x.Id == productModel.Id);
+                    if (product is null)
+                    {
+                        result.Status = ResultStatusEnum.NotFound;
+                        result.Message = "The Product not found";
+                        return result;
+                    }
+
+                    var currentDateTime = DateTime.UtcNow;
+
+                    // update scalar properties
+                    product.UpdateUserId = productModel.UpdateUserId;
+                    product.Name = productModel.Name;
+                    product.MetaKeywords = productModel.MetaKeywords;
+                    product.MetaTitle = productModel.MetaTitle;
+                    product.ShortDescription = productModel.ShortDescription;
+                    product.FullDescription = productModel.FullDescription;
+                    product.AdminComment = productModel.AdminComment;
+                    product.MetaDescription = productModel.MetaDescription;
+                    product.DeliveryDateType = productModel.DeliveryDateType;
+                    product.TaxCategoryId = productModel.TaxCategoryId;
+
+                    product.NotifyAdminForQuantityBelow = productModel.NotifyAdminForQuantityBelow;
+                    product.OrderMinimumQuantity = productModel.OrderMinimumQuantity;
+                    product.OrderMaximumQuantity = productModel.OrderMaximumQuantity;
+                    product.SellUnitPrice = productModel.SellUnitPrice;
+                    product.OldSellUnitPrice = productModel.OldSellUnitPrice;
+                    product.CurrencyType = productModel.CurrencyType;
+                    product.AvailableStartDateTimeUtc = productModel.AvailableStartDateTimeUtc;
+                    product.AvailableEndDateTimeUtc = productModel.AvailableEndDateTimeUtc;
+                    product.DisplayOrder = productModel.DisplayOrder;
+                    product.ApprovedRatingSum = productModel.ApprovedRatingSum;
+                    product.NotApprovedRatingSum = productModel.NotApprovedRatingSum;
+                    product.ApprovedTotalReviews = productModel.ApprovedTotalReviews;
+                    product.NotApprovedTotalReviews = productModel.NotApprovedTotalReviews;
+                    product.HasDiscountsApplied = productModel.HasDiscountsApplied;
+                    product.MarkAsNew = productModel.MarkAsNew;
+                    product.MarkAsNewStartDateTimeUtc = productModel.MarkAsNewStartDateTimeUtc;
+                    product.MarkAsNewEndDateTimeUtc = productModel.MarkAsNewEndDateTimeUtc;
+                    product.NotReturnable = productModel.NotReturnable;
+                    product.AllowedQuantities = productModel.AllowedQuantities;
+                    product.IsTaxExempt = productModel.IsTaxExempt;
+                    product.ShowOnHomepage = productModel.ShowOnHomepage;
+                    product.IsFreeShipping = productModel.IsFreeShipping;
+                    product.AllowCustomerReviews = productModel.AllowCustomerReviews;
+                    product.DisableBuyButton = productModel.DisableBuyButton;
+                    product.DisableWishlistButton = productModel.DisableWishlistButton;
+                    product.AvailableForPreOrder = productModel.AvailableForPreOrder;
+                    product.CallForPrice = productModel.CallForPrice;
+                    product.Published = productModel.Published;
+                    product.UpdatedOnUtc = currentDateTime;
+
+                    product.DisplayStockQuantity = productModel.DisplayStockQuantity;
+                    product.MinStockQuantity = productModel.MinStockQuantity;
+                    product.StockType = productModel.StockType;
+                    product.StockQuantity = productModel.Inventories.Sum(x => x.StockQuantity);
+
+                    _commandRepository.UpdateAsync(product);
+
+                    await UpdateProductCategory(product.Id, productModel.CategoryIds.ToArray());
+
+                    await UpdateProductAttribute(product.Id, productModel.AttributeIds.ToArray());
+
+                    await UpdateProductManufacturer(product.Id, productModel.ManufacturerIds.ToArray());
+
+                    await UpdateProductPicture(product.Id, productModel.Images.ToArray());
+
+                    await UpdateProductTags(product.Id, productModel.TagIds.ToArray());
+
+                    await UpdateRelatedProducts(product.Id, productModel.RelatedProductIds.ToArray());
+
+                    await UpdateProductInventories(product.Id, productModel.StockType, productModel.Inventories);
+
+                    await _commandRepository.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
                 }
-
-                var currentDateTime = DateTime.UtcNow;
-
-                //if (productModel.StockQuantity != product.StockQuantity)
-                //{
-                //    var productInventory = await _queryRepository.Table<ProductInventory>().FirstAsync(x => x.ProductId == productModel.Id);
-                //    productInventory.StockQuantity = productModel.StockQuantity;
-                //    _commandRepository.UpdateAsync(productInventory);
-                //}
-
-                product.UpdateUserId = productModel.UpdateUserId;
-                product.Name = productModel.Name;
-                product.MetaKeywords = productModel.MetaKeywords;
-                product.MetaTitle = productModel.MetaTitle;
-                product.ShortDescription = productModel.ShortDescription;
-                product.FullDescription = productModel.FullDescription;
-                product.AdminComment = productModel.AdminComment;
-                product.MetaDescription = productModel.MetaDescription;
-                product.DeliveryDateType = productModel.DeliveryDateType;
-                product.TaxCategoryId = productModel.TaxCategoryId;
-                product.StockQuantity = productModel.StockQuantity;
-                product.MinStockQuantity = productModel.MinStockQuantity;
-                product.NotifyAdminForQuantityBelow = productModel.NotifyAdminForQuantityBelow;
-                product.OrderMinimumQuantity = productModel.OrderMinimumQuantity;
-                product.OrderMaximumQuantity = productModel.OrderMaximumQuantity;
-                product.SellUnitPrice = productModel.SellUnitPrice;
-                product.OldSellUnitPrice = productModel.OldSellUnitPrice;
-                product.CurrencyType = productModel.CurrencyType;
-                //product.Weight = productModel.Weight;
-                //product.Length = productModel.Length;
-                //product.Width = productModel.Width;
-                //product.Height = productModel.Height;
-                product.AvailableStartDateTimeUtc = productModel.AvailableStartDateTimeUtc;
-                product.AvailableEndDateTimeUtc = productModel.AvailableEndDateTimeUtc;
-                product.DisplayOrder = productModel.DisplayOrder;
-                product.ApprovedRatingSum = productModel.ApprovedRatingSum;
-                product.NotApprovedRatingSum = productModel.NotApprovedRatingSum;
-                product.ApprovedTotalReviews = productModel.ApprovedTotalReviews;
-                product.NotApprovedTotalReviews = productModel.NotApprovedTotalReviews;
-                product.HasDiscountsApplied = productModel.HasDiscountsApplied;
-                product.MarkAsNew = productModel.MarkAsNew;
-                product.MarkAsNewStartDateTimeUtc = productModel.MarkAsNewStartDateTimeUtc;
-                product.MarkAsNewEndDateTimeUtc = productModel.MarkAsNewEndDateTimeUtc;
-                product.NotReturnable = productModel.NotReturnable;
-                product.AllowedQuantities = productModel.AllowedQuantities;
-                product.IsTaxExempt = productModel.IsTaxExempt;
-                product.ShowOnHomepage = productModel.ShowOnHomepage;
-                product.IsFreeShipping = productModel.IsFreeShipping;
-                product.AllowCustomerReviews = productModel.AllowCustomerReviews;
-                product.DisplayStockQuantity = productModel.DisplayStockQuantity;
-                product.DisableBuyButton = productModel.DisableBuyButton;
-                product.DisableWishlistButton = productModel.DisableWishlistButton;
-                product.AvailableForPreOrder = productModel.AvailableForPreOrder;
-                product.CallForPrice = productModel.CallForPrice;
-                product.Published = productModel.Published;
-                product.UpdatedOnUtc = currentDateTime;
-                product.UpdateUserId = productModel.UpdateUserId;
-
-
-                _commandRepository.UpdateAsync(product);
-
-                await UpdateProductCategory(product.Id, productModel.CategoryIds.ToArray());
-
-                await UpdateProductAttribute(product.Id, productModel.AttributeIds.ToArray());
-
-                await UpdateProductManufacturer(product.Id, productModel.ManufacturerIds.ToArray());
-
-                await UpdateProductPicture(product.Id, productModel.Images.ToArray());
-
-                await UpdateProductTags(product.Id, productModel.TagIds.ToArray());
-
-                await UpdateProductInventories(product.Id, productModel.Inventories);
-
-                var productInventory = _queryRepository.Table<ProductInventory>().FirstOrDefault(x => x.ProductId == product.Id);
-                productInventory.StockQuantity = product.StockQuantity;
-
-
-                await UpdateRelatedProducts(product.Id, productModel.RelatedProductIds.ToArray());
-
-                await _commandRepository.SaveChangesAsync();
-
+                catch
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
 
                 result.Data = productModel;
 
@@ -1098,7 +997,7 @@ namespace Hydra.Product.Api.Services
         /// <param name="productId"></param>
         /// <param name="inventoris"></param>
         /// <returns></returns>
-        private async Task<Result> UpdateProductInventories(int productId, List<ProductInventoryModel> inventoris)
+        private async Task<Result> UpdateProductInventories(int productId, StockType stockType, List<ProductInventoryModel> inventoris)
         {
             var result = new Result();
             try
@@ -1184,6 +1083,54 @@ namespace Hydra.Product.Api.Services
                 result.Message = e.Message;
                 return result;
             }
+        }
+
+        private static List<Error> ValidateProductModel(ProductModel productModel)
+        {
+            var errors = new List<Error>();
+
+            if (string.IsNullOrWhiteSpace(productModel.Name))
+                errors.Add(new Error(nameof(productModel.Name), "Product name is required."));
+
+            if (productModel.SellUnitPrice < 0)
+                errors.Add(new Error(nameof(productModel.SellUnitPrice), "SellUnitPrice must be zero or positive."));
+
+            if (productModel.OldSellUnitPrice < 0)
+                errors.Add(new Error(nameof(productModel.OldSellUnitPrice), "OldSellUnitPrice must be zero or positive."));
+
+            if (!productModel.ManufacturerIds.Any())
+                errors.Add(new Error(nameof(productModel.ManufacturerIds), "Manufacturer is required."));
+
+            if (!productModel.CategoryIds.Any())
+                errors.Add(new Error(nameof(productModel.CategoryIds), "Category is required."));
+
+            if (productModel.MeasureType == null)
+                errors.Add(new Error(nameof(productModel.MeasureType), "MeasureType is required."));
+
+            if (productModel.CurrencyType == null)
+                errors.Add(new Error(nameof(productModel.CurrencyType), "CurrencyType is required."));
+
+            if (!productModel.Inventories.Any())
+                errors.Add(new Error(nameof(productModel.Inventories), "input Inventory(StockQuantity) is required."));
+
+            for (int i = 0; i < productModel.Inventories.Count; i++)
+            {
+                var inv = productModel.Inventories[i];
+                if (inv.StockQuantity < 0)
+                    errors.Add(new Error($"Inventories[{i}].StockQuantity", "StockQuantity cannot be negative."));
+                if (inv.BuyUnitPrice < 0)
+                    errors.Add(new Error($"Inventories[{i}].BuyUnitPrice", "BuyUnitPrice cannot be negative."));
+            }
+
+            if (productModel.StockType == StockType.Total
+                && productModel.Inventories.Count != 1
+                && productModel.Inventories.Any(x => x.AttributeId != null))
+                errors.Add(new Error(nameof(productModel.StockType), "for Total StockType have to has one inventory."));
+
+            if (productModel.StockType == StockType.PerAttribute && productModel.Inventories.Any(x => x.AttributeId == null))
+                errors.Add(new Error(nameof(productModel.StockType), "for Per Attribute StockType select Attribute in required."));
+
+            return errors;
         }
 
         /// <summary>

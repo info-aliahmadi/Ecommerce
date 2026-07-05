@@ -97,7 +97,7 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// Current available stock quantity for the product.
         /// </summary>
-        public int StockQuantity { get; set; }
+        public decimal StockQuantity { get; set; }
 
         /// <summary>
         /// Minimum stock quantity before low-stock notifications are triggered.
