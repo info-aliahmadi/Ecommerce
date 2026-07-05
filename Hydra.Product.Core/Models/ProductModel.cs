@@ -125,11 +125,6 @@ namespace Hydra.Product.Core.Models
         public int OrderMaximumQuantity { get; set; }
 
         /// <summary>
-        /// Purchase price (cost) of the product.
-        /// </summary>
-        public decimal BuyPrice { get; set; }
-
-        /// <summary>
         /// Current selling price for the product.
         /// </summary>
         public decimal SellUnitPrice { get; set; }
@@ -143,31 +138,6 @@ namespace Hydra.Product.Core.Models
         /// Currency type used for pricing.
         /// </summary>
         public CurrencyType CurrencyType { get; set; }
-
-        /// <summary>
-        /// Currency code (e.g., USD, EUR) for display purposes.
-        /// </summary>
-        public string CurrencyCode { get; set; }
-
-        /// <summary>
-        /// Weight of the product (in the configured unit).
-        /// </summary>
-        public decimal Weight { get; set; }
-
-        /// <summary>
-        /// Length of the product (in the configured unit).
-        /// </summary>
-        public decimal Length { get; set; }
-
-        /// <summary>
-        /// Width of the product (in the configured unit).
-        /// </summary>
-        public decimal Width { get; set; }
-
-        /// <summary>
-        /// Height of the product (in the configured unit).
-        /// </summary>
-        public decimal Height { get; set; }
 
         /// <summary>
         /// The UTC datetime when the product becomes available for sale.
@@ -325,9 +295,9 @@ namespace Hydra.Product.Core.Models
         public List<ProductInventoryModel> Inventories { get; set; } = new();
 
         /// <summary>
-        /// List of file ids for additional product images.
+        /// Images associated with the product including file id and display order.
         /// </summary>
-        public List<int> ImageIds { get; set; } = new();
+        public List<ProductImageModel> Images { get; set; } = new();
 
         /// <summary>
         /// List of review identifiers for the product.

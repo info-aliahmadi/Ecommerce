@@ -1,5 +1,4 @@
 using EFCoreSecondLevelCacheInterceptor;
-using Hydra.FileStorage.Core.Models;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
 using Hydra.Ecommerce.Core.Domain;
@@ -23,9 +22,8 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        /// Retrieves a paginated list of products that match the specified filter criteria.
-        /// this method used for customers in homepage and product listing page, so it only returns products that are published and not deleted.
-        /// For admin product listing, use GetList method instead which returns all products regardless of their published or deleted status.
+        /// Retrieves a paginated list of published products that match the specified filter criteria.
+        /// This is used by customer-facing endpoints and only returns products that are published and not deleted.
         /// </summary>
         /// <remarks>The returned list is paginated according to the page index and page size specified in
         /// the filter. Filtering supports searching by product name, metadata, descriptions, tags, price range, stock
@@ -197,6 +195,9 @@ namespace Hydra.Product.Api.Services
         }
 
 
+        /// <summary>
+        /// Retrieves curated product groups for published products. Groups are built from featured Style attributes.
+        /// </summary>
         public async Task<Result<List<CuratedProductGroupModel>>> GetPublishedCuratedProducts()
         {
             var result = new Result<List<CuratedProductGroupModel>>();
@@ -295,7 +296,7 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        ///
+        /// Retrieves an admin paginated list of products (all products except deleted ones) for grid listing.
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
@@ -372,7 +373,7 @@ namespace Hydra.Product.Api.Services
                                       StockQuantity = x.StockQuantity,
                                       ReservedQuantity = x.ReservedQuantity
                                   }).ToList(),
-                                  Tags = product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList()
+                                  TagIds = product.ProductProductTags.Select(c => c.ProductTagId).ToList()
 
                               }).OrderByDescending(x => x.Id).Cacheable().ToPaginatedListAsync(dataGrid);
 
@@ -382,7 +383,7 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        ///
+        /// Retrieves a single product by identifier, including related data (categories, images, attributes, tags, inventories).
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -465,10 +466,14 @@ namespace Hydra.Product.Api.Services
                 },
                 CategoryIds = product.ProductCategories.Select(cat => cat.CategoryId).ToList(),
                 ManufacturerIds = product.ProductManufacturers.Select(cat => cat.ManufacturerId).ToList(),
-                ImageIds = product.ProductImages.Select(cat => cat.ImageId).ToList(),
+                Images = product.ProductImages.OrderBy(pi => pi.DisplayOrder).Select(pi => new ProductImageModel()
+                {
+                    ImageId = pi.ImageId,
+                    DisplayOrder = pi.DisplayOrder
+                }).ToList(),
                 AttributeIds = product.ProductAttributes.Select(cat => cat.AttributeId).ToList(),
                 RelatedProductIds = product.RelatedProductProductId1Navigations.Select(cat => cat.ProductId2).ToList(),
-                Tags = product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
+                TagIds = product.ProductProductTags.Select(c => c.ProductTagId).ToList(),
                 Inventories = product.ProductInventories.Select(x => new ProductInventoryModel()
                 {
                     Id = x.Id,
@@ -487,7 +492,7 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        ///
+        /// Retrieves a list of products by their identifiers. Returns minimal information for select lists.
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
@@ -507,9 +512,11 @@ namespace Hydra.Product.Api.Services
 
             return result;
         }
+
         /// <summary>
-        /// 
+        /// Searches products by a free-text input and returns up to 10 matching products for autocomplete/select.
         /// </summary>
+        /// <param name="input"></param>
         /// <returns></returns>
         public async Task<Result<List<ProductModel>>> GetProductsByInput(string input)
         {
@@ -527,15 +534,16 @@ namespace Hydra.Product.Api.Services
             {
                 Id = x.Id,
                 Name = x.Id + " | " + x.Name,
-                //PreviewImageId = x.ProductPictures.OrderBy(v => v.DisplayOrder).FirstOrDefault().PictureId,
             }).ToListAsync();
 
             result.Data = list;
 
             return result;
         }
+
         /// <summary>
-        ///
+        /// Adds a new product and related mappings (categories, manufacturers, images, attributes, related products, tags, inventories).
+        /// Validates input and returns validation errors when present.
         /// </summary>
         /// <param name="productModel"></param>
         /// <returns></returns>
@@ -545,6 +553,53 @@ namespace Hydra.Product.Api.Services
             try
             {
                 var currentDateTime = DateTime.UtcNow;
+
+                // Validation
+                var validationErrors = new List<Error>();
+                if (string.IsNullOrWhiteSpace(productModel.Name))
+                    validationErrors.Add(new Error(nameof(productModel.Name), "Product name is required."));
+
+                if (productModel.SellUnitPrice < 0)
+                    validationErrors.Add(new Error(nameof(productModel.SellUnitPrice), "SellUnitPrice must be zero or positive."));
+
+                if (productModel.OldSellUnitPrice < 0)
+                    validationErrors.Add(new Error(nameof(productModel.OldSellUnitPrice), "OldSellUnitPrice must be zero or positive."));
+
+                if (!productModel.Inventories.Any())
+                    validationErrors.Add(new Error(nameof(productModel.Inventories), "input Inventory(StockQuantity) is required."));
+
+                if (productModel.Inventories != null)
+                {
+                    for (int i = 0; i < productModel.Inventories.Count; i++)
+                    {
+                        var inv = productModel.Inventories[i];
+                        if (inv.StockQuantity < 0)
+                            validationErrors.Add(new Error($"Inventories[{i}].StockQuantity", "StockQuantity cannot be negative."));
+                        if (inv.BuyUnitPrice < 0)
+                            validationErrors.Add(new Error($"Inventories[{i}].BuyUnitPrice", "BuyUnitPrice cannot be negative."));
+                    }
+                }
+
+                if (!productModel.ManufacturerIds.Any())
+                    validationErrors.Add(new Error(nameof(productModel.ManufacturerIds), "Manufacturer is required."));
+
+                if (!productModel.CategoryIds.Any())
+                    validationErrors.Add(new Error(nameof(productModel.CategoryIds), "Category is required."));
+
+                if (productModel.MeasureType == null)
+                    validationErrors.Add(new Error(nameof(productModel.MeasureType), "MeasureType is required."));
+
+                if (productModel.CurrencyType == null)
+                    validationErrors.Add(new Error(nameof(productModel.CurrencyType), "CurrencyType is required."));
+
+                if (validationErrors.Any())
+                {
+                    result.Status = ResultStatusEnum.InvalidValidation;
+                    result.Message = "Validation failed.";
+                    result.Errors.AddRange(validationErrors);
+                    return result;
+                }
+
                 var product = new Ecommerce.Core.Domain.Product()
                 {
                     CreateUserId = productModel.CreateUserId,
@@ -567,10 +622,6 @@ namespace Hydra.Product.Api.Services
                     OldSellUnitPrice = productModel.OldSellUnitPrice,
                     CurrencyType = productModel.CurrencyType,
                     ImagePreviewId = productModel.ImagePreviewId,
-                    //Weight = productModel.Weight,
-                    //Length = productModel.Length,
-                    //Width = productModel.Width,
-                    //Height = productModel.Height,
                     AvailableStartDateTimeUtc = productModel.AvailableStartDateTimeUtc,
                     AvailableEndDateTimeUtc = productModel.AvailableEndDateTimeUtc,
                     DisplayOrder = productModel.DisplayOrder,
@@ -623,13 +674,15 @@ namespace Hydra.Product.Api.Services
                     });
                 }
 
-                for (int i = 0; i < productModel.ImageIds.Count; i++)
+                for (int i = 0; i < productModel.Images.Count; i++)
                 {
+                    var img = productModel.Images[i];
+                    var displayOrder = img.DisplayOrder != 0 ? img.DisplayOrder : i;
                     await _commandRepository.InsertAsync(new ProductImage()
                     {
                         ProductId = product.Id,
-                        ImageId = productModel.ImageIds[i],
-                        DisplayOrder = i
+                        ImageId = img.ImageId,
+                        DisplayOrder = displayOrder
                     });
                 }
 
@@ -674,19 +727,6 @@ namespace Hydra.Product.Api.Services
 
                 await _commandRepository.SaveChangesAsync();
 
-                var tagsList = await _productTagService.Add(productModel.Tags.ToArray());
-
-                foreach (var tag in tagsList.Data)
-                {
-                    await _commandRepository.InsertAsync(new ProductProductTag()
-                    {
-                        ProductId = product.Id,
-                        ProductTagId = tag.Id
-                    });
-                }
-
-                await _commandRepository.SaveChangesAsync();
-
                 result.Data = productModel;
 
                 return result;
@@ -700,7 +740,7 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        ///
+        /// Updates an existing product and its related mappings. Performs updates using helper methods for each relation.
         /// </summary>
         /// <param name="productModel"></param>
         /// <returns></returns>
@@ -709,6 +749,52 @@ namespace Hydra.Product.Api.Services
             var result = new Result<ProductModel>();
             try
             {
+                // Validation
+                var validationErrors = new List<Error>();
+                if (string.IsNullOrWhiteSpace(productModel.Name))
+                    validationErrors.Add(new Error(nameof(productModel.Name), "Product name is required."));
+
+                if (productModel.SellUnitPrice < 0)
+                    validationErrors.Add(new Error(nameof(productModel.SellUnitPrice), "SellUnitPrice must be zero or positive."));
+
+                if (productModel.OldSellUnitPrice < 0)
+                    validationErrors.Add(new Error(nameof(productModel.OldSellUnitPrice), "OldSellUnitPrice must be zero or positive."));
+
+                if (!productModel.Inventories.Any())
+                    validationErrors.Add(new Error(nameof(productModel.Inventories), "input Inventory(StockQuantity) is required."));
+
+                if (productModel.Inventories != null)
+                {
+                    for (int i = 0; i < productModel.Inventories.Count; i++)
+                    {
+                        var inv = productModel.Inventories[i];
+                        if (inv.StockQuantity < 0)
+                            validationErrors.Add(new Error($"Inventories[{i}].StockQuantity", "StockQuantity cannot be negative."));
+                        if (inv.BuyUnitPrice < 0)
+                            validationErrors.Add(new Error($"Inventories[{i}].BuyUnitPrice", "BuyUnitPrice cannot be negative."));
+                    }
+                }
+
+                if (!productModel.ManufacturerIds.Any())
+                    validationErrors.Add(new Error(nameof(productModel.ManufacturerIds), "Manufacturer is required."));
+
+                if (!productModel.CategoryIds.Any())
+                    validationErrors.Add(new Error(nameof(productModel.CategoryIds), "Category is required."));
+
+                if (productModel.MeasureType == null)
+                    validationErrors.Add(new Error(nameof(productModel.MeasureType), "MeasureType is required."));
+
+                if (productModel.CurrencyType == null)
+                    validationErrors.Add(new Error(nameof(productModel.CurrencyType), "CurrencyType is required."));
+
+                if (validationErrors.Any())
+                {
+                    result.Status = ResultStatusEnum.InvalidValidation;
+                    result.Message = "Validation failed.";
+                    result.Errors.AddRange(validationErrors);
+                    return result;
+                }
+
                 var product = await _queryRepository.Table<Ecommerce.Core.Domain.Product>().AsNoTracking().FirstAsync(x => x.Id == productModel.Id);
                 if (product is null)
                 {
@@ -772,6 +858,7 @@ namespace Hydra.Product.Api.Services
                 product.CallForPrice = productModel.CallForPrice;
                 product.Published = productModel.Published;
                 product.UpdatedOnUtc = currentDateTime;
+                product.UpdateUserId = productModel.UpdateUserId;
 
 
                 _commandRepository.UpdateAsync(product);
@@ -782,7 +869,9 @@ namespace Hydra.Product.Api.Services
 
                 await UpdateProductManufacturer(product.Id, productModel.ManufacturerIds.ToArray());
 
-                await UpdateProductPicture(product.Id, productModel.ImageIds.ToArray());
+                await UpdateProductPicture(product.Id, productModel.Images.ToArray());
+
+                await UpdateProductTags(product.Id, productModel.TagIds.ToArray());
 
                 await UpdateProductInventories(product.Id, productModel.Inventories);
 
@@ -794,13 +883,6 @@ namespace Hydra.Product.Api.Services
 
                 await _commandRepository.SaveChangesAsync();
 
-                var newTags = productModel.Tags.ToArray();
-
-                var tagsList = await _productTagService.Add(newTags);
-
-                await UpdateProductTags(product.Id, tagsList.Data.Select(x => x.Id).ToArray());
-
-                await _commandRepository.SaveChangesAsync();
 
                 result.Data = productModel;
 
@@ -815,10 +897,10 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        /// 
+        /// Replaces categories associated with the specified product.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="roleIds"></param>
+        /// <param name="productId"></param>
+        /// <param name="newCategories"></param>
         /// <returns></returns>
         private async Task<Result> UpdateProductCategory(int productId, int[] newCategories)
         {
@@ -854,11 +936,12 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
         }
+
         /// <summary>
-        /// 
+        /// Replaces manufacturers associated with the specified product.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="roleIds"></param>
+        /// <param name="productId"></param>
+        /// <param name="newManufacturers"></param>
         /// <returns></returns>
         private async Task<Result> UpdateProductManufacturer(int productId, int[] newManufacturers)
         {
@@ -869,7 +952,7 @@ namespace Hydra.Product.Api.Services
 
                 var currentManufacturers = productManufacturers.Select(x => x.ManufacturerId).ToArray();
 
-                if (!newManufacturers.SequenceEqual(newManufacturers))
+                if (!newManufacturers.SequenceEqual(currentManufacturers))
                 {
                     foreach (var cat in productManufacturers)
                     {
@@ -895,10 +978,50 @@ namespace Hydra.Product.Api.Services
             }
         }
         /// <summary>
-        /// 
+        /// Replaces product tags for the specified product with the provided tag identifiers.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="roleIds"></param>
+        /// <param name="productId"></param>
+        /// <param name="newTags"></param>
+        /// <returns></returns>
+        private async Task<Result> UpdateProductTags(int productId, int[] newTags)
+        {
+            var result = new Result();
+            try
+            {
+                var productProductTags = _queryRepository.Table<ProductProductTag>().Where(x => x.ProductId == productId).ToList();
+
+                var currentProductTags = productProductTags.Select(x => x.ProductTagId).ToArray();
+
+                if (!newTags.SequenceEqual(currentProductTags))
+                {
+                    foreach (var cat in productProductTags)
+                    {
+                        _commandRepository.DeleteAsync(cat);
+                    }
+                    foreach (var id in newTags)
+                    {
+                        await _commandRepository.InsertAsync(new ProductProductTag()
+                        {
+                            ProductId = productId,
+                            ProductTagId = id
+                        });
+                    }
+
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                result.Message = e.Message;
+                return result;
+            }
+        }
+        /// <summary>
+        /// Replaces product attributes associated with the specified product.
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="newAttributes"></param>
         /// <returns></returns>
         private async Task<Result> UpdateProductAttribute(int productId, int[] newAttributes)
         {
@@ -935,35 +1058,39 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        /// 
+        /// Updates product image mappings including display order. Existing mappings are replaced when the new order differs.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="roleIds"></param>
+        /// <param name="productId"></param>
+        /// <param name="newPictures"></param>
         /// <returns></returns>
-        private async Task<Result> UpdateProductPicture(int productId, int[] newPictures)
+        private async Task<Result> UpdateProductPicture(int productId, ProductImageModel[] newPictures)
         {
             var result = new Result();
             try
             {
                 var productPictures = _queryRepository.Table<ProductImage>().Where(x => x.ProductId == productId).ToList();
 
-                var currentPictures = productPictures.Select(x => x.ImageId).ToArray();
+                var currentOrderedIds = productPictures.OrderBy(x => x.DisplayOrder).Select(x => x.ImageId).ToArray();
+                var newOrderedIds = newPictures.OrderBy(x => x.DisplayOrder).Select(x => x.ImageId).ToArray();
 
-                if (!newPictures.SequenceEqual(currentPictures))
+                if (!currentOrderedIds.SequenceEqual(newOrderedIds))
                 {
-                    foreach (var cat in productPictures)
+                    foreach (var pic in productPictures)
                     {
-                        _commandRepository.DeleteAsync(cat);
+                        _commandRepository.DeleteAsync(pic);
                     }
-                    foreach (var id in newPictures)
+
+                    var ordered = newPictures.OrderBy(x => x.DisplayOrder).ToList();
+                    for (int i = 0; i < ordered.Count; i++)
                     {
+                        var np = ordered[i];
                         await _commandRepository.InsertAsync(new ProductImage()
                         {
                             ProductId = productId,
-                            ImageId = id
+                            ImageId = np.ImageId,
+                            DisplayOrder = np.DisplayOrder != 0 ? np.DisplayOrder : i
                         });
                     }
-
                 }
                 return result;
             }
@@ -973,13 +1100,12 @@ namespace Hydra.Product.Api.Services
                 result.Message = e.Message;
                 return result;
             }
-
         }
         /// <summary>
-        /// 
+        /// Synchronizes product inventory records: updates existing, deletes removed, and inserts new records.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="roleIds"></param>
+        /// <param name="productId"></param>
+        /// <param name="inventoris"></param>
         /// <returns></returns>
         private async Task<Result> UpdateProductInventories(int productId, List<ProductInventoryModel> inventoris)
         {
@@ -991,7 +1117,6 @@ namespace Hydra.Product.Api.Services
                 var notExistInventories = productInventories.Where(x => !inventoris.Select(c => c.Id).Contains(x.Id));
 
                 var existedInventories = productInventories.Where(x => inventoris.Select(c => c.Id).Contains(x.Id));
-
 
                 foreach (var product in notExistInventories)
                 {
@@ -1031,10 +1156,10 @@ namespace Hydra.Product.Api.Services
             }
         }
         /// <summary>
-        /// 
+        /// Replaces related products for the specified product.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="roleIds"></param>
+        /// <param name="productId"></param>
+        /// <param name="newRelateds"></param>
         /// <returns></returns>
         private async Task<Result> UpdateRelatedProducts(int productId, int[] newRelateds)
         {
@@ -1071,50 +1196,13 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        /// 
+        /// Marks the specified product as deleted by setting its deleted flag.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="roleIds"></param>
-        /// <returns></returns>
-        private async Task<Result> UpdateProductTags(int productId, int[] newTags)
-        {
-            var result = new Result();
-            try
-            {
-                var productTags = _queryRepository.Table<ProductProductTag>().Where(x => x.ProductId == productId).ToList();
-
-                var currentTags = productTags.Select(x => x.ProductTagId).ToArray();
-
-                if (!newTags.SequenceEqual(currentTags))
-                {
-                    foreach (var cat in productTags)
-                    {
-                        _commandRepository.DeleteAsync(cat);
-                    }
-                    foreach (var id in newTags)
-                    {
-                        await _commandRepository.InsertAsync(new ProductProductTag()
-                        {
-                            ProductId = productId,
-                            ProductTagId = id
-                        });
-                    }
-                }
-                return result;
-            }
-            catch (Exception e)
-            {
-                result.Status = ResultStatusEnum.ExceptionThrowed;
-                result.Message = e.Message;
-                return result;
-            }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <remarks>This method performs a soft delete by updating the product's deleted flag rather than
+        /// removing it from the database.</remarks>
+        /// <param name="id">The unique identifier of the product to delete. Must correspond to an existing product.</param>
+        /// <returns>A Result object indicating the outcome of the delete operation. The status is set to NotFound if the product
+        /// does not exist.</returns>
         public async Task<Result> Delete(int id)
         {
             var result = new Result();
@@ -1133,10 +1221,12 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        ///
+        /// Removes the product with the specified identifier from the data store.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">The unique identifier of the product to remove.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result"/>
+        /// indicating the outcome of the remove operation. If the product is not found, the result status is set to
+        /// <see cref="ResultStatusEnum.NotFound"/>.</returns>
         public async Task<Result> Remove(int id)
         {
             var result = new Result();
