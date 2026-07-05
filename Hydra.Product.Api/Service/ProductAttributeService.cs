@@ -4,9 +4,7 @@ using Hydra.Kernel.Interface;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 using System.Linq.Dynamic.Core;
-using Hydra.Kernel.Extension;
 using Hydra.Ecommerce.Core.Domain;
 
 namespace Hydra.Product.Api.Services
@@ -38,8 +36,13 @@ namespace Hydra.Product.Api.Services
                             AttributeType = productAttribute.AttributeType,
                             Description = productAttribute.Description,
                             DisplayOrder = productAttribute.DisplayOrder,
-                            PictureId = productAttribute.PictureId,
-
+                            ImagePreviewId = productAttribute.ImagePreviewId,
+                            ImagePreview = productAttribute.ImagePreview != null ? new FileStorage.Core.Models.FileUploadModel()
+                            {
+                                Id = productAttribute.ImagePreview.Id,
+                                Directory = productAttribute.ImagePreview.Directory,
+                                FileName = productAttribute.ImagePreview.FileName
+                            } : null
                         }).OrderBy(x => x.DisplayOrder).Cacheable().ToList();
 
             return list;
@@ -113,7 +116,7 @@ namespace Hydra.Product.Api.Services
                     AttributeType = productAttributeModel.AttributeType,
                     Description = productAttributeModel.Description,
                     DisplayOrder = productAttributeModel.DisplayOrder,
-                    PictureId = productAttributeModel.PictureId
+                    ImagePreviewId = productAttributeModel.ImagePreviewId
 
                 };
 
@@ -165,7 +168,7 @@ namespace Hydra.Product.Api.Services
                 productAttribute.AttributeType = productAttributeModel.AttributeType;
                 productAttribute.Description = productAttributeModel.Description;
                 productAttribute.DisplayOrder = productAttributeModel.DisplayOrder;
-                productAttribute.PictureId = productAttributeModel.PictureId;
+                productAttribute.ImagePreviewId = productAttributeModel.ImagePreviewId;
 
                 _commandRepository.UpdateAsync(productAttribute);
                 await _commandRepository.SaveChangesAsync();

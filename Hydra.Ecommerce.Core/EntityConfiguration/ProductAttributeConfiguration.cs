@@ -112,6 +112,30 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                 Value = "XL",
                 AttributeType = AttributeType.Size,
                 Description = "Extra Large size"
+            }, new ProductAttribute()
+            {
+                Id = 13,
+                DisplayOrder = 13,
+                Name = "Weekend Casual",
+                Value = "weekend-casual",
+                AttributeType = AttributeType.Style,
+                Description = "Weekend Casual Style"
+            }, new ProductAttribute()
+            {
+                Id = 14,
+                DisplayOrder = 14,
+                Name = "Office Professional",
+                Value = "office-professional",
+                AttributeType = AttributeType.Style,
+                Description = "Office Professional Style"
+            }, new ProductAttribute()
+            {
+                Id = 15,
+                DisplayOrder = 15,
+                Name = "Evening Elegance",
+                Value = "evening-elegance",
+                AttributeType = AttributeType.Style,
+                Description = "Evening Elegance Style"
             });
         }
     }

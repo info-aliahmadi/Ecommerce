@@ -1,13 +1,10 @@
-﻿using EFCoreSecondLevelCacheInterceptor;
+using EFCoreSecondLevelCacheInterceptor;
 using Hydra.Ecommerce.Core.Domain;
-using Hydra.FileStorage.Core.Domain;
-using Hydra.FileStorage.Core.Models;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Hydra.Product.Api.Services
 {
@@ -15,403 +12,182 @@ namespace Hydra.Product.Api.Services
     {
         private readonly IQueryRepository _queryRepository;
         private readonly ICommandRepository _commandRepository;
+
         public CategoryService(IQueryRepository queryRepository, ICommandRepository commandRepository)
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
         }
 
-        /// <summary>
-        /// For AdminPage
-        /// </summary>
-        /// <returns></returns>
-        public Result<List<CategoryModel>> GetPublishedCategories()
+        public Result<List<CategoryDisplayModel>> GetPublishedHerarchyCategories()
         {
-            var result = new Result<List<CategoryModel>>();
-
-            var list = GetCategories(true);
-
-            var parents = list.Where(x => x.ParentCategoryId == null).ToList();
-            foreach (var topic in parents)
+            var displayList = GetPublishedCategories();
+            var list = displayList.Select(d => new CategoryDisplayModel
             {
-                var childs = GetChild(topic, list);
-                if (childs != null)
-                {
-                    topic.Childs.AddRange(childs);
-                }
-            }
-
-            result.Data = parents;
-
-            return result;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
-        private List<CategoryModel> GetCategories(bool? isPublished = false)
-        {
-            var query = (from category in _queryRepository.Table<Category>()
-                         select new CategoryModel()
-                         {
-                             Id = category.Id,
-                             Name = category.Name,
-                             Key = category.Key,
-                             MetaKeywords = category.MetaKeywords,
-                             MetaTitle = category.MetaTitle,
-                             Description = category.Description,
-                             MetaDescription = category.MetaDescription,
-                             ParentCategoryId = category.ParentCategoryId,
-                             ImagePreviewId = category.ImagePreviewId,
-                             ShowOnHomepage = category.ShowOnHomepage,
-                             Published = category.Published,
-                             Deleted = category.Deleted,
-                             DisplayOrder = category.DisplayOrder,
-                             CreatedOnUtc = category.CreatedOnUtc,
-                             UpdatedOnUtc = category.UpdatedOnUtc,
-                             Color = category.Color,
-                             ProductsCount = category.ProductCategories.Where(c => c.Product.Published == isPublished && c.Product.Deleted == !isPublished).Count()
-                         }).Where(x => x.Deleted == false);
-
-            if (isPublished != null)
-            {
-                query = query.Where(x => x.Published == isPublished && x.Deleted == !isPublished);
-            }
-            var list = query.OrderBy(x => x.DisplayOrder).Cacheable().ToList();
-
-            var listIds = list.Where(x => x.PreviewImageId != null).Select(x => x.PreviewImageId).ToArray();
-            var files = _queryRepository.Table<FileUpload>().Where(x => listIds.Contains(x.Id));
-            foreach (var item in list)
-            {
-                var file = files.FirstOrDefault(x => x.Id == item.PreviewImageId);
-                if (file != null)
-                    item.PreviewImage = new FileUploadModel()
-                    {
-                        Id = file.Id,
-                        FileName = file.FileName,
-                        Directory = file.Directory,
-                        Extension = file.Extension,
-                        Size = file.Size,
-                        Thumbnail = file.Thumbnail
-                    };
-            }
-
-            return list;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
-        public Result<List<CategoryModel>> GetList()
-        {
-            var result = new Result<List<CategoryModel>>();
-
-            result.Data = GetCategories();
-
-            return result;
-        }
-
-
-        /// <summary>
-        /// For AdminPage
-        /// </summary>
-        /// <returns></returns>
-        public Result<List<CategoryModel>> GetHierarchy()
-        {
-            var result = new Result<List<CategoryModel>>();
-
-            var list = GetCategories();
-
-            var parents = list.Where(x => x.ParentCategoryId == null).ToList();
-            foreach (var topic in parents)
-            {
-                var childs = GetChild(topic, list);
-                if (childs != null)
-                {
-                    topic.Childs.AddRange(childs);
-                }
-            }
-
-            result.Data = parents;
-
-            return result;
-        }
-
-        /// <summary>
-        /// Recursively retrieves the immediate child categories of the specified category, including all nested
-        /// descendants.
-        /// </summary>
-        /// <remarks>The returned list includes all levels of descendants, with each child's Childs
-        /// collection populated recursively. The method does not modify the input list except for updating the Childs
-        /// property of the returned category objects.</remarks>
-        /// <param name="topic">The parent category for which to retrieve child categories. Cannot be null.</param>
-        /// <param name="topics">The complete list of available categories to search for child relationships. Cannot be null.</param>
-        /// <returns>A list of child categories directly under the specified parent category, including their nested descendants.
-        /// Returns null if the parent category has no children.</returns>
-        private List<CategoryModel> GetChild(CategoryModel topic, List<CategoryModel> topics)
-        {
-
-            var result = topics.Where(x => x.ParentCategoryId == topic.Id).ToList();
-            if (result.Count == 0) return null;
-            foreach (var item in result)
-            {
-                var childs = GetChild(item, topics);
-                if (childs != null)
-                    item.Childs.AddRange(childs);
-            }
-            return result;
-        }
-
-
-        List<CategoryModel> resultList = new List<CategoryModel>();
-
-        /// <summary>
-        /// Retrieves a list of categories formatted for use in selection controls, excluding deleted categories.
-        /// </summary>
-        /// <remarks>The returned list includes only categories that are not marked as deleted.
-        /// Parent-child relationships are preserved to support hierarchical selection scenarios.</remarks>
-        /// <returns>A <see cref="Result{T}"/> containing a list of <see cref="CategoryModel"/> objects representing the
-        /// available categories for selection. The list will be empty if no categories are available.</returns>
-        public Result<List<CategoryModel>> GetListForSelect()
-        {
-            var result = new Result<List<CategoryModel>>();
-
-            var list = GetCategories().Where(x => !x.Deleted).Select(category => new CategoryModel()
-            {
-                Id = category.Id,
-                Name = category.Name
+                Id = d.Id,
+                Name = d.Name,
+                Key = d.Key,
+                MetaKeywords = d.MetaKeywords,
+                MetaTitle = d.MetaTitle,
+                Description = d.Description,
+                MetaDescription = d.MetaDescription,
+                ParentCategoryId = d.ParentCategoryId,
+                ShowOnHomepage = d.ShowOnHomepage,
+                DisplayOrder = d.DisplayOrder,
+                ImagePreviewPath = d.ImagePreviewPath,
+                Color = d.Color
             }).ToList();
 
             var parents = list.Where(x => x.ParentCategoryId == null).ToList();
 
-            foreach (var category in parents)
+            foreach (var parent in parents)
             {
-                GetChildOfSelect(category, "", list);
+                var children = GetChildren(parent, list);
+                parent.Childs.AddRange(children);
             }
 
-            result.Data = resultList;
-
-            return result;
+            return new Result<List<CategoryDisplayModel>> { Data = parents };
         }
-        /// <summary>
-        /// Recursively finds and returns the immediate child categories of the specified category within the provided
-        /// list.
-        /// </summary>
-        /// <remarks>This method modifies the Name property of the input category by prefixing it with the
-        /// specified indentation string. It also adds the processed category to an external result list. The method is
-        /// intended for use in recursive traversal scenarios, such as building hierarchical category
-        /// structures.</remarks>
-        /// <param name="topic">The parent category for which to find child categories. The category's name will be prefixed with the
-        /// specified indentation.</param>
-        /// <param name="space">A string used to prefix the category name, typically for indentation purposes in hierarchical displays.</param>
-        /// <param name="topics">The complete list of categories to search for child categories. Must not be null.</param>
-        /// <returns>A list of immediate child categories of the specified parent category. Returns null if no child categories
-        /// are found.</returns>
-        private List<CategoryModel> GetChildOfSelect(CategoryModel topic, string space, List<CategoryModel> topics)
+
+        private List<CategoryDisplayModel> GetPublishedCategories()
         {
-            topic.Name = space + topic.Name;
-            resultList.Add(topic);
-
-            var childs = topics.Where(x => x.ParentCategoryId == topic.Id).ToList();
-            if (childs.Count == 0)
-            {
-                return null;
-            }
-            foreach (var item in childs)
-            {
-                GetChildOfSelect(item, space + "    ", topics);
-            }
-            return childs;
+            return _queryRepository.Table<Category>()
+                .Where(x => !x.Deleted && x.Published)
+                .Select(category => new CategoryDisplayModel
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Key = category.Key,
+                    MetaKeywords = category.MetaKeywords,
+                    MetaTitle = category.MetaTitle,
+                    Description = category.Description,
+                    MetaDescription = category.MetaDescription,
+                    ParentCategoryId = category.ParentCategoryId,
+                    ImagePreviewPath = category.ImagePreview.Directory + category.ImagePreview.FileName,
+                    ShowOnHomepage = category.ShowOnHomepage,
+                    DisplayOrder = category.DisplayOrder,
+                    Color = category.Color,
+                    ProductsCount = category.ProductCategories.Count(c => c.Product.Published && !c.Product.Deleted)
+                })
+                .OrderBy(x => x.DisplayOrder)
+                .Cacheable()
+                .ToList();
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        public Result<List<CategoryModel>> GetList()
+        {
+            var categories = GetAllCategories();
+            return new Result<List<CategoryModel>> { Data = categories };
+        }
+
+        public Result<List<CategoryModel>> GetHierarchy()
+        {
+            var list = GetAllCategories();
+            var parents = list.Where(x => x.ParentCategoryId == null).ToList();
+
+            foreach (var parent in parents)
+            {
+                var children = GetChildren(parent, list);
+                parent.Childs.AddRange(children);
+            }
+
+            return new Result<List<CategoryModel>> { Data = parents };
+        }
+
+        public Result<List<CategoryModel>> GetListForSelect()
+        {
+            var categories = GetAllCategories();
+            var result = new List<CategoryModel>();
+            var parents = categories.Where(x => x.ParentCategoryId == null).ToList();
+
+            foreach (var parent in parents)
+            {
+                FlattenForSelect(parent, "", categories, result);
+            }
+
+            return new Result<List<CategoryModel>> { Data = result };
+        }
+
         public Result<CategoryModel> GetById(int id)
         {
-            var result = new Result<CategoryModel>();
-
-            result.Data = GetCategories().FirstOrDefault(x => x.Id == id) ?? new CategoryModel();
-
-            return result;
+            var category = GetAllCategories().FirstOrDefault(x => x.Id == id);
+            return new Result<CategoryModel> { Data = category ?? new CategoryModel() };
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="categoryModel"></param>
-        /// <returns></returns>
         public async Task<Result<CategoryModel>> Add(CategoryModel categoryModel)
         {
             var result = new Result<CategoryModel>();
-            try
+
+            if (await _queryRepository.Table<Category>().AnyAsync(x => x.Id == categoryModel.Id))
             {
-                bool isExist = await _queryRepository.Table<Category>().AnyAsync(x => x.Id == categoryModel.Id);
-                if (isExist)
-                {
-                    result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(categoryModel.Id), "The Id already exist"));
-                    return result;
-                }
-                var category = new Category()
-                {
-                    Name = categoryModel.Name,
-                    Key = categoryModel.Key,
-                    MetaKeywords = categoryModel.MetaKeywords,
-                    MetaTitle = categoryModel.MetaTitle,
-                    Description = categoryModel.Description,
-                    MetaDescription = categoryModel.MetaDescription,
-                    ParentCategoryId = categoryModel.ParentCategoryId,
-                    ImagePreviewId = categoryModel.ImagePreviewId,
-                    ShowOnHomepage = categoryModel.ShowOnHomepage,
-                    Published = categoryModel.Published,
-                    Deleted = categoryModel.Deleted,
-                    DisplayOrder = categoryModel.DisplayOrder,
-                    CreatedOnUtc = categoryModel.CreatedOnUtc,
-                    UpdatedOnUtc = categoryModel.UpdatedOnUtc,
-                    Color = categoryModel.Color,
-                    //ProductCategories = categoryModel.ProductCategories,
-                    //Discounts = categoryModel.Discounts,
-
-                };
-
-                await _commandRepository.InsertAsync(category);
-                await _commandRepository.SaveChangesAsync();
-
-                categoryModel.Id = category.Id;
-
-                result.Data = categoryModel;
-
+                result.Status = ResultStatusEnum.ItsDuplicate;
+                result.Errors.Add(new Error(nameof(categoryModel.Id), "The Id already exist"));
                 return result;
             }
-            catch (Exception e)
-            {
-                result.Message = e.Message;
-                result.Status = ResultStatusEnum.ExceptionThrowed;
-                return result;
-            }
+
+            var category = MapToEntity(categoryModel);
+            await _commandRepository.InsertAsync(category);
+            await _commandRepository.SaveChangesAsync();
+
+            categoryModel.Id = category.Id;
+            result.Data = categoryModel;
+            return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="categoryModel"></param>
-        /// <returns></returns>
         public async Task<Result<CategoryModel>> Update(CategoryModel categoryModel)
         {
             var result = new Result<CategoryModel>();
-            try
+
+            var category = await _queryRepository.Table<Category>().FirstOrDefaultAsync(x => x.Id == categoryModel.Id);
+            if (category is null)
             {
-                var category = await _queryRepository.Table<Category>().FirstAsync(x => x.Id == categoryModel.Id);
-                if (category is null)
-                {
-                    result.Status = ResultStatusEnum.NotFound;
-                    result.Message = "The Category not found";
-                    return result;
-                }
-                bool isExist = await _queryRepository.Table<Category>().AnyAsync(x => x.Id != categoryModel.Id && x.Name == categoryModel.Name);
-                if (isExist)
-                {
-                    result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Name already exist";
-                    result.Errors.Add(new Error(nameof(categoryModel.Id), "The Name already exist"));
-                    return result;
-                }
-                category.Name = categoryModel.Name;
-                category.Key = categoryModel.Key;
-                category.MetaKeywords = categoryModel.MetaKeywords;
-                category.MetaTitle = categoryModel.MetaTitle;
-                category.Description = categoryModel.Description;
-                category.MetaDescription = categoryModel.MetaDescription;
-                category.ParentCategoryId = categoryModel.ParentCategoryId;
-                category.ImagePreviewId = categoryModel.ImagePreviewId;
-                category.ShowOnHomepage = categoryModel.ShowOnHomepage;
-                category.Published = categoryModel.Published;
-                category.Deleted = categoryModel.Deleted;
-                category.DisplayOrder = categoryModel.DisplayOrder;
-                category.CreatedOnUtc = categoryModel.CreatedOnUtc;
-                category.UpdatedOnUtc = categoryModel.UpdatedOnUtc;
-                category.Color = categoryModel.Color;
-                //category.ProductCategories = categoryModel.ProductCategories;
-                //category.Discounts = categoryModel.Discounts;
-
-                _commandRepository.UpdateAsync(category);
-                await _commandRepository.SaveChangesAsync();
-
-                result.Data = categoryModel;
-
+                result.Status = ResultStatusEnum.NotFound;
+                result.Message = "The Category not found";
                 return result;
             }
-            catch (Exception e)
+
+            if (await _queryRepository.Table<Category>().AnyAsync(x => x.Id != categoryModel.Id && x.Name == categoryModel.Name))
             {
-                result.Message = e.Message;
-                result.Status = ResultStatusEnum.ExceptionThrowed;
+                result.Status = ResultStatusEnum.ItsDuplicate;
+                result.Errors.Add(new Error(nameof(categoryModel.Name), "The Name already exist"));
                 return result;
             }
+
+            MapToEntity(categoryModel, category);
+            _commandRepository.UpdateAsync(category);
+            await _commandRepository.SaveChangesAsync();
+
+            result.Data = categoryModel;
+            return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="linkModelList"></param>
-        /// <returns></returns>
         public async Task<Result<List<CategoryModel>>> UpdateOrder(List<CategoryModel> categoriesList)
         {
-            var result = new Result<List<CategoryModel>>();
+            var flattenMenus = FlattenEditedItems(categoriesList);
+            var editedIds = flattenMenus.Select(x => x.Id).ToArray();
 
-            var flattenMenus = new List<CategoryModel>();
+            var editedCategories = await _queryRepository.Table<Category>()
+                .Where(x => editedIds.Contains(x.Id))
+                .ToListAsync();
 
-            GetChild(categoriesList);
-
-            void GetChild(List<CategoryModel> menus)
+            foreach (var category in editedCategories)
             {
-                foreach (var item in menus)
-                {
-                    if (item.IsEdited)
-                    {
-                        flattenMenus.Add(item);
-                    }
-                    if (item.Childs.Any())
-                    {
-                        GetChild(item.Childs);
-                    }
-                }
-            }
-
-            var editedModelIds = flattenMenus.Select(x => x.Id).ToArray();
-
-
-            var editedList = _queryRepository.Table<Category>().Where(x => editedModelIds.Contains(x.Id)).ToList();
-
-            foreach (var item in editedList)
-            {
-                var model = flattenMenus.First(x => x.Id == item.Id);
-                item.DisplayOrder = model.DisplayOrder;
-                item.ParentCategoryId = model.ParentCategoryId;
-                _commandRepository.UpdateAsync(item);
+                var model = flattenMenus.First(x => x.Id == category.Id);
+                category.DisplayOrder = model.DisplayOrder;
+                category.ParentCategoryId = model.ParentCategoryId;
+                _commandRepository.UpdateAsync(category);
             }
 
             await _commandRepository.SaveChangesAsync();
 
-            result.Data = categoriesList;
-            return result;
+            return new Result<List<CategoryModel>> { Data = categoriesList };
         }
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+
         public async Task<Result> Delete(int id)
         {
             var result = new Result();
             var category = await _queryRepository.Table<Category>().FirstOrDefaultAsync(x => x.Id == id);
+
             if (category is null)
             {
                 result.Status = ResultStatusEnum.NotFound;
@@ -420,23 +196,17 @@ namespace Hydra.Product.Api.Services
             }
 
             category.Deleted = true;
-
             _commandRepository.UpdateAsync(category);
-
             await _commandRepository.SaveChangesAsync();
 
             return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public async Task<Result> Remove(int id)
         {
             var result = new Result();
             var category = await _queryRepository.Table<Category>().FirstOrDefaultAsync(x => x.Id == id);
+
             if (category is null)
             {
                 result.Status = ResultStatusEnum.NotFound;
@@ -449,6 +219,165 @@ namespace Hydra.Product.Api.Services
 
             return result;
         }
+        /// <summary>
+        /// Retrieves all categories that are not marked as deleted, ordered by display order.
+        /// </summary>
+        /// <remarks>The returned list excludes categories where the Deleted flag is set to <see
+        /// langword="true"/>. Results are ordered by the DisplayOrder property. The query may use caching to improve
+        /// performance.</remarks>
+        /// <returns>A list of <see cref="CategoryModel"/> objects representing all active categories. The list is empty if no
+        /// categories are available.</returns>
+        private List<CategoryModel> GetAllCategories()
+        {
+            return _queryRepository.Table<Category>()
+                .Where(x => !x.Deleted)
+                .Select(category => new CategoryModel
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Key = category.Key,
+                    MetaKeywords = category.MetaKeywords,
+                    MetaTitle = category.MetaTitle,
+                    Description = category.Description,
+                    MetaDescription = category.MetaDescription,
+                    ParentCategoryId = category.ParentCategoryId,
+                    ShowOnHomepage = category.ShowOnHomepage,
+                    Published = category.Published,
+                    Deleted = category.Deleted,
+                    DisplayOrder = category.DisplayOrder,
+                    CreatedOnUtc = category.CreatedOnUtc,
+                    UpdatedOnUtc = category.UpdatedOnUtc,
+                    ImagePreviewId = category.ImagePreviewId,
+                    ImagePreview = category.ImagePreview != null?  new FileStorage.Core.Models.FileUploadModel
+                    {
+                        Id = category.ImagePreview.Id,
+                        Directory = category.ImagePreview.Directory,
+                        FileName = category.ImagePreview.FileName
+                    } : null,
+                    Color = category.Color
+                })
+                .OrderBy(x => x.DisplayOrder)
+                .Cacheable()
+                .ToList();
+        }
+        /// <summary>
+        /// Retrieves the immediate and nested child categories of the specified parent category from the provided list.
+        /// </summary>
+        /// <remarks>The returned list includes both direct and indirect (nested) child categories. The
+        /// method recursively populates the Childs property of each child category with its own children.</remarks>
+        /// <param name="parent">The parent category for which to find all child categories. Cannot be null.</param>
+        /// <param name="allCategories">The complete list of categories to search for child categories. Cannot be null.</param>
+        /// <returns>A list of child categories belonging to the specified parent, including all descendants in the hierarchy.
+        /// Returns an empty list if the parent has no children.</returns>
+        private static List<CategoryModel> GetChildren(CategoryModel parent, List<CategoryModel> allCategories)
+        {
+            var children = allCategories.Where(x => x.ParentCategoryId == parent.Id).ToList();
 
+            foreach (var child in children)
+            {
+                child.Childs.AddRange(GetChildren(child, allCategories));
+            }
+
+            return children;
+        }
+
+        /// <summary>
+        /// Retrieves the immediate and nested child categories of the specified parent category from the provided list.
+        /// </summary>
+        /// <remarks>The returned list includes both direct and indirect (nested) child categories. The
+        /// method recursively populates the Childs property of each child category with its own children.</remarks>
+        /// <param name="parent">The parent category for which to find all child categories. Cannot be null.</param>
+        /// <param name="allCategories">The complete list of categories to search for child categories. Cannot be null.</param>
+        /// <returns>A list of child categories belonging to the specified parent, including all descendants in the hierarchy.
+        /// Returns an empty list if the parent has no children.</returns>
+        private static List<CategoryDisplayModel> GetChildren(CategoryDisplayModel parent, List<CategoryDisplayModel> allCategories)
+        {
+            var children = allCategories.Where(x => x.ParentCategoryId == parent.Id).ToList();
+
+            foreach (var child in children)
+            {
+                child.Childs.AddRange(GetChildren(child, allCategories));
+            }
+
+            return children;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="indent"></param>
+        /// <param name="allCategories"></param>
+        /// <param name="result"></param>
+        private static void FlattenForSelect(CategoryModel category, string indent, List<CategoryModel> allCategories, List<CategoryModel> result)
+        {
+            result.Add(new CategoryModel { Id = category.Id, Name = indent + category.Name });
+
+            foreach (var child in allCategories.Where(x => x.ParentCategoryId == category.Id))
+            {
+                FlattenForSelect(child, indent + "    ", allCategories, result);
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categories"></param>
+        /// <returns></returns>
+        private static List<CategoryModel> FlattenEditedItems(List<CategoryModel> categories)
+        {
+            var result = new List<CategoryModel>();
+
+            foreach (var item in categories)
+            {
+                if (item.IsEdited)
+                    result.Add(item);
+
+                if (item.Childs.Any())
+                    result.AddRange(FlattenEditedItems(item.Childs));
+            }
+
+            return result;
+        }
+
+        private static Category MapToEntity(CategoryModel model)
+        {
+            return new Category
+            {
+                Name = model.Name,
+                Key = model.Key,
+                MetaKeywords = model.MetaKeywords,
+                MetaTitle = model.MetaTitle,
+                Description = model.Description,
+                MetaDescription = model.MetaDescription,
+                ParentCategoryId = model.ParentCategoryId,
+                ImagePreviewId = model.ImagePreviewId,
+                ShowOnHomepage = model.ShowOnHomepage,
+                Published = model.Published,
+                Deleted = model.Deleted,
+                DisplayOrder = model.DisplayOrder,
+                CreatedOnUtc = model.CreatedOnUtc,
+                UpdatedOnUtc = model.UpdatedOnUtc,
+                Color = model.Color
+            };
+        }
+
+        private static void MapToEntity(CategoryModel model, Category entity)
+        {
+            entity.Name = model.Name;
+            entity.Key = model.Key;
+            entity.MetaKeywords = model.MetaKeywords;
+            entity.MetaTitle = model.MetaTitle;
+            entity.Description = model.Description;
+            entity.MetaDescription = model.MetaDescription;
+            entity.ParentCategoryId = model.ParentCategoryId;
+            entity.ImagePreviewId = model.ImagePreviewId;
+            entity.ShowOnHomepage = model.ShowOnHomepage;
+            entity.Published = model.Published;
+            entity.Deleted = model.Deleted;
+            entity.DisplayOrder = model.DisplayOrder;
+            entity.CreatedOnUtc = model.CreatedOnUtc;
+            entity.UpdatedOnUtc = model.UpdatedOnUtc;
+            entity.Color = model.Color;
+        }
     }
 }

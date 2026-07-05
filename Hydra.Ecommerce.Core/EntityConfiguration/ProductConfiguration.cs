@@ -33,10 +33,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("FK_Product_TaxCategory");
 
-            entity.HasOne(d => d.PicturePreview).WithMany()
-                .HasForeignKey(d => d.PicturePreviewId)
+            entity.HasOne(d => d.ImagePreview).WithMany()
+                .HasForeignKey(d => d.ImagePreviewId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Product_PicturePreview");
+                .HasConstraintName("FK_Product_ImagePreview");
 
             entity.HasOne(d => d.CreateUser).WithMany()
             .HasForeignKey(d => d.CreateUserId)

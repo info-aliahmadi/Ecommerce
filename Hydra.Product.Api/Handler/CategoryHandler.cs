@@ -21,7 +21,7 @@ namespace Hydra.Product.Api.Handler
         {
             try
             {
-                var result = _categoryService.GetPublishedCategories();
+                var result = _categoryService.GetPublishedHerarchyCategories();
 
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
 

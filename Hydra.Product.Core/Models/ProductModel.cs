@@ -10,442 +10,339 @@ namespace Hydra.Product.Core.Models
     {
 
         /// <summary>
-        /// 
+        /// The unique identifier of the product.
         /// </summary>
-        
         public int Id { get; set; }
 
         /// <summary>
-        /// 
+        /// Identifier of the user who created the product.
         /// </summary>
-        
         public int CreateUserId { get; set; }
 
         /// <summary>
-        /// 
+        /// Basic information about the user who created the product.
         /// </summary>
-        
         public AuthorModel CreateUser { get; set; }
 
         /// <summary>
-        /// 
+        /// Identifier of the user who last updated the product (if any).
         /// </summary>
-        
         public int? UpdateUserId { get; set; }
 
         /// <summary>
-        /// 
+        /// Basic information about the user who last updated the product.
         /// </summary>
-        
         public AuthorModel UpdateUser { get; set; }
 
         /// <summary>
-        /// 
+        /// The display name of the product.
         /// </summary>
-        
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// File id of the preview image for the product (if any).
         /// </summary>
-        
-        public int? PreviewImageId { get; set; }
+        public int? ImagePreviewId { get; set; }
 
         /// <summary>
-        /// 
+        /// SEO meta keywords for the product.
         /// </summary>
-        
         public string MetaKeywords { get; set; }
 
         /// <summary>
-        /// 
+        /// SEO meta title for the product.
         /// </summary>
-        
         public string MetaTitle { get; set; }
 
         /// <summary>
-        /// 
+        /// SEO meta description for the product.
         /// </summary>
-        
         public string MetaDescription { get; set; }
 
-
         /// <summary>
-        /// 
+        /// A short description shown in listings and previews.
         /// </summary>
-        
         public string ShortDescription { get; set; }
 
-
         /// <summary>
-        /// 
+        /// The full description or details of the product.
         /// </summary>
-        
         public string FullDescription { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Admin-only comments about the product.
         /// </summary>
-        
         public string AdminComment { get; set; }
 
+        /// <summary>
+        /// Type of delivery for the product.
+        /// </summary>
+        public DeliveryDateType DeliveryDateType { get; set; }
 
         /// <summary>
-        /// 
+        /// Localized/display name for the delivery date type.
         /// </summary>
-        
-        public DeliveryDateType DeliveryDateType { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        
         public string DeliveryDateName { get; set; }
 
+        /// <summary>
+        /// Identifier of the tax category applied to this product.
+        /// </summary>
+        public int TaxCategoryId { get; set; }
 
         /// <summary>
-        /// 
+        /// Display name of the tax category.
         /// </summary>
-        
-        public int TaxCategoryId { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        
         public string TaxCategoryName { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Current available stock quantity for the product.
         /// </summary>
-        
         public int StockQuantity { get; set; }
 
         /// <summary>
-        /// 
+        /// Minimum stock quantity before low-stock notifications are triggered.
         /// </summary>
-        
         public int MinStockQuantity { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Indicates whether admin should be notified when stock falls below the minimum.
         /// </summary>
-        
         public bool NotifyAdminForQuantityBelow { get; set; }
 
         /// <summary>
-        /// 
+        /// Stock tracking strategy (total or per-attribute).
         /// </summary>
         public StockType StockType { get; set; }
 
         /// <summary>
-        /// 
+        /// Minimum quantity allowed per order.
         /// </summary>
-        
         public int OrderMinimumQuantity { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Maximum quantity allowed per order.
         /// </summary>
-        
         public int OrderMaximumQuantity { get; set; }
 
-
-
         /// <summary>
-        /// قیمت خرید
+        /// Purchase price (cost) of the product.
         /// </summary>
         public decimal BuyPrice { get; set; }
 
         /// <summary>
-        /// 
+        /// Current selling price for the product.
         /// </summary>
-        
         public decimal SellUnitPrice { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Previous/old selling price used for showing discounts.
         /// </summary>
-        
         public decimal OldSellUnitPrice { get; set; }
 
         /// <summary>
-        /// 
+        /// Currency type used for pricing.
         /// </summary>
-        
         public CurrencyType CurrencyType { get; set; }
 
         /// <summary>
-        /// 
+        /// Currency code (e.g., USD, EUR) for display purposes.
         /// </summary>
-        
         public string CurrencyCode { get; set; }
 
         /// <summary>
-        /// 
+        /// Weight of the product (in the configured unit).
         /// </summary>
-        
         public decimal Weight { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Length of the product (in the configured unit).
         /// </summary>
-        
         public decimal Length { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Width of the product (in the configured unit).
         /// </summary>
-        
         public decimal Width { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Height of the product (in the configured unit).
         /// </summary>
-        
         public decimal Height { get; set; }
 
-
         /// <summary>
-        /// 
+        /// The UTC datetime when the product becomes available for sale.
         /// </summary>
-        
         public DateTime? AvailableStartDateTimeUtc { get; set; }
 
-
         /// <summary>
-        /// 
+        /// The UTC datetime when the product is no longer available for sale.
         /// </summary>
-        
         public DateTime? AvailableEndDateTimeUtc { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Display order for sorting in lists.
         /// </summary>
-        
         public int DisplayOrder { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Sum of approved ratings for the product (for quick ranking calculations).
         /// </summary>
-        
         public int ApprovedRatingSum { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Sum of not-approved ratings (if stored separately).
         /// </summary>
-        
         public int NotApprovedRatingSum { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Total number of approved reviews.
         /// </summary>
-        
         public int ApprovedTotalReviews { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Total number of not-approved reviews.
         /// </summary>
-        
         public int NotApprovedTotalReviews { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether any discounts are currently applied to the product.
         /// </summary>
-        
         public bool HasDiscountsApplied { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Indicates the product is marked as new.
         /// </summary>
-        
         public bool MarkAsNew { get; set; }
 
-
         /// <summary>
-        /// 
+        /// UTC start date for the "new" mark.
         /// </summary>
-        
         public DateTime? MarkAsNewStartDateTimeUtc { get; set; }
 
-
         /// <summary>
-        /// 
+        /// UTC end date for the "new" mark.
         /// </summary>
-        
         public DateTime? MarkAsNewEndDateTimeUtc { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Indicates whether the product can be returned.
         /// </summary>
-        
         public bool NotReturnable { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether allowed quantities (predefined quantity options) are used.
         /// </summary>
-        
         public bool AllowedQuantities { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether the product is exempt from tax.
         /// </summary>
-        
         public bool IsTaxExempt { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether the product should be shown on the homepage.
         /// </summary>
-        
         public bool ShowOnHomepage { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether the product has free shipping.
         /// </summary>
-        
         public bool IsFreeShipping { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether customers are allowed to leave reviews.
         /// </summary>
-        
         public bool AllowCustomerReviews { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether to display stock quantity to customers.
         /// </summary>
-        
         public bool DisplayStockQuantity { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether the buy button is disabled for this product.
         /// </summary>
-        
         public bool DisableBuyButton { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether the wishlist button is disabled for this product.
         /// </summary>
-        
         public bool DisableWishlistButton { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether the product is available for pre-order.
         /// </summary>
-        
         public bool AvailableForPreOrder { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Whether the product requires customers to call for price.
         /// </summary>
-        
         public bool CallForPrice { get; set; }
 
-
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether the item is published.
         /// </summary>
-        
         public bool Published { get; set; }
 
         /// <summary>
-        /// 
+        /// Whether the product is deleted (soft delete).
         /// </summary>
-        
         public bool Deleted { get; set; }
 
         /// <summary>
-        /// 
+        /// UTC datetime when the product was created.
         /// </summary>
-        
         public DateTime CreatedOnUtc { get; set; }
 
-
         /// <summary>
-        /// 
+        /// UTC datetime when the product was last updated.
         /// </summary>
-        
         public DateTime? UpdatedOnUtc { get; set; }
 
         /// <summary>
-        /// 
+        /// List of category identifiers the product belongs to.
         /// </summary>
-        
         public List<int> CategoryIds { get; set; } = new();
 
         /// <summary>
-        /// 
+        /// List of manufacturer identifiers associated with the product.
         /// </summary>
         public List<int> ManufacturerIds { get; set; } = new();
 
         /// <summary>
-        /// 
+        /// List of attribute identifiers assigned to the product.
         /// </summary>
         public List<int> AttributeIds { get; set; } = new();
 
         /// <summary>
-        /// 
+        /// Measurement unit used for dimensions/weight.
         /// </summary>
         public MeasureType MeasureType { get; set; }
 
         /// <summary>
-        /// 
+        /// Inventory records for product attributes/warehouses.
         /// </summary>
-        
         public List<ProductInventoryModel> Inventories { get; set; } = new();
 
-
         /// <summary>
-        /// 
+        /// List of file ids for additional product images.
         /// </summary>
-        
         public List<int> ImageIds { get; set; } = new();
 
-
         /// <summary>
-        /// 
+        /// List of review identifiers for the product.
         /// </summary>
-        
         public List<int> ReviewIds { get; set; } = new();
 
-
         /// <summary>
-        /// 
+        /// Related product identifiers.
         /// </summary>
-        
         public List<int> RelatedProductIds { get; set; } = new();
 
-
         /// <summary>
-        /// 
+        /// Product tag identifiers.
         /// </summary>
-        
-        public List<string> Tags { get; set; } = new();
-
+        public List<int> TagIds { get; set; } = new();
 
     }
 

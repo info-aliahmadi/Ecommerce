@@ -48,19 +48,6 @@
         /// </summary>
         public int DisplayOrder { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime CreatedOnUtc { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime UpdatedOnUtc { get; set; }
-
-
         /// <summary>
         /// 
         /// </summary>

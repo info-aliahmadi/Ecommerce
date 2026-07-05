@@ -1,4 +1,4 @@
-﻿using EFCoreSecondLevelCacheInterceptor;
+using EFCoreSecondLevelCacheInterceptor;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
 using Hydra.Ecommerce.Core.Domain;
@@ -14,23 +14,19 @@ namespace Hydra.Product.Api.Services
     {
         private readonly IQueryRepository _queryRepository;
         private readonly ICommandRepository _commandRepository;
+
         public ManufacturerService(IQueryRepository queryRepository, ICommandRepository commandRepository)
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
-        public async Task<Result<List<ManufacturerModel>>> GetPublishedManufacturers()
+        public async Task<Result<List<ManufacturerDisplayModel>>> GetPublishedManufacturers()
         {
-            var result = new Result<List<ManufacturerModel>>();
+            var result = new Result<List<ManufacturerDisplayModel>>();
 
             var list = await (from manufacturer in _queryRepository.Table<Manufacturer>()
-                              select new ManufacturerModel()
+                              select new ManufacturerDisplayModel()
                               {
                                   Id = manufacturer.Id,
                                   Name = manufacturer.Name,
@@ -38,23 +34,14 @@ namespace Hydra.Product.Api.Services
                                   MetaTitle = manufacturer.MetaTitle,
                                   Description = manufacturer.Description,
                                   MetaDescription = manufacturer.MetaDescription,
-                                  PictureId = manufacturer.PictureId,
-                                  Published = manufacturer.Published,
-                                  Deleted = manufacturer.Deleted,
+                                  ImagePreviewPath = manufacturer.ImagePreview.Directory + manufacturer.ImagePreview.FileName,
                                   DisplayOrder = manufacturer.DisplayOrder,
-                                  CreatedOnUtc = manufacturer.CreatedOnUtc,
-                                  UpdatedOnUtc = manufacturer.UpdatedOnUtc
-
+                                  ProductsCount = manufacturer.ProductManufacturers.Where(x => !x.Product.Deleted && x.Product.Published).Count(),
                               }).OrderBy(x => x.DisplayOrder).Cacheable().ToListAsync();
             result.Data = list;
             return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
         public async Task<Result<List<ManufacturerModel>>> GetManufacturersList()
         {
             var result = new Result<List<ManufacturerModel>>();
@@ -68,61 +55,48 @@ namespace Hydra.Product.Api.Services
                                   MetaTitle = manufacturer.MetaTitle,
                                   Description = manufacturer.Description,
                                   MetaDescription = manufacturer.MetaDescription,
-                                  PictureId = manufacturer.PictureId,
                                   Published = manufacturer.Published,
                                   Deleted = manufacturer.Deleted,
                                   DisplayOrder = manufacturer.DisplayOrder,
                                   CreatedOnUtc = manufacturer.CreatedOnUtc,
-                                  UpdatedOnUtc = manufacturer.UpdatedOnUtc
-
+                                  UpdatedOnUtc = manufacturer.UpdatedOnUtc,
+                                  ImagePreviewId = manufacturer.ImagePreviewId,
+                                  ImagePreview = manufacturer.ImagePreview != null ? new FileStorage.Core.Models.FileUploadModel()
+                                  {
+                                      Id = manufacturer.ImagePreview.Id,
+                                      FileName = manufacturer.ImagePreview.FileName,
+                                      Directory = manufacturer.ImagePreview.Directory,
+                                      Size = manufacturer.ImagePreview.Size,
+                                  } : null,
                               }).OrderBy(x => x.DisplayOrder).Cacheable().ToListAsync();
             result.Data = list;
             return result;
         }
 
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
         public async Task<Result<List<ManufacturerModel>>> GetListForSelect()
         {
-            var result = new Result<List<ManufacturerModel>>();
-
-            var list = await GetManufacturersList();
-            result.Data = list.Data;
-            return result;
+            return await GetManufacturersList();
         }
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+
         public Result<ManufacturerModel> GetById(int id)
         {
             var result = new Result<ManufacturerModel>();
-
-            result.Data = GetManufacturersList().Result.Data.FirstOrDefault(x => x.Id == id) ?? new ManufacturerModel();
-
+            var list = GetManufacturersList().GetAwaiter().GetResult();
+            result.Data = list.Data?.FirstOrDefault(x => x.Id == id) ?? new ManufacturerModel();
             return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="manufacturerModel"></param>
-        /// <returns></returns>
         public async Task<Result<ManufacturerModel>> Add(ManufacturerModel manufacturerModel)
         {
             var result = new Result<ManufacturerModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<Manufacturer>().AnyAsync(x => x.Id != manufacturerModel.Id && x.Name == manufacturerModel.Name);
+                bool isExist = await _queryRepository.Table<Manufacturer>().AnyAsync(x => x.Name == manufacturerModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Name already exist";
-                    result.Errors.Add(new Error(nameof(manufacturerModel.Id), "The Name already exist"));
+                    result.Message = "The Name already exists";
+                    result.Errors.Add(new Error(nameof(manufacturerModel.Id), "The Name already exists"));
                     return result;
                 }
 
@@ -134,24 +108,19 @@ namespace Hydra.Product.Api.Services
                     MetaTitle = manufacturerModel.MetaTitle,
                     Description = manufacturerModel.Description,
                     MetaDescription = manufacturerModel.MetaDescription,
-                    PictureId = manufacturerModel.PictureId,
+                    ImagePreviewId = manufacturerModel.ImagePreviewId,
                     Published = manufacturerModel.Published,
                     Deleted = false,
                     DisplayOrder = manufacturerModel.DisplayOrder,
                     CreatedOnUtc = date,
                     UpdatedOnUtc = date
-                    //ProductManufacturers = manufacturerModel.ProductManufacturers,
-                    //Discounts = manufacturerModel.Discounts,
-
                 };
 
                 await _commandRepository.InsertAsync(manufacturer);
                 await _commandRepository.SaveChangesAsync();
 
                 manufacturerModel.Id = manufacturer.Id;
-
                 result.Data = manufacturerModel;
-
                 return result;
             }
             catch (Exception e)
@@ -162,11 +131,6 @@ namespace Hydra.Product.Api.Services
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="manufacturerModel"></param>
-        /// <returns></returns>
         public async Task<Result<ManufacturerModel>> Update(ManufacturerModel manufacturerModel)
         {
             var result = new Result<ManufacturerModel>();
@@ -179,12 +143,13 @@ namespace Hydra.Product.Api.Services
                     result.Message = "The Manufacturer not found";
                     return result;
                 }
-                var isExist = await _queryRepository.Table<Manufacturer>().AnyAsync(x => x.Id != manufacturerModel.Id && x.Name == manufacturer.Name);
+
+                var isExist = await _queryRepository.Table<Manufacturer>().AnyAsync(x => x.Id != manufacturerModel.Id && x.Name == manufacturerModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Name already exist";
-                    result.Errors.Add(new Error(nameof(manufacturerModel.Id), "The Name already exist"));
+                    result.Message = "The Name already exists";
+                    result.Errors.Add(new Error(nameof(manufacturerModel.Id), "The Name already exists"));
                     return result;
                 }
 
@@ -193,7 +158,7 @@ namespace Hydra.Product.Api.Services
                 manufacturer.MetaTitle = manufacturerModel.MetaTitle;
                 manufacturer.Description = manufacturerModel.Description;
                 manufacturer.MetaDescription = manufacturerModel.MetaDescription;
-                manufacturer.PictureId = manufacturerModel.PictureId;
+                manufacturer.ImagePreviewId = manufacturerModel.ImagePreviewId;
                 manufacturer.Published = manufacturerModel.Published;
                 manufacturer.UpdatedOnUtc = DateTime.UtcNow;
 
@@ -201,7 +166,6 @@ namespace Hydra.Product.Api.Services
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = manufacturerModel;
-
                 return result;
             }
             catch (Exception e)
@@ -212,18 +176,12 @@ namespace Hydra.Product.Api.Services
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="linkModelList"></param>
-        /// <returns></returns>
         public async Task<Result<List<ManufacturerModel>>> UpdateOrder(List<ManufacturerModel> linkModelList)
         {
             var result = new Result<List<ManufacturerModel>>();
 
-
             var ids = linkModelList.Select(x => x.Id).ToArray();
-            var i = linkModelList.Count();
+            var i = linkModelList.Count;
             foreach (var item in linkModelList)
             {
                 item.DisplayOrder = i--;
@@ -243,11 +201,6 @@ namespace Hydra.Product.Api.Services
             return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public async Task<Result> Delete(int id)
         {
             var result = new Result();
@@ -263,17 +216,10 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
 
-            if (manufacturer.Discounts.Any())
+            if (manufacturer.Discounts.Any() || manufacturer.ProductManufacturers.Any())
             {
                 result.Status = ResultStatusEnum.InvalidValidation;
-                result.Message = "The Manufacturer Has Any Child";
-                return result;
-            }
-
-            if (manufacturer.ProductManufacturers.Any())
-            {
-                result.Status = ResultStatusEnum.InvalidValidation;
-                result.Message = "The Manufacturer Has Any Child";
+                result.Message = "The Manufacturer has associated items and cannot be deleted";
                 return result;
             }
 
@@ -282,6 +228,5 @@ namespace Hydra.Product.Api.Services
 
             return result;
         }
-
     }
 }

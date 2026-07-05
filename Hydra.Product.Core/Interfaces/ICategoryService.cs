@@ -12,7 +12,7 @@ namespace Hydra.Product.Core.Interfaces
         /// </summary>
         /// <returns>A <see cref="Result{T}"/> containing a list of <see cref="CategoryModel"/> objects representing the
         /// published categories. If no categories are published, the list will be empty.</returns>
-        Result<List<CategoryModel>> GetPublishedCategories();
+        Result<List<CategoryDisplayModel>> GetPublishedHerarchyCategories();
         /// <summary>
         ///
         /// </summary>

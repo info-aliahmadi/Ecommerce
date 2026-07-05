@@ -13,7 +13,7 @@ namespace Hydra.Product.Core.Interfaces
         /// <returns>A task that represents the asynchronous operation. The task result contains a <see cref="Result{T}"/> object
         /// with a list of <see cref="ManufacturerModel"/> instances representing the published manufacturers. The list
         /// is empty if no manufacturers are published.</returns>
-        Task<Result<List<ManufacturerModel>>> GetPublishedManufacturers();
+        Task<Result<List<ManufacturerDisplayModel>>> GetPublishedManufacturers();
 
         /// <summary>
         ///

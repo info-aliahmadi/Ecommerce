@@ -2006,6 +2006,10 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("display_order");
 
+                    b.Property<int?>("ImagePreviewId")
+                        .HasColumnType("integer")
+                        .HasColumnName("image_preview_id");
+
                     b.Property<string>("Key")
                         .IsRequired()
                         .HasMaxLength(70)
@@ -2040,10 +2044,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("parent_category_id");
 
-                    b.Property<int?>("PictureId")
-                        .HasColumnType("integer")
-                        .HasColumnName("picture_id");
-
                     b.Property<bool>("Published")
                         .HasColumnType("boolean")
                         .HasColumnName("published");
@@ -2062,6 +2062,9 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.HasIndex("DisplayOrder")
                         .HasDatabaseName("ix_category_display_order");
+
+                    b.HasIndex("ImagePreviewId")
+                        .HasDatabaseName("ix_category_image_preview_id");
 
                     b.HasIndex("ParentCategoryId")
                         .HasDatabaseName("ix_category_parent_category_id");
@@ -5866,6 +5869,10 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("display_order");
 
+                    b.Property<int?>("ImagePreviewId")
+                        .HasColumnType("integer")
+                        .HasColumnName("image_preview_id");
+
                     b.Property<string>("MetaDescription")
                         .IsRequired()
                         .HasMaxLength(300)
@@ -5890,10 +5897,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("character varying(70)")
                         .HasColumnName("name");
 
-                    b.Property<int?>("PictureId")
-                        .HasColumnType("integer")
-                        .HasColumnName("picture_id");
-
                     b.Property<bool>("Published")
                         .HasColumnType("boolean")
                         .HasColumnName("published");
@@ -5904,6 +5907,9 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_manufacturer");
+
+                    b.HasIndex("ImagePreviewId")
+                        .HasDatabaseName("ix_manufacturer_image_preview_id");
 
                     b.HasIndex(new[] { "DisplayOrder" }, "IX_Manufacturer_DisplayOrder")
                         .HasDatabaseName("ix_manufacturer_display_order");
@@ -6457,6 +6463,10 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("has_discounts_applied");
 
+                    b.Property<int?>("ImagePreviewId")
+                        .HasColumnType("integer")
+                        .HasColumnName("image_preview_id");
+
                     b.Property<bool>("IsFreeShipping")
                         .HasColumnType("boolean")
                         .HasColumnName("is_free_shipping");
@@ -6536,10 +6546,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("order_minimum_quantity");
 
-                    b.Property<int?>("PicturePreviewId")
-                        .HasColumnType("integer")
-                        .HasColumnName("picture_preview_id");
-
                     b.Property<bool>("Published")
                         .HasColumnType("boolean")
                         .HasColumnName("published");
@@ -6584,8 +6590,8 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasIndex("CreateUserId")
                         .HasDatabaseName("ix_product_create_user_id");
 
-                    b.HasIndex("PicturePreviewId")
-                        .HasDatabaseName("ix_product_picture_preview_id");
+                    b.HasIndex("ImagePreviewId")
+                        .HasDatabaseName("ix_product_image_preview_id");
 
                     b.HasIndex("TaxCategoryId")
                         .HasDatabaseName("ix_product_tax_category_id");
@@ -6621,15 +6627,19 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("display_order");
 
+                    b.Property<int?>("ImagePreviewId")
+                        .HasColumnType("integer")
+                        .HasColumnName("image_preview_id");
+
+                    b.Property<bool>("IsFeatured")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_featured");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("name");
-
-                    b.Property<int?>("PictureId")
-                        .HasColumnType("integer")
-                        .HasColumnName("picture_id");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -6639,6 +6649,9 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_product_attribute");
+
+                    b.HasIndex("ImagePreviewId")
+                        .HasDatabaseName("ix_product_attribute_image_preview_id");
 
                     b.HasIndex(new[] { "AttributeType" }, "IX_Attribute_AttributeType")
                         .HasDatabaseName("ix_product_attribute_attribute_type");
@@ -6654,6 +6667,7 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 1,
                             AttributeType = 0,
                             DisplayOrder = 1,
+                            IsFeatured = false,
                             Name = "Blue",
                             Value = "blue"
                         },
@@ -6662,6 +6676,7 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 2,
                             AttributeType = 0,
                             DisplayOrder = 2,
+                            IsFeatured = false,
                             Name = "Red",
                             Value = "red"
                         },
@@ -6670,6 +6685,7 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 3,
                             AttributeType = 0,
                             DisplayOrder = 3,
+                            IsFeatured = false,
                             Name = "White",
                             Value = "#fff"
                         },
@@ -6678,6 +6694,7 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 4,
                             AttributeType = 0,
                             DisplayOrder = 4,
+                            IsFeatured = false,
                             Name = "Black",
                             Value = "#000"
                         },
@@ -6687,6 +6704,7 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 1,
                             Description = "Small Means S US Size",
                             DisplayOrder = 5,
+                            IsFeatured = false,
                             Name = "Small size",
                             Value = "#Small"
                         },
@@ -6696,6 +6714,7 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 1,
                             Description = "Small Means M US Size",
                             DisplayOrder = 6,
+                            IsFeatured = false,
                             Name = "Medium",
                             Value = "#Medium"
                         },
@@ -6705,6 +6724,7 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 1,
                             Description = "Small Means XL US Size",
                             DisplayOrder = 7,
+                            IsFeatured = false,
                             Name = "Large",
                             Value = "#Large"
                         },
@@ -6713,6 +6733,7 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 8,
                             AttributeType = 0,
                             DisplayOrder = 8,
+                            IsFeatured = false,
                             Name = "Green",
                             Value = "green"
                         },
@@ -6721,6 +6742,7 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 9,
                             AttributeType = 0,
                             DisplayOrder = 9,
+                            IsFeatured = false,
                             Name = "Yellow",
                             Value = "yellow"
                         },
@@ -6729,6 +6751,7 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 10,
                             AttributeType = 0,
                             DisplayOrder = 10,
+                            IsFeatured = false,
                             Name = "Purple",
                             Value = "purple"
                         },
@@ -6738,6 +6761,7 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 1,
                             Description = "Extra Small size",
                             DisplayOrder = 11,
+                            IsFeatured = false,
                             Name = "Extra Small",
                             Value = "XS"
                         },
@@ -6747,8 +6771,39 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 1,
                             Description = "Extra Large size",
                             DisplayOrder = 12,
+                            IsFeatured = false,
                             Name = "Extra Large",
                             Value = "XL"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AttributeType = 7,
+                            Description = "Weekend Casual Style",
+                            DisplayOrder = 13,
+                            IsFeatured = false,
+                            Name = "Weekend Casual",
+                            Value = "weekend-casual"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AttributeType = 7,
+                            Description = "Office Professional Style",
+                            DisplayOrder = 14,
+                            IsFeatured = false,
+                            Name = "Office Professional",
+                            Value = "office-professional"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AttributeType = 7,
+                            Description = "Evening Elegance Style",
+                            DisplayOrder = 15,
+                            IsFeatured = false,
+                            Name = "Evening Elegance",
+                            Value = "evening-elegance"
                         });
                 });
 
@@ -6786,6 +6841,39 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_product_category_product_id");
 
                     b.ToTable("ProductCategory", "Sale");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("integer")
+                        .HasColumnName("image_id");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
+
+                    b.HasKey("Id")
+                        .HasName("PK_Product_Image_Mapping");
+
+                    b.HasIndex(new[] { "ImageId" }, "IX_Product_Image_Mapping_ImageId")
+                        .HasDatabaseName("ix_product_image_image_id");
+
+                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Image_Mapping_ProductId")
+                        .HasDatabaseName("ix_product_image_product_id");
+
+                    b.ToTable("ProductImage", "Sale");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventory", b =>
@@ -6871,39 +6959,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_product_manufacturer_product_id");
 
                     b.ToTable("ProductManufacturer", "Sale");
-                });
-
-            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductPicture", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("integer")
-                        .HasColumnName("display_order");
-
-                    b.Property<int>("PictureId")
-                        .HasColumnType("integer")
-                        .HasColumnName("picture_id");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer")
-                        .HasColumnName("product_id");
-
-                    b.HasKey("Id")
-                        .HasName("PK_Product_Picture_Mapping");
-
-                    b.HasIndex(new[] { "PictureId" }, "IX_Product_Picture_Mapping_PictureId")
-                        .HasDatabaseName("ix_product_picture_picture_id");
-
-                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Picture_Mapping_ProductId")
-                        .HasDatabaseName("ix_product_picture_product_id");
-
-                    b.ToTable("ProductPicture", "Sale");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductProductAttribute", b =>
@@ -7126,6 +7181,12 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 6,
                             Name = "Trending",
                             NormalizedName = "trending"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Featured",
+                            NormalizedName = "Featured"
                         });
                 });
 
@@ -24681,12 +24742,29 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Category", b =>
                 {
+                    b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
+                        .WithMany()
+                        .HasForeignKey("ImagePreviewId")
+                        .HasConstraintName("fk_category_file_upload_image_preview_id");
+
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Category", "ParentCategory")
                         .WithMany()
                         .HasForeignKey("ParentCategoryId")
                         .HasConstraintName("fk_category_category_parent_category_id");
 
+                    b.Navigation("ImagePreview");
+
                     b.Navigation("ParentCategory");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Manufacturer", b =>
+                {
+                    b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
+                        .WithMany()
+                        .HasForeignKey("ImagePreviewId")
+                        .HasConstraintName("fk_manufacturer_file_upload_image_preview_id");
+
+                    b.Navigation("ImagePreview");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Order", b =>
@@ -24813,11 +24891,11 @@ namespace Hydra.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Product_CreateUser");
 
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductPicture", "PicturePreview")
+                    b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
                         .WithMany()
-                        .HasForeignKey("PicturePreviewId")
+                        .HasForeignKey("ImagePreviewId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .HasConstraintName("FK_Product_PicturePreview");
+                        .HasConstraintName("FK_Product_ImagePreview");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.TaxCategory", "TaxCategory")
                         .WithMany("Products")
@@ -24833,11 +24911,21 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.Navigation("CreateUser");
 
-                    b.Navigation("PicturePreview");
+                    b.Navigation("ImagePreview");
 
                     b.Navigation("TaxCategory");
 
                     b.Navigation("UpdateUser");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductAttribute", b =>
+                {
+                    b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
+                        .WithMany()
+                        .HasForeignKey("ImagePreviewId")
+                        .HasConstraintName("fk_product_attribute_file_upload_image_preview_id");
+
+                    b.Navigation("ImagePreview");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductCategory", b =>
@@ -24857,6 +24945,27 @@ namespace Hydra.Infrastructure.Migrations
                         .HasConstraintName("FK_ProductCategory_Product");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductImage", b =>
+                {
+                    b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_image_file_upload_image_id");
+
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_ProductImage_Product");
+
+                    b.Navigation("Image");
 
                     b.Navigation("Product");
                 });
@@ -24898,27 +25007,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasConstraintName("FK_ProductManufacturer_Product");
 
                     b.Navigation("Manufacturer");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductPicture", b =>
-                {
-                    b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "Picture")
-                        .WithMany()
-                        .HasForeignKey("PictureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_product_picture_file_upload_picture_id");
-
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
-                        .WithMany("ProductPictures")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_ProductPicture_Product");
-
-                    b.Navigation("Picture");
 
                     b.Navigation("Product");
                 });
@@ -25277,11 +25365,11 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.Navigation("ProductCategories");
 
+                    b.Navigation("ProductImages");
+
                     b.Navigation("ProductInventories");
 
                     b.Navigation("ProductManufacturers");
-
-                    b.Navigation("ProductPictures");
 
                     b.Navigation("ProductProductTags");
 

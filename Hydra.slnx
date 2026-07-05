@@ -40,6 +40,7 @@
     <Project Path="Hydra.FileStorage.Core/Hydra.FileStorage.Core.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
+    <File Path="AGENTS.md" />
     <File Path="Directory.Packages.props" />
   </Folder>
   <Project Path="Hydra.Infrastructure/Hydra.Infrastructure.csproj" />
