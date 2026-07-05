@@ -621,46 +621,51 @@ namespace Hydra.Product.Api.Services
 
                 var categories = productModel.CategoryIds
                     .Select((catId, idx) => new ProductCategory { ProductId = pid, CategoryId = catId, DisplayOrder = idx })
-                    .ToList();
+                    .ToArray();
 
                 var manufacturers = productModel.ManufacturerIds
                     .Select((mId, idx) => new ProductManufacturer { ProductId = pid, ManufacturerId = mId, DisplayOrder = idx })
-                    .ToList();
+                    .ToArray();
 
                 var images = productModel.Images
                     .Select((img, idx) => new ProductImage { ProductId = pid, ImageId = img.ImageId, DisplayOrder = img.DisplayOrder != 0 ? img.DisplayOrder : idx })
-                    .ToList();
+                    .ToArray();
 
                 var attributes = productModel.AttributeIds
                     .Select(attrId => new ProductProductAttribute { ProductId = pid, AttributeId = attrId })
-                    .ToList();
+                    .ToArray();
 
                 var related = productModel.RelatedProductIds
                     .Select((rid, idx) => new RelatedProduct { ProductId1 = pid, ProductId2 = rid, DisplayOrder = idx })
-                    .ToList();
+                    .ToArray();
 
                 var tags = productModel.TagIds
                     .Select(tagId => new ProductProductTag { ProductId = pid, ProductTagId = tagId })
-                    .ToList();
+                    .ToArray();
 
                 var inventories = productModel.Inventories
                     .Select(inv => new ProductInventory { ProductId = pid, AttributeId = inv.AttributeId, StockQuantity = inv.StockQuantity, ReservedQuantity = inv.ReservedQuantity, BuyUnitPrice = inv.BuyUnitPrice })
-                    .ToList();
+                    .ToArray();
 
-                if (categories.Count > 0) await _commandRepository.BulkInsertAsync(categories);
-                if (manufacturers.Count > 0) await _commandRepository.BulkInsertAsync(manufacturers);
-                if (images.Count > 0) await _commandRepository.BulkInsertAsync(images);
-                if (attributes.Count > 0) await _commandRepository.BulkInsertAsync(attributes);
-                if (related.Count > 0) await _commandRepository.BulkInsertAsync(related);
-                if (tags.Count > 0) await _commandRepository.BulkInsertAsync(tags);
-                if (inventories.Count > 0) await _commandRepository.BulkInsertAsync(inventories);
+                if (categories.Any()) await _commandRepository.InsertAsync(categories);
+                if (manufacturers.Any()) await _commandRepository.InsertAsync(manufacturers);
+                if (images.Any()) await _commandRepository.InsertAsync(images);
+                if (attributes.Any()) await _commandRepository.InsertAsync(attributes);
+                if (related.Any()) await _commandRepository.InsertAsync(related);
+                if (tags.Any()) await _commandRepository.InsertAsync(tags);
+                if (inventories.Any()) await _commandRepository.InsertAsync(inventories);
+
+                await _commandRepository.SaveChangesAsync();
 
                 await transaction.CommitAsync();
             }
-            catch
+            catch(Exception e)
             {
                 await transaction.RollbackAsync();
-                throw;
+
+                result.Message = e.Message;
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                return result;
             }
 
             result.Data = productModel;
