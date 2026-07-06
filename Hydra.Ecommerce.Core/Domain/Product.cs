@@ -124,9 +124,9 @@ public class Product : BaseEntity<int>
 
     public virtual List<ProductReview> ProductReviews { get; set; } = new();
 
-    public virtual List<RelatedProduct> RelatedProductProductId1Navigations { get; set; } = new();
+    public virtual List<RelatedProduct> RelatedProduct1Navigation { get; set; } = new();
 
-    public virtual List<RelatedProduct> RelatedProductProductId2Navigations { get; set; } = new();
+    public virtual List<RelatedProduct> RelatedProduct2Navigation { get; set; } = new();
 
     public virtual List<ShoppingCartItem> ShoppingCartItems { get; set; } = new();
 

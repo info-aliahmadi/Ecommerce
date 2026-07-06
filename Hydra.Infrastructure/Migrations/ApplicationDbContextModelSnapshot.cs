@@ -6563,8 +6563,8 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("show_on_homepage");
 
-                    b.Property<int>("StockQuantity")
-                        .HasColumnType("integer")
+                    b.Property<decimal>("StockQuantity")
+                        .HasColumnType("numeric")
                         .HasColumnName("stock_quantity");
 
                     b.Property<int>("StockType")

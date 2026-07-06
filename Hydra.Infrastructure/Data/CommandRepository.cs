@@ -55,7 +55,7 @@ namespace Hydra.Infrastructure.Data
             return entity;
         }
 
-        public async Task InsertAsync<T>(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        public async Task InsertRangeAsync<T>(IEnumerable<T> entities, CancellationToken cancellationToken = default)
            where T : class
         {
             if (entities == null)

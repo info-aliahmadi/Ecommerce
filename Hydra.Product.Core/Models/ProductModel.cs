@@ -45,6 +45,11 @@ namespace Hydra.Product.Core.Models
         public int? ImagePreviewId { get; set; }
 
         /// <summary>
+        /// File id of the preview image for the product (if any).
+        /// </summary>
+        public FileUploadModel? ImagePreview { get; set; }
+
+        /// <summary>
         /// SEO meta keywords for the product.
         /// </summary>
         public string MetaKeywords { get; set; }

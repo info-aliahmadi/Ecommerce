@@ -12,15 +12,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasIndex(e => e.ProductId1, "IX_RelatedProduct_ProductId1");
 
-            entity.HasOne(d => d.ProductId1Navigation).WithMany(p => p.RelatedProductProductId1Navigations)
+            entity.HasOne(d => d.ProductId1Navigation).WithMany(p => p.RelatedProduct1Navigation)
             .HasForeignKey(d => d.ProductId1)
             .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("FK_RelatedProduct_Product");
+            .HasConstraintName("FK_RelatedProduct1Navigation");
 
-            entity.HasOne(d => d.ProductId2Navigation).WithMany(p => p.RelatedProductProductId2Navigations)
+            entity.HasOne(d => d.ProductId2Navigation).WithMany(p => p.RelatedProduct2Navigation)
             .HasForeignKey(d => d.ProductId2)
             .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("FK_RelatedProduct_Product1");
+            .HasConstraintName("FK_RelatedProduct2Navigation");
         }
     }
 }

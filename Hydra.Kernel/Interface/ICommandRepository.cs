@@ -45,7 +45,7 @@ namespace Hydra.Kernel.Interface
         /// <param name="entities">The entities to be inserted.</param>
         /// <param name="cancellationToken"> A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
         /// <returns>Returns <see cref="Task"/>.</returns>
-        Task InsertAsync<TEntity>(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        Task InsertRangeAsync<TEntity>(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
             where TEntity : class;
 
         /// <summary>
