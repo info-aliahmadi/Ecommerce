@@ -25,6 +25,11 @@ namespace Hydra.Cms.Core.Domain
         /// <summary>
         /// 
         /// </summary>
+        public FileUpload? PreviewImage { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string? PreviewImageUrl { get; set; }
 
         /// <summary>

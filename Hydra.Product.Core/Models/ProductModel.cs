@@ -15,6 +15,16 @@ namespace Hydra.Product.Core.Models
         public int Id { get; set; }
 
         /// <summary>
+        /// The display name of the product.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Sku { get; set; }
+
+        /// <summary>
         /// Identifier of the user who created the product.
         /// </summary>
         public int CreateUserId { get; set; }
@@ -33,11 +43,6 @@ namespace Hydra.Product.Core.Models
         /// Basic information about the user who last updated the product.
         /// </summary>
         public AuthorModel UpdateUser { get; set; }
-
-        /// <summary>
-        /// The display name of the product.
-        /// </summary>
-        public string Name { get; set; }
 
         /// <summary>
         /// File id of the preview image for the product (if any).
@@ -318,7 +323,6 @@ namespace Hydra.Product.Core.Models
         /// Product tag identifiers.
         /// </summary>
         public List<int> TagIds { get; set; } = new();
-
     }
 
 }

@@ -10,7 +10,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
         {
             builder.ToTable("ProductProductTag", "Sale");
 
-            builder.HasKey(p => new { p.ProductId, p.ProductTagId });
+            builder.HasKey(p => p.Id);
+
+            builder.HasIndex(e => new { e.ProductTagId, e.ProductId }, "IX_PCM_Product_and_Tag");
 
             builder.HasOne(x => x.Product).WithMany(x => x.ProductProductTags).HasForeignKey(x => x.ProductId);
 

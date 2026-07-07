@@ -47,7 +47,7 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// URL or path to the category preview image.
         /// </summary>
-        public string? ImagePreviewPath { get; set; }
+        public FileUploadModel? ImagePreview { get; set; }
 
         /// <summary>
         /// Hex or named color associated with the category for UI.

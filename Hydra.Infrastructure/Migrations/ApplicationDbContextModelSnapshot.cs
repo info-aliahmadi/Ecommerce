@@ -852,6 +852,9 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_link");
 
+                    b.HasIndex("ImagePreviewId")
+                        .HasDatabaseName("ix_link_image_preview_id");
+
                     b.HasIndex("LinkSectionId")
                         .HasDatabaseName("ix_link_link_section_id");
 
@@ -1305,6 +1308,9 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_slideshow");
+
+                    b.HasIndex("PreviewImageId")
+                        .HasDatabaseName("ix_slideshow_preview_image_id");
 
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_slideshow_user_id");
@@ -6413,10 +6419,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("call_for_price");
 
-                    b.Property<int>("Code")
-                        .HasColumnType("integer")
-                        .HasColumnName("code");
-
                     b.Property<int>("CreateUserId")
                         .HasColumnType("integer")
                         .HasColumnName("create_user_id");
@@ -6563,6 +6565,12 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("show_on_homepage");
 
+                    b.Property<string>("Sku")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("sku");
+
                     b.Property<decimal>("StockQuantity")
                         .HasColumnType("numeric")
                         .HasColumnName("stock_quantity");
@@ -6603,6 +6611,560 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_product_published_deleted_id");
 
                     b.ToTable("Product", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1000,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 324,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 1,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Premium over-ear headphones with active noise cancellation, 30-hour battery life, and crystal-clear audio quality. Perfect for music lovers and professionals.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "ANC Headphones • 30hr Battery",
+                            MetaKeywords = "bestseller,trending",
+                            MetaTitle = "Wireless Noise-Cancelling Headphones",
+                            MinStockQuantity = 0,
+                            Name = "Wireless Noise-Cancelling Headphones",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 349.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 249.99m,
+                            ShortDescription = "ANC Headphones • 30hr Battery",
+                            ShowOnHomepage = true,
+                            Sku = "BOOK-1000",
+                            StockQuantity = 45m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1001,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 218,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 2,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Advanced smartwatch with health monitoring, GPS tracking, and a stunning AMOLED display. Water resistant to 50m.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "AMOLED Display • GPS • Health",
+                            MetaKeywords = "new,popular",
+                            MetaTitle = "Smart Watch Pro",
+                            MinStockQuantity = 0,
+                            Name = "Smart Watch Pro",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 399.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 299.99m,
+                            ShortDescription = "AMOLED Display • GPS • Health",
+                            ShowOnHomepage = true,
+                            Sku = "ELECTRONIK-1001",
+                            StockQuantity = 32m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1002,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 156,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 3,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Compact, waterproof speaker with 360-degree sound. 12-hour battery life and built-in microphone.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "Waterproof • 360° Sound",
+                            MetaKeywords = "sale",
+                            MetaTitle = "Portable Bluetooth Speaker",
+                            MinStockQuantity = 0,
+                            Name = "Portable Bluetooth Speaker",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 119.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 79.99m,
+                            ShortDescription = "Waterproof • 360° Sound",
+                            ShowOnHomepage = false,
+                            Sku = "ELECTRONIK-1002",
+                            StockQuantity = 78m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1003,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 189,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 4,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Full-size mechanical keyboard with customizable RGB lighting, hot-swappable switches, and premium build quality.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "Hot-Swap • RGB • Aluminum",
+                            MetaKeywords = "popular",
+                            MetaTitle = "Mechanical Keyboard RGB",
+                            MinStockQuantity = 0,
+                            Name = "Mechanical Keyboard RGB",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 189.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 149.99m,
+                            ShortDescription = "Hot-Swap • RGB • Aluminum",
+                            ShowOnHomepage = false,
+                            Sku = "ELECTRONIK-1003",
+                            StockQuantity = 23m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1004,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 412,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 5,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Timeless genuine leather jacket with premium lining. A wardrobe essential that pairs with everything.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = true,
+                            MeasureType = 2,
+                            MetaDescription = "Genuine Leather • Slim Fit",
+                            MetaKeywords = "bestseller,trending",
+                            MetaTitle = "Classic Leather Jacket",
+                            MinStockQuantity = 0,
+                            Name = "Classic Leather Jacket",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 279.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 189.99m,
+                            ShortDescription = "Genuine Leather • Slim Fit",
+                            ShowOnHomepage = true,
+                            Sku = "FASHION-1004",
+                            StockQuantity = 15m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1005,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 287,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 6,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Ultra-soft 100% organic cotton t-shirt. Comfortable, breathable, and sustainably made.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "Organic Cotton • Relaxed Fit",
+                            MetaKeywords = "sale,sustainable",
+                            MetaTitle = "Premium Cotton T-Shirt",
+                            MinStockQuantity = 0,
+                            Name = "Premium Cotton T-Shirt",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 59.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 39.99m,
+                            ShortDescription = "Organic Cotton • Relaxed Fit",
+                            ShowOnHomepage = false,
+                            Sku = "FASION-1005",
+                            StockQuantity = 120m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1006,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 165,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 7,
+                            DisplayStockQuantity = false,
+                            FullDescription = "UV400 protection with polarized lenses. Lightweight titanium frame for all-day comfort.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = true,
+                            MeasureType = 2,
+                            MetaDescription = "Polarized • UV400 • Titanium",
+                            MetaKeywords = "popular,new",
+                            MetaTitle = "Designer Sunglasses",
+                            MinStockQuantity = 0,
+                            Name = "Designer Sunglasses",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 179.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 129.99m,
+                            ShortDescription = "Polarized • UV400 • Titanium",
+                            ShowOnHomepage = true,
+                            Sku = "HOME-1006",
+                            StockQuantity = 56m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1007,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 143,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 8,
+                            DisplayStockQuantity = false,
+                            FullDescription = "LED desk lamp with adjustable color temperature, touch controls, and wireless charging base.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = true,
+                            MeasureType = 2,
+                            MetaDescription = "LED • Touch Control • Wireless Charging",
+                            MetaKeywords = "trending",
+                            MetaTitle = "Minimalist Desk Lamp",
+                            MinStockQuantity = 0,
+                            Name = "Minimalist Desk Lamp",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 129.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 89.99m,
+                            ShortDescription = "LED • Touch Control • Wireless Charging",
+                            ShowOnHomepage = true,
+                            Sku = "HOME-1007",
+                            StockQuantity = 34m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1008,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 211,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 9,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Set of 3 handcrafted ceramic plant pots in matte finish. Perfect for succulents and small plants.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "Set of 3 • Matte Finish • Handmade",
+                            MetaKeywords = "popular,new",
+                            MetaTitle = "Ceramic Plant Pot Set",
+                            MinStockQuantity = 0,
+                            Name = "Ceramic Plant Pot Set",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 64.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 44.99m,
+                            ShortDescription = "Set of 3 • Matte Finish • Handmade",
+                            ShowOnHomepage = false,
+                            Sku = "HOME-1008",
+                            StockQuantity = 67m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1009,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 234,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 10,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Extra thick non-slip yoga mat with alignment guides. Eco-friendly TPE material.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "6mm Thick • Non-Slip • Eco-TPE",
+                            MetaKeywords = "bestseller",
+                            MetaTitle = "Yoga Mat Premium",
+                            MinStockQuantity = 0,
+                            Name = "Yoga Mat Premium",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 69.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 49.99m,
+                            ShortDescription = "6mm Thick • Non-Slip • Eco-TPE",
+                            ShowOnHomepage = true,
+                            Sku = "SPORT-1009",
+                            StockQuantity = 45m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1010,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 267,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 11,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Complete skincare routine with cleanser, toner, serum, and moisturizer. For all skin types.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = true,
+                            MeasureType = 2,
+                            MetaDescription = "4-Piece Set • All Skin Types",
+                            MetaKeywords = "bestseller,new",
+                            MetaTitle = "Skincare Essential Kit",
+                            MinStockQuantity = 0,
+                            Name = "Skincare Essential Kit",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 129.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 89.99m,
+                            ShortDescription = "4-Piece Set • All Skin Types",
+                            ShowOnHomepage = true,
+                            Sku = "BEAUTY-1010",
+                            StockQuantity = 38m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1011,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 178,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreateUserId = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 12,
+                            DisplayStockQuantity = false,
+                            FullDescription = "A comprehensive guide to interior design, minimalism, and creating spaces that inspire.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "Hardcover • 320 Pages",
+                            MetaKeywords = "bestseller",
+                            MetaTitle = "The Art of Modern Living",
+                            MinStockQuantity = 0,
+                            Name = "The Art of Modern Living",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OldSellUnitPrice = 49.99m,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SellUnitPrice = 34.99m,
+                            ShortDescription = "Hardcover • 320 Pages",
+                            ShowOnHomepage = false,
+                            Sku = "BOOK-1011",
+                            StockQuantity = 65m,
+                            StockType = 0,
+                            TaxCategoryId = 1
+                        });
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductAttribute", b =>
@@ -6995,6 +7557,13 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductProductTag", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("ProductId")
                         .HasColumnType("integer")
                         .HasColumnName("product_id");
@@ -7003,11 +7572,14 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("product_tag_id");
 
-                    b.HasKey("ProductId", "ProductTagId")
+                    b.HasKey("Id")
                         .HasName("pk_product_product_tag");
 
-                    b.HasIndex("ProductTagId")
-                        .HasDatabaseName("ix_product_product_tag_product_tag_id");
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_product_product_tag_product_id");
+
+                    b.HasIndex(new[] { "ProductTagId", "ProductId" }, "IX_PCM_Product_and_Tag")
+                        .HasDatabaseName("ix_product_product_tag_product_tag_id_product_id");
 
                     b.ToTable("ProductProductTag", "Sale");
                 });
@@ -24484,6 +25056,11 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Cms.Core.Domain.Link", b =>
                 {
+                    b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
+                        .WithMany()
+                        .HasForeignKey("ImagePreviewId")
+                        .HasConstraintName("fk_link_file_upload_image_preview_id");
+
                     b.HasOne("Hydra.Cms.Core.Domain.LinkSection", "LinkSection")
                         .WithMany("Links")
                         .HasForeignKey("LinkSectionId")
@@ -24495,6 +25072,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .HasConstraintName("fk_link_user_user_id");
+
+                    b.Navigation("ImagePreview");
 
                     b.Navigation("LinkSection");
 
@@ -24553,12 +25132,19 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Cms.Core.Domain.Slideshow", b =>
                 {
+                    b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "PreviewImage")
+                        .WithMany()
+                        .HasForeignKey("PreviewImageId")
+                        .HasConstraintName("fk_slideshow_file_upload_preview_image_id");
+
                     b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_slideshow_user_user_id");
+
+                    b.Navigation("PreviewImage");
 
                     b.Navigation("User");
                 });
@@ -25098,18 +25684,18 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.RelatedProduct", b =>
                 {
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "ProductId1Navigation")
-                        .WithMany("RelatedProductProductId1Navigations")
+                        .WithMany("RelatedProduct1Navigation")
                         .HasForeignKey("ProductId1")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("FK_RelatedProduct_Product");
+                        .HasConstraintName("FK_RelatedProduct1Navigation");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "ProductId2Navigation")
-                        .WithMany("RelatedProductProductId2Navigations")
+                        .WithMany("RelatedProduct2Navigation")
                         .HasForeignKey("ProductId2")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("FK_RelatedProduct_Product1");
+                        .HasConstraintName("FK_RelatedProduct2Navigation");
 
                     b.Navigation("ProductId1Navigation");
 
@@ -25375,9 +25961,9 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.Navigation("ProductReviews");
 
-                    b.Navigation("RelatedProductProductId1Navigations");
+                    b.Navigation("RelatedProduct1Navigation");
 
-                    b.Navigation("RelatedProductProductId2Navigations");
+                    b.Navigation("RelatedProduct2Navigation");
 
                     b.Navigation("ShoppingCartItems");
                 });

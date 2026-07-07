@@ -1,4 +1,5 @@
 ﻿using Hydra.Auth.Domain;
+using Hydra.FileStorage.Core.Domain;
 using Hydra.Kernel.Data;
 
 namespace Hydra.Cms.Core.Domain
@@ -19,6 +20,10 @@ namespace Hydra.Cms.Core.Domain
         /// 
         /// </summary>
         public int? ImagePreviewId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public FileUpload? ImagePreview { get; set; }
 
         /// <summary>
         /// 

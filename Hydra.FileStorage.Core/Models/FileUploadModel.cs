@@ -1,9 +1,22 @@
 ﻿
 
+using Hydra.FileStorage.Core.Domain;
+
 namespace Hydra.FileStorage.Core.Models
 {
     public class FileUploadModel
     {
+        public FileUploadModel() { }
+        public FileUploadModel(FileUpload? fileUpload)
+        {
+            if (fileUpload != null)
+            {
+                Id = fileUpload.Id;
+                FileName = fileUpload.FileName;
+                Thumbnail = fileUpload.Thumbnail;
+                Directory = fileUpload.Directory;
+            }
+        }
         public int Id { get; set; }
 
         public string FileName { get; set; }
@@ -27,6 +40,13 @@ namespace Hydra.FileStorage.Core.Models
             get
             {
                 return $"/{Directory}{FileName}";
+            }
+        }
+        public string ThumbnailPath
+        {
+            get
+            {
+                return $"/{Directory}{Thumbnail}";
             }
         }
     }

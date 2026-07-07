@@ -37,12 +37,7 @@ namespace Hydra.Product.Api.Services
                             Description = productAttribute.Description,
                             DisplayOrder = productAttribute.DisplayOrder,
                             ImagePreviewId = productAttribute.ImagePreviewId,
-                            ImagePreview = productAttribute.ImagePreview != null ? new FileStorage.Core.Models.FileUploadModel()
-                            {
-                                Id = productAttribute.ImagePreview.Id,
-                                Directory = productAttribute.ImagePreview.Directory,
-                                FileName = productAttribute.ImagePreview.FileName
-                            } : null
+                            ImagePreview =  new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview)
                         }).OrderBy(x => x.DisplayOrder).Cacheable().ToList();
 
             return list;

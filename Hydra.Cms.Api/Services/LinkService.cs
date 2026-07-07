@@ -42,29 +42,12 @@ namespace Hydra.Cms.Api.Services
                 Url = link.Url,
                 Title = link.Title,
                 ImagePreviewId = link.ImagePreviewId,
+                ImagePreview = new FileUploadModel(link.ImagePreview),
                 LinkSectionId = link.LinkSectionId,
                 Order = link.Order,
                 UserId = link.UserId,
                 UserName = link.User.UserName ?? string.Empty,
             }).OrderByDescending(x => x.Order).Cacheable().ToListAsync();
-
-
-            var listIds = linkList.Where(x => x.ImagePreviewId != null).Select(x => x.ImagePreviewId).ToArray();
-            var files = _queryRepository.Table<FileUpload>().Where(x => listIds.Contains(x.Id));
-            foreach (var item in linkList)
-            {
-                var file = files.FirstOrDefault(x => x.Id == item.ImagePreviewId);
-                if (file != null)
-                    item.ImagePreview = new FileUploadModel()
-                    {
-                        Id = file.Id,
-                        FileName = file.FileName,
-                        Directory = file.Directory,
-                        Extension = file.Extension,
-                        Size = file.Size,
-                        Thumbnail = file.Thumbnail
-                    };
-            }
 
             result.Data = linkList;
 
@@ -115,28 +98,13 @@ namespace Hydra.Cms.Api.Services
                 Url = link.Url,
                 Description = link.Description,
                 LinkSectionId = link.LinkSectionId,
+                ImagePreviewId = link.ImagePreviewId,
+                ImagePreview = new FileUploadModel(link.ImagePreview),
                 LinkSectionKey = link.LinkSection.Key,
                 Order = link.Order,
                 UserId = link.UserId,
                 UserName = link.User.UserName ?? ""
             };
-            if (link.ImagePreviewId != null)
-            {
-                var file = _queryRepository.Table<FileUpload>().FirstOrDefault(x => x.Id == link.ImagePreviewId);
-                if (file != null)
-                {
-                    linkModel.ImagePreviewId = link.ImagePreviewId;
-                    linkModel.ImagePreview = new FileUploadModel()
-                    {
-                        Id = file.Id,
-                        FileName = file.FileName,
-                        Directory = file.Directory,
-                        Extension = file.Extension,
-                        Size = file.Size,
-                        Thumbnail = file.Thumbnail
-                    };
-                }
-            }
 
             result.Data = linkModel;
 
@@ -171,23 +139,6 @@ namespace Hydra.Cms.Api.Services
                 await _commandRepository.SaveChangesAsync();
 
                 linkModel.Id = link.Id;
-
-                if (linkModel.ImagePreviewId != null)
-                {
-                    var file = _queryRepository.Table<FileUpload>().FirstOrDefault(x => x.Id == link.ImagePreviewId);
-                    if (file != null)
-                    {
-                        linkModel.ImagePreview = new FileUploadModel()
-                        {
-                            Id = file.Id,
-                            FileName = file.FileName,
-                            Directory = file.Directory,
-                            Extension = file.Extension,
-                            Size = file.Size,
-                            Thumbnail = file.Thumbnail
-                        };
-                    }
-                }
 
                 result.Data = linkModel;
 
@@ -231,23 +182,6 @@ namespace Hydra.Cms.Api.Services
 
                 _commandRepository.UpdateAsync(link);
                 await _commandRepository.SaveChangesAsync();
-
-                if (linkModel.ImagePreviewId != null)
-                {
-                    var file = _queryRepository.Table<FileUpload>().FirstOrDefault(x => x.Id == link.ImagePreviewId);
-                    if (file != null)
-                    {
-                        linkModel.ImagePreview = new FileUploadModel()
-                        {
-                            Id = file.Id,
-                            FileName = file.FileName,
-                            Directory = file.Directory,
-                            Extension = file.Extension,
-                            Size = file.Size,
-                            Thumbnail = file.Thumbnail
-                        };
-                    }
-                }
 
                 result.Data = linkModel;
 

@@ -7,9 +7,9 @@ namespace Hydra.Ecommerce.Core.Domain;
 
 public class Product : BaseEntity<int>
 {
-    public int Code { get; set; }
 
     public string Name { get; set; }
+    public string Sku { get; set; }
 
     public string? MetaKeywords { get; set; }
 

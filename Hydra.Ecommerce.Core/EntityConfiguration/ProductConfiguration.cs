@@ -1,7 +1,5 @@
-﻿using Hydra.Ecommerce.Core.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Hydra.Ecommerce.Core.EntityConfiguration
 {
@@ -13,6 +11,12 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasIndex(e => new { e.Published, e.Deleted, e.Id }, "IX_Product_Deleted_and_Published");
 
+            entity.Property(e => e.Name)
+            .IsRequired()
+            .HasMaxLength(100);
+            entity.Property(e => e.Sku)
+            .IsRequired()
+            .HasMaxLength(70);
             entity.Property(e => e.AdminComment).HasMaxLength(300);
             entity.Property(e => e.AvailableEndDateTimeUtc).HasPrecision(6);
             entity.Property(e => e.AvailableStartDateTimeUtc).HasPrecision(6);
@@ -23,9 +27,6 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.Property(e => e.MetaDescription).HasMaxLength(300);
             entity.Property(e => e.MetaKeywords).HasMaxLength(300);
             entity.Property(e => e.MetaTitle).HasMaxLength(100);
-            entity.Property(e => e.Name)
-            .IsRequired()
-            .HasMaxLength(100);
             entity.Property(e => e.OldSellUnitPrice).HasColumnType("decimal(18, 4)");
             entity.Property(e => e.SellUnitPrice).HasColumnType("decimal(18, 4)");
             entity.Property(e => e.ShortDescription).HasMaxLength(300);
@@ -53,7 +54,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1000,
-                    Code = 1000,
+                    Sku = "BOOK-1000",
                     Name = "Wireless Noise-Cancelling Headphones",
                     MetaKeywords = "bestseller,trending",
                     MetaTitle = "Wireless Noise-Cancelling Headphones",
@@ -93,15 +94,16 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     ImagePreviewId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     UpdateUserId = null,
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    MeasureType = Enums.MeasureType.Number,
+
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1001,
-                    Code = 1001,
+                    Sku = "ELECTRONIK-1001",
                     Name = "Smart Watch Pro",
                     MetaKeywords = "new,popular",
                     MetaTitle = "Smart Watch Pro",
@@ -139,15 +141,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1002,
-                    Code = 1002,
+                    Sku = "ELECTRONIK-1002",
                     Name = "Portable Bluetooth Speaker",
                     MetaKeywords = "sale",
                     MetaTitle = "Portable Bluetooth Speaker",
@@ -185,15 +187,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1003,
-                    Code = 1003,
+                    Sku = "ELECTRONIK-1003",
                     Name = "Mechanical Keyboard RGB",
                     MetaKeywords = "popular",
                     MetaTitle = "Mechanical Keyboard RGB",
@@ -231,15 +233,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1004,
-                    Code = 1004,
+                    Sku = "FASHION-1004",
                     Name = "Classic Leather Jacket",
                     MetaKeywords = "bestseller,trending",
                     MetaTitle = "Classic Leather Jacket",
@@ -277,15 +279,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1005,
-                    Code = 1005,
+                    Sku = "FASION-1005",
                     Name = "Premium Cotton T-Shirt",
                     MetaKeywords = "sale,sustainable",
                     MetaTitle = "Premium Cotton T-Shirt",
@@ -323,15 +325,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1006,
-                    Code = 1006,
+                    Sku = "HOME-1006",
                     Name = "Designer Sunglasses",
                     MetaKeywords = "popular,new",
                     MetaTitle = "Designer Sunglasses",
@@ -369,15 +371,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1007,
-                    Code = 1007,
+                    Sku = "HOME-1007",
                     Name = "Minimalist Desk Lamp",
                     MetaKeywords = "trending",
                     MetaTitle = "Minimalist Desk Lamp",
@@ -415,15 +417,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1008,
-                    Code = 1008,
+                    Sku = "HOME-1008",
                     Name = "Ceramic Plant Pot Set",
                     MetaKeywords = "popular,new",
                     MetaTitle = "Ceramic Plant Pot Set",
@@ -461,15 +463,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1009,
-                    Code = 1009,
+                    Sku = "SPORT-1009",
                     Name = "Yoga Mat Premium",
                     MetaKeywords = "bestseller",
                     MetaTitle = "Yoga Mat Premium",
@@ -507,15 +509,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1010,
-                    Code = 1010,
+                    Sku = "BEAUTY-1010",
                     Name = "Skincare Essential Kit",
                     MetaKeywords = "bestseller,new",
                     MetaTitle = "Skincare Essential Kit",
@@ -553,15 +555,15 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
                 new Hydra.Ecommerce.Core.Domain.Product
                 {
                     Id = 1011,
-                    Code = 1011,
+                    Sku = "BOOK-1011",
                     Name = "The Art of Modern Living",
                     MetaKeywords = "bestseller",
                     MetaTitle = "The Art of Modern Living",
@@ -599,56 +601,57 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Deleted = false,
                     CreateUserId = 1,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    UpdatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("0001-01-01"), DateTimeKind.Unspecified),
-                    DeliveryDateType = 0,
+                    AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
+                    DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 }
             );
 
-            // Seed product-category mappings for example products
-            entity.HasData(
-                new ProductCategory { Id = 6000, ProductId = 1000, CategoryId = 3, DisplayOrder = 1 },
-                new ProductCategory { Id = 6001, ProductId = 1001, CategoryId = 3, DisplayOrder = 1 },
-                new ProductCategory { Id = 6002, ProductId = 1002, CategoryId = 3, DisplayOrder = 1 },
-                new ProductCategory { Id = 6003, ProductId = 1003, CategoryId = 3, DisplayOrder = 1 },
+           // Seed product-category mappings for example products
 
-                new ProductCategory { Id = 6004, ProductId = 1004, CategoryId = 4, DisplayOrder = 1 },
-                new ProductCategory { Id = 6005, ProductId = 1005, CategoryId = 4, DisplayOrder = 1 },
-                new ProductCategory { Id = 6006, ProductId = 1006, CategoryId = 4, DisplayOrder = 1 },
-                new ProductCategory { Id = 6007, ProductId = 1007, CategoryId = 4, DisplayOrder = 1 },
+           //entity.HasData(
+           //    new ProductCategory { Id = 6000, ProductId = 1000, CategoryId = 3, DisplayOrder = 1 },
+           //    new ProductCategory { Id = 6001, ProductId = 1001, CategoryId = 3, DisplayOrder = 1 },
+           //    new ProductCategory { Id = 6002, ProductId = 1002, CategoryId = 3, DisplayOrder = 1 },
+           //    new ProductCategory { Id = 6003, ProductId = 1003, CategoryId = 3, DisplayOrder = 1 },
 
-                new ProductCategory { Id = 6008, ProductId = 1007, CategoryId = 5, DisplayOrder = 1 },
-                new ProductCategory { Id = 6009, ProductId = 1008, CategoryId = 5, DisplayOrder = 1 },
+           //    new ProductCategory { Id = 6004, ProductId = 1004, CategoryId = 4, DisplayOrder = 1 },
+           //    new ProductCategory { Id = 6005, ProductId = 1005, CategoryId = 4, DisplayOrder = 1 },
+           //    new ProductCategory { Id = 6006, ProductId = 1006, CategoryId = 4, DisplayOrder = 1 },
+           //    new ProductCategory { Id = 6007, ProductId = 1007, CategoryId = 4, DisplayOrder = 1 },
 
-                new ProductCategory { Id = 6010, ProductId = 1009, CategoryId = 6, DisplayOrder = 1 },
+           //    new ProductCategory { Id = 6008, ProductId = 1007, CategoryId = 5, DisplayOrder = 1 },
+           //    new ProductCategory { Id = 6009, ProductId = 1008, CategoryId = 5, DisplayOrder = 1 },
 
-                new ProductCategory { Id = 6011, ProductId = 1010, CategoryId = 7, DisplayOrder = 1 },
-                new ProductCategory { Id = 6012, ProductId = 1011, CategoryId = 8, DisplayOrder = 1 }
-            );
+           //    new ProductCategory { Id = 6010, ProductId = 1009, CategoryId = 6, DisplayOrder = 1 },
 
-            // Seed product - tag mappings (example data)
-            entity.HasData(
-                new ProductProductTag { ProductId = 1000, ProductTagId = 1 },
-                new ProductProductTag { ProductId = 1000, ProductTagId = 6 },
-                new ProductProductTag { ProductId = 1001, ProductTagId = 2 },
-                new ProductProductTag { ProductId = 1001, ProductTagId = 3 },
-                new ProductProductTag { ProductId = 1002, ProductTagId = 4 },
-                new ProductProductTag { ProductId = 1003, ProductTagId = 3 },
-                new ProductProductTag { ProductId = 1004, ProductTagId = 1 },
-                new ProductProductTag { ProductId = 1004, ProductTagId = 6 },
-                new ProductProductTag { ProductId = 1005, ProductTagId = 4 },
-                new ProductProductTag { ProductId = 1005, ProductTagId = 5 },
-                new ProductProductTag { ProductId = 1006, ProductTagId = 3 },
-                new ProductProductTag { ProductId = 1006, ProductTagId = 2 },
-                new ProductProductTag { ProductId = 1007, ProductTagId = 6 },
-                new ProductProductTag { ProductId = 1008, ProductTagId = 3 },
-                new ProductProductTag { ProductId = 1008, ProductTagId = 2 },
-                new ProductProductTag { ProductId = 1009, ProductTagId = 1 },
-                new ProductProductTag { ProductId = 1010, ProductTagId = 1 },
-                new ProductProductTag { ProductId = 1010, ProductTagId = 2 },
-                new ProductProductTag { ProductId = 1011, ProductTagId = 1 }
-            );
+           //    new ProductCategory { Id = 6011, ProductId = 1010, CategoryId = 7, DisplayOrder = 1 },
+           //    new ProductCategory { Id = 6012, ProductId = 1011, CategoryId = 8, DisplayOrder = 1 }
+           //);
+
+           //// Seed product - tag mappings (example data)
+           //entity.HasData(
+           //    new ProductProductTag { Id = 3000, ProductId = 1000, ProductTagId = 1 },
+           //    new ProductProductTag { Id = 3001, ProductId = 1000, ProductTagId = 6 },
+           //    new ProductProductTag { Id = 3002, ProductId = 1001, ProductTagId = 2 },
+           //    new ProductProductTag { Id = 3003, ProductId = 1001, ProductTagId = 3 },
+           //    new ProductProductTag { Id = 3004, ProductId = 1002, ProductTagId = 4 },
+           //    new ProductProductTag { Id = 3005, ProductId = 1003, ProductTagId = 3 },
+           //    new ProductProductTag { Id = 3006, ProductId = 1004, ProductTagId = 1 },
+           //    new ProductProductTag { Id = 3007, ProductId = 1004, ProductTagId = 6 },
+           //    new ProductProductTag { Id = 3008, ProductId = 1005, ProductTagId = 4 },
+           //    new ProductProductTag { Id = 3009, ProductId = 1005, ProductTagId = 5 },
+           //    new ProductProductTag { Id = 3010, ProductId = 1006, ProductTagId = 3 },
+           //    new ProductProductTag { Id = 3011, ProductId = 1006, ProductTagId = 2 },
+           //    new ProductProductTag { Id = 3012, ProductId = 1007, ProductTagId = 6 },
+           //    new ProductProductTag { Id = 3013, ProductId = 1008, ProductTagId = 3 },
+           //    new ProductProductTag { Id = 3014, ProductId = 1008, ProductTagId = 2 },
+           //    new ProductProductTag { Id = 3015, ProductId = 1009, ProductTagId = 1 },
+           //    new ProductProductTag { Id = 3016, ProductId = 1010, ProductTagId = 1 },
+           //    new ProductProductTag { Id = 3017, ProductId = 1010, ProductTagId = 2 },
+           //    new ProductProductTag { Id = 3018, ProductId = 1011, ProductTagId = 1 }
+           //);
         }
     }
 }

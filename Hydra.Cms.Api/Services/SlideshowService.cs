@@ -43,6 +43,7 @@ namespace Hydra.Cms.Api.Services
                                   Header = slideshow.Header,
                                   Description = slideshow.Description,
                                   PreviewImageId = slideshow.PreviewImageId,
+                                  PreviewImage = new FileUploadModel(slideshow.PreviewImage),
                                   PreviewImageUrl = slideshow.PreviewImageUrl,
                                   IsVisible = slideshow.IsVisible,
                                   Order = slideshow.Order,
@@ -56,22 +57,6 @@ namespace Hydra.Cms.Api.Services
                                       Avatar = slideshow.User.Avatar
                                   }
                               }).Where(x=>x.IsVisible).OrderByDescending(x => x.Order).ToListAsync();
-            var listIds = list.Where(x => x.PreviewImageId != null).Select(x => x.PreviewImageId).ToArray();
-            var files = _queryRepository.Table<FileUpload>().Where(x => listIds.Contains(x.Id));
-            foreach (var item in list)
-            {
-                var file = files.FirstOrDefault(x => x.Id == item.PreviewImageId);
-                if (file != null)
-                    item.PreviewImage = new FileUploadModel()
-                    {
-                        Id = file.Id,
-                        FileName = file.FileName,
-                        Directory = file.Directory,
-                        Extension = file.Extension,
-                        Size = file.Size,
-                        Thumbnail = file.Thumbnail
-                    };
-            }
 
             result.Data = list;
 
@@ -94,6 +79,7 @@ namespace Hydra.Cms.Api.Services
                                   Description = slideshow.Description,
                                   PreviewImageId = slideshow.PreviewImageId,
                                   PreviewImageUrl = slideshow.PreviewImageUrl,
+                                  PreviewImage = new FileUploadModel(slideshow.PreviewImage),
                                   IsVisible = slideshow.IsVisible,
                                   Order = slideshow.Order,
                                   CreateDate = slideshow.CreateDate,
@@ -106,22 +92,6 @@ namespace Hydra.Cms.Api.Services
                                       Avatar = slideshow.User.Avatar
                                   }
                               }).OrderByDescending(x => x.IsVisible).ThenByDescending(x => x.Order).ToListAsync();
-            var listIds = list.Where(x => x.PreviewImageId != null).Select(x => x.PreviewImageId).ToArray();
-            var files = _queryRepository.Table<FileUpload>().Where(x => listIds.Contains(x.Id));
-            foreach (var item in list)
-            {
-                var file = files.FirstOrDefault(x => x.Id == item.PreviewImageId);
-                if (file != null)
-                    item.PreviewImage = new FileUploadModel()
-                    {
-                        Id = file.Id,
-                        FileName = file.FileName,
-                        Directory = file.Directory,
-                        Extension = file.Extension,
-                        Size = file.Size,
-                        Thumbnail = file.Thumbnail
-                    };
-            }
 
             result.Data = list;
 

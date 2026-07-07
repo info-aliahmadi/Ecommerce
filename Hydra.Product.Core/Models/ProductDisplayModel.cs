@@ -1,7 +1,5 @@
-﻿using Hydra.Ecommerce.Core.Domain;
-using Hydra.Ecommerce.Core.Enums;
+﻿using Hydra.Ecommerce.Core.Enums;
 using Hydra.FileStorage.Core.Models;
-using Hydra.Kernel.GeneralModels;
 
 
 namespace Hydra.Product.Core.Models
@@ -12,6 +10,16 @@ namespace Hydra.Product.Core.Models
         /// Product unique identifier.
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Product title or name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Uniqe Code of Product
+        /// </summary>
+        public string Sku { get; set; }
 
         /// <summary>
         /// Identifier of the user who created the product.
@@ -34,14 +42,9 @@ namespace Hydra.Product.Core.Models
         public string UpdateUserBy { get; set; }
 
         /// <summary>
-        /// Product title or name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// URL or path to the preview image for the product.
         /// </summary>
-        public string? ImagePreviewPath { get; set; }
+        public FileUploadModel? ImagePreview { get; set; }
 
         /// <summary>
         /// SEO meta keywords for the product.
@@ -251,7 +254,7 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// Names of categories this product belongs to.
         /// </summary>
-        public List<string> CategoryNames { get; set; } = new();
+        public List<CategoryDisplayModel> Categories { get; set; } = new();
 
         /// <summary>
         /// Identifiers of manufacturers associated with this product.

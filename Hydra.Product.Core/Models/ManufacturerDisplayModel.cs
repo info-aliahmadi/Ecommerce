@@ -1,4 +1,6 @@
-﻿namespace Hydra.Product.Core.Models
+﻿using Hydra.FileStorage.Core.Models;
+
+namespace Hydra.Product.Core.Models
 {
     public class ManufacturerDisplayModel
     {
@@ -41,7 +43,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public string? ImagePreviewPath { get; set; }
+        public FileUploadModel? ImagePreview { get; set; }
 
         /// <summary>
         /// 

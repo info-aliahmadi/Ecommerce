@@ -2,7 +2,7 @@
 
 namespace Hydra.Ecommerce.Core.Domain;
 
-public class ProductProductTag
+public class ProductProductTag : BaseEntity<int>
 {
     public int ProductTagId { get; set; }
     public ProductTag ProductTag { get; set; }

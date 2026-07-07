@@ -34,7 +34,7 @@ namespace Hydra.Product.Api.Services
                                   MetaTitle = manufacturer.MetaTitle,
                                   Description = manufacturer.Description,
                                   MetaDescription = manufacturer.MetaDescription,
-                                  ImagePreviewPath = manufacturer.ImagePreview.Directory + manufacturer.ImagePreview.FileName,
+                                  ImagePreview = new FileStorage.Core.Models.FileUploadModel(manufacturer.ImagePreview),
                                   DisplayOrder = manufacturer.DisplayOrder,
                                   ProductsCount = manufacturer.ProductManufacturers.Where(x => !x.Product.Deleted && x.Product.Published).Count(),
                               }).OrderBy(x => x.DisplayOrder).Cacheable().ToListAsync();
@@ -61,13 +61,7 @@ namespace Hydra.Product.Api.Services
                                   CreatedOnUtc = manufacturer.CreatedOnUtc,
                                   UpdatedOnUtc = manufacturer.UpdatedOnUtc,
                                   ImagePreviewId = manufacturer.ImagePreviewId,
-                                  ImagePreview = manufacturer.ImagePreview != null ? new FileStorage.Core.Models.FileUploadModel()
-                                  {
-                                      Id = manufacturer.ImagePreview.Id,
-                                      FileName = manufacturer.ImagePreview.FileName,
-                                      Directory = manufacturer.ImagePreview.Directory,
-                                      Size = manufacturer.ImagePreview.Size,
-                                  } : null,
+                                  ImagePreview = new FileStorage.Core.Models.FileUploadModel(manufacturer.ImagePreview),
                               }).OrderBy(x => x.DisplayOrder).Cacheable().ToListAsync();
             result.Data = list;
             return result;

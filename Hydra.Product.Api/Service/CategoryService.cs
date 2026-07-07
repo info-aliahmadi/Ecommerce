@@ -1,5 +1,6 @@
 using EFCoreSecondLevelCacheInterceptor;
 using Hydra.Ecommerce.Core.Domain;
+using Hydra.FileStorage.Core.Models;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
 using Hydra.Product.Core.Interfaces;
@@ -34,8 +35,9 @@ namespace Hydra.Product.Api.Services
                 ParentCategoryId = d.ParentCategoryId,
                 ShowOnHomepage = d.ShowOnHomepage,
                 DisplayOrder = d.DisplayOrder,
-                ImagePreviewPath = d.ImagePreviewPath,
-                Color = d.Color
+                ImagePreview = d.ImagePreview,
+                Color = d.Color,
+                ProductsCount = d.ProductsCount
             }).ToList();
 
             var parents = list.Where(x => x.ParentCategoryId == null).ToList();
@@ -63,11 +65,11 @@ namespace Hydra.Product.Api.Services
                     Description = category.Description,
                     MetaDescription = category.MetaDescription,
                     ParentCategoryId = category.ParentCategoryId,
-                    ImagePreviewPath = category.ImagePreview.Directory + category.ImagePreview.FileName,
+                    ImagePreview = category.ImagePreview != null ? new FileUploadModel(category.ImagePreview) : null,
                     ShowOnHomepage = category.ShowOnHomepage,
                     DisplayOrder = category.DisplayOrder,
                     Color = category.Color,
-                    ProductsCount = category.ProductCategories.Count(c => c.Product.Published && !c.Product.Deleted)
+                    ProductsCount = category.ProductCategories.Count(c => c.Product.Published && c.Product.Deleted == false)
                 })
                 .OrderBy(x => x.DisplayOrder)
                 .Cacheable()
@@ -248,12 +250,7 @@ namespace Hydra.Product.Api.Services
                     CreatedOnUtc = category.CreatedOnUtc,
                     UpdatedOnUtc = category.UpdatedOnUtc,
                     ImagePreviewId = category.ImagePreviewId,
-                    ImagePreview = category.ImagePreview != null?  new FileStorage.Core.Models.FileUploadModel
-                    {
-                        Id = category.ImagePreview.Id,
-                        Directory = category.ImagePreview.Directory,
-                        FileName = category.ImagePreview.FileName
-                    } : null,
+                    ImagePreview =  new FileUploadModel(category.ImagePreview),
                     Color = category.Color
                 })
                 .OrderBy(x => x.DisplayOrder)

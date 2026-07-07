@@ -77,14 +77,7 @@ namespace Hydra.Cms.Api.Services
                     Subject = article.Subject,
                     Body = article.Body,
                     PreviewImageId = article.PreviewImageId,
-                    PreviewImage = new FileStorage.Core.Models.FileUploadModel()
-                    {
-                        Id = article.PreviewImage != null ? article.PreviewImage.Id : 0,
-                        FileName = article.PreviewImage!.FileName ?? "",
-                        Extension = article.PreviewImage!.Extension ?? "",
-                        Directory = article.PreviewImage!.Directory ?? "",
-                        Thumbnail = article.PreviewImage!.Thumbnail ?? ""
-                    },
+                    PreviewImage = new FileStorage.Core.Models.FileUploadModel(article.PreviewImage),
                     PreviewImageUrl = article.PreviewImageUrl,
                     PublishDate = article.PublishDate,
                     EditDate = article.EditDate,
@@ -154,14 +147,7 @@ namespace Hydra.Cms.Api.Services
                     Subject = article.Subject,
                     Body = article.Body,
                     PreviewImageId = article.PreviewImageId,
-                    PreviewImage = new FileStorage.Core.Models.FileUploadModel()
-                    {
-                        Id = article.PreviewImage != null ? article.PreviewImage.Id : 0,
-                        FileName = article.PreviewImage!.FileName ?? "",
-                        Extension = article.PreviewImage!.Extension ?? "",
-                        Directory = article.PreviewImage!.Directory ?? "",
-                        Thumbnail = article.PreviewImage!.Thumbnail ?? ""
-                    },
+                    PreviewImage = new FileStorage.Core.Models.FileUploadModel(article.PreviewImage),
                     PreviewImageUrl = article.PreviewImageUrl,
                     PublishDate = article.PublishDate,
                     EditDate = article.EditDate,
@@ -219,14 +205,7 @@ namespace Hydra.Cms.Api.Services
                     Subject = article.Subject,
                     Body = article.Body,
                     PreviewImageId = article.PreviewImageId,
-                    PreviewImage = new FileStorage.Core.Models.FileUploadModel()
-                    {
-                        Id = article.PreviewImage != null ? article.PreviewImage.Id : 0,
-                        FileName = article.PreviewImage!.FileName ?? "",
-                        Extension = article.PreviewImage!.Extension ?? "",
-                        Directory = article.PreviewImage!.Directory ?? "",
-                        Thumbnail = article.PreviewImage!.Thumbnail ?? ""
-                    },
+                    PreviewImage = new FileStorage.Core.Models.FileUploadModel(article.PreviewImage),
                     PreviewImageUrl = article.PreviewImageUrl,
                     PublishDate = article.PublishDate,
                     EditDate = article.EditDate,
@@ -282,14 +261,7 @@ namespace Hydra.Cms.Api.Services
                     Subject = article.Subject,
                     Body = article.Body,
                     PreviewImageId = article.PreviewImageId,
-                    PreviewImage = new FileStorage.Core.Models.FileUploadModel()
-                    {
-                        Id = article.PreviewImage != null ? article.PreviewImage.Id : 0,
-                        FileName = article.PreviewImage!.FileName ?? "",
-                        Extension = article.PreviewImage!.Extension ?? "",
-                        Directory = article.PreviewImage!.Directory ?? "",
-                        Thumbnail = article.PreviewImage!.Thumbnail ?? ""
-                    },
+                    PreviewImage = new FileStorage.Core.Models.FileUploadModel(article.PreviewImage),
                     PreviewImageUrl = article.PreviewImageUrl,
                     PublishDate = article.PublishDate,
                     EditDate = article.EditDate,

@@ -116,9 +116,10 @@ namespace Hydra.Product.Api.Services
                         select new ProductDisplayModel()
                         {
                             Id = product.Id,
+                            Name = product.Name,
+                            Sku = product.Sku,
                             CreateUserId = product.CreateUserId,
                             UpdateUserId = product.UpdateUserId,
-                            Name = product.Name,
                             MetaKeywords = product.MetaKeywords,
                             MetaTitle = product.MetaTitle,
                             FullDescription = product.FullDescription,
@@ -157,8 +158,14 @@ namespace Hydra.Product.Api.Services
                             CreatedOnUtc = product.CreatedOnUtc,
                             UpdatedOnUtc = product.UpdatedOnUtc,
                             StockType = product.StockType,
-                            ImagePreviewPath = product.ImagePreview.Directory + product.ImagePreview.FileName,
-                            CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
+                            ImagePreview = new FileStorage.Core.Models.FileUploadModel(product.ImagePreview),
+                            Categories = product.ProductCategories.Select(cat => new CategoryDisplayModel()
+                            {
+                                Id = cat.CategoryId,
+                                Name = cat.Category.Name,
+                                ImagePreview = new FileStorage.Core.Models.FileUploadModel(cat.Category.ImagePreview),
+                                Color = cat.Category.Color,
+                            }).ToList(),
                             ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
                             Attributes = product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeDisplayModel()
                             {
@@ -231,9 +238,10 @@ namespace Hydra.Product.Api.Services
                     Products = g.Select(x => new ProductDisplayModel
                     {
                         Id = x.Product.Id,
+                        Name = x.Product.Name,
+                        Sku = x.Product.Sku,
                         CreateUserId = x.Product.CreateUserId,
                         UpdateUserId = x.Product.UpdateUserId,
-                        Name = x.Product.Name,
                         MetaKeywords = x.Product.MetaKeywords,
                         MetaTitle = x.Product.MetaTitle,
                         FullDescription = x.Product.FullDescription,
@@ -272,8 +280,14 @@ namespace Hydra.Product.Api.Services
                         CreatedOnUtc = x.Product.CreatedOnUtc,
                         UpdatedOnUtc = x.Product.UpdatedOnUtc,
                         StockType = x.Product.StockType,
-                        ImagePreviewPath = x.Product.ImagePreview.Directory + x.Product.ImagePreview.FileName,
-                        CategoryNames = x.Product.ProductCategories.Select(c => c.Category.Name).ToList(),
+                        ImagePreview = new FileStorage.Core.Models.FileUploadModel(x.Product.ImagePreview),
+                        Categories = x.Product.ProductCategories.Select(cat => new CategoryDisplayModel()
+                        {
+                            Id = cat.CategoryId,
+                            Name = cat.Category.Name,
+                            ImagePreview = new FileStorage.Core.Models.FileUploadModel(cat.Category.ImagePreview),
+                            Color = cat.Category.Color,
+                        }).ToList(),
                         ManufacturerNames = x.Product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
                         Attributes = x.Product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeDisplayModel()
                         {
@@ -314,9 +328,10 @@ namespace Hydra.Product.Api.Services
                               select new ProductModel()
                               {
                                   Id = product.Id,
+                                  Name = product.Name,
+                                  Sku = product.Sku,
                                   CreateUserId = product.CreateUserId,
                                   UpdateUserId = product.UpdateUserId,
-                                  Name = product.Name,
                                   MetaKeywords = product.MetaKeywords,
                                   MetaTitle = product.MetaTitle,
                                   FullDescription = product.FullDescription,
@@ -361,12 +376,7 @@ namespace Hydra.Product.Api.Services
                                   UpdatedOnUtc = product.UpdatedOnUtc,
                                   StockType = product.StockType,
                                   ImagePreviewId = product.ImagePreviewId,
-                                  ImagePreview = product.ImagePreview != null ? new FileStorage.Core.Models.FileUploadModel()
-                                  {
-                                      Id = product.ImagePreview.Id,
-                                      Directory = product.ImagePreview.Directory,
-                                      FileName = product.ImagePreview.FileName
-                                  } : null,
+                                  ImagePreview = new FileStorage.Core.Models.FileUploadModel(product.ImagePreview),
                                   CategoryIds = product.ProductCategories.Select(c => c.CategoryId).ToList(),
                                   ManufacturerIds = product.ProductManufacturers.Select(c => c.ManufacturerId).ToList(),
                                   AttributeIds = product.ProductAttributes.Select(c => c.AttributeId).ToList(),
@@ -410,9 +420,10 @@ namespace Hydra.Product.Api.Services
             var productModel = new ProductModel()
             {
                 Id = product.Id,
+                Name = product.Name,
+                Sku = product.Sku,
                 CreateUserId = product.CreateUserId,
                 UpdateUserId = product.UpdateUserId,
-                Name = product.Name,
                 MetaKeywords = product.MetaKeywords,
                 MetaTitle = product.MetaTitle,
                 ShortDescription = product.ShortDescription,
@@ -454,12 +465,7 @@ namespace Hydra.Product.Api.Services
                 UpdatedOnUtc = product.UpdatedOnUtc,
                 ImagePreviewId = product.ImagePreviewId,
                 MeasureType = product.MeasureType,
-                ImagePreview = product.ImagePreview != null ? new FileStorage.Core.Models.FileUploadModel()
-                {
-                    Id = product.ImagePreview.Id,
-                    Directory = product.ImagePreview.Directory,
-                    FileName = product.ImagePreview.FileName
-                } : null,
+                ImagePreview = new FileStorage.Core.Models.FileUploadModel(product.ImagePreview),
                 CreateUser = new AuthorModel()
                 {
                     Id = product.CreateUser.Id,
@@ -574,13 +580,38 @@ namespace Hydra.Product.Api.Services
                 result.Errors.AddRange(validationErrors);
                 return result;
             }
+            if (productModel.Published)
+            {
+                var isNameExist = _queryRepository.Table<Ecommerce.Core.Domain.Product>().Any(x => x.Name == productModel.Name);
+
+                if (isNameExist)
+                {
+                    result.Message = "Validation failed.";
+                    result.Errors.Add(new Error(nameof(productModel.Name), "Product name is Existed."));
+
+                    result.Status = ResultStatusEnum.InvalidValidation;
+                    return result;
+                }
+
+                var isSkuExist = _queryRepository.Table<Ecommerce.Core.Domain.Product>().Any(x => x.Sku == productModel.Sku);
+
+                if (isSkuExist)
+                {
+                    result.Message = "Validation failed.";
+                    result.Errors.Add(new Error(nameof(productModel.Sku), "Product Sku is Existed."));
+
+                    result.Status = ResultStatusEnum.InvalidValidation;
+                    return result;
+                }
+            }
 
             var currentDateTime = DateTime.UtcNow;
 
             var product = new Ecommerce.Core.Domain.Product
             {
-                CreateUserId = productModel.CreateUserId,
                 Name = productModel.Name,
+                Sku = productModel.Sku,
+                CreateUserId = productModel.CreateUserId,
                 MetaKeywords = productModel.MetaKeywords,
                 MetaTitle = productModel.MetaTitle,
                 ShortDescription = productModel.ShortDescription,
@@ -708,6 +739,33 @@ namespace Hydra.Product.Api.Services
                     return result;
                 }
 
+                if (productModel.Published)
+                {
+                    var isNameExist = _queryRepository.Table<Ecommerce.Core.Domain.Product>()
+                        .Any(x => x.Id != productModel.Id && x.Name == productModel.Name);
+
+                    if (isNameExist)
+                    {
+                        result.Message = "Validation failed.";
+                        result.Errors.Add(new Error(nameof(productModel.Name), "Product name is Existed."));
+
+                        result.Status = ResultStatusEnum.InvalidValidation;
+                        return result;
+                    }
+
+                    var isSkuExist = _queryRepository.Table<Ecommerce.Core.Domain.Product>()
+                        .Any(x => x.Id != productModel.Id && x.Sku == productModel.Sku);
+
+                    if (isSkuExist)
+                    {
+                        result.Message = "Validation failed.";
+                        result.Errors.Add(new Error(nameof(productModel.Sku), "Product Sku is Existed."));
+
+                        result.Status = ResultStatusEnum.InvalidValidation;
+                        return result;
+                    }
+                }
+
                 // start transaction
                 var transaction = await _commandRepository.BeginTransactionAsync();
                 try
@@ -729,9 +787,10 @@ namespace Hydra.Product.Api.Services
 
                     // product Info
                     product.Name = productModel.Name;
+                    product.Sku = productModel.Sku;
                     product.ShortDescription = productModel.ShortDescription;
                     product.FullDescription = productModel.FullDescription;
-
+                    product.ImagePreviewId = productModel.ImagePreviewId;
 
                     // Seo
                     product.MetaKeywords = productModel.MetaKeywords;
@@ -772,8 +831,6 @@ namespace Hydra.Product.Api.Services
                     product.MeasureType = productModel.MeasureType;
 
                     // pricing
-
-
                     product.SellUnitPrice = productModel.SellUnitPrice;
                     product.OldSellUnitPrice = productModel.OldSellUnitPrice;
                     product.CurrencyType = productModel.CurrencyType;
@@ -1046,22 +1103,37 @@ namespace Hydra.Product.Api.Services
                     if (newStockType == StockType.Total)
                     {
                         // Total → Total: update the single row
-                        var existing = existingInventories[0];
-                        var incoming = newInventories[0];
-                        if (existing.StockQuantity != incoming.StockQuantity ||
-                            existing.ReservedQuantity != incoming.ReservedQuantity ||
-                            existing.BuyUnitPrice != incoming.BuyUnitPrice)
+                        if (!existingInventories.Any())
                         {
-                            if (existing.StockQuantity != incoming.StockQuantity)
-                                existing.StockQuantity = incoming.StockQuantity;
+                            var datetime = DateTime.UtcNow;
+                            await _commandRepository.InsertAsync(new ProductInventory
+                            {
+                                ProductId = productId,
+                                StockQuantity = newInventories[0].StockQuantity,
+                                ReservedQuantity = newInventories[0].ReservedQuantity,
+                                BuyUnitPrice = newInventories[0].BuyUnitPrice,
+                                CreatedDatetime = datetime
+                            });
+                        }
+                        else
+                        {
+                            var existing = existingInventories[0];
+                            var incoming = newInventories[0];
+                            if (existing.StockQuantity != incoming.StockQuantity ||
+                                existing.ReservedQuantity != incoming.ReservedQuantity ||
+                                existing.BuyUnitPrice != incoming.BuyUnitPrice)
+                            {
+                                if (existing.StockQuantity != incoming.StockQuantity)
+                                    existing.StockQuantity = incoming.StockQuantity;
 
-                            if (existing.ReservedQuantity != incoming.ReservedQuantity)
-                                existing.ReservedQuantity = incoming.ReservedQuantity;
+                                if (existing.ReservedQuantity != incoming.ReservedQuantity)
+                                    existing.ReservedQuantity = incoming.ReservedQuantity;
 
-                            if (existing.BuyUnitPrice != incoming.BuyUnitPrice)
-                                existing.BuyUnitPrice = incoming.BuyUnitPrice;
+                                if (existing.BuyUnitPrice != incoming.BuyUnitPrice)
+                                    existing.BuyUnitPrice = incoming.BuyUnitPrice;
 
-                            _commandRepository.UpdateAsync(existing);
+                                _commandRepository.UpdateAsync(existing);
+                            }
                         }
                     }
                     else
@@ -1185,12 +1257,15 @@ namespace Hydra.Product.Api.Services
             }
         }
 
-        private static List<Error> ValidateProductModel(ProductModel productModel)
+        private List<Error> ValidateProductModel(ProductModel productModel)
         {
             var errors = new List<Error>();
 
             if (string.IsNullOrWhiteSpace(productModel.Name))
                 errors.Add(new Error(nameof(productModel.Name), "Product name is required."));
+
+            if (string.IsNullOrWhiteSpace(productModel.Sku))
+                errors.Add(new Error(nameof(productModel.Sku), "Product Sku is required."));
 
             if (productModel.SellUnitPrice < 0)
                 errors.Add(new Error(nameof(productModel.SellUnitPrice), "SellUnitPrice must be zero or positive."));
