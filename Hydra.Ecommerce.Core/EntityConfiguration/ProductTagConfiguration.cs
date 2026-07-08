@@ -1,4 +1,5 @@
 ﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,37 +19,32 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasData(new ProductTag()
             {
-                Id = 1,
+                Id = (int)ProductTagType.Bestseller,
                 Name = "Bestseller",
                 NormalizedName = "bestseller"
             }, new ProductTag()
             {
-                Id = 2,
-                Name = "New",
-                NormalizedName = "new"
-            }, new ProductTag()
-            {
-                Id = 3,
+                Id = (int)ProductTagType.Popular,
                 Name = "Popular",
                 NormalizedName = "popular"
             }, new ProductTag()
             {
-                Id = 4,
+                Id = (int)ProductTagType.Sale,
                 Name = "Sale",
                 NormalizedName = "sale"
             }, new ProductTag()
             {
-                Id = 5,
+                Id = (int)ProductTagType.Sustainable,
                 Name = "Sustainable",
                 NormalizedName = "sustainable"
             }, new ProductTag()
             {
-                Id = 6,
+                Id = (int)ProductTagType.Trending,
                 Name = "Trending",
                 NormalizedName = "trending"
             }, new ProductTag()
             {
-                Id = 7,
+                Id = (int)ProductTagType.Featured,
                 Name = "Featured",
                 NormalizedName = "Featured"
             });

@@ -1,6 +1,8 @@
+using Hydra.FileStorage.Core.Models;
+
 namespace Hydra.Product.Core.Models
 {
-    public class CuratedProductGroupModel
+    public class CuratedStyleProductModel
     {
         public int AttributeId { get; set; }
 
@@ -10,7 +12,7 @@ namespace Hydra.Product.Core.Models
 
         public string? AttributeDescription { get; set; }
 
-        public string? ImagePreviewPath { get; set; }
+        public FileUploadModel? ImagePreview { get; set; }
 
         public List<ProductDisplayModel> Products { get; set; } = new();
     }

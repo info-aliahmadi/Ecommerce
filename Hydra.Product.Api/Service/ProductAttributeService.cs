@@ -1,11 +1,12 @@
 ﻿using EFCoreSecondLevelCacheInterceptor;
+using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
-using Hydra.Ecommerce.Core.Domain;
 
 namespace Hydra.Product.Api.Services
 {
@@ -20,29 +21,76 @@ namespace Hydra.Product.Api.Services
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
-        /// <param name="dataGrid"></param>
         /// <returns></returns>
-        private List<ProductAttributeModel> GetProductAttributesList()
+        public List<ProductAttributeModel> GetPublishedProductAttributesList()
         {
-
-            var list = (from productAttribute in _queryRepository.Table<ProductAttribute>()
-                        select new ProductAttributeModel()
-                        {
-                            Id = productAttribute.Id,
-                            Name = productAttribute.Name,
-                            Value = productAttribute.Value,
-                            AttributeType = productAttribute.AttributeType,
-                            Description = productAttribute.Description,
-                            DisplayOrder = productAttribute.DisplayOrder,
-                            ImagePreviewId = productAttribute.ImagePreviewId,
-                            ImagePreview =  new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview)
-                        }).OrderBy(x => x.DisplayOrder).Cacheable().ToList();
+            var list = _queryRepository.Table<ProductAttribute>()
+                .Select(productAttribute => new ProductAttributeModel()
+                {
+                    Id = productAttribute.Id,
+                    Name = productAttribute.Name,
+                    Value = productAttribute.Value,
+                    AttributeType = productAttribute.AttributeType,
+                    Description = productAttribute.Description,
+                    DisplayOrder = productAttribute.DisplayOrder,
+                    ImagePreviewId = productAttribute.ImagePreviewId,
+                    ImagePreview = new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview)
+                }).OrderBy(x => x.DisplayOrder).Cacheable().ToList();
 
             return list;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private List<ProductAttributeModel> GetProductAttributesList()
+        {
+            var list = _queryRepository.Table<ProductAttribute>()
+                .Select(productAttribute => new ProductAttributeModel()
+                {
+                    Id = productAttribute.Id,
+                    Name = productAttribute.Name,
+                    Value = productAttribute.Value,
+                    AttributeType = productAttribute.AttributeType,
+                    Description = productAttribute.Description,
+                    DisplayOrder = productAttribute.DisplayOrder,
+                    ImagePreviewId = productAttribute.ImagePreviewId,
+                    ImagePreview = new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview),
+                    ShowOnHomepage = productAttribute.ShowOnHomepage,
+                }).OrderBy(x => x.DisplayOrder).Cacheable().ToList();
+
+            return list;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attributeTypes"></param>
+        /// <returns></returns>
+        public List<ProductAttributeModel> GetPublishedAttributeByAttributeTypesList(AttributeType[] attributeTypes)
+        {
+
+            var list = _queryRepository.Table<ProductAttribute>().Where(x => attributeTypes.Contains(x.AttributeType))
+                  .Select(productAttribute => new ProductAttributeModel()
+                  {
+                      Id = productAttribute.Id,
+                      Name = productAttribute.Name,
+                      Value = productAttribute.Value,
+                      AttributeType = productAttribute.AttributeType,
+                      Description = productAttribute.Description,
+                      DisplayOrder = productAttribute.DisplayOrder,
+                      ImagePreviewId = productAttribute.ImagePreviewId,
+                      ImagePreview = new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview),
+                      ShowOnHomepage = productAttribute.ShowOnHomepage,
+
+                  }).OrderBy(x => x.DisplayOrder).ToList();
+
+            return list;
+        }
+        
         /// <summary>
         /// 
         /// </summary>
@@ -111,7 +159,8 @@ namespace Hydra.Product.Api.Services
                     AttributeType = productAttributeModel.AttributeType,
                     Description = productAttributeModel.Description,
                     DisplayOrder = productAttributeModel.DisplayOrder,
-                    ImagePreviewId = productAttributeModel.ImagePreviewId
+                    ImagePreviewId = productAttributeModel.ImagePreviewId,
+                    ShowOnHomepage = productAttributeModel.ShowOnHomepage,
 
                 };
 
@@ -164,6 +213,7 @@ namespace Hydra.Product.Api.Services
                 productAttribute.Description = productAttributeModel.Description;
                 productAttribute.DisplayOrder = productAttributeModel.DisplayOrder;
                 productAttribute.ImagePreviewId = productAttributeModel.ImagePreviewId;
+                productAttribute.ShowOnHomepage = productAttributeModel.ShowOnHomepage;
 
                 _commandRepository.UpdateAsync(productAttribute);
                 await _commandRepository.SaveChangesAsync();

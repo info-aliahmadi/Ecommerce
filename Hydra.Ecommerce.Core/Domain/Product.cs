@@ -33,9 +33,9 @@ public class Product : BaseEntity<int>
 
     public bool NotifyAdminForQuantityBelow { get; set; }
 
-    public int OrderMinimumQuantity { get; set; }
+    public int OrderMinimumQuantity { get; set; } = 1;
 
-    public int OrderMaximumQuantity { get; set; }
+    public int OrderMaximumQuantity { get; set; } = 1000;
 
     /// <summary>
     /// قیمت فروش
@@ -115,6 +115,7 @@ public class Product : BaseEntity<int>
     public virtual List<OrderItem> OrderItems { get; set; } = new();
 
     public virtual List<ProductCategory> ProductCategories { get; set; } = new();
+    public virtual List<ProductBundle> ProductBundles { get; set; } = new();
 
     public virtual List<ProductInventory> ProductInventories { get; set; } = new();
 

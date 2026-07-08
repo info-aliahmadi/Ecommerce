@@ -19,6 +19,13 @@ namespace Hydra.Cms.Core.EntityConfiguration
 
             builder.HasOne(x => x.LinkSection).WithMany(x => x.Links).HasForeignKey(x => x.LinkSectionId);
 
+            builder.HasOne(a => a.ImagePreview)
+               .WithMany() // Leave empty if FileUpload doesn't have a collection of Articles
+               .HasForeignKey(a => a.ImagePreviewId)
+               .IsRequired(false)
+               .OnDelete(DeleteBehavior.SetNull);
+
+
             // seed some public links
             builder.HasData(
                 // Shop Section

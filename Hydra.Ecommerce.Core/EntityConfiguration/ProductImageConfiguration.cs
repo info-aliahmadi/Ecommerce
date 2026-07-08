@@ -20,6 +20,13 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             .HasForeignKey(d => d.ProductId)
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("FK_ProductImage_Product");
+
+            entity.HasOne(a => a.Image)
+               .WithMany() // Leave empty if FileUpload doesn't have a collection of Articles
+               .HasForeignKey(a => a.ImageId)
+               .IsRequired(false)
+               .OnDelete(DeleteBehavior.SetNull);
+
         }
     }
 }

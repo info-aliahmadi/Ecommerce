@@ -1,4 +1,6 @@
 ﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
+using Hydra.Kernel.Enums;
 using Hydra.Kernel.GeneralModels;
 
 namespace Hydra.Product.Core.Models
@@ -19,7 +21,7 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public Sort? Sorting { get; set; }
+        public SortingType? Sorting { get; set; }
 
 
         /// <summary>
@@ -62,19 +64,6 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public DateTime? FromAvailableStartDateTimeUtc { get; set; } = null;
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public DateTime? ToAvailableStartDateTimeUtc { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public bool? HasDiscounts { get; set; }
 
         /// <summary>
@@ -94,6 +83,12 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         /// <returns></returns>
         public List<int>? ManufacturerIds { get; set; } = new();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<int>? ProductTagIds { get; set; } = new();
 
     }
 

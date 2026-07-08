@@ -20,6 +20,11 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             .IsRequired()
             .HasMaxLength(70);
 
+            entity.HasOne(a => a.ImagePreview)
+               .WithMany() // Leave empty if FileUpload doesn't have a collection of Articles
+               .HasForeignKey(a => a.ImagePreviewId)
+               .IsRequired(false)
+               .OnDelete(DeleteBehavior.SetNull);
 
             entity.HasData(
                 new Manufacturer()

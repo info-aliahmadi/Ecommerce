@@ -1,4 +1,6 @@
-﻿using Hydra.Kernel.Extension;
+﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
+using Hydra.Kernel.Extension;
 using Hydra.Kernel.GeneralModels;
 
 using Hydra.Product.Core.Models;
@@ -12,6 +14,13 @@ namespace Hydra.Product.Core.Interfaces
         /// </summary>
         /// <returns></returns>
         Result<List<ProductAttributeModel>> GetList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attributeTypes"></param>
+        /// <returns></returns>
+        List<ProductAttributeModel> GetPublishedAttributeByAttributeTypesList(AttributeType[] attributeTypes);
 
         /// <summary>
         /// 

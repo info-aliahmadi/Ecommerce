@@ -1,4 +1,5 @@
-﻿using Hydra.FileStorage.Core.Domain;
+﻿using Hydra.Ecommerce.Core.Enums;
+using Hydra.FileStorage.Core.Domain;
 using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
@@ -37,7 +38,7 @@ public class ProductAttribute : BaseEntity<int>
     /// <summary>
     /// show in homepage
     /// </summary>
-    public bool IsFeatured { get; set; } = false;
+    public bool ShowOnHomepage { get; set; } = false;
 
     /// <summary>
     /// 
@@ -52,23 +53,4 @@ public class ProductAttribute : BaseEntity<int>
     /// 
     /// </summary>
     public virtual List<ProductInventory> ProductInventories { get; set; } = new();
-}
-/// <summary>
-/// 
-/// </summary>
-public enum AttributeType
-{
-    Color = 0,
-    Size = 1,
-    Weight = 2,
-    Length = 3,
-    Width = 4,
-    Height = 5,
-    Material = 6,
-    // Curated Products which show in CuratedProducts Looks in homepage
-    Style = 7,
-    Pattern = 8,
-    Brand = 9,
-    Model = 10,
-
 }

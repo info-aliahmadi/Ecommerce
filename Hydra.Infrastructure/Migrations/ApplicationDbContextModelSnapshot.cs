@@ -7193,15 +7193,15 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("image_preview_id");
 
-                    b.Property<bool>("IsFeatured")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_featured");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("name");
+
+                    b.Property<bool>("ShowOnHomepage")
+                        .HasColumnType("boolean")
+                        .HasColumnName("show_on_homepage");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -7229,8 +7229,8 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 1,
                             AttributeType = 0,
                             DisplayOrder = 1,
-                            IsFeatured = false,
                             Name = "Blue",
+                            ShowOnHomepage = false,
                             Value = "blue"
                         },
                         new
@@ -7238,8 +7238,8 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 2,
                             AttributeType = 0,
                             DisplayOrder = 2,
-                            IsFeatured = false,
                             Name = "Red",
+                            ShowOnHomepage = false,
                             Value = "red"
                         },
                         new
@@ -7247,8 +7247,8 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 3,
                             AttributeType = 0,
                             DisplayOrder = 3,
-                            IsFeatured = false,
                             Name = "White",
+                            ShowOnHomepage = false,
                             Value = "#fff"
                         },
                         new
@@ -7256,8 +7256,8 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 4,
                             AttributeType = 0,
                             DisplayOrder = 4,
-                            IsFeatured = false,
                             Name = "Black",
+                            ShowOnHomepage = false,
                             Value = "#000"
                         },
                         new
@@ -7266,8 +7266,8 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 1,
                             Description = "Small Means S US Size",
                             DisplayOrder = 5,
-                            IsFeatured = false,
                             Name = "Small size",
+                            ShowOnHomepage = false,
                             Value = "#Small"
                         },
                         new
@@ -7276,8 +7276,8 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 1,
                             Description = "Small Means M US Size",
                             DisplayOrder = 6,
-                            IsFeatured = false,
                             Name = "Medium",
+                            ShowOnHomepage = false,
                             Value = "#Medium"
                         },
                         new
@@ -7286,8 +7286,8 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 1,
                             Description = "Small Means XL US Size",
                             DisplayOrder = 7,
-                            IsFeatured = false,
                             Name = "Large",
+                            ShowOnHomepage = false,
                             Value = "#Large"
                         },
                         new
@@ -7295,8 +7295,8 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 8,
                             AttributeType = 0,
                             DisplayOrder = 8,
-                            IsFeatured = false,
                             Name = "Green",
+                            ShowOnHomepage = false,
                             Value = "green"
                         },
                         new
@@ -7304,8 +7304,8 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 9,
                             AttributeType = 0,
                             DisplayOrder = 9,
-                            IsFeatured = false,
                             Name = "Yellow",
+                            ShowOnHomepage = false,
                             Value = "yellow"
                         },
                         new
@@ -7313,8 +7313,8 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 10,
                             AttributeType = 0,
                             DisplayOrder = 10,
-                            IsFeatured = false,
                             Name = "Purple",
+                            ShowOnHomepage = false,
                             Value = "purple"
                         },
                         new
@@ -7323,8 +7323,8 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 1,
                             Description = "Extra Small size",
                             DisplayOrder = 11,
-                            IsFeatured = false,
                             Name = "Extra Small",
+                            ShowOnHomepage = false,
                             Value = "XS"
                         },
                         new
@@ -7333,8 +7333,8 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 1,
                             Description = "Extra Large size",
                             DisplayOrder = 12,
-                            IsFeatured = false,
                             Name = "Extra Large",
+                            ShowOnHomepage = false,
                             Value = "XL"
                         },
                         new
@@ -7343,8 +7343,8 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 7,
                             Description = "Weekend Casual Style",
                             DisplayOrder = 13,
-                            IsFeatured = false,
                             Name = "Weekend Casual",
+                            ShowOnHomepage = false,
                             Value = "weekend-casual"
                         },
                         new
@@ -7353,8 +7353,8 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 7,
                             Description = "Office Professional Style",
                             DisplayOrder = 14,
-                            IsFeatured = false,
                             Name = "Office Professional",
+                            ShowOnHomepage = false,
                             Value = "office-professional"
                         },
                         new
@@ -7363,8 +7363,8 @@ namespace Hydra.Infrastructure.Migrations
                             AttributeType = 7,
                             Description = "Evening Elegance Style",
                             DisplayOrder = 15,
-                            IsFeatured = false,
                             Name = "Evening Elegance",
+                            ShowOnHomepage = false,
                             Value = "evening-elegance"
                         });
                 });
@@ -7727,36 +7727,30 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            Name = "New",
-                            NormalizedName = "new"
-                        },
-                        new
-                        {
-                            Id = 3,
                             Name = "Popular",
                             NormalizedName = "popular"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 3,
                             Name = "Sale",
                             NormalizedName = "sale"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 4,
                             Name = "Sustainable",
                             NormalizedName = "sustainable"
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 5,
                             Name = "Trending",
                             NormalizedName = "trending"
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 6,
                             Name = "Featured",
                             NormalizedName = "Featured"
                         });
@@ -24996,6 +24990,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "PreviewImage")
                         .WithMany()
                         .HasForeignKey("PreviewImageId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_article_file_upload_preview_image_id");
 
                     b.HasOne("Hydra.Auth.Domain.User", "Writer")
@@ -25059,6 +25054,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
                         .WithMany()
                         .HasForeignKey("ImagePreviewId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_link_file_upload_image_preview_id");
 
                     b.HasOne("Hydra.Cms.Core.Domain.LinkSection", "LinkSection")
@@ -25135,6 +25131,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "PreviewImage")
                         .WithMany()
                         .HasForeignKey("PreviewImageId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_slideshow_file_upload_preview_image_id");
 
                     b.HasOne("Hydra.Auth.Domain.User", "User")
@@ -25331,6 +25328,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
                         .WithMany()
                         .HasForeignKey("ImagePreviewId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_category_file_upload_image_preview_id");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Category", "ParentCategory")
@@ -25348,6 +25346,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
                         .WithMany()
                         .HasForeignKey("ImagePreviewId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_manufacturer_file_upload_image_preview_id");
 
                     b.Navigation("ImagePreview");
@@ -25480,7 +25479,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
                         .WithMany()
                         .HasForeignKey("ImagePreviewId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("FK_Product_ImagePreview");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.TaxCategory", "TaxCategory")
@@ -25509,6 +25508,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
                         .WithMany()
                         .HasForeignKey("ImagePreviewId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_product_attribute_file_upload_image_preview_id");
 
                     b.Navigation("ImagePreview");
@@ -25540,8 +25540,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_product_image_file_upload_image_id");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")

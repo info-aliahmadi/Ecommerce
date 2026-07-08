@@ -16,6 +16,11 @@ namespace Hydra.Cms.Core.EntityConfiguration
             builder.Property(o => o.Header).HasMaxLength(250);
             builder.Property(o => o.Description).HasMaxLength(500);
 
+            builder.HasOne(a => a.PreviewImage)
+               .WithMany() // Leave empty if FileUpload doesn't have a collection of Articles
+               .HasForeignKey(a => a.PreviewImageId)
+               .IsRequired(false)
+               .OnDelete(DeleteBehavior.SetNull);
 
         }
     }

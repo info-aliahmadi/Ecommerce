@@ -1,4 +1,5 @@
 ﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,6 +23,11 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.Property(e => e.Description)
             .HasMaxLength(300);
 
+            entity.HasOne(a => a.ImagePreview)
+               .WithMany() // Leave empty if FileUpload doesn't have a collection of Articles
+               .HasForeignKey(a => a.ImagePreviewId)
+               .IsRequired(false)
+               .OnDelete(DeleteBehavior.SetNull);
 
             entity.HasData(new ProductAttribute()
             {

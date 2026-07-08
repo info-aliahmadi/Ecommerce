@@ -1,4 +1,5 @@
 ﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.FileStorage.Core.Models;
 
 namespace Hydra.Product.Core.Models
@@ -34,12 +35,6 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         public FileUploadModel? ImagePreview { get; set; }
 
-
-        /// <summary>
-        /// show in homepage
-        /// </summary>
-        public bool IsFeatured { get; set; } = false;
-
         /// <summary>
         /// 
         /// </summary>
@@ -49,5 +44,11 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         public string? Description { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool ShowOnHomepage { get; set; }
+        
     }
 }

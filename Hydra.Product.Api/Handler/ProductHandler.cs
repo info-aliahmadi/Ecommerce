@@ -42,11 +42,11 @@ namespace Hydra.Product.Api.Handler
         /// <returns>A task that represents the asynchronous operation. The task result contains an <see cref="IResult"/> that is
         /// <see langword="Ok"/> with the product data if the operation succeeds, or <see langword="BadRequest"/> with
         /// error details if it fails.</returns>
-        public static async Task<IResult> GetPublishedCuratedProducts(IProductService productService)
+        public static async Task<IResult> GetPublishedCuratedStyleProducts(IProductService productService)
         {
             try
             {
-                var result = await productService.GetPublishedCuratedProducts();
+                var result = await productService.GetPublishedCuratedStyleProducts();
                 return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
             }
             catch (Exception e)

@@ -79,7 +79,7 @@ namespace Hydra.Product.Core.Interfaces
         /// Returns up to 5 products per attribute.
         /// </summary>
         /// <returns>List of curated product groups.</returns>
-        Task<Result<List<CuratedProductGroupModel>>> GetPublishedCuratedProducts();
+        Task<Result<List<CuratedStyleProductModel>>> GetPublishedCuratedStyleProducts();
 
     }
 }

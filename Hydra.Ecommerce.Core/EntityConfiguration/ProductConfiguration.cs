@@ -49,6 +49,12 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             .HasForeignKey(d => d.UpdateUserId)
             .HasConstraintName("FK_Product_UpdateUser");
 
+            entity.HasOne(a => a.ImagePreview)
+               .WithMany() // Leave empty if FileUpload doesn't have a collection of Articles
+               .HasForeignKey(a => a.ImagePreviewId)
+               .IsRequired(false)
+               .OnDelete(DeleteBehavior.SetNull);
+
             // Seed sample products from provided example JSON using entity.HasData
             entity.HasData(
                 new Hydra.Ecommerce.Core.Domain.Product

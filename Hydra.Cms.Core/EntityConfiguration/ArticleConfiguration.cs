@@ -31,6 +31,11 @@ namespace Hydra.Cms.Core.EntityConfiguration
             l => l.HasOne<Topic>(e => e.Topic).WithMany(e => e.ArticleTopics).HasForeignKey(x => x.TopicId).OnDelete(DeleteBehavior.Cascade),
             r => r.HasOne<Article>(e => e.Article).WithMany(e => e.ArticleTopics).HasForeignKey(x => x.ArticleId).OnDelete(DeleteBehavior.Cascade));
 
+            builder.HasOne(a => a.PreviewImage)
+               .WithMany() // Leave empty if FileUpload doesn't have a collection of Articles
+               .HasForeignKey(a => a.PreviewImageId)
+               .IsRequired(false)
+               .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

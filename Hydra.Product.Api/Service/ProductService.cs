@@ -7,7 +7,6 @@ using Hydra.Kernel.Interface;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Hydra.Product.Api.Services
 {
@@ -46,8 +45,8 @@ namespace Hydra.Product.Api.Services
                             .Include(x => x.ProductManufacturers)
                             .Include(x => x.ProductAttributes)
                             .Where(x => x.Deleted == false && x.Published == true &&
-                            (x.AvailableStartDateTimeUtc != null && x.AvailableStartDateTimeUtc >= currentDateTime) &&
-                            (x.AvailableEndDateTimeUtc != null && x.AvailableEndDateTimeUtc <= currentDateTime));
+                            ((x.AvailableStartDateTimeUtc != null && x.AvailableStartDateTimeUtc <= currentDateTime) ||
+                            (x.AvailableEndDateTimeUtc != null && x.AvailableEndDateTimeUtc >= currentDateTime)));
 
             // Apply search filter
             if (!string.IsNullOrEmpty(productFilter.SearchInput))
@@ -93,6 +92,11 @@ namespace Hydra.Product.Api.Services
                 query = query.Where(x => x.ProductManufacturers.Any(m => productFilter.ManufacturerIds.Contains(m.ManufacturerId)));
             }
 
+            // Apply Tag filter
+            if (productFilter.ProductTagIds.Count > 0)
+            {
+                query = query.Where(x => x.ProductProductTags.Any(c => productFilter.ProductTagIds.Contains(c.ProductTagId)));
+            }
 
             // Apply Attribute Types filter
             if (productFilter.AttributeTypes.Count > 0)
@@ -100,16 +104,56 @@ namespace Hydra.Product.Api.Services
                 query = query.Where(x => x.ProductAttributes.Any(c => productFilter.AttributeTypes.Contains(c.Attribute.AttributeType)));
             }
 
-            // Apply TopRate filter
+            // Filter based on products with more rating
             if (productFilter.TopRate.HasValue)
             {
                 query = query.OrderByDescending(c => c.ApprovedRatingSum);
             }
 
-            // Apply manufacturer filter
+            // Filter based on products with more order item
             if (productFilter.TopSell.HasValue)
             {
                 query = query.Include(x => x.OrderItems).OrderByDescending(c => c.OrderItems.Count());
+            }
+
+            // Apply manufacturer filter
+            if (productFilter.HasDiscounts.HasValue)
+            {
+                query = query.Where(x => x.SellUnitPrice < x.OldSellUnitPrice);
+            }
+
+            if (productFilter.Sorting != null)
+            {
+                switch (productFilter.Sorting)
+                {
+                    case Kernel.Enums.SortingType.SortNewest:
+                        query = query.OrderBy(x => x.AvailableStartDateTimeUtc);
+                        break;
+                    case Kernel.Enums.SortingType.SortOldest:
+                        query = query.OrderByDescending(x => x.AvailableStartDateTimeUtc);
+                        break;
+                    case Kernel.Enums.SortingType.SortPopular:
+                        query = query.OrderByDescending(x => x.ApprovedTotalReviews);
+                        break;
+                    case Kernel.Enums.SortingType.SortRating:
+                        query = query.OrderByDescending(x => x.ApprovedRatingSum);
+                        break;
+                    case Kernel.Enums.SortingType.SortNameAsc:
+                        query = query.OrderBy(x => x.Name);
+                        break;
+                    case Kernel.Enums.SortingType.SortNameDesc:
+                        query = query.OrderByDescending(x => x.Name);
+                        break;
+                    case Kernel.Enums.SortingType.SortPriceAsc:
+                        query = query.OrderBy(x => x.SellUnitPrice);
+                        break;
+                    case Kernel.Enums.SortingType.SortPriceDesc:
+                        query = query.OrderByDescending(x => x.SellUnitPrice);
+                        break;
+                    default:
+                        query = query.OrderBy(x => x.AvailableStartDateTimeUtc);
+                        break;
+                }
             }
 
             var list = (from product in query
@@ -123,6 +167,7 @@ namespace Hydra.Product.Api.Services
                             MetaKeywords = product.MetaKeywords,
                             MetaTitle = product.MetaTitle,
                             FullDescription = product.FullDescription,
+                            ShortDescription = product.ShortDescription,
                             AdminComment = product.AdminComment,
                             MetaDescription = product.MetaDescription,
                             DeliveryDateType = product.DeliveryDateType,
@@ -159,6 +204,7 @@ namespace Hydra.Product.Api.Services
                             UpdatedOnUtc = product.UpdatedOnUtc,
                             StockType = product.StockType,
                             ImagePreview = new FileStorage.Core.Models.FileUploadModel(product.ImagePreview),
+                            ImagePaths = product.ProductImages.Select(x => x.Image.FullPath).ToList(),
                             Categories = product.ProductCategories.Select(cat => new CategoryDisplayModel()
                             {
                                 Id = cat.CategoryId,
@@ -174,7 +220,7 @@ namespace Hydra.Product.Api.Services
                                 Description = z.Description,
                                 DisplayOrder = z.DisplayOrder,
                                 Name = z.Name,
-                                ImagePreviewPath = z.ImagePreview.Directory + z.ImagePreview.FileName,
+                                ImagePreview = new FileStorage.Core.Models.FileUploadModel(z.ImagePreview),
                                 Value = z.Value,
                             }).ToList(),
                             ProductTags = product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
@@ -189,12 +235,6 @@ namespace Hydra.Product.Api.Services
                             }).ToList(),
                         });
 
-            if (productFilter.Sorting != null)
-            {
-                var orders = new string[1] { productFilter.Sorting.Order };
-
-                list = list.AddOrderBy(new Sort[] { productFilter.Sorting });
-            }
 
             result.Data = await list.Cacheable().ToPaginatedListAsync(productFilter.PageIndex, productFilter.PageSize);
 
@@ -205,36 +245,38 @@ namespace Hydra.Product.Api.Services
         /// <summary>
         /// Retrieves curated product groups for published products. Groups are built from featured Style attributes.
         /// </summary>
-        public async Task<Result<List<CuratedProductGroupModel>>> GetPublishedCuratedProducts()
+        public async Task<Result<List<CuratedStyleProductModel>>> GetPublishedCuratedStyleProducts()
         {
-            var result = new Result<List<CuratedProductGroupModel>>();
+            var result = new Result<List<CuratedStyleProductModel>>();
             var currentDateTime = DateTime.UtcNow;
 
             var products = await _queryRepository.Table<Ecommerce.Core.Domain.Product>()
                 .Include(x => x.ProductInventories).ThenInclude(x => x.ProductAttribute)
-                .Include(x => x.ProductCategories)
-                .Include(x => x.ProductManufacturers)
-                .Include(x => x.ProductAttributes).ThenInclude(x => x.Attribute)
+                .Include(x => x.ProductCategories).ThenInclude(x => x.Category)
+                .Include(x => x.ProductManufacturers).ThenInclude(x => x.Manufacturer)
+                .Include(x => x.ImagePreview)
+                .Include(x => x.ProductAttributes).ThenInclude(x => x.Attribute).ThenInclude(x=>x.ImagePreview)
                 .Include(x => x.ProductProductTags).ThenInclude(x => x.ProductTag)
+                .Include(x => x.ProductImages).ThenInclude(x => x.Image)
                 .Where(x => x.Deleted == false && x.Published == true &&
-                    (x.AvailableStartDateTimeUtc != null && x.AvailableStartDateTimeUtc >= currentDateTime) &&
-                    (x.AvailableEndDateTimeUtc != null && x.AvailableEndDateTimeUtc <= currentDateTime) &&
+                    ((x.AvailableStartDateTimeUtc != null && x.AvailableStartDateTimeUtc <= currentDateTime) ||
+                            (x.AvailableEndDateTimeUtc != null && x.AvailableEndDateTimeUtc >= currentDateTime)) &&
                     x.ProductAttributes.Any(a =>
-                        a.Attribute.AttributeType == AttributeType.Style && a.Attribute.IsFeatured))
+                        a.Attribute.AttributeType == AttributeType.Style && a.Attribute.ShowOnHomepage))
                 .ToListAsync();
 
             var groups = products
                 .SelectMany(p => p.ProductAttributes
-                    .Where(a => a.Attribute.AttributeType == AttributeType.Style && a.Attribute.IsFeatured)
+                    .Where(a => a.Attribute.AttributeType == AttributeType.Style && a.Attribute.ShowOnHomepage)
                     .Select(a => new { a.Attribute.Id, a.Attribute, Product = p }))
                 .GroupBy(x => x.Id)
-                .Select(g => new CuratedProductGroupModel
+                .Select(g => new CuratedStyleProductModel
                 {
                     AttributeId = g.Key,
                     AttributeName = g.First().Attribute.Name,
                     AttributeValue = g.First().Attribute.Value,
                     AttributeDescription = g.First().Attribute.Description,
-                    ImagePreviewPath = g.First().Attribute.ImagePreview.Directory + g.First().Attribute.ImagePreview.FileName,
+                    ImagePreview = new FileStorage.Core.Models.FileUploadModel(g.First().Attribute.ImagePreview),
                     Products = g.Select(x => new ProductDisplayModel
                     {
                         Id = x.Product.Id,
@@ -245,6 +287,7 @@ namespace Hydra.Product.Api.Services
                         MetaKeywords = x.Product.MetaKeywords,
                         MetaTitle = x.Product.MetaTitle,
                         FullDescription = x.Product.FullDescription,
+                        ShortDescription = x.Product.ShortDescription,
                         AdminComment = x.Product.AdminComment,
                         MetaDescription = x.Product.MetaDescription,
                         DeliveryDateType = x.Product.DeliveryDateType,
@@ -281,6 +324,7 @@ namespace Hydra.Product.Api.Services
                         UpdatedOnUtc = x.Product.UpdatedOnUtc,
                         StockType = x.Product.StockType,
                         ImagePreview = new FileStorage.Core.Models.FileUploadModel(x.Product.ImagePreview),
+                        ImagePaths = x.Product.ProductImages.Select(x => x.Image.FullPath).ToList(),
                         Categories = x.Product.ProductCategories.Select(cat => new CategoryDisplayModel()
                         {
                             Id = cat.CategoryId,
@@ -296,7 +340,7 @@ namespace Hydra.Product.Api.Services
                             Description = z.Description,
                             DisplayOrder = z.DisplayOrder,
                             Name = z.Name,
-                            ImagePreviewPath = z.ImagePreview.Directory + z.ImagePreview.FileName,
+                            ImagePreview = new FileStorage.Core.Models.FileUploadModel(z.ImagePreview),
                             Value = z.Value,
                         }).ToList(),
                         ProductTags = x.Product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
@@ -335,6 +379,7 @@ namespace Hydra.Product.Api.Services
                                   MetaKeywords = product.MetaKeywords,
                                   MetaTitle = product.MetaTitle,
                                   FullDescription = product.FullDescription,
+                                  ShortDescription = product.ShortDescription,
                                   AdminComment = product.AdminComment,
                                   MetaDescription = product.MetaDescription,
                                   DeliveryDateType = product.DeliveryDateType,

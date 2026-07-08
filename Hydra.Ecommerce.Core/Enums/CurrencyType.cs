@@ -4,7 +4,7 @@ namespace Hydra.Ecommerce.Core.Enums
 {
 
     /// <summary>
-    /// Represents a Delivery Date Type
+    /// Represents a Currency Type
     /// </summary>
     public enum CurrencyType
     {
