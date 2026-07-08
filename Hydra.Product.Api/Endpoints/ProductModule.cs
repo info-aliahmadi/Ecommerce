@@ -1,4 +1,4 @@
-﻿using Hydra.Ecommerce.Core.Constants;
+using Hydra.Ecommerce.Core.Constants;
 using Hydra.Infrastructure.ModuleExtension;
 using Hydra.Infrastructure.Security.Extension;
 using Hydra.Product.Api.Handler;
@@ -22,6 +22,7 @@ namespace Hydra.Product.Api.Endpoints
             services.AddScoped<IProductReviewService, ProductReviewService>();
             services.AddScoped<IProductReviewHelpfulnessService, ProductReviewHelpfulnessService>();
             services.AddScoped<IProductTagService, ProductTagService>();
+            services.AddScoped<IBundleService, BundleService>();
 
             return services;
         }
@@ -44,6 +45,7 @@ namespace Hydra.Product.Api.Endpoints
             endpoints.MapGet(API_SCHEMA + "/GetCategories", CategoryHandler.GetPublishedCategories).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetProductTags", ProductTagHandler.GetPublishedList).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetManufacturers", ManufacturerHandler.GetPublishedManufacturers).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetPublishedBundles", BundleHandler.GetPublishedBundles).AllowAnonymous();
 
 
 
@@ -103,6 +105,15 @@ namespace Hydra.Product.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/UpdateManufacturer", ManufacturerHandler.UpdateManufacturer).RequirePermission(EcommercePermissionTypes.SALE_MANUFACTURER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateManufacturerOrders", ManufacturerHandler.UpdateOrders).RequirePermission(EcommercePermissionTypes.SALE_MANUFACTURER_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/DeleteManufacturer", ManufacturerHandler.DeleteManufacturer).RequirePermission(EcommercePermissionTypes.SALE_MANUFACTURER_MANAGEMENT);
+
+
+            endpoints.MapGet(API_SCHEMA + "/GetBundleList", BundleHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetBundlesForSelect", BundleHandler.GetListForSelect).RequirePermission(EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetBundleById", BundleHandler.GetBundleById).RequirePermission(EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddBundle", BundleHandler.AddBundle).RequirePermission(EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateBundle", BundleHandler.UpdateBundle).RequirePermission(EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateBundleOrders", BundleHandler.UpdateOrders).RequirePermission(EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeleteBundle", BundleHandler.DeleteBundle).RequirePermission(EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT);
 
             return endpoints;
         }

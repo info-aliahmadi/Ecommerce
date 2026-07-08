@@ -1,4 +1,4 @@
-﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -27,6 +27,18 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             .HasForeignKey(d => d.ProductId)
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("FK_ProductBundle_Product");
+
+            entity.HasData(
+                new ProductBundle() { Id = 1, BundleId = 1, ProductId = 1001, DisplayOrder = 1 },
+                new ProductBundle() { Id = 2, BundleId = 1, ProductId = 1002, DisplayOrder = 2 },
+                new ProductBundle() { Id = 3, BundleId = 1, ProductId = 1003, DisplayOrder = 3 },
+                new ProductBundle() { Id = 4, BundleId = 2, ProductId = 1004, DisplayOrder = 1 },
+                new ProductBundle() { Id = 5, BundleId = 2, ProductId = 1005, DisplayOrder = 2 },
+                new ProductBundle() { Id = 6, BundleId = 2, ProductId = 1006, DisplayOrder = 3 },
+                new ProductBundle() { Id = 7, BundleId = 3, ProductId = 1007, DisplayOrder = 1 },
+                new ProductBundle() { Id = 8, BundleId = 3, ProductId = 1008, DisplayOrder = 2 },
+                new ProductBundle() { Id = 9, BundleId = 3, ProductId = 1009, DisplayOrder = 3 }
+            );
         }
     }
 }

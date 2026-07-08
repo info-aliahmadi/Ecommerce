@@ -369,6 +369,12 @@ namespace Hydra.Infrastructure.Migrations
                         },
                         new
                         {
+                            Id = 5025,
+                            Name = "SALE.BUNDLE_MANAGEMENT",
+                            NormalizedName = "SALE.BUNDLE_MANAGEMENT"
+                        },
+                        new
+                        {
                             Id = 4001,
                             Name = "FS.GALLEY_VIEW",
                             NormalizedName = "FS.GALLEY_VIEW"
@@ -1979,6 +1985,78 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_address_user_id");
 
                     b.ToTable("Address", "Sale");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Bundle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedOnUtc")
+                        .HasPrecision(6)
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
+
+                    b.Property<bool>("ShowOnHomepage")
+                        .HasColumnType("boolean")
+                        .HasColumnName("show_on_homepage");
+
+                    b.HasKey("Id")
+                        .HasName("pk_bundle");
+
+                    b.HasIndex("DisplayOrder")
+                        .HasDatabaseName("ix_bundle_display_order");
+
+                    b.ToTable("Bundle", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Everything you need for the perfect summer",
+                            DisplayOrder = 1,
+                            Name = "Summer Essentials Bundle",
+                            ShowOnHomepage = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Level up your home office setup",
+                            DisplayOrder = 2,
+                            Name = "Tech Workspace Bundle",
+                            ShowOnHomepage = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Treat yourself to a spa experience at home",
+                            DisplayOrder = 3,
+                            Name = "Self-Care Ritual Bundlee",
+                            ShowOnHomepage = true
+                        });
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Category", b =>
@@ -7366,6 +7444,107 @@ namespace Hydra.Infrastructure.Migrations
                             Name = "Evening Elegance",
                             ShowOnHomepage = false,
                             Value = "evening-elegance"
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductBundle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BundleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("bundle_id");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
+
+                    b.HasKey("Id")
+                        .HasName("PK_Product_Bundle_Mapping");
+
+                    b.HasIndex(new[] { "BundleId", "ProductId" }, "IX_PCM_Product_and_Bundle")
+                        .HasDatabaseName("ix_product_bundle_bundle_id_product_id");
+
+                    b.HasIndex(new[] { "BundleId" }, "IX_Product_Bundle_Mapping_BundleId")
+                        .HasDatabaseName("ix_product_bundle_bundle_id");
+
+                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Bundle_Mapping_ProductId")
+                        .HasDatabaseName("ix_product_bundle_product_id");
+
+                    b.ToTable("ProductBundle", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BundleId = 1,
+                            DisplayOrder = 1,
+                            ProductId = 1001
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BundleId = 1,
+                            DisplayOrder = 2,
+                            ProductId = 1002
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BundleId = 1,
+                            DisplayOrder = 3,
+                            ProductId = 1003
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BundleId = 2,
+                            DisplayOrder = 1,
+                            ProductId = 1004
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BundleId = 2,
+                            DisplayOrder = 2,
+                            ProductId = 1005
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BundleId = 2,
+                            DisplayOrder = 3,
+                            ProductId = 1006
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BundleId = 3,
+                            DisplayOrder = 1,
+                            ProductId = 1007
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BundleId = 3,
+                            DisplayOrder = 2,
+                            ProductId = 1008
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BundleId = 3,
+                            DisplayOrder = 3,
+                            ProductId = 1009
                         });
                 });
 
@@ -25514,6 +25693,27 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("ImagePreview");
                 });
 
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductBundle", b =>
+                {
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Bundle", "Bundle")
+                        .WithMany("ProductBundles")
+                        .HasForeignKey("BundleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_ProductBundle_Bundle");
+
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
+                        .WithMany("ProductBundles")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_ProductBundle_Product");
+
+                    b.Navigation("Bundle");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductCategory", b =>
                 {
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Category", "Category")
@@ -25893,6 +26093,11 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Bundle", b =>
+                {
+                    b.Navigation("ProductBundles");
+                });
+
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Category", b =>
                 {
                     b.Navigation("ProductCategories");
@@ -25947,6 +26152,8 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("OrderItems");
 
                     b.Navigation("ProductAttributes");
+
+                    b.Navigation("ProductBundles");
 
                     b.Navigation("ProductCategories");
 

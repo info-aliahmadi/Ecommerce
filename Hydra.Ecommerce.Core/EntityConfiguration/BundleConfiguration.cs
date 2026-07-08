@@ -1,4 +1,4 @@
-﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -29,25 +29,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Name = "Summer Essentials Bundle",
                     Description = "Everything you need for the perfect summer",
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    ShowOnHomepage = true,
-                    ProductBundles = new List<ProductBundle>()
-                    {
-                        new ProductBundle()
-                        {
-                            ProductId = 1001,
-                            DisplayOrder = 1
-                        },
-                        new ProductBundle()
-                        {
-                            ProductId = 1002,
-                            DisplayOrder = 2
-                        },
-                        new ProductBundle()
-                        {
-                            ProductId = 1003,
-                            DisplayOrder = 3
-                        }
-                    }
+                    ShowOnHomepage = true
                 },
                 new Bundle()
                 {
@@ -56,25 +38,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     Name = "Tech Workspace Bundle",
                     Description = "Level up your home office setup",
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                    ShowOnHomepage = true,
-                    ProductBundles = new List<ProductBundle>()
-                    {
-                        new ProductBundle()
-                        {
-                            ProductId = 1004,
-                            DisplayOrder = 1
-                        },
-                        new ProductBundle()
-                        {
-                            ProductId = 1005,
-                            DisplayOrder = 2
-                        },
-                        new ProductBundle()
-                        {
-                            ProductId = 1006,
-                            DisplayOrder = 3
-                        }
-                    }
+                    ShowOnHomepage = true
                 },
                new Bundle()
                {
@@ -83,25 +47,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                    Name = "Self-Care Ritual Bundlee",
                    Description = "Treat yourself to a spa experience at home",
                    CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
-                   ShowOnHomepage = true,
-                   ProductBundles = new List<ProductBundle>()
-                    {
-                        new ProductBundle()
-                        {
-                            ProductId = 1007,
-                            DisplayOrder = 1
-                        },
-                        new ProductBundle()
-                        {
-                            ProductId = 1008,
-                            DisplayOrder = 2
-                        },
-                        new ProductBundle()
-                        {
-                            ProductId = 1009,
-                            DisplayOrder = 3
-                        }
-                    }
+                   ShowOnHomepage = true
                }
              );
         }

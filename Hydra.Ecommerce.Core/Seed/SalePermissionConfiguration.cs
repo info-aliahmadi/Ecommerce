@@ -1,4 +1,4 @@
-﻿using Hydra.Auth.Domain;
+using Hydra.Auth.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Hydra.Ecommerce.Core.Constants;
@@ -131,6 +131,11 @@ namespace Hydra.Ecommerce.Core.Seed
                 Id = INCREMENTER + 24,
                 Name = EcommercePermissionTypes.SALE_TAX_MANAGEMENT,
                 NormalizedName = EcommercePermissionTypes.SALE_TAX_MANAGEMENT,
+            }, new Permission()
+            {
+                Id = INCREMENTER + 25,
+                Name = EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT,
+                NormalizedName = EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT,
             });
         }
     }

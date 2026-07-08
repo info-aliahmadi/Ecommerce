@@ -1,4 +1,4 @@
-﻿namespace Hydra.Ecommerce.Core.Constants
+namespace Hydra.Ecommerce.Core.Constants
 {
     public static class EcommercePermissionTypes
     {
@@ -27,6 +27,7 @@
         public const string SALE_ADDRESS_MANAGEMENT = "SALE.ADDRESS_MANAGEMENT";
         public const string SALE_TAX_MANAGEMENT = "SALE.TAX_MANAGEMENT";
         public const string SALE_BASE_INFORMATION_MANAGEMENT = "SALE.BASE_INFORMATION_MANAGEMENT";
+        public const string SALE_BUNDLE_MANAGEMENT = "SALE.BUNDLE_MANAGEMENT";
 
     }
 }
