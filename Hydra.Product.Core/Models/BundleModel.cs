@@ -12,6 +12,6 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         ///  any bundle have multiple product(with displayorder) wich is saved in productbundle
         /// </summary>
-        public List<ProductBundleModel> ProductIds { get; set; } = new();
+        public List<ProductBundleModel> Products { get; set; } = new();
     }
 }

@@ -24,7 +24,7 @@ namespace Hydra.Product.Api.Services
         {
             var result = new Result<List<BundleDisplayModel>>();
 
-            var list = await (from bundle in _queryRepository.Table<Bundle>()
+            var list = await (from bundle in _queryRepository.Table<Bundle>().Include(x=>x.ProductBundles).ThenInclude(x=>x.Product)
                               where bundle.ShowOnHomepage
                               select new BundleDisplayModel()
                               {
@@ -34,10 +34,73 @@ namespace Hydra.Product.Api.Services
                                   DisplayOrder = bundle.DisplayOrder,
                                   ShowOnHomepage = bundle.ShowOnHomepage,
                                   ProductsCount = bundle.ProductBundles.Count(),
-                                  ProductIds = bundle.ProductBundles.Select(pb => new ProductBundleModel()
+                                  Products = bundle.ProductBundles.OrderBy(x=>x.DisplayOrder).Select(pb => new ProductDisplayModel()
                                   {
-                                      ProductId = pb.ProductId,
-                                      DisplayOrder = pb.DisplayOrder
+                                      Id = pb.Product.Id,
+                                      Name = pb.Product.Name,
+                                      Sku = pb.Product.Sku,
+                                      CreateUserId = pb.Product.CreateUserId,
+                                      UpdateUserId = pb.Product.UpdateUserId,
+                                      MetaKeywords = pb.Product.MetaKeywords,
+                                      MetaTitle = pb.Product.MetaTitle,
+                                      FullDescription = pb.Product.FullDescription,
+                                      ShortDescription = pb.Product.ShortDescription,
+                                      AdminComment = pb.Product.AdminComment,
+                                      MetaDescription = pb.Product.MetaDescription,
+                                      DeliveryDateType = pb.Product.DeliveryDateType,
+                                      TaxCategoryId = pb.Product.TaxCategoryId,
+                                      TaxCategoryName = pb.Product.TaxCategory.Name,
+                                      StockQuantity = pb.Product.StockQuantity,
+                                      MinStockQuantity = pb.Product.MinStockQuantity,
+                                      OrderMinimumQuantity = pb.Product.OrderMinimumQuantity,
+                                      OrderMaximumQuantity = pb.Product.OrderMaximumQuantity,
+                                      SellUnitPrice = pb.Product.SellUnitPrice,
+                                      OldSellUnitPrice = pb.Product.OldSellUnitPrice,
+                                      CurrencyType = pb.Product.CurrencyType,
+                                      DisplayOrder = pb.Product.DisplayOrder,
+                                      ApprovedRatingSum = pb.Product.ApprovedRatingSum,
+                                      NotApprovedRatingSum = pb.Product.NotApprovedRatingSum,
+                                      ApprovedTotalReviews = pb.Product.ApprovedTotalReviews,
+                                      NotApprovedTotalReviews = pb.Product.NotApprovedTotalReviews,
+                                      HasDiscountsApplied = pb.Product.HasDiscountsApplied,
+                                      MarkAsNew = pb.Product.MarkAsNew,
+                                      MarkAsNewStartDateTimeUtc = pb.Product.MarkAsNewStartDateTimeUtc,
+                                      MarkAsNewEndDateTimeUtc = pb.Product.MarkAsNewEndDateTimeUtc,
+                                      NotReturnable = pb.Product.NotReturnable,
+                                      AllowedQuantities = pb.Product.AllowedQuantities,
+                                      IsTaxExempt = pb.Product.IsTaxExempt,
+                                      ShowOnHomepage = pb.Product.ShowOnHomepage,
+                                      IsFreeShipping = pb.Product.IsFreeShipping,
+                                      AllowCustomerReviews = pb.Product.AllowCustomerReviews,
+                                      DisplayStockQuantity = pb.Product.DisplayStockQuantity,
+                                      DisableBuyButton = pb.Product.DisableBuyButton,
+                                      DisableWishlistButton = pb.Product.DisableWishlistButton,
+                                      AvailableForPreOrder = pb.Product.AvailableForPreOrder,
+                                      CallForPrice = pb.Product.CallForPrice,
+                                      CreatedOnUtc = pb.Product.CreatedOnUtc,
+                                      UpdatedOnUtc = pb.Product.UpdatedOnUtc,
+                                      StockType = pb.Product.StockType,
+                                      ImagePreview = new FileStorage.Core.Models.FileUploadModel(pb.Product.ImagePreview),
+                                      ImagePaths = pb.Product.ProductImages.Select(x => x.Image.FullPath).ToList(),
+                                      Categories = pb.Product.ProductCategories.Select(cat => new CategoryDisplayModel()
+                                      {
+                                          Id = cat.CategoryId,
+                                          Name = cat.Category.Name,
+                                          ImagePreview = new FileStorage.Core.Models.FileUploadModel(cat.Category.ImagePreview),
+                                          Color = cat.Category.Color,
+                                      }).ToList(),
+                                      ManufacturerNames = pb.Product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
+                                      Attributes = pb.Product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeDisplayModel()
+                                      {
+                                          Id = z.Id,
+                                          AttributeType = z.AttributeType,
+                                          Description = z.Description,
+                                          DisplayOrder = z.DisplayOrder,
+                                          Name = z.Name,
+                                          ImagePreview = new FileStorage.Core.Models.FileUploadModel(z.ImagePreview),
+                                          Value = z.Value,
+                                      }).ToList(),
+                                      ProductTags = pb.Product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
                                   }).ToList()
                               }).OrderBy(x => x.DisplayOrder).Cacheable().ToListAsync();
             result.Data = list;
@@ -57,7 +120,7 @@ namespace Hydra.Product.Api.Services
                                   DisplayOrder = bundle.DisplayOrder,
                                   ShowOnHomepage = bundle.ShowOnHomepage,
                                   CreatedOnUtc = bundle.CreatedOnUtc,
-                                  ProductIds = bundle.ProductBundles.Select(pb => new ProductBundleModel()
+                                  Products = bundle.ProductBundles.Select(pb => new ProductBundleModel()
                                   {
                                       ProductId = pb.ProductId,
                                       DisplayOrder = pb.DisplayOrder
@@ -93,7 +156,7 @@ namespace Hydra.Product.Api.Services
                 DisplayOrder = bundle.DisplayOrder,
                 ShowOnHomepage = bundle.ShowOnHomepage,
                 CreatedOnUtc = bundle.CreatedOnUtc,
-                ProductIds = bundle.ProductBundles.Select(pb => new ProductBundleModel()
+                Products = bundle.ProductBundles.Select(pb => new ProductBundleModel()
                 {
                     ProductId = pb.ProductId,
                     DisplayOrder = pb.DisplayOrder
@@ -129,9 +192,9 @@ namespace Hydra.Product.Api.Services
                 await _commandRepository.InsertAsync(bundle);
                 await _commandRepository.SaveChangesAsync();
 
-                if (bundleModel.ProductIds?.Any() == true)
+                if (bundleModel.Products?.Any() == true)
                 {
-                    foreach (var pb in bundleModel.ProductIds)
+                    foreach (var pb in bundleModel.Products)
                     {
                         var productBundle = new ProductBundle()
                         {
@@ -196,9 +259,9 @@ namespace Hydra.Product.Api.Services
                     }
                 }
 
-                if (bundleModel.ProductIds?.Any() == true)
+                if (bundleModel.Products?.Any() == true)
                 {
-                    foreach (var pb in bundleModel.ProductIds)
+                    foreach (var pb in bundleModel.Products)
                     {
                         var productBundle = new ProductBundle()
                         {
@@ -262,11 +325,13 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
 
-            if (bundle.ProductBundles.Any())
+            // Sync ProductBundles: remove existing, add new ones
+            if (bundle.ProductBundles?.Any() == true)
             {
-                result.Status = ResultStatusEnum.InvalidValidation;
-                result.Message = "The Bundle has associated products and cannot be deleted";
-                return result;
+                foreach (var existing in bundle.ProductBundles)
+                {
+                    _commandRepository.DeleteAsync(existing);
+                }
             }
 
             _commandRepository.DeleteAsync(bundle);

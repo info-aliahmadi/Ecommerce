@@ -8,6 +8,6 @@ namespace Hydra.Product.Core.Models
         public int DisplayOrder { get; set; }
         public bool ShowOnHomepage { get; set; }
         public int ProductsCount { get; set; }
-        public List<ProductBundleModel> ProductIds { get; set; } = new();
+        public List<ProductDisplayModel> Products { get; set; } = new();
     }
 }
