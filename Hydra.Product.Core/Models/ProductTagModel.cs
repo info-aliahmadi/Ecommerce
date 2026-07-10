@@ -16,5 +16,15 @@
         /// <returns></returns>
         public string Name { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int ProductsCount { get; set; }
+
     }
 }

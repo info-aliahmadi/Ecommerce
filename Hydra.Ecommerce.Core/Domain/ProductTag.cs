@@ -5,7 +5,7 @@ namespace Hydra.Ecommerce.Core.Domain;
 public class ProductTag : BaseEntity<int>
 {
     public string Name { get; set; }
-    public string NormalizedName { get; set; }
+    public string Key { get; set; }
 
     public virtual List<ProductProductTag> ProductProductTags { get; set; } = new();
 }

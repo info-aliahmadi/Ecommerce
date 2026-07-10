@@ -48,6 +48,10 @@ namespace Hydra.Kernel.GeneralModels
         /// Gets total page count of the list.
         /// </summary>
         public int TotalPages { get; }
+        /// <summary>
+        /// Gets total page count of the list.
+        /// </summary>
+        public decimal MaxRange { get; set; }
 
         /// <summary>
         /// Gets total items count in the list.

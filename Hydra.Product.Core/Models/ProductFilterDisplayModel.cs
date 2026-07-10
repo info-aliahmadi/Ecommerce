@@ -1,7 +1,6 @@
 ﻿using Hydra.Ecommerce.Core.Domain;
 using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel.Enums;
-using Hydra.Kernel.GeneralModels;
 
 namespace Hydra.Product.Core.Models
 {
@@ -23,48 +22,11 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         public SortingType? Sorting { get; set; }
 
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public string? SearchInput { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool? HasStockQuantity { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool? TopRate { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool? TopSell { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public decimal? FromSellUnitPrice { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public decimal? ToSellUnitPrice { get; set; } = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool? HasDiscounts { get; set; }
 
         /// <summary>
         /// 
@@ -89,6 +51,37 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         /// <returns></returns>
         public List<int>? ProductTagIds { get; set; } = new();
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public decimal? FromSellUnitPrice { get; set; } = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public decimal? ToSellUnitPrice { get; set; } = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool? HasDiscounts { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool? HasStockQuantity { get; set; } = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public DateFilter? DateFilter { get; set; }
+
 
     }
 

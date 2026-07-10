@@ -36,7 +36,7 @@ namespace Hydra.Product.Api.Services
                                   MetaDescription = manufacturer.MetaDescription,
                                   ImagePreview = new FileStorage.Core.Models.FileUploadModel(manufacturer.ImagePreview),
                                   DisplayOrder = manufacturer.DisplayOrder,
-                                  ProductsCount = manufacturer.ProductManufacturers.Where(x => !x.Product.Deleted && x.Product.Published).Count(),
+                                  ProductsCount = manufacturer.ProductManufacturers.Where(x => x.Product.Deleted == false && x.Product.Published == true).Count(),
                               }).OrderBy(x => x.DisplayOrder).Cacheable().ToListAsync();
             result.Data = list;
             return result;

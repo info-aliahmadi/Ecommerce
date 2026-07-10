@@ -47,7 +47,7 @@ public class Product : BaseEntity<int>
     /// </summary>
     public decimal OldSellUnitPrice { get; set; }
 
-    public DateTime? AvailableStartDateTimeUtc { get; set; }
+    public DateTime AvailableStartDateTimeUtc { get; set; }
 
     public DateTime? AvailableEndDateTimeUtc { get; set; }
 

@@ -34,7 +34,8 @@ namespace Hydra.Product.Api.Services
                         {
                             Id = productTag.Id,
                             Name = productTag.Name,
-
+                            Key = productTag.Key,
+                            ProductsCount = productTag.ProductProductTags.Where(x => x.Product.Deleted == false && x.Product.Published == true).Count(),
                         }).OrderByDescending(x => x.Id).Cacheable().ToList();
 
             result.Data = list;
@@ -56,6 +57,7 @@ namespace Hydra.Product.Api.Services
                               {
                                   Id = productTag.Id,
                                   Name = productTag.Name,
+                                  Key = productTag.Key,
                                   //Products = productTag.Products,
 
                               }).OrderByDescending(x => x.Id).ToPaginatedListAsync(dataGrid);
@@ -79,6 +81,7 @@ namespace Hydra.Product.Api.Services
                               {
                                   Id = productTag.Id,
                                   Name = productTag.Name,
+                                  Key = productTag.Key,
                                   //Products = productTag.Products,
 
                               }).OrderByDescending(x => x.Id).ToListAsync();
@@ -102,6 +105,7 @@ namespace Hydra.Product.Api.Services
             {
                 Id = productTag.Id,
                 Name = productTag.Name,
+                Key = productTag.Key,
                 //Products = productTag.Products,
 
             };
@@ -211,6 +215,7 @@ namespace Hydra.Product.Api.Services
                     return result;
                 }
                 productTag.Name = productTagModel.Name;
+                productTag.Key = productTagModel.Key;
                 //productTag.Products = productTagModel.Products;
 
                 _commandRepository.UpdateAsync(productTag);

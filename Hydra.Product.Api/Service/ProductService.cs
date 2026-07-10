@@ -6,6 +6,7 @@ using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hydra.Product.Api.Services
@@ -19,7 +20,33 @@ namespace Hydra.Product.Api.Services
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
         }
-
+        /// <summary>
+        /// Retrieves a paginated list of published products that match the specified filter criteria.
+        /// This is used by customer-facing endpoints and only returns products that are published and not deleted.
+        /// </summary>
+        /// <remarks>The returned list is paginated according to the page index and page size specified in
+        /// the filter. Filtering supports searching by product name, metadata, descriptions, tags, price range, stock
+        /// status, categories, and manufacturers. Only products that are published and not deleted are included in the
+        /// results.</remarks>
+        /// <param name="productFilter">An object containing filtering and pagination options to apply when retrieving products. Cannot be null.
+        /// Filtering options may include search terms, price range, stock availability, category, manufacturer, and
+        /// product tags.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a Result object wrapping a
+        /// PaginatedList of ProductModel instances that match the filter criteria. The list will be empty if no
+        /// products are found.</returns>
+        public IQueryable<Ecommerce.Core.Domain.Product> GetPublishedQuery()
+        {
+            var currentDateTime = DateTime.UtcNow;
+            return _queryRepository.Table<Ecommerce.Core.Domain.Product>()
+                            .Include(x => x.ProductInventories)
+                            .ThenInclude(x => x.ProductAttribute)
+                            .Include(x => x.ProductCategories)
+                            .Include(x => x.ProductManufacturers)
+                            .Include(x => x.ProductAttributes)
+                            .Where(x => x.Deleted == false && x.Published == true &&
+                            ((x.AvailableStartDateTimeUtc != null && x.AvailableStartDateTimeUtc <= currentDateTime) ||
+                            (x.AvailableEndDateTimeUtc != null && x.AvailableEndDateTimeUtc >= currentDateTime)));
+        }
         /// <summary>
         /// Retrieves a paginated list of published products that match the specified filter criteria.
         /// This is used by customer-facing endpoints and only returns products that are published and not deleted.
@@ -48,36 +75,31 @@ namespace Hydra.Product.Api.Services
                             ((x.AvailableStartDateTimeUtc != null && x.AvailableStartDateTimeUtc <= currentDateTime) ||
                             (x.AvailableEndDateTimeUtc != null && x.AvailableEndDateTimeUtc >= currentDateTime)));
 
+            // get the range(max price) before filter the price
+            var maxRange = query.Max(x => x.SellUnitPrice);
+
             // Apply search filter
             if (!string.IsNullOrEmpty(productFilter.SearchInput))
             {
-                query = query.Where(x => x.Name.Contains(productFilter.SearchInput) ||
-                                         x.MetaKeywords.Contains(productFilter.SearchInput) ||
-                                         x.MetaTitle.Contains(productFilter.SearchInput) ||
-                                         x.MetaDescription.Contains(productFilter.SearchInput) ||
-                                         x.FullDescription.Contains(productFilter.SearchInput) ||
-                                         x.ShortDescription.Contains(productFilter.SearchInput));
-
-                // Apply search input on tags
-                query = query.Where(x => x.ProductProductTags.Any(m => m.ProductTag.Name.Contains(productFilter.SearchInput)));
-
+                var searchLower = productFilter.SearchInput.ToLower();
+                query = query.Where(x => x.Name.ToLower().Contains(searchLower) ||
+                                         x.MetaKeywords.ToLower().Contains(searchLower) ||
+                                         x.MetaTitle.ToLower().Contains(searchLower) ||
+                                         x.MetaDescription.ToLower().Contains(searchLower) ||
+                                         x.FullDescription.ToLower().Contains(searchLower) ||
+                                         x.ShortDescription.ToLower().Contains(searchLower));
             }
-
-            // Apply price range filter
-            if (productFilter.FromSellUnitPrice.HasValue)
-            {
-                query = query.Where(x => x.SellUnitPrice >= productFilter.FromSellUnitPrice.Value);
-            }
-
-            if (productFilter.ToSellUnitPrice.HasValue)
-            {
-                query = query.Where(x => x.SellUnitPrice <= productFilter.ToSellUnitPrice.Value);
-            }
-
             // Apply stock availability filter
-            if (productFilter.HasStockQuantity.HasValue && productFilter.HasStockQuantity.Value)
+            if (productFilter.HasStockQuantity.HasValue)
             {
-                query = query.Where(x => x.StockQuantity > 0);
+                if (productFilter.HasStockQuantity.Value == true)
+                {
+                    query = query.Where(x => x.StockQuantity > 0);
+                }
+                else
+                {
+                    query = query.Where(x => x.StockQuantity <= 0);
+                }
             }
 
             // Apply category filter
@@ -104,23 +126,52 @@ namespace Hydra.Product.Api.Services
                 query = query.Where(x => x.ProductAttributes.Any(c => productFilter.AttributeTypes.Contains(c.Attribute.AttributeType)));
             }
 
-            // Filter based on products with more rating
-            if (productFilter.TopRate.HasValue)
+            // Apply date filter
+            if (productFilter.DateFilter.HasValue)
             {
-                query = query.OrderByDescending(c => c.ApprovedRatingSum);
-            }
-
-            // Filter based on products with more order item
-            if (productFilter.TopSell.HasValue)
-            {
-                query = query.Include(x => x.OrderItems).OrderByDescending(c => c.OrderItems.Count());
+                switch (productFilter.DateFilter)
+                {
+                    case DateFilter.Today:
+                        query = query.Where(x => x.AvailableStartDateTimeUtc.Date == currentDateTime.Date);
+                        break;
+                    case DateFilter.ThisWeek:
+                        var startOfWeek = currentDateTime.AddDays(-(int)currentDateTime.DayOfWeek);
+                        query = query.Where(x => x.AvailableStartDateTimeUtc.Date >= startOfWeek);
+                        break;
+                    case DateFilter.ThisMonth:
+                        query = query.Where(x => x.AvailableStartDateTimeUtc.Month == currentDateTime.Month && x.AvailableStartDateTimeUtc.Year == currentDateTime.Year);
+                        break;
+                    case DateFilter.Last3Months:
+                        var threeMonthsAgo = currentDateTime.AddMonths(-3);
+                        query = query.Where(x => x.AvailableStartDateTimeUtc >= threeMonthsAgo);
+                        break;
+                    case DateFilter.Last6Months:
+                        var sixMonthsAgo = currentDateTime.AddMonths(-6);
+                        query = query.Where(x => x.AvailableStartDateTimeUtc >= sixMonthsAgo);
+                        break;
+                    case DateFilter.ThisYear:
+                        query = query.Where(x => x.AvailableStartDateTimeUtc.Year == currentDateTime.Year);
+                        break;
+                }
             }
 
             // Apply manufacturer filter
-            if (productFilter.HasDiscounts.HasValue)
+            if (productFilter.HasDiscounts.HasValue && productFilter.HasDiscounts == true)
             {
                 query = query.Where(x => x.SellUnitPrice < x.OldSellUnitPrice);
             }
+
+            // Apply price range filter
+            if (productFilter.FromSellUnitPrice.HasValue)
+            {
+                query = query.Where(x => x.SellUnitPrice >= productFilter.FromSellUnitPrice.Value);
+            }
+
+            if (productFilter.ToSellUnitPrice.HasValue)
+            {
+                query = query.Where(x => x.SellUnitPrice <= productFilter.ToSellUnitPrice.Value);
+            }
+
 
             if (productFilter.Sorting != null)
             {
@@ -233,10 +284,12 @@ namespace Hydra.Product.Api.Services
                                 StockQuantity = x.StockQuantity,
                                 ReservedQuantity = x.ReservedQuantity
                             }).ToList(),
-                        });
+                        }).Cacheable();
 
 
-            result.Data = await list.Cacheable().ToPaginatedListAsync(productFilter.PageIndex, productFilter.PageSize);
+            result.Data = await list.ToPaginatedListAsync(productFilter.PageIndex, productFilter.PageSize);
+
+            result.Data.MaxRange = maxRange;
 
             return result;
         }
@@ -255,7 +308,7 @@ namespace Hydra.Product.Api.Services
                 .Include(x => x.ProductCategories).ThenInclude(x => x.Category)
                 .Include(x => x.ProductManufacturers).ThenInclude(x => x.Manufacturer)
                 .Include(x => x.ImagePreview)
-                .Include(x => x.ProductAttributes).ThenInclude(x => x.Attribute).ThenInclude(x=>x.ImagePreview)
+                .Include(x => x.ProductAttributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ImagePreview)
                 .Include(x => x.ProductProductTags).ThenInclude(x => x.ProductTag)
                 .Include(x => x.ProductImages).ThenInclude(x => x.Image)
                 .Where(x => x.Deleted == false && x.Published == true &&
@@ -676,7 +729,7 @@ namespace Hydra.Product.Api.Services
                 OldSellUnitPrice = productModel.OldSellUnitPrice,
                 CurrencyType = productModel.CurrencyType,
                 ImagePreviewId = productModel.ImagePreviewId,
-                AvailableStartDateTimeUtc = productModel.AvailableStartDateTimeUtc,
+                AvailableStartDateTimeUtc = productModel.AvailableStartDateTimeUtc != null ? productModel.AvailableStartDateTimeUtc.Value : currentDateTime,
                 AvailableEndDateTimeUtc = productModel.AvailableEndDateTimeUtc,
                 DisplayOrder = productModel.DisplayOrder,
                 ApprovedRatingSum = productModel.ApprovedRatingSum,
@@ -847,7 +900,6 @@ namespace Hydra.Product.Api.Services
                     product.NotifyAdminForQuantityBelow = productModel.NotifyAdminForQuantityBelow;
                     product.OrderMinimumQuantity = productModel.OrderMinimumQuantity;
                     product.OrderMaximumQuantity = productModel.OrderMaximumQuantity;
-                    product.AvailableStartDateTimeUtc = productModel.AvailableStartDateTimeUtc;
                     product.AvailableEndDateTimeUtc = productModel.AvailableEndDateTimeUtc;
                     product.DisplayOrder = productModel.DisplayOrder;
                     product.ApprovedRatingSum = productModel.ApprovedRatingSum;
@@ -886,6 +938,11 @@ namespace Hydra.Product.Api.Services
                     product.MinStockQuantity = productModel.MinStockQuantity;
                     product.StockType = productModel.StockType;
                     product.StockQuantity = productModel.Inventories.Sum(x => x.StockQuantity);
+
+                    if (product.AvailableStartDateTimeUtc != productModel.AvailableStartDateTimeUtc)
+                        product.AvailableStartDateTimeUtc = productModel.AvailableStartDateTimeUtc != null ?
+                            productModel.AvailableStartDateTimeUtc.Value : currentDateTime;
+
 
                     _commandRepository.UpdateAsync(product);
 

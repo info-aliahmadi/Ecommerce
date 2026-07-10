@@ -17,36 +17,40 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             .IsRequired()
             .HasMaxLength(70);
 
+            entity.Property(e => e.Key)
+            .IsRequired()
+            .HasMaxLength(70);
+
             entity.HasData(new ProductTag()
             {
                 Id = (int)ProductTagType.Bestseller,
                 Name = "Bestseller",
-                NormalizedName = "bestseller"
+                Key = "bestseller"
             }, new ProductTag()
             {
                 Id = (int)ProductTagType.Popular,
                 Name = "Popular",
-                NormalizedName = "popular"
+                Key = "popular"
             }, new ProductTag()
             {
                 Id = (int)ProductTagType.Sale,
                 Name = "Sale",
-                NormalizedName = "sale"
+                Key = "sale"
             }, new ProductTag()
             {
                 Id = (int)ProductTagType.Sustainable,
                 Name = "Sustainable",
-                NormalizedName = "sustainable"
+                Key = "sustainable"
             }, new ProductTag()
             {
                 Id = (int)ProductTagType.Trending,
                 Name = "Trending",
-                NormalizedName = "trending"
+                Key = "trending"
             }, new ProductTag()
             {
                 Id = (int)ProductTagType.Featured,
                 Name = "Featured",
-                NormalizedName = "Featured"
+                Key = "Featured"
             });
         }
     }
