@@ -23,9 +23,38 @@ namespace Hydra.Product.Api.Services
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="attributeTypes"></param>
         /// <returns></returns>
-        public List<ProductAttributeModel> GetPublishedProductAttributesList()
+        public Result<List<ProductAttributeModel>> GetPublishedAttributeByAttributeTypesList(AttributeType[] attributeTypes)
         {
+            var result = new Result<List<ProductAttributeModel>>();
+            var list = _queryRepository.Table<ProductAttribute>().Where(x => attributeTypes.Contains(x.AttributeType))
+                  .Select(productAttribute => new ProductAttributeModel()
+                  {
+                      Id = productAttribute.Id,
+                      Name = productAttribute.Name,
+                      Value = productAttribute.Value,
+                      AttributeType = productAttribute.AttributeType,
+                      Description = productAttribute.Description,
+                      DisplayOrder = productAttribute.DisplayOrder,
+                      ImagePreviewId = productAttribute.ImagePreviewId,
+                      ImagePreview = new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview),
+                      ShowOnHomepage = productAttribute.ShowOnHomepage,
+
+                  }).OrderBy(x => x.DisplayOrder).ToList();
+
+            result.Data = list;
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Result<List<ProductAttributeModel>> GetPublishedProductAttributesList()
+        {
+            var result = new Result<List<ProductAttributeModel>>();
             var list = _queryRepository.Table<ProductAttribute>()
                 .Select(productAttribute => new ProductAttributeModel()
                 {
@@ -39,7 +68,9 @@ namespace Hydra.Product.Api.Services
                     ImagePreview = new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview)
                 }).OrderBy(x => x.DisplayOrder).Cacheable().ToList();
 
-            return list;
+            result.Data = list;
+
+            return result;
         }
 
         /// <summary>
@@ -65,31 +96,6 @@ namespace Hydra.Product.Api.Services
             return list;
         }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="attributeTypes"></param>
-        /// <returns></returns>
-        public List<ProductAttributeModel> GetPublishedAttributeByAttributeTypesList(AttributeType[] attributeTypes)
-        {
-
-            var list = _queryRepository.Table<ProductAttribute>().Where(x => attributeTypes.Contains(x.AttributeType))
-                  .Select(productAttribute => new ProductAttributeModel()
-                  {
-                      Id = productAttribute.Id,
-                      Name = productAttribute.Name,
-                      Value = productAttribute.Value,
-                      AttributeType = productAttribute.AttributeType,
-                      Description = productAttribute.Description,
-                      DisplayOrder = productAttribute.DisplayOrder,
-                      ImagePreviewId = productAttribute.ImagePreviewId,
-                      ImagePreview = new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview),
-                      ShowOnHomepage = productAttribute.ShowOnHomepage,
-
-                  }).OrderBy(x => x.DisplayOrder).ToList();
-
-            return list;
-        }
         
         /// <summary>
         /// 

@@ -17,7 +17,6 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.Property(e => e.CreatedOnUtc).HasPrecision(6);
             entity.Property(e => e.ReplyText).HasMaxLength(300);
             entity.Property(e => e.ReviewText).HasMaxLength(300);
-            entity.Property(e => e.Title).HasMaxLength(100);
 
             entity.HasOne(d => d.Product).WithMany(p => p.ProductReviews)
             .HasForeignKey(d => d.ProductId)

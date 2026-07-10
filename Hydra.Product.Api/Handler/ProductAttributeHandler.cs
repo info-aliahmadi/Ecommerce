@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
@@ -9,6 +10,43 @@ namespace Hydra.Product.Api.Handler
 {
     public static class ProductAttributeHandler
     {
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="productAttributeService"></param>
+        /// <param name="dataGrid"></param>
+        /// <returns></returns>
+        public static async Task<IResult> GetPublishedAttributeByAttributeType(IProductAttributeService productAttributeService, string attributeTypes)
+        {
+            try
+            {
+                var attributeTypesEnums = attributeTypes.Split(',').Select(x=>(AttributeType)int.Parse(x)).ToArray();
+                var result = productAttributeService.GetPublishedAttributeByAttributeTypesList(attributeTypesEnums);
+                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="productAttributeService"></param>
+        /// <param name="dataGrid"></param>
+        /// <returns></returns>
+        public static async Task<IResult> GetPublishedProductAttributes(IProductAttributeService productAttributeService)
+        {
+            try
+            {
+                var result = productAttributeService.GetPublishedProductAttributesList();
+                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
+        }
 
         /// <summary>
         ///

@@ -41,9 +41,12 @@ namespace Hydra.Product.Api.Endpoints
         {
             // Anonymous Endpoints
             endpoints.MapPost(API_SCHEMA + "/GetProducts", ProductHandler.GetPublishedProducts).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetProduct", ProductHandler.GetPublishedProductById).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetCuratedStyleProducts", ProductHandler.GetPublishedCuratedStyleProducts).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetCategories", CategoryHandler.GetPublishedCategories).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetProductTags", ProductTagHandler.GetPublishedList).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetProductAttributesByType", ProductAttributeHandler.GetPublishedAttributeByAttributeType).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetProductAttributes", ProductAttributeHandler.GetPublishedProductAttributes).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetManufacturers", ManufacturerHandler.GetPublishedManufacturers).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetPublishedBundles", BundleHandler.GetPublishedBundles).AllowAnonymous();
 

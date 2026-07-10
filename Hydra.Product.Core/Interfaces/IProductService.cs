@@ -25,6 +25,12 @@ namespace Hydra.Product.Core.Interfaces
         Task<Result<PaginatedList<ProductModel>>> GetList(GridDataBound dataGrid);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<Result<ProductDisplayModel>> GetPublishedProductById(int id);
+        /// <summary>
         /// Retrieves a single product by identifier, including related data (categories, images, attributes, tags, inventories).
         /// </summary>
         /// <param name="id">Product identifier.</param>
