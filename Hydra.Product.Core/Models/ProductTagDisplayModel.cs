@@ -9,7 +9,6 @@
         /// <returns></returns>
         public int Id { get; set; }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -22,7 +21,5 @@
         /// </summary>
         /// <returns></returns>
         public int ProductsCount { get; set; }
-
-
     }
 }

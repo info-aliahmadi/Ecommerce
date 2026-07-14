@@ -22,12 +22,12 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public string Sku { get; set; }
+        public string SKU { get; set; }
 
         /// <summary>
         /// Identifier of the user who created the product.
         /// </summary>
-        public int CreateUserId { get; set; }
+        public int? CreateUserId { get; set; }
 
         /// <summary>
         /// Basic information about the user who created the product.
@@ -104,10 +104,6 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         public string TaxCategoryName { get; set; }
 
-        /// <summary>
-        /// Current available stock quantity for the product.
-        /// </summary>
-        public decimal StockQuantity { get; set; }
 
         /// <summary>
         /// Minimum stock quantity before low-stock notifications are triggered.
@@ -120,11 +116,6 @@ namespace Hydra.Product.Core.Models
         public bool NotifyAdminForQuantityBelow { get; set; }
 
         /// <summary>
-        /// Stock tracking strategy (total or per-attribute).
-        /// </summary>
-        public StockType StockType { get; set; }
-
-        /// <summary>
         /// Minimum quantity allowed per order.
         /// </summary>
         public int OrderMinimumQuantity { get; set; }
@@ -133,16 +124,6 @@ namespace Hydra.Product.Core.Models
         /// Maximum quantity allowed per order.
         /// </summary>
         public int OrderMaximumQuantity { get; set; }
-
-        /// <summary>
-        /// Current selling price for the product.
-        /// </summary>
-        public decimal SellUnitPrice { get; set; }
-
-        /// <summary>
-        /// Previous/old selling price used for showing discounts.
-        /// </summary>
-        public decimal OldSellUnitPrice { get; set; }
 
         /// <summary>
         /// Currency type used for pricing.
@@ -302,17 +283,12 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// Inventory records for product attributes/warehouses.
         /// </summary>
-        public List<ProductInventoryModel> Inventories { get; set; } = new();
+        public List<ProductVariantModel> Variants { get; set; } = new();
 
         /// <summary>
         /// Images associated with the product including file id and display order.
         /// </summary>
         public List<ProductImageModel> Images { get; set; } = new();
-
-        /// <summary>
-        /// List of review identifiers for the product.
-        /// </summary>
-        public List<int> ReviewIds { get; set; } = new();
 
         /// <summary>
         /// Related product identifiers.
@@ -323,6 +299,7 @@ namespace Hydra.Product.Core.Models
         /// Product tag identifiers.
         /// </summary>
         public List<int> TagIds { get; set; } = new();
+        public decimal StockQuantity { get; set; }
     }
 
 }

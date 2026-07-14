@@ -19,12 +19,12 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// Uniqe Code of Product
         /// </summary>
-        public string Sku { get; set; }
+        public string SKU { get; set; }
 
         /// <summary>
         /// Identifier of the user who created the product.
         /// </summary>
-        public int CreateUserId { get; set; }
+        public int? CreateUserId { get; set; }
 
         /// <summary>
         /// Display name of the user who created the product.
@@ -97,19 +97,9 @@ namespace Hydra.Product.Core.Models
         public int TaxRate { get; set; }
 
         /// <summary>
-        /// Current available stock quantity.
-        /// </summary>
-        public decimal StockQuantity { get; set; }
-
-        /// <summary>
         /// Minimum stock threshold for alerts.
         /// </summary>
         public int MinStockQuantity { get; set; }
-
-        /// <summary>
-        /// Stock tracking strategy for the product.
-        /// </summary>
-        public StockType StockType { get; set; }
 
         /// <summary>
         /// Minimum quantity allowed per order.
@@ -120,16 +110,6 @@ namespace Hydra.Product.Core.Models
         /// Maximum quantity allowed per order.
         /// </summary>
         public int OrderMaximumQuantity { get; set; }
-
-        /// <summary>
-        /// Current selling price.
-        /// </summary>
-        public decimal SellUnitPrice { get; set; }
-
-        /// <summary>
-        /// Previous selling price (used to show discounts).
-        /// </summary>
-        public decimal OldSellUnitPrice { get; set; }
 
         /// <summary>
         /// Currency used for product pricing.
@@ -279,7 +259,7 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// Inventory display records for the product.
         /// </summary>
-        public List<ProductInventoryDisplayModel> Inventories { get; set; } = new();
+        public List<ProductVariantDisplayModel> Variants { get; set; } = new();
 
         /// <summary>
         /// Paths to product images.
@@ -296,6 +276,10 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         public List<string> ProductTags { get; set; } = new();
 
+        /// <summary>
+        /// موجودی
+        /// </summary>
+        public decimal StockQuantity { get; set; }
     }
 
 }

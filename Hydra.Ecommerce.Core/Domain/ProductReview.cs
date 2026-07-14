@@ -30,5 +30,4 @@ public class ProductReview : BaseEntity<int>
     public virtual ICollection<ProductReviewHelpfulness> ProductReviewHelpfulnesses { get; set; } = new List<ProductReviewHelpfulness>();
 
     public virtual User User { get; set; }
-    public string Title { get; set; }
 }

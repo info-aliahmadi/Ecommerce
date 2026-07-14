@@ -9,7 +9,11 @@ public class Product : BaseEntity<int>
 {
 
     public string Name { get; set; }
-    public string Sku { get; set; }
+
+    /// <summary>
+    /// base SKU for using it in variant
+    /// </summary>
+    public string SKU { get; set; }
 
     public string? MetaKeywords { get; set; }
 
@@ -25,10 +29,6 @@ public class Product : BaseEntity<int>
 
     public int TaxCategoryId { get; set; }
 
-    public StockType StockType { get; set; }
-
-    public decimal StockQuantity { get; set; }
-
     public int MinStockQuantity { get; set; }
 
     public bool NotifyAdminForQuantityBelow { get; set; }
@@ -36,16 +36,6 @@ public class Product : BaseEntity<int>
     public int OrderMinimumQuantity { get; set; } = 1;
 
     public int OrderMaximumQuantity { get; set; } = 1000;
-
-    /// <summary>
-    /// قیمت فروش
-    /// </summary>
-    public decimal SellUnitPrice { get; set; }
-
-    /// <summary>
-    /// قیمت قدیم فروش
-    /// </summary>
-    public decimal OldSellUnitPrice { get; set; }
 
     public DateTime AvailableStartDateTimeUtc { get; set; }
 
@@ -95,7 +85,7 @@ public class Product : BaseEntity<int>
 
     public bool Deleted { get; set; }
 
-    public int CreateUserId { get; set; }
+    public int? CreateUserId { get; set; }
 
     public int? ImagePreviewId { get; set; }
     public FileUpload? ImagePreview { get; set; }
@@ -116,8 +106,6 @@ public class Product : BaseEntity<int>
 
     public virtual List<ProductCategory> ProductCategories { get; set; } = new();
     public virtual List<ProductBundle> ProductBundles { get; set; } = new();
-
-    public virtual List<ProductInventory> ProductInventories { get; set; } = new();
 
     public virtual List<ProductManufacturer> ProductManufacturers { get; set; } = new();
 
@@ -143,5 +131,6 @@ public class Product : BaseEntity<int>
 
     public virtual List<ProductProductAttribute> ProductAttributes { get; set; } = new();
 
+    public virtual List<ProductVariant> ProductVariants { get; set; } = new();
 }
 

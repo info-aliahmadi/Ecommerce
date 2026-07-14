@@ -1,36 +1,38 @@
-﻿using Hydra.Ecommerce.Core.Constants;
+using Hydra.Ecommerce.Core.Constants;
 using Hydra.Infrastructure.ModuleExtension;
 using Hydra.Infrastructure.Security.Extension;
+using Hydra.Inventory.Api.Handler;
+using Hydra.Inventory.Api.Services;
 using Hydra.Inventory.Core.Interfaces;
-using Hydra.Product.Api.Handler;
-using Hydra.Product.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hydra.Product.Api.Endpoints
+namespace Hydra.Inventory.Api.Endpoints
 {
-    public class InventoryModule : IModule
+    public class VariantModule : IModule
     {
-        private const string API_SCHEMA = "/Product";
+        private const string API_SCHEMA = "/Variant";
+
         public IServiceCollection RegisterModules(IServiceCollection services)
         {
-            services.AddScoped<IInventoryService, InventoryService>();
+            services.AddScoped<IVariantService, VariantService>();
 
             return services;
         }
 
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
-
-            endpoints.MapPost(API_SCHEMA + "/GetProductInventoryList", InventoryHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_INVENTORY_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/GetProductInventoryById", InventoryHandler.GetProductInventoryById).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_INVENTORY_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddProductInventory", InventoryHandler.AddProductInventory).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_INVENTORY_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/UpdateProductInventory", InventoryHandler.UpdateProductInventory).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_INVENTORY_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/DeleteProductInventory", InventoryHandler.DeleteProductInventory).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_INVENTORY_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/GetVariantList", VariantHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_VARIANT_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetVariantsByProductId", VariantHandler.GetListByProductId).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_VARIANT_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetVariantById", VariantHandler.GetVariantById).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_VARIANT_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddVariant", VariantHandler.AddVariant).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_VARIANT_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateVariant", VariantHandler.UpdateVariant).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_VARIANT_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeleteVariant", VariantHandler.DeleteVariant).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_VARIANT_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateStock", VariantHandler.UpdateStock).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_VARIANT_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetInventoryTransactions", VariantHandler.GetInventoryTransactions).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_VARIANT_MANAGEMENT);
 
             return endpoints;
         }
-
     }
 }

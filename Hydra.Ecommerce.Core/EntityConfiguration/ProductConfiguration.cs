@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Hydra.Ecommerce.Core.EntityConfiguration
 {
-    public class ProductConfiguration : IEntityTypeConfiguration<Hydra.Ecommerce.Core.Domain.Product>
+    public class ProductConfiguration : IEntityTypeConfiguration<Domain.Product>
     {
-        public void Configure(EntityTypeBuilder<Hydra.Ecommerce.Core.Domain.Product> entity)
+        public void Configure(EntityTypeBuilder<Domain.Product> entity)
         {
             entity.ToTable("Product", "Sale");
 
@@ -14,7 +14,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.Property(e => e.Name)
             .IsRequired()
             .HasMaxLength(100);
-            entity.Property(e => e.Sku)
+            entity.Property(e => e.SKU)
             .IsRequired()
             .HasMaxLength(70);
             entity.Property(e => e.AdminComment).HasMaxLength(300);
@@ -27,8 +27,6 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.Property(e => e.MetaDescription).HasMaxLength(300);
             entity.Property(e => e.MetaKeywords).HasMaxLength(300);
             entity.Property(e => e.MetaTitle).HasMaxLength(100);
-            entity.Property(e => e.OldSellUnitPrice).HasColumnType("decimal(18, 4)");
-            entity.Property(e => e.SellUnitPrice).HasColumnType("decimal(18, 4)");
             entity.Property(e => e.ShortDescription).HasMaxLength(300);
 
             entity.HasOne(d => d.TaxCategory).WithMany(p => p.Products)
@@ -38,29 +36,26 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasOne(d => d.ImagePreview).WithMany()
                 .HasForeignKey(d => d.ImagePreviewId)
-                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Product_ImagePreview");
 
             entity.HasOne(d => d.CreateUser).WithMany()
-            .HasForeignKey(d => d.CreateUserId)
-            .HasConstraintName("FK_Product_CreateUser");
+                .HasForeignKey(d => d.CreateUserId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Product_CreateUser");
 
             entity.HasOne(d => d.UpdateUser).WithMany()
-            .HasForeignKey(d => d.UpdateUserId)
-            .HasConstraintName("FK_Product_UpdateUser");
-
-            entity.HasOne(a => a.ImagePreview)
-               .WithMany() // Leave empty if FileUpload doesn't have a collection of Articles
-               .HasForeignKey(a => a.ImagePreviewId)
-               .IsRequired(false)
-               .OnDelete(DeleteBehavior.SetNull);
+                .HasForeignKey(d => d.UpdateUserId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Product_UpdateUser");
 
             // Seed sample products from provided example JSON using entity.HasData
             entity.HasData(
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1000,
-                    Sku = "BOOK-1000",
+                    SKU = "BOOK-1000",
                     Name = "Wireless Noise-Cancelling Headphones",
                     MetaKeywords = "bestseller,trending",
                     MetaTitle = "Wireless Noise-Cancelling Headphones",
@@ -68,14 +63,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "Premium over-ear headphones with active noise cancellation, 30-hour battery life, and crystal-clear audio quality. Perfect for music lovers and professionals.",
                     MetaDescription = "ANC Headphones • 30hr Battery",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 45,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 249.99m,
-                    OldSellUnitPrice = 349.99m,
                     DisplayOrder = 1,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -96,7 +87,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     ImagePreviewId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     UpdateUserId = null,
@@ -106,10 +97,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     MeasureType = Enums.MeasureType.Number,
 
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1001,
-                    Sku = "ELECTRONIK-1001",
+                    SKU = "ELECTRONIK-1001",
                     Name = "Smart Watch Pro",
                     MetaKeywords = "new,popular",
                     MetaTitle = "Smart Watch Pro",
@@ -117,14 +108,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "Advanced smartwatch with health monitoring, GPS tracking, and a stunning AMOLED display. Water resistant to 50m.",
                     MetaDescription = "AMOLED Display • GPS • Health",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 32,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 299.99m,
-                    OldSellUnitPrice = 399.99m,
                     DisplayOrder = 2,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -145,17 +132,17 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1002,
-                    Sku = "ELECTRONIK-1002",
+                    SKU = "ELECTRONIK-1002",
                     Name = "Portable Bluetooth Speaker",
                     MetaKeywords = "sale",
                     MetaTitle = "Portable Bluetooth Speaker",
@@ -163,14 +150,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "Compact, waterproof speaker with 360-degree sound. 12-hour battery life and built-in microphone.",
                     MetaDescription = "Waterproof • 360° Sound",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 78,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 79.99m,
-                    OldSellUnitPrice = 119.99m,
                     DisplayOrder = 3,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -191,17 +174,17 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1003,
-                    Sku = "ELECTRONIK-1003",
+                    SKU = "ELECTRONIK-1003",
                     Name = "Mechanical Keyboard RGB",
                     MetaKeywords = "popular",
                     MetaTitle = "Mechanical Keyboard RGB",
@@ -209,14 +192,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "Full-size mechanical keyboard with customizable RGB lighting, hot-swappable switches, and premium build quality.",
                     MetaDescription = "Hot-Swap • RGB • Aluminum",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 23,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 149.99m,
-                    OldSellUnitPrice = 189.99m,
                     DisplayOrder = 4,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -237,17 +216,17 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1004,
-                    Sku = "FASHION-1004",
+                    SKU = "FASHION-1004",
                     Name = "Classic Leather Jacket",
                     MetaKeywords = "bestseller,trending",
                     MetaTitle = "Classic Leather Jacket",
@@ -255,14 +234,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "Timeless genuine leather jacket with premium lining. A wardrobe essential that pairs with everything.",
                     MetaDescription = "Genuine Leather • Slim Fit",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 15,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 189.99m,
-                    OldSellUnitPrice = 279.99m,
                     DisplayOrder = 5,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -283,17 +258,17 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1005,
-                    Sku = "FASION-1005",
+                    SKU = "FASION-1005",
                     Name = "Premium Cotton T-Shirt",
                     MetaKeywords = "sale,sustainable",
                     MetaTitle = "Premium Cotton T-Shirt",
@@ -301,14 +276,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "Ultra-soft 100% organic cotton t-shirt. Comfortable, breathable, and sustainably made.",
                     MetaDescription = "Organic Cotton • Relaxed Fit",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 120,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 39.99m,
-                    OldSellUnitPrice = 59.99m,
                     DisplayOrder = 6,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -329,17 +300,17 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1006,
-                    Sku = "HOME-1006",
+                    SKU = "HOME-1006",
                     Name = "Designer Sunglasses",
                     MetaKeywords = "popular,new",
                     MetaTitle = "Designer Sunglasses",
@@ -347,14 +318,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "UV400 protection with polarized lenses. Lightweight titanium frame for all-day comfort.",
                     MetaDescription = "Polarized • UV400 • Titanium",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 56,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 129.99m,
-                    OldSellUnitPrice = 179.99m,
                     DisplayOrder = 7,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -375,17 +342,17 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1007,
-                    Sku = "HOME-1007",
+                    SKU = "HOME-1007",
                     Name = "Minimalist Desk Lamp",
                     MetaKeywords = "trending",
                     MetaTitle = "Minimalist Desk Lamp",
@@ -393,14 +360,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "LED desk lamp with adjustable color temperature, touch controls, and wireless charging base.",
                     MetaDescription = "LED • Touch Control • Wireless Charging",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 34,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 89.99m,
-                    OldSellUnitPrice = 129.99m,
                     DisplayOrder = 8,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -421,17 +384,17 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1008,
-                    Sku = "HOME-1008",
+                    SKU = "HOME-1008",
                     Name = "Ceramic Plant Pot Set",
                     MetaKeywords = "popular,new",
                     MetaTitle = "Ceramic Plant Pot Set",
@@ -439,14 +402,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "Set of 3 handcrafted ceramic plant pots in matte finish. Perfect for succulents and small plants.",
                     MetaDescription = "Set of 3 • Matte Finish • Handmade",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 67,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 44.99m,
-                    OldSellUnitPrice = 64.99m,
                     DisplayOrder = 9,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -467,17 +426,17 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1009,
-                    Sku = "SPORT-1009",
+                    SKU = "SPORT-1009",
                     Name = "Yoga Mat Premium",
                     MetaKeywords = "bestseller",
                     MetaTitle = "Yoga Mat Premium",
@@ -485,14 +444,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "Extra thick non-slip yoga mat with alignment guides. Eco-friendly TPE material.",
                     MetaDescription = "6mm Thick • Non-Slip • Eco-TPE",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 45,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 49.99m,
-                    OldSellUnitPrice = 69.99m,
                     DisplayOrder = 10,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -513,17 +468,17 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1010,
-                    Sku = "BEAUTY-1010",
+                    SKU = "BEAUTY-1010",
                     Name = "Skincare Essential Kit",
                     MetaKeywords = "bestseller,new",
                     MetaTitle = "Skincare Essential Kit",
@@ -531,14 +486,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "Complete skincare routine with cleanser, toner, serum, and moisturizer. For all skin types.",
                     MetaDescription = "4-Piece Set • All Skin Types",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 38,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 89.99m,
-                    OldSellUnitPrice = 129.99m,
                     DisplayOrder = 11,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -559,17 +510,17 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
                     CurrencyType = Enums.CurrencyType.Dollar,
                     MeasureType = Enums.MeasureType.Number
                 },
-                new Hydra.Ecommerce.Core.Domain.Product
+                new Domain.Product
                 {
                     Id = 1011,
-                    Sku = "BOOK-1011",
+                    SKU = "BOOK-1011",
                     Name = "The Art of Modern Living",
                     MetaKeywords = "bestseller",
                     MetaTitle = "The Art of Modern Living",
@@ -577,14 +528,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     FullDescription = "A comprehensive guide to interior design, minimalism, and creating spaces that inspire.",
                     MetaDescription = "Hardcover • 320 Pages",
                     TaxCategoryId = 1,
-                    StockType = Enums.StockType.Total,
-                    StockQuantity = 65,
                     MinStockQuantity = 0,
                     NotifyAdminForQuantityBelow = false,
                     OrderMinimumQuantity = 1,
                     OrderMaximumQuantity = 1000,
-                    SellUnitPrice = 34.99m,
-                    OldSellUnitPrice = 49.99m,
                     DisplayOrder = 12,
                     ApprovedRatingSum = 0,
                     NotApprovedRatingSum = 0,
@@ -605,7 +552,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CallForPrice = false,
                     Published = true,
                     Deleted = false,
-                    CreateUserId = 1,
+                    CreateUserId = null,
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,

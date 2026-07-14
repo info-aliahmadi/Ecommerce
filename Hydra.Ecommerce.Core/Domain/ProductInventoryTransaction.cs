@@ -1,17 +1,24 @@
-﻿using Hydra.Kernel.Data;
+﻿using Hydra.Ecommerce.Core.Enums;
+using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
 
-public class ProductInventory : BaseEntity<int>
+public class ProductInventoryTransaction : BaseEntity<int>
 {
     /// <summary>
     /// 
     /// </summary>
-    public int VariantId { get; set; }
+    public int ProductInventoryId { get; set; }
     /// <summary>
     /// 
     /// </summary>
-    public virtual ProductVariant Variant { get; set; }
+    public virtual ProductInventory ProductInventory { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public TransactionType TransactionType { get; set; }
+
 
     /// <summary>
     /// 
@@ -28,9 +35,5 @@ public class ProductInventory : BaseEntity<int>
     /// </summary>
     public DateTime CreatedDatetime { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public List<ProductInventoryTransaction> InventoryTransactions { get; set; }
 
 }

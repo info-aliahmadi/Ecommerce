@@ -34,7 +34,6 @@ namespace Hydra.Product.Api.Services
                                   UserId = productReview.UserId,
                                   ProductId = productReview.ProductId,
                                   IsApproved = productReview.IsApproved,
-                                  Title = productReview.Title,
                                   ReviewText = productReview.ReviewText,
                                   ReplyText = productReview.ReplyText,
                                   CustomerNotifiedOfReply = productReview.CustomerNotifiedOfReply,
@@ -67,7 +66,6 @@ namespace Hydra.Product.Api.Services
                 UserId = productReview.UserId,
                 ProductId = productReview.ProductId,
                 IsApproved = productReview.IsApproved,
-                Title = productReview.Title,
                 ReviewText = productReview.ReviewText,
                 ReplyText = productReview.ReplyText,
                 CustomerNotifiedOfReply = productReview.CustomerNotifiedOfReply,
@@ -106,7 +104,6 @@ namespace Hydra.Product.Api.Services
                     UserId = productReviewModel.UserId,
                     ProductId = productReviewModel.ProductId,
                     IsApproved = productReviewModel.IsApproved,
-                    Title = productReviewModel.Title,
                     ReviewText = productReviewModel.ReviewText,
                     ReplyText = productReviewModel.ReplyText,
                     CustomerNotifiedOfReply = productReviewModel.CustomerNotifiedOfReply,
@@ -163,7 +160,6 @@ namespace Hydra.Product.Api.Services
                 productReview.UserId = productReviewModel.UserId;
                 productReview.ProductId = productReviewModel.ProductId;
                 productReview.IsApproved = productReviewModel.IsApproved;
-                productReview.Title = productReviewModel.Title;
                 productReview.ReviewText = productReviewModel.ReviewText;
                 productReview.ReplyText = productReviewModel.ReplyText;
                 productReview.CustomerNotifiedOfReply = productReviewModel.CustomerNotifiedOfReply;

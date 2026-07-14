@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hydra.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260705223025_dbVersion_2")]
+    [Migration("20260714182838_dbVersion_2")]
     partial class dbVersion_2
     {
         /// <inheritdoc />
@@ -369,6 +369,12 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 5024,
                             Name = "SALE.TAX_MANAGEMENT",
                             NormalizedName = "SALE.TAX_MANAGEMENT"
+                        },
+                        new
+                        {
+                            Id = 5025,
+                            Name = "SALE.BUNDLE_MANAGEMENT",
+                            NormalizedName = "SALE.BUNDLE_MANAGEMENT"
                         },
                         new
                         {
@@ -855,6 +861,9 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_link");
 
+                    b.HasIndex("ImagePreviewId")
+                        .HasDatabaseName("ix_link_image_preview_id");
+
                     b.HasIndex("LinkSectionId")
                         .HasDatabaseName("ix_link_link_section_id");
 
@@ -1308,6 +1317,9 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_slideshow");
+
+                    b.HasIndex("PreviewImageId")
+                        .HasDatabaseName("ix_slideshow_preview_image_id");
 
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_slideshow_user_id");
@@ -1976,6 +1988,78 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_address_user_id");
 
                     b.ToTable("Address", "Sale");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Bundle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedOnUtc")
+                        .HasPrecision(6)
+                        .HasColumnType("timestamp(6) with time zone")
+                        .HasColumnName("created_on_utc");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
+
+                    b.Property<bool>("ShowOnHomepage")
+                        .HasColumnType("boolean")
+                        .HasColumnName("show_on_homepage");
+
+                    b.HasKey("Id")
+                        .HasName("pk_bundle");
+
+                    b.HasIndex("DisplayOrder")
+                        .HasDatabaseName("ix_bundle_display_order");
+
+                    b.ToTable("Bundle", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Everything you need for the perfect summer",
+                            DisplayOrder = 1,
+                            Name = "Summer Essentials Bundle",
+                            ShowOnHomepage = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Level up your home office setup",
+                            DisplayOrder = 2,
+                            Name = "Tech Workspace Bundle",
+                            ShowOnHomepage = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Treat yourself to a spa experience at home",
+                            DisplayOrder = 3,
+                            Name = "Self-Care Ritual Bundlee",
+                            ShowOnHomepage = true
+                        });
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Category", b =>
@@ -6407,7 +6491,7 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("available_for_pre_order");
 
-                    b.Property<DateTime?>("AvailableStartDateTimeUtc")
+                    b.Property<DateTime>("AvailableStartDateTimeUtc")
                         .HasPrecision(6)
                         .HasColumnType("timestamp(6) with time zone")
                         .HasColumnName("available_start_date_time_utc");
@@ -6416,11 +6500,7 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("call_for_price");
 
-                    b.Property<int>("Code")
-                        .HasColumnType("integer")
-                        .HasColumnName("code");
-
-                    b.Property<int>("CreateUserId")
+                    b.Property<int?>("CreateUserId")
                         .HasColumnType("integer")
                         .HasColumnName("create_user_id");
 
@@ -6537,10 +6617,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("notify_admin_for_quantity_below");
 
-                    b.Property<decimal>("OldSellUnitPrice")
-                        .HasColumnType("decimal(18, 4)")
-                        .HasColumnName("old_sell_unit_price");
-
                     b.Property<int>("OrderMaximumQuantity")
                         .HasColumnType("integer")
                         .HasColumnName("order_maximum_quantity");
@@ -6553,9 +6629,11 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("published");
 
-                    b.Property<decimal>("SellUnitPrice")
-                        .HasColumnType("decimal(18, 4)")
-                        .HasColumnName("sell_unit_price");
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("sku");
 
                     b.Property<string>("ShortDescription")
                         .HasMaxLength(300)
@@ -6565,14 +6643,6 @@ namespace Hydra.Infrastructure.Migrations
                     b.Property<bool>("ShowOnHomepage")
                         .HasColumnType("boolean")
                         .HasColumnName("show_on_homepage");
-
-                    b.Property<decimal>("StockQuantity")
-                        .HasColumnType("numeric")
-                        .HasColumnName("stock_quantity");
-
-                    b.Property<int>("StockType")
-                        .HasColumnType("integer")
-                        .HasColumnName("stock_type");
 
                     b.Property<int>("TaxCategoryId")
                         .HasColumnType("integer")
@@ -6606,6 +6676,500 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_product_published_deleted_id");
 
                     b.ToTable("Product", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1000,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 324,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 1,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Premium over-ear headphones with active noise cancellation, 30-hour battery life, and crystal-clear audio quality. Perfect for music lovers and professionals.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "ANC Headphones • 30hr Battery",
+                            MetaKeywords = "bestseller,trending",
+                            MetaTitle = "Wireless Noise-Cancelling Headphones",
+                            MinStockQuantity = 0,
+                            Name = "Wireless Noise-Cancelling Headphones",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "BOOK-1000",
+                            ShortDescription = "ANC Headphones • 30hr Battery",
+                            ShowOnHomepage = true,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1001,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 218,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 2,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Advanced smartwatch with health monitoring, GPS tracking, and a stunning AMOLED display. Water resistant to 50m.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "AMOLED Display • GPS • Health",
+                            MetaKeywords = "new,popular",
+                            MetaTitle = "Smart Watch Pro",
+                            MinStockQuantity = 0,
+                            Name = "Smart Watch Pro",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "ELECTRONIK-1001",
+                            ShortDescription = "AMOLED Display • GPS • Health",
+                            ShowOnHomepage = true,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1002,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 156,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 3,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Compact, waterproof speaker with 360-degree sound. 12-hour battery life and built-in microphone.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "Waterproof • 360° Sound",
+                            MetaKeywords = "sale",
+                            MetaTitle = "Portable Bluetooth Speaker",
+                            MinStockQuantity = 0,
+                            Name = "Portable Bluetooth Speaker",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "ELECTRONIK-1002",
+                            ShortDescription = "Waterproof • 360° Sound",
+                            ShowOnHomepage = false,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1003,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 189,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 4,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Full-size mechanical keyboard with customizable RGB lighting, hot-swappable switches, and premium build quality.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "Hot-Swap • RGB • Aluminum",
+                            MetaKeywords = "popular",
+                            MetaTitle = "Mechanical Keyboard RGB",
+                            MinStockQuantity = 0,
+                            Name = "Mechanical Keyboard RGB",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "ELECTRONIK-1003",
+                            ShortDescription = "Hot-Swap • RGB • Aluminum",
+                            ShowOnHomepage = false,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1004,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 412,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 5,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Timeless genuine leather jacket with premium lining. A wardrobe essential that pairs with everything.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = true,
+                            MeasureType = 2,
+                            MetaDescription = "Genuine Leather • Slim Fit",
+                            MetaKeywords = "bestseller,trending",
+                            MetaTitle = "Classic Leather Jacket",
+                            MinStockQuantity = 0,
+                            Name = "Classic Leather Jacket",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "FASHION-1004",
+                            ShortDescription = "Genuine Leather • Slim Fit",
+                            ShowOnHomepage = true,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1005,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 287,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 6,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Ultra-soft 100% organic cotton t-shirt. Comfortable, breathable, and sustainably made.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "Organic Cotton • Relaxed Fit",
+                            MetaKeywords = "sale,sustainable",
+                            MetaTitle = "Premium Cotton T-Shirt",
+                            MinStockQuantity = 0,
+                            Name = "Premium Cotton T-Shirt",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "FASION-1005",
+                            ShortDescription = "Organic Cotton • Relaxed Fit",
+                            ShowOnHomepage = false,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1006,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 165,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 7,
+                            DisplayStockQuantity = false,
+                            FullDescription = "UV400 protection with polarized lenses. Lightweight titanium frame for all-day comfort.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = true,
+                            MeasureType = 2,
+                            MetaDescription = "Polarized • UV400 • Titanium",
+                            MetaKeywords = "popular,new",
+                            MetaTitle = "Designer Sunglasses",
+                            MinStockQuantity = 0,
+                            Name = "Designer Sunglasses",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "HOME-1006",
+                            ShortDescription = "Polarized • UV400 • Titanium",
+                            ShowOnHomepage = true,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1007,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 143,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 8,
+                            DisplayStockQuantity = false,
+                            FullDescription = "LED desk lamp with adjustable color temperature, touch controls, and wireless charging base.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = true,
+                            MeasureType = 2,
+                            MetaDescription = "LED • Touch Control • Wireless Charging",
+                            MetaKeywords = "trending",
+                            MetaTitle = "Minimalist Desk Lamp",
+                            MinStockQuantity = 0,
+                            Name = "Minimalist Desk Lamp",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "HOME-1007",
+                            ShortDescription = "LED • Touch Control • Wireless Charging",
+                            ShowOnHomepage = true,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1008,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 211,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 9,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Set of 3 handcrafted ceramic plant pots in matte finish. Perfect for succulents and small plants.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "Set of 3 • Matte Finish • Handmade",
+                            MetaKeywords = "popular,new",
+                            MetaTitle = "Ceramic Plant Pot Set",
+                            MinStockQuantity = 0,
+                            Name = "Ceramic Plant Pot Set",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "HOME-1008",
+                            ShortDescription = "Set of 3 • Matte Finish • Handmade",
+                            ShowOnHomepage = false,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1009,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 234,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 10,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Extra thick non-slip yoga mat with alignment guides. Eco-friendly TPE material.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "6mm Thick • Non-Slip • Eco-TPE",
+                            MetaKeywords = "bestseller",
+                            MetaTitle = "Yoga Mat Premium",
+                            MinStockQuantity = 0,
+                            Name = "Yoga Mat Premium",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "SPORT-1009",
+                            ShortDescription = "6mm Thick • Non-Slip • Eco-TPE",
+                            ShowOnHomepage = true,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1010,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 267,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 11,
+                            DisplayStockQuantity = false,
+                            FullDescription = "Complete skincare routine with cleanser, toner, serum, and moisturizer. For all skin types.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = true,
+                            MeasureType = 2,
+                            MetaDescription = "4-Piece Set • All Skin Types",
+                            MetaKeywords = "bestseller,new",
+                            MetaTitle = "Skincare Essential Kit",
+                            MinStockQuantity = 0,
+                            Name = "Skincare Essential Kit",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "BEAUTY-1010",
+                            ShortDescription = "4-Piece Set • All Skin Types",
+                            ShowOnHomepage = true,
+                            TaxCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 1011,
+                            AllowCustomerReviews = true,
+                            AllowedQuantities = false,
+                            ApprovedRatingSum = 0,
+                            ApprovedTotalReviews = 178,
+                            AvailableForPreOrder = false,
+                            AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CallForPrice = false,
+                            CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CurrencyType = 4,
+                            Deleted = false,
+                            DeliveryDateType = 2,
+                            DisableBuyButton = false,
+                            DisableWishlistButton = false,
+                            DisplayOrder = 12,
+                            DisplayStockQuantity = false,
+                            FullDescription = "A comprehensive guide to interior design, minimalism, and creating spaces that inspire.",
+                            HasDiscountsApplied = false,
+                            IsFreeShipping = false,
+                            IsTaxExempt = false,
+                            MarkAsNew = false,
+                            MeasureType = 2,
+                            MetaDescription = "Hardcover • 320 Pages",
+                            MetaKeywords = "bestseller",
+                            MetaTitle = "The Art of Modern Living",
+                            MinStockQuantity = 0,
+                            Name = "The Art of Modern Living",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
+                            NotReturnable = false,
+                            NotifyAdminForQuantityBelow = false,
+                            OrderMaximumQuantity = 1000,
+                            OrderMinimumQuantity = 1,
+                            Published = true,
+                            SKU = "BOOK-1011",
+                            ShortDescription = "Hardcover • 320 Pages",
+                            ShowOnHomepage = false,
+                            TaxCategoryId = 1
+                        });
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductAttribute", b =>
@@ -6626,6 +7190,12 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("character varying(300)")
                         .HasColumnName("description");
 
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("display_name");
+
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("integer")
                         .HasColumnName("display_order");
@@ -6634,21 +7204,11 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("image_preview_id");
 
-                    b.Property<bool>("IsFeatured")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_featured");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Key")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
-                        .HasColumnName("name");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("value");
+                        .HasColumnName("key");
 
                     b.HasKey("Id")
                         .HasName("pk_product_attribute");
@@ -6669,144 +7229,230 @@ namespace Hydra.Infrastructure.Migrations
                         {
                             Id = 1,
                             AttributeType = 0,
+                            DisplayName = "Blue",
                             DisplayOrder = 1,
-                            IsFeatured = false,
-                            Name = "Blue",
-                            Value = "blue"
+                            Key = "blue"
                         },
                         new
                         {
                             Id = 2,
                             AttributeType = 0,
+                            DisplayName = "Red",
                             DisplayOrder = 2,
-                            IsFeatured = false,
-                            Name = "Red",
-                            Value = "red"
+                            Key = "red"
                         },
                         new
                         {
                             Id = 3,
                             AttributeType = 0,
+                            DisplayName = "White",
                             DisplayOrder = 3,
-                            IsFeatured = false,
-                            Name = "White",
-                            Value = "#fff"
+                            Key = "white"
                         },
                         new
                         {
                             Id = 4,
                             AttributeType = 0,
+                            DisplayName = "Black",
                             DisplayOrder = 4,
-                            IsFeatured = false,
-                            Name = "Black",
-                            Value = "#000"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AttributeType = 1,
-                            Description = "Small Means S US Size",
-                            DisplayOrder = 5,
-                            IsFeatured = false,
-                            Name = "Small size",
-                            Value = "#Small"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AttributeType = 1,
-                            Description = "Small Means M US Size",
-                            DisplayOrder = 6,
-                            IsFeatured = false,
-                            Name = "Medium",
-                            Value = "#Medium"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AttributeType = 1,
-                            Description = "Small Means XL US Size",
-                            DisplayOrder = 7,
-                            IsFeatured = false,
-                            Name = "Large",
-                            Value = "#Large"
+                            Key = "black"
                         },
                         new
                         {
                             Id = 8,
                             AttributeType = 0,
+                            DisplayName = "Green",
                             DisplayOrder = 8,
-                            IsFeatured = false,
-                            Name = "Green",
-                            Value = "green"
+                            Key = "green"
                         },
                         new
                         {
                             Id = 9,
                             AttributeType = 0,
+                            DisplayName = "Yellow",
                             DisplayOrder = 9,
-                            IsFeatured = false,
-                            Name = "Yellow",
-                            Value = "yellow"
+                            Key = "yellow"
                         },
                         new
                         {
                             Id = 10,
                             AttributeType = 0,
+                            DisplayName = "Purple",
                             DisplayOrder = 10,
-                            IsFeatured = false,
-                            Name = "Purple",
-                            Value = "purple"
+                            Key = "purple"
                         },
                         new
                         {
                             Id = 11,
                             AttributeType = 1,
                             Description = "Extra Small size",
+                            DisplayName = "Extra Small",
                             DisplayOrder = 11,
-                            IsFeatured = false,
-                            Name = "Extra Small",
-                            Value = "XS"
+                            Key = "XS"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AttributeType = 1,
+                            Description = "Small Means S US Size",
+                            DisplayName = "Small size",
+                            DisplayOrder = 5,
+                            Key = "S"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AttributeType = 1,
+                            Description = "Small Means M US Size",
+                            DisplayName = "Medium",
+                            DisplayOrder = 6,
+                            Key = "M"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AttributeType = 1,
+                            Description = "Large Means L US Size",
+                            DisplayName = "Large",
+                            DisplayOrder = 7,
+                            Key = "L"
                         },
                         new
                         {
                             Id = 12,
                             AttributeType = 1,
                             Description = "Extra Large size",
+                            DisplayName = "Extra Large",
                             DisplayOrder = 12,
-                            IsFeatured = false,
-                            Name = "Extra Large",
-                            Value = "XL"
+                            Key = "XL"
                         },
                         new
                         {
                             Id = 13,
                             AttributeType = 7,
                             Description = "Weekend Casual Style",
+                            DisplayName = "Weekend Casual",
                             DisplayOrder = 13,
-                            IsFeatured = false,
-                            Name = "Weekend Casual",
-                            Value = "weekend-casual"
+                            Key = "weekend-casual"
                         },
                         new
                         {
                             Id = 14,
                             AttributeType = 7,
                             Description = "Office Professional Style",
+                            DisplayName = "Office Professional",
                             DisplayOrder = 14,
-                            IsFeatured = false,
-                            Name = "Office Professional",
-                            Value = "office-professional"
+                            Key = "office-professional"
                         },
                         new
                         {
                             Id = 15,
                             AttributeType = 7,
                             Description = "Evening Elegance Style",
+                            DisplayName = "Evening Elegance",
                             DisplayOrder = 15,
-                            IsFeatured = false,
-                            Name = "Evening Elegance",
-                            Value = "evening-elegance"
+                            Key = "evening-elegance"
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductBundle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BundleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("bundle_id");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
+
+                    b.HasKey("Id")
+                        .HasName("PK_Product_Bundle_Mapping");
+
+                    b.HasIndex(new[] { "BundleId", "ProductId" }, "IX_PCM_Product_and_Bundle")
+                        .HasDatabaseName("ix_product_bundle_bundle_id_product_id");
+
+                    b.HasIndex(new[] { "BundleId" }, "IX_Product_Bundle_Mapping_BundleId")
+                        .HasDatabaseName("ix_product_bundle_bundle_id");
+
+                    b.HasIndex(new[] { "ProductId" }, "IX_Product_Bundle_Mapping_ProductId")
+                        .HasDatabaseName("ix_product_bundle_product_id");
+
+                    b.ToTable("ProductBundle", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BundleId = 1,
+                            DisplayOrder = 1,
+                            ProductId = 1001
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BundleId = 1,
+                            DisplayOrder = 2,
+                            ProductId = 1002
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BundleId = 1,
+                            DisplayOrder = 3,
+                            ProductId = 1003
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BundleId = 2,
+                            DisplayOrder = 1,
+                            ProductId = 1004
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BundleId = 2,
+                            DisplayOrder = 2,
+                            ProductId = 1005
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BundleId = 2,
+                            DisplayOrder = 3,
+                            ProductId = 1006
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BundleId = 3,
+                            DisplayOrder = 1,
+                            ProductId = 1007
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BundleId = 3,
+                            DisplayOrder = 2,
+                            ProductId = 1008
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BundleId = 3,
+                            DisplayOrder = 3,
+                            ProductId = 1009
                         });
                 });
 
@@ -6888,44 +7534,209 @@ namespace Hydra.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AttributeId")
-                        .HasColumnType("integer")
-                        .HasColumnName("attribute_id");
+                    b.Property<DateTime>("CreatedDatetime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_datetime");
 
-                    b.Property<decimal>("BuyUnitPrice")
-                        .HasColumnType("numeric")
-                        .HasColumnName("buy_unit_price");
+                    b.Property<decimal>("ReservedQuantity")
+                        .HasColumnType("decimal(18,3)")
+                        .HasColumnName("reserved_quantity");
+
+                    b.Property<decimal>("StockQuantity")
+                        .HasColumnType("decimal(18,3)")
+                        .HasColumnName("stock_quantity");
+
+                    b.Property<int>("VariantId")
+                        .HasColumnType("integer")
+                        .HasColumnName("variant_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_product_inventory");
+
+                    b.HasIndex("VariantId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_product_inventory_variant_id");
+
+                    b.HasIndex(new[] { "VariantId" }, "IX_Inventory_VariantId")
+                        .HasDatabaseName("ix_product_inventory_variant_id1");
+
+                    b.ToTable("ProductInventory", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3000,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 45m,
+                            VariantId = 2000
+                        },
+                        new
+                        {
+                            Id = 3001,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 32m,
+                            VariantId = 2001
+                        },
+                        new
+                        {
+                            Id = 3002,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 78m,
+                            VariantId = 2002
+                        },
+                        new
+                        {
+                            Id = 3003,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 23m,
+                            VariantId = 2003
+                        },
+                        new
+                        {
+                            Id = 3004,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 5m,
+                            VariantId = 2004
+                        },
+                        new
+                        {
+                            Id = 3005,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 6m,
+                            VariantId = 2005
+                        },
+                        new
+                        {
+                            Id = 3006,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 4m,
+                            VariantId = 2006
+                        },
+                        new
+                        {
+                            Id = 3007,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 40m,
+                            VariantId = 2007
+                        },
+                        new
+                        {
+                            Id = 3008,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 30m,
+                            VariantId = 2008
+                        },
+                        new
+                        {
+                            Id = 3009,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 30m,
+                            VariantId = 2009
+                        },
+                        new
+                        {
+                            Id = 3010,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 20m,
+                            VariantId = 2010
+                        },
+                        new
+                        {
+                            Id = 3011,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 56m,
+                            VariantId = 2011
+                        },
+                        new
+                        {
+                            Id = 3012,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 34m,
+                            VariantId = 2012
+                        },
+                        new
+                        {
+                            Id = 3013,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 67m,
+                            VariantId = 2013
+                        },
+                        new
+                        {
+                            Id = 3014,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 45m,
+                            VariantId = 2014
+                        },
+                        new
+                        {
+                            Id = 3015,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 38m,
+                            VariantId = 2015
+                        },
+                        new
+                        {
+                            Id = 3016,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 65m,
+                            VariantId = 2016
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventoryTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDatetime")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_datetime");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductInventoryId")
                         .HasColumnType("integer")
-                        .HasColumnName("product_id");
+                        .HasColumnName("product_inventory_id");
 
                     b.Property<decimal>("ReservedQuantity")
-                        .HasColumnType("numeric")
+                        .HasColumnType("decimal(18,3)")
                         .HasColumnName("reserved_quantity");
 
-                    b.Property<DateTime?>("StartDatetime")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("start_datetime");
-
                     b.Property<decimal>("StockQuantity")
-                        .HasColumnType("numeric")
+                        .HasColumnType("decimal(18,3)")
                         .HasColumnName("stock_quantity");
 
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("integer")
+                        .HasColumnName("transaction_type");
+
                     b.HasKey("Id")
-                        .HasName("pk_product_inventory");
+                        .HasName("pk_product_inventory_transaction");
 
-                    b.HasIndex("AttributeId")
-                        .HasDatabaseName("ix_product_inventory_attribute_id");
+                    b.HasIndex(new[] { "ProductInventoryId" }, "IX_InventoryTransaction_InventoryId")
+                        .HasDatabaseName("ix_product_inventory_transaction_product_inventory_id");
 
-                    b.HasIndex("ProductId")
-                        .HasDatabaseName("ix_product_inventory_product_id");
-
-                    b.ToTable("ProductInventory", "Sale");
+                    b.ToTable("ProductInventoryTransaction", "Sale");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductManufacturer", b =>
@@ -6998,6 +7809,13 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductProductTag", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("ProductId")
                         .HasColumnType("integer")
                         .HasColumnName("product_id");
@@ -7006,11 +7824,14 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("product_tag_id");
 
-                    b.HasKey("ProductId", "ProductTagId")
+                    b.HasKey("Id")
                         .HasName("pk_product_product_tag");
 
-                    b.HasIndex("ProductTagId")
-                        .HasDatabaseName("ix_product_product_tag_product_tag_id");
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_product_product_tag_product_id");
+
+                    b.HasIndex(new[] { "ProductTagId", "ProductId" }, "IX_PCM_Product_and_Tag")
+                        .HasDatabaseName("ix_product_product_tag_product_tag_id_product_id");
 
                     b.ToTable("ProductProductTag", "Sale");
                 });
@@ -7064,12 +7885,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)")
                         .HasColumnName("review_text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("title");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
@@ -7129,16 +7944,17 @@ namespace Hydra.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("key");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(70)
                         .HasColumnType("character varying(70)")
                         .HasColumnName("name");
-
-                    b.Property<string>("NormalizedName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("normalized_name");
 
                     b.HasKey("Id")
                         .HasName("pk_product_tag");
@@ -7152,44 +7968,307 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Bestseller",
-                            NormalizedName = "bestseller"
+                            Key = "bestseller",
+                            Name = "Bestseller"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "New",
-                            NormalizedName = "new"
+                            Key = "popular",
+                            Name = "Popular"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Popular",
-                            NormalizedName = "popular"
+                            Key = "sale",
+                            Name = "Sale"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Sale",
-                            NormalizedName = "sale"
+                            Key = "sustainable",
+                            Name = "Sustainable"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Sustainable",
-                            NormalizedName = "sustainable"
+                            Key = "trending",
+                            Name = "Trending"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Trending",
-                            NormalizedName = "trending"
+                            Key = "Featured",
+                            Name = "Featured"
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductVariant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("OldSellPrice")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("old_sell_price");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
+
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("sku");
+
+                    b.Property<decimal>("SellPrice")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("sell_price");
+
+                    b.HasKey("Id")
+                        .HasName("pk_product_variant");
+
+                    b.HasIndex(new[] { "ProductId" }, "IX_Variant_ProductId")
+                        .HasDatabaseName("ix_product_variant_product_id");
+
+                    b.HasIndex(new[] { "SKU" }, "IX_Variant_SKU")
+                        .HasDatabaseName("ix_product_variant_sku");
+
+                    b.ToTable("ProductVariant", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2000,
+                            OldSellPrice = 0m,
+                            ProductId = 1000,
+                            SKU = "BOOK-1000-DF",
+                            SellPrice = 129.99m
                         },
                         new
                         {
-                            Id = 7,
-                            Name = "Featured",
-                            NormalizedName = "Featured"
+                            Id = 2001,
+                            OldSellPrice = 399.99m,
+                            ProductId = 1001,
+                            SKU = "ELECTRONIK-1001-DF",
+                            SellPrice = 299.99m
+                        },
+                        new
+                        {
+                            Id = 2002,
+                            OldSellPrice = 119.99m,
+                            ProductId = 1002,
+                            SKU = "ELECTRONIK-1002-DF",
+                            SellPrice = 79.99m
+                        },
+                        new
+                        {
+                            Id = 2003,
+                            OldSellPrice = 189.99m,
+                            ProductId = 1003,
+                            SKU = "ELECTRONIK-1003-DF",
+                            SellPrice = 149.99m
+                        },
+                        new
+                        {
+                            Id = 2004,
+                            OldSellPrice = 279.99m,
+                            ProductId = 1004,
+                            SKU = "FASHION-1004-DF",
+                            SellPrice = 189.99m
+                        },
+                        new
+                        {
+                            Id = 2005,
+                            OldSellPrice = 279.99m,
+                            ProductId = 1004,
+                            SKU = "FASHION-1004-BLK-M",
+                            SellPrice = 189.99m
+                        },
+                        new
+                        {
+                            Id = 2006,
+                            OldSellPrice = 289.99m,
+                            ProductId = 1004,
+                            SKU = "FASHION-1004-BRN-L",
+                            SellPrice = 199.99m
+                        },
+                        new
+                        {
+                            Id = 2007,
+                            OldSellPrice = 59.99m,
+                            ProductId = 1005,
+                            SKU = "FASION-1005-DF",
+                            SellPrice = 39.99m
+                        },
+                        new
+                        {
+                            Id = 2008,
+                            OldSellPrice = 59.99m,
+                            ProductId = 1005,
+                            SKU = "FASION-1005-WHT-S",
+                            SellPrice = 39.99m
+                        },
+                        new
+                        {
+                            Id = 2009,
+                            OldSellPrice = 59.99m,
+                            ProductId = 1005,
+                            SKU = "FASION-1005-BLK-M",
+                            SellPrice = 39.99m
+                        },
+                        new
+                        {
+                            Id = 2010,
+                            OldSellPrice = 64.99m,
+                            ProductId = 1005,
+                            SKU = "FASION-1005-RED-L",
+                            SellPrice = 44.99m
+                        },
+                        new
+                        {
+                            Id = 2011,
+                            OldSellPrice = 179.99m,
+                            ProductId = 1006,
+                            SKU = "HOME-1006-DF",
+                            SellPrice = 129.99m
+                        },
+                        new
+                        {
+                            Id = 2012,
+                            OldSellPrice = 129.99m,
+                            ProductId = 1007,
+                            SKU = "HOME-1007-DF",
+                            SellPrice = 89.99m
+                        },
+                        new
+                        {
+                            Id = 2013,
+                            OldSellPrice = 64.99m,
+                            ProductId = 1008,
+                            SKU = "HOME-1008-DF",
+                            SellPrice = 44.99m
+                        },
+                        new
+                        {
+                            Id = 2014,
+                            OldSellPrice = 69.99m,
+                            ProductId = 1009,
+                            SKU = "SPORT-1009-DF",
+                            SellPrice = 49.99m
+                        },
+                        new
+                        {
+                            Id = 2015,
+                            OldSellPrice = 129.99m,
+                            ProductId = 1010,
+                            SKU = "BEAUTY-1010-DF",
+                            SellPrice = 89.99m
+                        },
+                        new
+                        {
+                            Id = 2016,
+                            OldSellPrice = 49.99m,
+                            ProductId = 1011,
+                            SKU = "BOOK-1011-DF",
+                            SellPrice = 34.99m
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductVariantAttribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttributeId")
+                        .HasColumnType("integer")
+                        .HasColumnName("attribute_id");
+
+                    b.Property<int>("VariantId")
+                        .HasColumnType("integer")
+                        .HasColumnName("variant_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_product_variant_attribute");
+
+                    b.HasIndex("AttributeId")
+                        .HasDatabaseName("ix_product_variant_attribute_attribute_id");
+
+                    b.HasIndex(new[] { "VariantId", "AttributeId" }, "IX_VariantAttribute_VariantId_AttributeId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_product_variant_attribute_variant_id_attribute_id");
+
+                    b.ToTable("ProductVariantAttribute", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 4000,
+                            AttributeId = 4,
+                            VariantId = 2005
+                        },
+                        new
+                        {
+                            Id = 4001,
+                            AttributeId = 7,
+                            VariantId = 2005
+                        },
+                        new
+                        {
+                            Id = 4002,
+                            AttributeId = 1,
+                            VariantId = 2006
+                        },
+                        new
+                        {
+                            Id = 4003,
+                            AttributeId = 8,
+                            VariantId = 2006
+                        },
+                        new
+                        {
+                            Id = 4004,
+                            AttributeId = 3,
+                            VariantId = 2008
+                        },
+                        new
+                        {
+                            Id = 4005,
+                            AttributeId = 5,
+                            VariantId = 2008
+                        },
+                        new
+                        {
+                            Id = 4006,
+                            AttributeId = 4,
+                            VariantId = 2009
+                        },
+                        new
+                        {
+                            Id = 4007,
+                            AttributeId = 6,
+                            VariantId = 2009
+                        },
+                        new
+                        {
+                            Id = 4008,
+                            AttributeId = 2,
+                            VariantId = 2010
+                        },
+                        new
+                        {
+                            Id = 4009,
+                            AttributeId = 7,
+                            VariantId = 2010
                         });
                 });
 
@@ -24427,6 +25506,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "PreviewImage")
                         .WithMany()
                         .HasForeignKey("PreviewImageId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_article_file_upload_preview_image_id");
 
                     b.HasOne("Hydra.Auth.Domain.User", "Writer")
@@ -24487,6 +25567,12 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Cms.Core.Domain.Link", b =>
                 {
+                    b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
+                        .WithMany()
+                        .HasForeignKey("ImagePreviewId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_link_file_upload_image_preview_id");
+
                     b.HasOne("Hydra.Cms.Core.Domain.LinkSection", "LinkSection")
                         .WithMany("Links")
                         .HasForeignKey("LinkSectionId")
@@ -24498,6 +25584,8 @@ namespace Hydra.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .HasConstraintName("fk_link_user_user_id");
+
+                    b.Navigation("ImagePreview");
 
                     b.Navigation("LinkSection");
 
@@ -24556,12 +25644,20 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Cms.Core.Domain.Slideshow", b =>
                 {
+                    b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "PreviewImage")
+                        .WithMany()
+                        .HasForeignKey("PreviewImageId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_slideshow_file_upload_preview_image_id");
+
                     b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_slideshow_user_user_id");
+
+                    b.Navigation("PreviewImage");
 
                     b.Navigation("User");
                 });
@@ -24748,6 +25844,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
                         .WithMany()
                         .HasForeignKey("ImagePreviewId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_category_file_upload_image_preview_id");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Category", "ParentCategory")
@@ -24765,6 +25862,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
                         .WithMany()
                         .HasForeignKey("ImagePreviewId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_manufacturer_file_upload_image_preview_id");
 
                     b.Navigation("ImagePreview");
@@ -24890,14 +25988,13 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.Auth.Domain.User", "CreateUser")
                         .WithMany()
                         .HasForeignKey("CreateUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
+                        .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("FK_Product_CreateUser");
 
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
                         .WithMany()
                         .HasForeignKey("ImagePreviewId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("FK_Product_ImagePreview");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.TaxCategory", "TaxCategory")
@@ -24910,6 +26007,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.Auth.Domain.User", "UpdateUser")
                         .WithMany()
                         .HasForeignKey("UpdateUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("FK_Product_UpdateUser");
 
                     b.Navigation("CreateUser");
@@ -24926,9 +26024,31 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
                         .WithMany()
                         .HasForeignKey("ImagePreviewId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_product_attribute_file_upload_image_preview_id");
 
                     b.Navigation("ImagePreview");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductBundle", b =>
+                {
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Bundle", "Bundle")
+                        .WithMany("ProductBundles")
+                        .HasForeignKey("BundleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_ProductBundle_Bundle");
+
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
+                        .WithMany("ProductBundles")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_ProductBundle_Product");
+
+                    b.Navigation("Bundle");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductCategory", b =>
@@ -24957,8 +26077,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
+                        .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_product_image_file_upload_image_id");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
@@ -24975,22 +26094,26 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventory", b =>
                 {
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductAttribute", "ProductAttribute")
-                        .WithMany("ProductInventories")
-                        .HasForeignKey("AttributeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .HasConstraintName("fk_product_inventory_product_attribute_attribute_id");
-
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
-                        .WithMany("ProductInventories")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductVariant", "Variant")
+                        .WithOne("ProductInventory")
+                        .HasForeignKey("Hydra.Ecommerce.Core.Domain.ProductInventory", "VariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_product_inventory_product_product_id");
+                        .HasConstraintName("fk_product_inventory_product_variant_variant_id");
 
-                    b.Navigation("Product");
+                    b.Navigation("Variant");
+                });
 
-                    b.Navigation("ProductAttribute");
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventoryTransaction", b =>
+                {
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductInventory", "ProductInventory")
+                        .WithMany("InventoryTransactions")
+                        .HasForeignKey("ProductInventoryId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_inventory_transaction_product_inventory_product_invent");
+
+                    b.Navigation("ProductInventory");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductManufacturer", b =>
@@ -25098,21 +26221,54 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductVariant", b =>
+                {
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
+                        .WithMany("ProductVariants")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_variant_product_product_id");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductVariantAttribute", b =>
+                {
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductAttribute", "Attribute")
+                        .WithMany("VariantAttributes")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_variant_attribute_product_attribute_attribute_id");
+
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductVariant", "Variant")
+                        .WithMany("VariantAttributes")
+                        .HasForeignKey("VariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_variant_attribute_product_variant_variant_id");
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("Variant");
+                });
+
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.RelatedProduct", b =>
                 {
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "ProductId1Navigation")
-                        .WithMany("RelatedProductProductId1Navigations")
+                        .WithMany("RelatedProduct1Navigation")
                         .HasForeignKey("ProductId1")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("FK_RelatedProduct_Product");
+                        .HasConstraintName("FK_RelatedProduct1Navigation");
 
                     b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "ProductId2Navigation")
-                        .WithMany("RelatedProductProductId2Navigations")
+                        .WithMany("RelatedProduct2Navigation")
                         .HasForeignKey("ProductId2")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("FK_RelatedProduct_Product1");
+                        .HasConstraintName("FK_RelatedProduct2Navigation");
 
                     b.Navigation("ProductId1Navigation");
 
@@ -25311,6 +26467,11 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Bundle", b =>
+                {
+                    b.Navigation("ProductBundles");
+                });
+
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Category", b =>
                 {
                     b.Navigation("ProductCategories");
@@ -25366,11 +26527,11 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.Navigation("ProductAttributes");
 
+                    b.Navigation("ProductBundles");
+
                     b.Navigation("ProductCategories");
 
                     b.Navigation("ProductImages");
-
-                    b.Navigation("ProductInventories");
 
                     b.Navigation("ProductManufacturers");
 
@@ -25378,9 +26539,11 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.Navigation("ProductReviews");
 
-                    b.Navigation("RelatedProductProductId1Navigations");
+                    b.Navigation("ProductVariants");
 
-                    b.Navigation("RelatedProductProductId2Navigations");
+                    b.Navigation("RelatedProduct1Navigation");
+
+                    b.Navigation("RelatedProduct2Navigation");
 
                     b.Navigation("ShoppingCartItems");
                 });
@@ -25389,7 +26552,12 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Navigation("ProductAttributes");
 
-                    b.Navigation("ProductInventories");
+                    b.Navigation("VariantAttributes");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventory", b =>
+                {
+                    b.Navigation("InventoryTransactions");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductReview", b =>
@@ -25400,6 +26568,14 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductTag", b =>
                 {
                     b.Navigation("ProductProductTags");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductVariant", b =>
+                {
+                    b.Navigation("ProductInventory")
+                        .IsRequired();
+
+                    b.Navigation("VariantAttributes");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Shipment", b =>

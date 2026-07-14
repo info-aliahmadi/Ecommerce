@@ -33,6 +33,24 @@ namespace Hydra.Infrastructure.Migrations
                 name: "Auth");
 
             migrationBuilder.CreateTable(
+                name: "Bundle",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false),
+                    show_on_homepage = table.Column<bool>(type: "boolean", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_bundle", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Country",
                 schema: "Sale",
                 columns: table => new
@@ -185,7 +203,7 @@ namespace Hydra.Infrastructure.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
-                    normalized_name = table.Column<string>(type: "text", nullable: false)
+                    key = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -604,39 +622,6 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Link",
-                schema: "Cms",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    title = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
-                    url = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
-                    image_preview_id = table.Column<int>(type: "integer", nullable: true),
-                    description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
-                    link_section_id = table.Column<int>(type: "integer", nullable: false),
-                    order = table.Column<int>(type: "integer", nullable: false),
-                    user_id = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_link", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_link_link_section_link_section_id",
-                        column: x => x.link_section_id,
-                        principalSchema: "Cms",
-                        principalTable: "LinkSection",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_link_user_user_id",
-                        column: x => x.user_id,
-                        principalSchema: "Auth",
-                        principalTable: "User",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Message",
                 schema: "Crm",
                 columns: table => new
@@ -691,34 +676,6 @@ namespace Hydra.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "fk_page_user_writer_id",
                         column: x => x.writer_id,
-                        principalSchema: "Auth",
-                        principalTable: "User",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Slideshow",
-                schema: "Cms",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    header = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
-                    description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                    preview_image_id = table.Column<int>(type: "integer", nullable: true),
-                    preview_image_url = table.Column<string>(type: "text", nullable: true),
-                    order = table.Column<int>(type: "integer", nullable: false),
-                    is_visible = table.Column<bool>(type: "boolean", nullable: false),
-                    create_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    user_id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_slideshow", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_slideshow_user_user_id",
-                        column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
                         principalColumn: "id",
@@ -964,7 +921,8 @@ namespace Hydra.Infrastructure.Migrations
                         column: x => x.preview_image_id,
                         principalSchema: "FS",
                         principalTable: "FileUpload",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "fk_article_user_editor_id",
                         column: x => x.editor_id,
@@ -1017,6 +975,47 @@ namespace Hydra.Infrastructure.Migrations
                         column: x => x.image_preview_id,
                         principalSchema: "FS",
                         principalTable: "FileUpload",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Link",
+                schema: "Cms",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    url = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    image_preview_id = table.Column<int>(type: "integer", nullable: true),
+                    description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    link_section_id = table.Column<int>(type: "integer", nullable: false),
+                    order = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_link", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_link_file_upload_image_preview_id",
+                        column: x => x.image_preview_id,
+                        principalSchema: "FS",
+                        principalTable: "FileUpload",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "fk_link_link_section_link_section_id",
+                        column: x => x.link_section_id,
+                        principalSchema: "Cms",
+                        principalTable: "LinkSection",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_link_user_user_id",
+                        column: x => x.user_id,
+                        principalSchema: "Auth",
+                        principalTable: "User",
                         principalColumn: "id");
                 });
 
@@ -1047,7 +1046,8 @@ namespace Hydra.Infrastructure.Migrations
                         column: x => x.image_preview_id,
                         principalSchema: "FS",
                         principalTable: "FileUpload",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -1057,8 +1057,8 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    code = table.Column<int>(type: "integer", nullable: false),
                     name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    sku = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
                     meta_keywords = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
                     meta_title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     short_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
@@ -1066,15 +1066,11 @@ namespace Hydra.Infrastructure.Migrations
                     admin_comment = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
                     meta_description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
                     tax_category_id = table.Column<int>(type: "integer", nullable: false),
-                    stock_type = table.Column<int>(type: "integer", nullable: false),
-                    stock_quantity = table.Column<int>(type: "integer", nullable: false),
                     min_stock_quantity = table.Column<int>(type: "integer", nullable: false),
                     notify_admin_for_quantity_below = table.Column<bool>(type: "boolean", nullable: false),
                     order_minimum_quantity = table.Column<int>(type: "integer", nullable: false),
                     order_maximum_quantity = table.Column<int>(type: "integer", nullable: false),
-                    sell_unit_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    old_sell_unit_price = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
-                    available_start_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
+                    available_start_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
                     available_end_date_time_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: true),
                     display_order = table.Column<int>(type: "integer", nullable: false),
                     approved_rating_sum = table.Column<int>(type: "integer", nullable: false),
@@ -1098,7 +1094,7 @@ namespace Hydra.Infrastructure.Migrations
                     call_for_price = table.Column<bool>(type: "boolean", nullable: false),
                     published = table.Column<bool>(type: "boolean", nullable: false),
                     deleted = table.Column<bool>(type: "boolean", nullable: false),
-                    create_user_id = table.Column<int>(type: "integer", nullable: false),
+                    create_user_id = table.Column<int>(type: "integer", nullable: true),
                     image_preview_id = table.Column<int>(type: "integer", nullable: true),
                     created_on_utc = table.Column<DateTime>(type: "timestamp(6) with time zone", precision: 6, nullable: false),
                     update_user_id = table.Column<int>(type: "integer", nullable: true),
@@ -1116,14 +1112,14 @@ namespace Hydra.Infrastructure.Migrations
                         principalSchema: "Auth",
                         principalTable: "User",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Product_ImagePreview",
                         column: x => x.image_preview_id,
                         principalSchema: "FS",
                         principalTable: "FileUpload",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Product_TaxCategory",
                         column: x => x.tax_category_id,
@@ -1136,7 +1132,8 @@ namespace Hydra.Infrastructure.Migrations
                         column: x => x.update_user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1146,12 +1143,11 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    value = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    display_name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    key = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     attribute_type = table.Column<int>(type: "integer", nullable: false),
                     image_preview_id = table.Column<int>(type: "integer", nullable: true),
                     display_order = table.Column<int>(type: "integer", nullable: false),
-                    is_featured = table.Column<bool>(type: "boolean", nullable: false),
                     description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true)
                 },
                 constraints: table =>
@@ -1162,7 +1158,43 @@ namespace Hydra.Infrastructure.Migrations
                         column: x => x.image_preview_id,
                         principalSchema: "FS",
                         principalTable: "FileUpload",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Slideshow",
+                schema: "Cms",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    header = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    preview_image_id = table.Column<int>(type: "integer", nullable: true),
+                    preview_image_url = table.Column<string>(type: "text", nullable: true),
+                    order = table.Column<int>(type: "integer", nullable: false),
+                    is_visible = table.Column<bool>(type: "boolean", nullable: false),
+                    create_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_slideshow", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_slideshow_file_upload_preview_image_id",
+                        column: x => x.preview_image_id,
+                        principalSchema: "FS",
+                        principalTable: "FileUpload",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "fk_slideshow_user_user_id",
+                        column: x => x.user_id,
+                        principalSchema: "Auth",
+                        principalTable: "User",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1382,6 +1414,36 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductBundle",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    bundle_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    display_order = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Product_Bundle_Mapping", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ProductBundle_Bundle",
+                        column: x => x.bundle_id,
+                        principalSchema: "Sale",
+                        principalTable: "Bundle",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProductBundle_Product",
+                        column: x => x.product_id,
+                        principalSchema: "Sale",
+                        principalTable: "Product",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductCategory",
                 schema: "Sale",
                 columns: table => new
@@ -1438,7 +1500,7 @@ namespace Hydra.Infrastructure.Migrations
                         principalSchema: "FS",
                         principalTable: "FileUpload",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -1476,12 +1538,14 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 columns: table => new
                 {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     product_tag_id = table.Column<int>(type: "integer", nullable: false),
                     product_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_product_product_tag", x => new { x.product_id, x.product_tag_id });
+                    table.PrimaryKey("pk_product_product_tag", x => x.id);
                     table.ForeignKey(
                         name: "fk_product_product_tag_product_product_id",
                         column: x => x.product_id,
@@ -1508,7 +1572,6 @@ namespace Hydra.Infrastructure.Migrations
                     user_id = table.Column<int>(type: "integer", nullable: false),
                     product_id = table.Column<int>(type: "integer", nullable: false),
                     is_approved = table.Column<bool>(type: "boolean", nullable: false),
-                    title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     review_text = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     reply_text = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     customer_notified_of_reply = table.Column<bool>(type: "boolean", nullable: false),
@@ -1537,6 +1600,37 @@ namespace Hydra.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductVariant",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    sku = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    sell_price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    old_sell_price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    product_id1 = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_product_variant", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_product_variant_product_product_id",
+                        column: x => x.product_id,
+                        principalSchema: "Sale",
+                        principalTable: "Product",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_product_variant_product_product_id1",
+                        column: x => x.product_id1,
+                        principalSchema: "Sale",
+                        principalTable: "Product",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RelatedProduct",
                 schema: "Sale",
                 columns: table => new
@@ -1551,14 +1645,14 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     table.PrimaryKey("pk_related_product", x => x.id);
                     table.ForeignKey(
-                        name: "FK_RelatedProduct_Product",
+                        name: "FK_RelatedProduct1Navigation",
                         column: x => x.product_id1,
                         principalSchema: "Sale",
                         principalTable: "Product",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_RelatedProduct_Product1",
+                        name: "FK_RelatedProduct2Navigation",
                         column: x => x.product_id2,
                         principalSchema: "Sale",
                         principalTable: "Product",
@@ -1595,40 +1689,6 @@ namespace Hydra.Infrastructure.Migrations
                         column: x => x.user_id,
                         principalSchema: "Auth",
                         principalTable: "User",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductInventory",
-                schema: "Sale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    product_id = table.Column<int>(type: "integer", nullable: false),
-                    attribute_id = table.Column<int>(type: "integer", nullable: true),
-                    stock_quantity = table.Column<decimal>(type: "numeric", nullable: false),
-                    reserved_quantity = table.Column<decimal>(type: "numeric", nullable: false),
-                    buy_unit_price = table.Column<decimal>(type: "numeric", nullable: false),
-                    created_datetime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    start_datetime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_product_inventory", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_product_inventory_product_attribute_attribute_id",
-                        column: x => x.attribute_id,
-                        principalSchema: "Sale",
-                        principalTable: "ProductAttribute",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "fk_product_inventory_product_product_id",
-                        column: x => x.product_id,
-                        principalSchema: "Sale",
-                        principalTable: "Product",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1690,6 +1750,91 @@ namespace Hydra.Infrastructure.Migrations
                         principalTable: "User",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductInventory",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    variant_id = table.Column<int>(type: "integer", nullable: false),
+                    stock_quantity = table.Column<decimal>(type: "numeric(18,3)", nullable: false),
+                    reserved_quantity = table.Column<decimal>(type: "numeric(18,3)", nullable: false),
+                    created_datetime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_product_inventory", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_product_inventory_product_variant_variant_id",
+                        column: x => x.variant_id,
+                        principalSchema: "Sale",
+                        principalTable: "ProductVariant",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductVariantAttribute",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    variant_id = table.Column<int>(type: "integer", nullable: false),
+                    attribute_id = table.Column<int>(type: "integer", nullable: false),
+                    product_attribute_id = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_product_variant_attribute", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_product_variant_attribute_product_attribute_attribute_id",
+                        column: x => x.attribute_id,
+                        principalSchema: "Sale",
+                        principalTable: "ProductAttribute",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_product_variant_attribute_product_attribute_product_attribute_",
+                        column: x => x.product_attribute_id,
+                        principalSchema: "Sale",
+                        principalTable: "ProductAttribute",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "fk_product_variant_attribute_product_variant_variant_id",
+                        column: x => x.variant_id,
+                        principalSchema: "Sale",
+                        principalTable: "ProductVariant",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductInventoryTransaction",
+                schema: "Sale",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    product_inventory_id = table.Column<int>(type: "integer", nullable: false),
+                    transaction_type = table.Column<int>(type: "integer", nullable: false),
+                    stock_quantity = table.Column<decimal>(type: "numeric(18,3)", nullable: false),
+                    reserved_quantity = table.Column<decimal>(type: "numeric(18,3)", nullable: false),
+                    created_datetime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_product_inventory_transaction", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_product_inventory_transaction_product_inventory_product_invent",
+                        column: x => x.product_inventory_id,
+                        principalSchema: "Sale",
+                        principalTable: "ProductInventory",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -1941,6 +2086,17 @@ namespace Hydra.Infrastructure.Migrations
                         principalTable: "Shipment",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Sale",
+                table: "Bundle",
+                columns: new[] { "id", "created_on_utc", "description", "display_order", "name", "show_on_homepage" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "Everything you need for the perfect summer", 1, "Summer Essentials Bundle", true },
+                    { 2, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "Level up your home office setup", 2, "Tech Workspace Bundle", true },
+                    { 3, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), "Treat yourself to a spa experience at home", 3, "Self-Care Ritual Bundlee", true }
                 });
 
             migrationBuilder.InsertData(
@@ -2310,45 +2466,45 @@ namespace Hydra.Infrastructure.Migrations
                     { 5021, "SALE.COUNTRY_MANAGEMENT", "SALE.COUNTRY_MANAGEMENT" },
                     { 5022, "SALE.STATE_PROVINCE_MANAGEMENT", "SALE.STATE_PROVINCE_MANAGEMENT" },
                     { 5023, "SALE.ADDRESS_MANAGEMENT", "SALE.ADDRESS_MANAGEMENT" },
-                    { 5024, "SALE.TAX_MANAGEMENT", "SALE.TAX_MANAGEMENT" }
+                    { 5024, "SALE.TAX_MANAGEMENT", "SALE.TAX_MANAGEMENT" },
+                    { 5025, "SALE.BUNDLE_MANAGEMENT", "SALE.BUNDLE_MANAGEMENT" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "ProductAttribute",
-                columns: new[] { "id", "attribute_type", "description", "display_order", "image_preview_id", "is_featured", "name", "value" },
+                columns: new[] { "id", "attribute_type", "description", "display_name", "display_order", "image_preview_id", "key" },
                 values: new object[,]
                 {
-                    { 1, 0, null, 1, null, false, "Blue", "blue" },
-                    { 2, 0, null, 2, null, false, "Red", "red" },
-                    { 3, 0, null, 3, null, false, "White", "#fff" },
-                    { 4, 0, null, 4, null, false, "Black", "#000" },
-                    { 5, 1, "Small Means S US Size", 5, null, false, "Small size", "#Small" },
-                    { 6, 1, "Small Means M US Size", 6, null, false, "Medium", "#Medium" },
-                    { 7, 1, "Small Means XL US Size", 7, null, false, "Large", "#Large" },
-                    { 8, 0, null, 8, null, false, "Green", "green" },
-                    { 9, 0, null, 9, null, false, "Yellow", "yellow" },
-                    { 10, 0, null, 10, null, false, "Purple", "purple" },
-                    { 11, 1, "Extra Small size", 11, null, false, "Extra Small", "XS" },
-                    { 12, 1, "Extra Large size", 12, null, false, "Extra Large", "XL" },
-                    { 13, 7, "Weekend Casual Style", 13, null, false, "Weekend Casual", "weekend-casual" },
-                    { 14, 7, "Office Professional Style", 14, null, false, "Office Professional", "office-professional" },
-                    { 15, 7, "Evening Elegance Style", 15, null, false, "Evening Elegance", "evening-elegance" }
+                    { 1, 0, null, "Blue", 1, null, "blue" },
+                    { 2, 0, null, "Red", 2, null, "red" },
+                    { 3, 0, null, "White", 3, null, "white" },
+                    { 4, 0, null, "Black", 4, null, "black" },
+                    { 5, 1, "Small Means S US Size", "Small size", 5, null, "S" },
+                    { 6, 1, "Small Means M US Size", "Medium", 6, null, "M" },
+                    { 7, 1, "Large Means L US Size", "Large", 7, null, "L" },
+                    { 8, 0, null, "Green", 8, null, "green" },
+                    { 9, 0, null, "Yellow", 9, null, "yellow" },
+                    { 10, 0, null, "Purple", 10, null, "purple" },
+                    { 11, 1, "Extra Small size", "Extra Small", 11, null, "XS" },
+                    { 12, 1, "Extra Large size", "Extra Large", 12, null, "XL" },
+                    { 13, 7, "Weekend Casual Style", "Weekend Casual", 13, null, "weekend-casual" },
+                    { 14, 7, "Office Professional Style", "Office Professional", 14, null, "office-professional" },
+                    { 15, 7, "Evening Elegance Style", "Evening Elegance", 15, null, "evening-elegance" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Sale",
                 table: "ProductTag",
-                columns: new[] { "id", "name", "normalized_name" },
+                columns: new[] { "id", "key", "name" },
                 values: new object[,]
                 {
-                    { 1, "Bestseller", "bestseller" },
-                    { 2, "New", "new" },
-                    { 3, "Popular", "popular" },
-                    { 4, "Sale", "sale" },
-                    { 5, "Sustainable", "sustainable" },
-                    { 6, "Trending", "trending" },
-                    { 7, "Featured", "Featured" }
+                    { 1, "bestseller", "Bestseller" },
+                    { 2, "popular", "Popular" },
+                    { 3, "sale", "Sale" },
+                    { 4, "sustainable", "Sustainable" },
+                    { 5, "trending", "Trending" },
+                    { 6, "Featured", "Featured" }
                 });
 
             migrationBuilder.InsertData(
@@ -2448,6 +2604,26 @@ namespace Hydra.Infrastructure.Migrations
                     { 25, "#FFC107", 3, 2, null, "Sports", "/products/?category=sports", null },
                     { 26, "#FF69B4", 3, 2, null, "Beauty", "/products/?category=beauty", null },
                     { 27, "#10B981", 3, 2, null, "Books", "/products/?category=books", null }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Sale",
+                table: "Product",
+                columns: new[] { "id", "admin_comment", "allow_customer_reviews", "allowed_quantities", "approved_rating_sum", "approved_total_reviews", "available_end_date_time_utc", "available_for_pre_order", "available_start_date_time_utc", "call_for_price", "create_user_id", "created_on_utc", "currency_type", "deleted", "delivery_date_type", "disable_buy_button", "disable_wishlist_button", "display_order", "display_stock_quantity", "full_description", "has_discounts_applied", "image_preview_id", "is_free_shipping", "is_tax_exempt", "mark_as_new", "mark_as_new_end_date_time_utc", "mark_as_new_start_date_time_utc", "measure_type", "meta_description", "meta_keywords", "meta_title", "min_stock_quantity", "name", "not_approved_rating_sum", "not_approved_total_reviews", "not_returnable", "notify_admin_for_quantity_below", "order_maximum_quantity", "order_minimum_quantity", "published", "sku", "short_description", "show_on_homepage", "tax_category_id", "update_user_id", "updated_on_utc" },
+                values: new object[,]
+                {
+                    { 1000, null, true, false, 0, 324, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 1, false, "Premium over-ear headphones with active noise cancellation, 30-hour battery life, and crystal-clear audio quality. Perfect for music lovers and professionals.", false, null, false, false, false, null, null, 2, "ANC Headphones • 30hr Battery", "bestseller,trending", "Wireless Noise-Cancelling Headphones", 0, "Wireless Noise-Cancelling Headphones", 0, 0, false, false, 1000, 1, true, "BOOK-1000", "ANC Headphones • 30hr Battery", true, 1, null, null },
+                    { 1001, null, true, false, 0, 218, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 2, false, "Advanced smartwatch with health monitoring, GPS tracking, and a stunning AMOLED display. Water resistant to 50m.", false, null, false, false, false, null, null, 2, "AMOLED Display • GPS • Health", "new,popular", "Smart Watch Pro", 0, "Smart Watch Pro", 0, 0, false, false, 1000, 1, true, "ELECTRONIK-1001", "AMOLED Display • GPS • Health", true, 1, null, null },
+                    { 1002, null, true, false, 0, 156, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 3, false, "Compact, waterproof speaker with 360-degree sound. 12-hour battery life and built-in microphone.", false, null, false, false, false, null, null, 2, "Waterproof • 360° Sound", "sale", "Portable Bluetooth Speaker", 0, "Portable Bluetooth Speaker", 0, 0, false, false, 1000, 1, true, "ELECTRONIK-1002", "Waterproof • 360° Sound", false, 1, null, null },
+                    { 1003, null, true, false, 0, 189, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 4, false, "Full-size mechanical keyboard with customizable RGB lighting, hot-swappable switches, and premium build quality.", false, null, false, false, false, null, null, 2, "Hot-Swap • RGB • Aluminum", "popular", "Mechanical Keyboard RGB", 0, "Mechanical Keyboard RGB", 0, 0, false, false, 1000, 1, true, "ELECTRONIK-1003", "Hot-Swap • RGB • Aluminum", false, 1, null, null },
+                    { 1004, null, true, false, 0, 412, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 5, false, "Timeless genuine leather jacket with premium lining. A wardrobe essential that pairs with everything.", false, null, false, false, true, null, null, 2, "Genuine Leather • Slim Fit", "bestseller,trending", "Classic Leather Jacket", 0, "Classic Leather Jacket", 0, 0, false, false, 1000, 1, true, "FASHION-1004", "Genuine Leather • Slim Fit", true, 1, null, null },
+                    { 1005, null, true, false, 0, 287, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 6, false, "Ultra-soft 100% organic cotton t-shirt. Comfortable, breathable, and sustainably made.", false, null, false, false, false, null, null, 2, "Organic Cotton • Relaxed Fit", "sale,sustainable", "Premium Cotton T-Shirt", 0, "Premium Cotton T-Shirt", 0, 0, false, false, 1000, 1, true, "FASION-1005", "Organic Cotton • Relaxed Fit", false, 1, null, null },
+                    { 1006, null, true, false, 0, 165, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 7, false, "UV400 protection with polarized lenses. Lightweight titanium frame for all-day comfort.", false, null, false, false, true, null, null, 2, "Polarized • UV400 • Titanium", "popular,new", "Designer Sunglasses", 0, "Designer Sunglasses", 0, 0, false, false, 1000, 1, true, "HOME-1006", "Polarized • UV400 • Titanium", true, 1, null, null },
+                    { 1007, null, true, false, 0, 143, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 8, false, "LED desk lamp with adjustable color temperature, touch controls, and wireless charging base.", false, null, false, false, true, null, null, 2, "LED • Touch Control • Wireless Charging", "trending", "Minimalist Desk Lamp", 0, "Minimalist Desk Lamp", 0, 0, false, false, 1000, 1, true, "HOME-1007", "LED • Touch Control • Wireless Charging", true, 1, null, null },
+                    { 1008, null, true, false, 0, 211, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 9, false, "Set of 3 handcrafted ceramic plant pots in matte finish. Perfect for succulents and small plants.", false, null, false, false, false, null, null, 2, "Set of 3 • Matte Finish • Handmade", "popular,new", "Ceramic Plant Pot Set", 0, "Ceramic Plant Pot Set", 0, 0, false, false, 1000, 1, true, "HOME-1008", "Set of 3 • Matte Finish • Handmade", false, 1, null, null },
+                    { 1009, null, true, false, 0, 234, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 10, false, "Extra thick non-slip yoga mat with alignment guides. Eco-friendly TPE material.", false, null, false, false, false, null, null, 2, "6mm Thick • Non-Slip • Eco-TPE", "bestseller", "Yoga Mat Premium", 0, "Yoga Mat Premium", 0, 0, false, false, 1000, 1, true, "SPORT-1009", "6mm Thick • Non-Slip • Eco-TPE", true, 1, null, null },
+                    { 1010, null, true, false, 0, 267, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 11, false, "Complete skincare routine with cleanser, toner, serum, and moisturizer. For all skin types.", false, null, false, false, true, null, null, 2, "4-Piece Set • All Skin Types", "bestseller,new", "Skincare Essential Kit", 0, "Skincare Essential Kit", 0, 0, false, false, 1000, 1, true, "BEAUTY-1010", "4-Piece Set • All Skin Types", true, 1, null, null },
+                    { 1011, null, true, false, 0, 178, null, false, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), false, null, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 4, false, 2, false, false, 12, false, "A comprehensive guide to interior design, minimalism, and creating spaces that inspire.", false, null, false, false, false, null, null, 2, "Hardcover • 320 Pages", "bestseller", "The Art of Modern Living", 0, "The Art of Modern Living", 0, 0, false, false, 1000, 1, true, "BOOK-1011", "Hardcover • 320 Pages", false, 1, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -4307,6 +4483,91 @@ namespace Hydra.Infrastructure.Migrations
                     { 5, 100, 20m, 20 }
                 });
 
+            migrationBuilder.InsertData(
+                schema: "Sale",
+                table: "ProductBundle",
+                columns: new[] { "id", "bundle_id", "display_order", "product_id" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, 1001 },
+                    { 2, 1, 2, 1002 },
+                    { 3, 1, 3, 1003 },
+                    { 4, 2, 1, 1004 },
+                    { 5, 2, 2, 1005 },
+                    { 6, 2, 3, 1006 },
+                    { 7, 3, 1, 1007 },
+                    { 8, 3, 2, 1008 },
+                    { 9, 3, 3, 1009 }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Sale",
+                table: "ProductVariant",
+                columns: new[] { "id", "old_sell_price", "product_id", "product_id1", "sku", "sell_price" },
+                values: new object[,]
+                {
+                    { 2000, 0m, 1000, null, "BOOK-1000-DF", 129.99m },
+                    { 2001, 399.99m, 1001, null, "ELECTRONIK-1001-DF", 299.99m },
+                    { 2002, 119.99m, 1002, null, "ELECTRONIK-1002-DF", 79.99m },
+                    { 2003, 189.99m, 1003, null, "ELECTRONIK-1003-DF", 149.99m },
+                    { 2004, 279.99m, 1004, null, "FASHION-1004-DF", 189.99m },
+                    { 2005, 279.99m, 1004, null, "FASHION-1004-BLK-M", 189.99m },
+                    { 2006, 289.99m, 1004, null, "FASHION-1004-BRN-L", 199.99m },
+                    { 2007, 59.99m, 1005, null, "FASION-1005-DF", 39.99m },
+                    { 2008, 59.99m, 1005, null, "FASION-1005-WHT-S", 39.99m },
+                    { 2009, 59.99m, 1005, null, "FASION-1005-BLK-M", 39.99m },
+                    { 2010, 64.99m, 1005, null, "FASION-1005-RED-L", 44.99m },
+                    { 2011, 179.99m, 1006, null, "HOME-1006-DF", 129.99m },
+                    { 2012, 129.99m, 1007, null, "HOME-1007-DF", 89.99m },
+                    { 2013, 64.99m, 1008, null, "HOME-1008-DF", 44.99m },
+                    { 2014, 69.99m, 1009, null, "SPORT-1009-DF", 49.99m },
+                    { 2015, 129.99m, 1010, null, "BEAUTY-1010-DF", 89.99m },
+                    { 2016, 49.99m, 1011, null, "BOOK-1011-DF", 34.99m }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Sale",
+                table: "ProductInventory",
+                columns: new[] { "id", "created_datetime", "reserved_quantity", "stock_quantity", "variant_id" },
+                values: new object[,]
+                {
+                    { 3000, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 45m, 2000 },
+                    { 3001, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 32m, 2001 },
+                    { 3002, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 78m, 2002 },
+                    { 3003, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 23m, 2003 },
+                    { 3004, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 5m, 2004 },
+                    { 3005, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 6m, 2005 },
+                    { 3006, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 4m, 2006 },
+                    { 3007, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 40m, 2007 },
+                    { 3008, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 30m, 2008 },
+                    { 3009, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 30m, 2009 },
+                    { 3010, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 20m, 2010 },
+                    { 3011, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 56m, 2011 },
+                    { 3012, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 34m, 2012 },
+                    { 3013, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 67m, 2013 },
+                    { 3014, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 45m, 2014 },
+                    { 3015, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 38m, 2015 },
+                    { 3016, new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc), 0m, 65m, 2016 }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Sale",
+                table: "ProductVariantAttribute",
+                columns: new[] { "id", "attribute_id", "product_attribute_id", "variant_id" },
+                values: new object[,]
+                {
+                    { 4000, 4, null, 2005 },
+                    { 4001, 7, null, 2005 },
+                    { 4002, 1, null, 2006 },
+                    { 4003, 8, null, 2006 },
+                    { 4004, 3, null, 2008 },
+                    { 4005, 5, null, 2008 },
+                    { 4006, 4, null, 2009 },
+                    { 4007, 6, null, 2009 },
+                    { 4008, 2, null, 2010 },
+                    { 4009, 7, null, 2010 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "ix_address_country_id",
                 schema: "Sale",
@@ -4354,6 +4615,12 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Cms",
                 table: "ArticleTopic",
                 column: "article_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_bundle_display_order",
+                schema: "Sale",
+                table: "Bundle",
+                column: "display_order");
 
             migrationBuilder.CreateIndex(
                 name: "ix_category_display_order",
@@ -4462,6 +4729,12 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "FS",
                 table: "FileUpload",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_link_image_preview_id",
+                schema: "Cms",
+                table: "Link",
+                column: "image_preview_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_link_link_section_id",
@@ -4675,6 +4948,24 @@ namespace Hydra.Infrastructure.Migrations
                 column: "image_preview_id");
 
             migrationBuilder.CreateIndex(
+                name: "ix_product_bundle_bundle_id",
+                schema: "Sale",
+                table: "ProductBundle",
+                column: "bundle_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_bundle_bundle_id_product_id",
+                schema: "Sale",
+                table: "ProductBundle",
+                columns: new[] { "bundle_id", "product_id" });
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_bundle_product_id",
+                schema: "Sale",
+                table: "ProductBundle",
+                column: "product_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_product_category_category_id",
                 schema: "Sale",
                 table: "ProductCategory",
@@ -4705,16 +4996,23 @@ namespace Hydra.Infrastructure.Migrations
                 column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_product_inventory_attribute_id",
+                name: "ix_product_inventory_variant_id",
                 schema: "Sale",
                 table: "ProductInventory",
-                column: "attribute_id");
+                column: "variant_id",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "ix_product_inventory_product_id",
+                name: "ix_product_inventory_variant_id1",
                 schema: "Sale",
                 table: "ProductInventory",
-                column: "product_id");
+                column: "variant_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_inventory_transaction_product_inventory_id",
+                schema: "Sale",
+                table: "ProductInventoryTransaction",
+                column: "product_inventory_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_product_manufacturer_manufacturer_id",
@@ -4753,10 +5051,16 @@ namespace Hydra.Infrastructure.Migrations
                 column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_product_product_tag_product_tag_id",
+                name: "ix_product_product_tag_product_id",
                 schema: "Sale",
                 table: "ProductProductTag",
-                column: "product_tag_id");
+                column: "product_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_product_tag_product_tag_id_product_id",
+                schema: "Sale",
+                table: "ProductProductTag",
+                columns: new[] { "product_tag_id", "product_id" });
 
             migrationBuilder.CreateIndex(
                 name: "ix_product_review_product_id",
@@ -4787,6 +5091,43 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 table: "ProductTag",
                 column: "name");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_variant_product_id",
+                schema: "Sale",
+                table: "ProductVariant",
+                column: "product_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_variant_product_id1",
+                schema: "Sale",
+                table: "ProductVariant",
+                column: "product_id1");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_variant_sku",
+                schema: "Sale",
+                table: "ProductVariant",
+                column: "sku");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_variant_attribute_attribute_id",
+                schema: "Sale",
+                table: "ProductVariantAttribute",
+                column: "attribute_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_variant_attribute_product_attribute_id",
+                schema: "Sale",
+                table: "ProductVariantAttribute",
+                column: "product_attribute_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_variant_attribute_variant_id_attribute_id",
+                schema: "Sale",
+                table: "ProductVariantAttribute",
+                columns: new[] { "variant_id", "attribute_id" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_related_product_product_id1",
@@ -4848,6 +5189,12 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 table: "ShoppingCartItem",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_slideshow_preview_image_id",
+                schema: "Cms",
+                table: "Slideshow",
+                column: "preview_image_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_slideshow_user_id",
@@ -5050,6 +5397,10 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth");
 
             migrationBuilder.DropTable(
+                name: "ProductBundle",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
                 name: "ProductCategory",
                 schema: "Sale");
 
@@ -5058,7 +5409,7 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale");
 
             migrationBuilder.DropTable(
-                name: "ProductInventory",
+                name: "ProductInventoryTransaction",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
@@ -5075,6 +5426,10 @@ namespace Hydra.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductReviewHelpfulness",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
+                name: "ProductVariantAttribute",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
@@ -5162,15 +5517,19 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Auth");
 
             migrationBuilder.DropTable(
+                name: "Bundle",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
                 name: "Category",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
-                name: "Manufacturer",
+                name: "ProductInventory",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
-                name: "ProductAttribute",
+                name: "Manufacturer",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
@@ -5179,6 +5538,10 @@ namespace Hydra.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductReview",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
+                name: "ProductAttribute",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
@@ -5202,11 +5565,15 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Crm");
 
             migrationBuilder.DropTable(
-                name: "Product",
+                name: "ProductVariant",
                 schema: "Sale");
 
             migrationBuilder.DropTable(
                 name: "Discount",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
+                name: "Product",
                 schema: "Sale");
 
             migrationBuilder.DropTable(

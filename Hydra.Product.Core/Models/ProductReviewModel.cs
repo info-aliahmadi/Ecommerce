@@ -30,14 +30,6 @@
         /// <returns></returns>
         public bool IsApproved { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string Title { get; set; }
-
-
         /// <summary>
         /// 
         /// </summary>

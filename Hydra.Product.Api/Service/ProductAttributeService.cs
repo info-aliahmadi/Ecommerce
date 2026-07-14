@@ -1,4 +1,4 @@
-﻿using EFCoreSecondLevelCacheInterceptor;
+using EFCoreSecondLevelCacheInterceptor;
 using Hydra.Ecommerce.Core.Domain;
 using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel.GeneralModels;
@@ -32,14 +32,13 @@ namespace Hydra.Product.Api.Services
                   .Select(productAttribute => new ProductAttributeModel()
                   {
                       Id = productAttribute.Id,
-                      Name = productAttribute.Name,
-                      Value = productAttribute.Value,
+                      Name = productAttribute.DisplayName,
+                      Value = productAttribute.Key,
                       AttributeType = productAttribute.AttributeType,
                       Description = productAttribute.Description,
                       DisplayOrder = productAttribute.DisplayOrder,
                       ImagePreviewId = productAttribute.ImagePreviewId,
-                      ImagePreview = new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview),
-                      ShowOnHomepage = productAttribute.ShowOnHomepage,
+                      ImagePreview = new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview)
 
                   }).OrderBy(x => x.DisplayOrder).ToList();
 
@@ -59,8 +58,8 @@ namespace Hydra.Product.Api.Services
                 .Select(productAttribute => new ProductAttributeModel()
                 {
                     Id = productAttribute.Id,
-                    Name = productAttribute.Name,
-                    Value = productAttribute.Value,
+                    Name = productAttribute.DisplayName,
+                    Value = productAttribute.Key,
                     AttributeType = productAttribute.AttributeType,
                     Description = productAttribute.Description,
                     DisplayOrder = productAttribute.DisplayOrder,
@@ -83,14 +82,13 @@ namespace Hydra.Product.Api.Services
                 .Select(productAttribute => new ProductAttributeModel()
                 {
                     Id = productAttribute.Id,
-                    Name = productAttribute.Name,
-                    Value = productAttribute.Value,
+                    Name = productAttribute.DisplayName,
+                    Value = productAttribute.Key,
                     AttributeType = productAttribute.AttributeType,
                     Description = productAttribute.Description,
                     DisplayOrder = productAttribute.DisplayOrder,
                     ImagePreviewId = productAttribute.ImagePreviewId,
                     ImagePreview = new FileStorage.Core.Models.FileUploadModel(productAttribute.ImagePreview),
-                    ShowOnHomepage = productAttribute.ShowOnHomepage,
                 }).OrderBy(x => x.DisplayOrder).Cacheable().ToList();
 
             return list;
@@ -148,7 +146,7 @@ namespace Hydra.Product.Api.Services
             var result = new Result<ProductAttributeModel>();
             try
             {
-                var isExist = await _queryRepository.Table<ProductAttribute>().AnyAsync(x => x.Id != productAttributeModel.Id && x.Name == productAttributeModel.Name);
+                var isExist = await _queryRepository.Table<ProductAttribute>().AnyAsync(x => x.Id != productAttributeModel.Id && x.DisplayName == productAttributeModel.Name);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -157,16 +155,15 @@ namespace Hydra.Product.Api.Services
                     return result;
                 }
                 var date = DateTime.UtcNow;
-                var productAttribute = new ProductAttribute()
+                var productAttribute = new Ecommerce.Core.Domain.ProductAttribute()
                 {
                     Id = productAttributeModel.Id,
-                    Name = productAttributeModel.Name,
-                    Value = productAttributeModel.Value,
+                    DisplayName = productAttributeModel.Name,
+                    Key = productAttributeModel.Value,
                     AttributeType = productAttributeModel.AttributeType,
                     Description = productAttributeModel.Description,
                     DisplayOrder = productAttributeModel.DisplayOrder,
-                    ImagePreviewId = productAttributeModel.ImagePreviewId,
-                    ShowOnHomepage = productAttributeModel.ShowOnHomepage,
+                    ImagePreviewId = productAttributeModel.ImagePreviewId
 
                 };
 
@@ -204,7 +201,7 @@ namespace Hydra.Product.Api.Services
                     result.Message = "The Product Attribute not found";
                     return result;
                 }
-                var isExist = await _queryRepository.Table<ProductAttribute>().AnyAsync(x => x.Id != productAttributeModel.Id && x.Name == productAttribute.Name);
+                var isExist = await _queryRepository.Table<ProductAttribute>().AnyAsync(x => x.Id != productAttributeModel.Id && x.DisplayName == productAttribute.DisplayName);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -213,13 +210,12 @@ namespace Hydra.Product.Api.Services
                     return result;
                 }
 
-                productAttribute.Name = productAttributeModel.Name;
-                productAttribute.Value = productAttributeModel.Value;
+                productAttribute.DisplayName = productAttributeModel.Name;
+                productAttribute.Key = productAttributeModel.Value;
                 productAttribute.AttributeType = productAttributeModel.AttributeType;
                 productAttribute.Description = productAttributeModel.Description;
                 productAttribute.DisplayOrder = productAttributeModel.DisplayOrder;
                 productAttribute.ImagePreviewId = productAttributeModel.ImagePreviewId;
-                productAttribute.ShowOnHomepage = productAttributeModel.ShowOnHomepage;
 
                 _commandRepository.UpdateAsync(productAttribute);
                 await _commandRepository.SaveChangesAsync();

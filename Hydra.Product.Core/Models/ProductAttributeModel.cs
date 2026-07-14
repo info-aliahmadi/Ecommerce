@@ -1,4 +1,4 @@
-﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Domain;
 using Hydra.Ecommerce.Core.Enums;
 using Hydra.FileStorage.Core.Models;
 
@@ -45,10 +45,5 @@ namespace Hydra.Product.Core.Models
         /// </summary>
         public string? Description { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool ShowOnHomepage { get; set; }
-        
     }
 }

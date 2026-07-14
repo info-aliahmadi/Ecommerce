@@ -6488,7 +6488,7 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("available_for_pre_order");
 
-                    b.Property<DateTime?>("AvailableStartDateTimeUtc")
+                    b.Property<DateTime>("AvailableStartDateTimeUtc")
                         .HasPrecision(6)
                         .HasColumnType("timestamp(6) with time zone")
                         .HasColumnName("available_start_date_time_utc");
@@ -6497,7 +6497,7 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("call_for_price");
 
-                    b.Property<int>("CreateUserId")
+                    b.Property<int?>("CreateUserId")
                         .HasColumnType("integer")
                         .HasColumnName("create_user_id");
 
@@ -6614,10 +6614,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("notify_admin_for_quantity_below");
 
-                    b.Property<decimal>("OldSellUnitPrice")
-                        .HasColumnType("decimal(18, 4)")
-                        .HasColumnName("old_sell_unit_price");
-
                     b.Property<int>("OrderMaximumQuantity")
                         .HasColumnType("integer")
                         .HasColumnName("order_maximum_quantity");
@@ -6630,9 +6626,11 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("published");
 
-                    b.Property<decimal>("SellUnitPrice")
-                        .HasColumnType("decimal(18, 4)")
-                        .HasColumnName("sell_unit_price");
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)")
+                        .HasColumnName("sku");
 
                     b.Property<string>("ShortDescription")
                         .HasMaxLength(300)
@@ -6642,20 +6640,6 @@ namespace Hydra.Infrastructure.Migrations
                     b.Property<bool>("ShowOnHomepage")
                         .HasColumnType("boolean")
                         .HasColumnName("show_on_homepage");
-
-                    b.Property<string>("Sku")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("character varying(70)")
-                        .HasColumnName("sku");
-
-                    b.Property<decimal>("StockQuantity")
-                        .HasColumnType("numeric")
-                        .HasColumnName("stock_quantity");
-
-                    b.Property<int>("StockType")
-                        .HasColumnType("integer")
-                        .HasColumnName("stock_type");
 
                     b.Property<int>("TaxCategoryId")
                         .HasColumnType("integer")
@@ -6701,7 +6685,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -6725,16 +6708,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 349.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 249.99m,
+                            SKU = "BOOK-1000",
                             ShortDescription = "ANC Headphones • 30hr Battery",
                             ShowOnHomepage = true,
-                            Sku = "BOOK-1000",
-                            StockQuantity = 45m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -6747,7 +6726,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -6771,16 +6749,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 399.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 299.99m,
+                            SKU = "ELECTRONIK-1001",
                             ShortDescription = "AMOLED Display • GPS • Health",
                             ShowOnHomepage = true,
-                            Sku = "ELECTRONIK-1001",
-                            StockQuantity = 32m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -6793,7 +6767,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -6817,16 +6790,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 119.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 79.99m,
+                            SKU = "ELECTRONIK-1002",
                             ShortDescription = "Waterproof • 360° Sound",
                             ShowOnHomepage = false,
-                            Sku = "ELECTRONIK-1002",
-                            StockQuantity = 78m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -6839,7 +6808,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -6863,16 +6831,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 189.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 149.99m,
+                            SKU = "ELECTRONIK-1003",
                             ShortDescription = "Hot-Swap • RGB • Aluminum",
                             ShowOnHomepage = false,
-                            Sku = "ELECTRONIK-1003",
-                            StockQuantity = 23m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -6885,7 +6849,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -6909,16 +6872,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 279.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 189.99m,
+                            SKU = "FASHION-1004",
                             ShortDescription = "Genuine Leather • Slim Fit",
                             ShowOnHomepage = true,
-                            Sku = "FASHION-1004",
-                            StockQuantity = 15m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -6931,7 +6890,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -6955,16 +6913,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 59.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 39.99m,
+                            SKU = "FASION-1005",
                             ShortDescription = "Organic Cotton • Relaxed Fit",
                             ShowOnHomepage = false,
-                            Sku = "FASION-1005",
-                            StockQuantity = 120m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -6977,7 +6931,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -7001,16 +6954,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 179.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 129.99m,
+                            SKU = "HOME-1006",
                             ShortDescription = "Polarized • UV400 • Titanium",
                             ShowOnHomepage = true,
-                            Sku = "HOME-1006",
-                            StockQuantity = 56m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -7023,7 +6972,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -7047,16 +6995,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 129.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 89.99m,
+                            SKU = "HOME-1007",
                             ShortDescription = "LED • Touch Control • Wireless Charging",
                             ShowOnHomepage = true,
-                            Sku = "HOME-1007",
-                            StockQuantity = 34m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -7069,7 +7013,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -7093,16 +7036,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 64.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 44.99m,
+                            SKU = "HOME-1008",
                             ShortDescription = "Set of 3 • Matte Finish • Handmade",
                             ShowOnHomepage = false,
-                            Sku = "HOME-1008",
-                            StockQuantity = 67m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -7115,7 +7054,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -7139,16 +7077,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 69.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 49.99m,
+                            SKU = "SPORT-1009",
                             ShortDescription = "6mm Thick • Non-Slip • Eco-TPE",
                             ShowOnHomepage = true,
-                            Sku = "SPORT-1009",
-                            StockQuantity = 45m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -7161,7 +7095,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -7185,16 +7118,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 129.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 89.99m,
+                            SKU = "BEAUTY-1010",
                             ShortDescription = "4-Piece Set • All Skin Types",
                             ShowOnHomepage = true,
-                            Sku = "BEAUTY-1010",
-                            StockQuantity = 38m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         },
                         new
@@ -7207,7 +7136,6 @@ namespace Hydra.Infrastructure.Migrations
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
-                            CreateUserId = 1,
                             CreatedOnUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CurrencyType = 4,
                             Deleted = false,
@@ -7231,16 +7159,12 @@ namespace Hydra.Infrastructure.Migrations
                             NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
-                            OldSellUnitPrice = 49.99m,
                             OrderMaximumQuantity = 1000,
                             OrderMinimumQuantity = 1,
                             Published = true,
-                            SellUnitPrice = 34.99m,
+                            SKU = "BOOK-1011",
                             ShortDescription = "Hardcover • 320 Pages",
                             ShowOnHomepage = false,
-                            Sku = "BOOK-1011",
-                            StockQuantity = 65m,
-                            StockType = 0,
                             TaxCategoryId = 1
                         });
                 });
@@ -7263,6 +7187,12 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("character varying(300)")
                         .HasColumnName("description");
 
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("display_name");
+
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("integer")
                         .HasColumnName("display_order");
@@ -7271,21 +7201,11 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("image_preview_id");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Key")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
-                        .HasColumnName("name");
-
-                    b.Property<bool>("ShowOnHomepage")
-                        .HasColumnType("boolean")
-                        .HasColumnName("show_on_homepage");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("value");
+                        .HasColumnName("key");
 
                     b.HasKey("Id")
                         .HasName("pk_product_attribute");
@@ -7306,144 +7226,129 @@ namespace Hydra.Infrastructure.Migrations
                         {
                             Id = 1,
                             AttributeType = 0,
+                            DisplayName = "Blue",
                             DisplayOrder = 1,
-                            Name = "Blue",
-                            ShowOnHomepage = false,
-                            Value = "blue"
+                            Key = "blue"
                         },
                         new
                         {
                             Id = 2,
                             AttributeType = 0,
+                            DisplayName = "Red",
                             DisplayOrder = 2,
-                            Name = "Red",
-                            ShowOnHomepage = false,
-                            Value = "red"
+                            Key = "red"
                         },
                         new
                         {
                             Id = 3,
                             AttributeType = 0,
+                            DisplayName = "White",
                             DisplayOrder = 3,
-                            Name = "White",
-                            ShowOnHomepage = false,
-                            Value = "#fff"
+                            Key = "white"
                         },
                         new
                         {
                             Id = 4,
                             AttributeType = 0,
+                            DisplayName = "Black",
                             DisplayOrder = 4,
-                            Name = "Black",
-                            ShowOnHomepage = false,
-                            Value = "#000"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AttributeType = 1,
-                            Description = "Small Means S US Size",
-                            DisplayOrder = 5,
-                            Name = "Small size",
-                            ShowOnHomepage = false,
-                            Value = "#Small"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AttributeType = 1,
-                            Description = "Small Means M US Size",
-                            DisplayOrder = 6,
-                            Name = "Medium",
-                            ShowOnHomepage = false,
-                            Value = "#Medium"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AttributeType = 1,
-                            Description = "Small Means XL US Size",
-                            DisplayOrder = 7,
-                            Name = "Large",
-                            ShowOnHomepage = false,
-                            Value = "#Large"
+                            Key = "black"
                         },
                         new
                         {
                             Id = 8,
                             AttributeType = 0,
+                            DisplayName = "Green",
                             DisplayOrder = 8,
-                            Name = "Green",
-                            ShowOnHomepage = false,
-                            Value = "green"
+                            Key = "green"
                         },
                         new
                         {
                             Id = 9,
                             AttributeType = 0,
+                            DisplayName = "Yellow",
                             DisplayOrder = 9,
-                            Name = "Yellow",
-                            ShowOnHomepage = false,
-                            Value = "yellow"
+                            Key = "yellow"
                         },
                         new
                         {
                             Id = 10,
                             AttributeType = 0,
+                            DisplayName = "Purple",
                             DisplayOrder = 10,
-                            Name = "Purple",
-                            ShowOnHomepage = false,
-                            Value = "purple"
+                            Key = "purple"
                         },
                         new
                         {
                             Id = 11,
                             AttributeType = 1,
                             Description = "Extra Small size",
+                            DisplayName = "Extra Small",
                             DisplayOrder = 11,
-                            Name = "Extra Small",
-                            ShowOnHomepage = false,
-                            Value = "XS"
+                            Key = "XS"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AttributeType = 1,
+                            Description = "Small Means S US Size",
+                            DisplayName = "Small size",
+                            DisplayOrder = 5,
+                            Key = "S"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AttributeType = 1,
+                            Description = "Small Means M US Size",
+                            DisplayName = "Medium",
+                            DisplayOrder = 6,
+                            Key = "M"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AttributeType = 1,
+                            Description = "Large Means L US Size",
+                            DisplayName = "Large",
+                            DisplayOrder = 7,
+                            Key = "L"
                         },
                         new
                         {
                             Id = 12,
                             AttributeType = 1,
                             Description = "Extra Large size",
+                            DisplayName = "Extra Large",
                             DisplayOrder = 12,
-                            Name = "Extra Large",
-                            ShowOnHomepage = false,
-                            Value = "XL"
+                            Key = "XL"
                         },
                         new
                         {
                             Id = 13,
                             AttributeType = 7,
                             Description = "Weekend Casual Style",
+                            DisplayName = "Weekend Casual",
                             DisplayOrder = 13,
-                            Name = "Weekend Casual",
-                            ShowOnHomepage = false,
-                            Value = "weekend-casual"
+                            Key = "weekend-casual"
                         },
                         new
                         {
                             Id = 14,
                             AttributeType = 7,
                             Description = "Office Professional Style",
+                            DisplayName = "Office Professional",
                             DisplayOrder = 14,
-                            Name = "Office Professional",
-                            ShowOnHomepage = false,
-                            Value = "office-professional"
+                            Key = "office-professional"
                         },
                         new
                         {
                             Id = 15,
                             AttributeType = 7,
                             Description = "Evening Elegance Style",
+                            DisplayName = "Evening Elegance",
                             DisplayOrder = 15,
-                            Name = "Evening Elegance",
-                            ShowOnHomepage = false,
-                            Value = "evening-elegance"
+                            Key = "evening-elegance"
                         });
                 });
 
@@ -7626,44 +7531,209 @@ namespace Hydra.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AttributeId")
-                        .HasColumnType("integer")
-                        .HasColumnName("attribute_id");
+                    b.Property<DateTime>("CreatedDatetime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_datetime");
 
-                    b.Property<decimal>("BuyUnitPrice")
-                        .HasColumnType("numeric")
-                        .HasColumnName("buy_unit_price");
+                    b.Property<decimal>("ReservedQuantity")
+                        .HasColumnType("decimal(18,3)")
+                        .HasColumnName("reserved_quantity");
+
+                    b.Property<decimal>("StockQuantity")
+                        .HasColumnType("decimal(18,3)")
+                        .HasColumnName("stock_quantity");
+
+                    b.Property<int>("VariantId")
+                        .HasColumnType("integer")
+                        .HasColumnName("variant_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_product_inventory");
+
+                    b.HasIndex("VariantId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_product_inventory_variant_id");
+
+                    b.HasIndex(new[] { "VariantId" }, "IX_Inventory_VariantId")
+                        .HasDatabaseName("ix_product_inventory_variant_id1");
+
+                    b.ToTable("ProductInventory", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3000,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 45m,
+                            VariantId = 2000
+                        },
+                        new
+                        {
+                            Id = 3001,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 32m,
+                            VariantId = 2001
+                        },
+                        new
+                        {
+                            Id = 3002,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 78m,
+                            VariantId = 2002
+                        },
+                        new
+                        {
+                            Id = 3003,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 23m,
+                            VariantId = 2003
+                        },
+                        new
+                        {
+                            Id = 3004,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 5m,
+                            VariantId = 2004
+                        },
+                        new
+                        {
+                            Id = 3005,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 6m,
+                            VariantId = 2005
+                        },
+                        new
+                        {
+                            Id = 3006,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 4m,
+                            VariantId = 2006
+                        },
+                        new
+                        {
+                            Id = 3007,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 40m,
+                            VariantId = 2007
+                        },
+                        new
+                        {
+                            Id = 3008,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 30m,
+                            VariantId = 2008
+                        },
+                        new
+                        {
+                            Id = 3009,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 30m,
+                            VariantId = 2009
+                        },
+                        new
+                        {
+                            Id = 3010,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 20m,
+                            VariantId = 2010
+                        },
+                        new
+                        {
+                            Id = 3011,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 56m,
+                            VariantId = 2011
+                        },
+                        new
+                        {
+                            Id = 3012,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 34m,
+                            VariantId = 2012
+                        },
+                        new
+                        {
+                            Id = 3013,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 67m,
+                            VariantId = 2013
+                        },
+                        new
+                        {
+                            Id = 3014,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 45m,
+                            VariantId = 2014
+                        },
+                        new
+                        {
+                            Id = 3015,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 38m,
+                            VariantId = 2015
+                        },
+                        new
+                        {
+                            Id = 3016,
+                            CreatedDatetime = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ReservedQuantity = 0m,
+                            StockQuantity = 65m,
+                            VariantId = 2016
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventoryTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDatetime")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_datetime");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductInventoryId")
                         .HasColumnType("integer")
-                        .HasColumnName("product_id");
+                        .HasColumnName("product_inventory_id");
 
                     b.Property<decimal>("ReservedQuantity")
-                        .HasColumnType("numeric")
+                        .HasColumnType("decimal(18,3)")
                         .HasColumnName("reserved_quantity");
 
-                    b.Property<DateTime?>("StartDatetime")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("start_datetime");
-
                     b.Property<decimal>("StockQuantity")
-                        .HasColumnType("numeric")
+                        .HasColumnType("decimal(18,3)")
                         .HasColumnName("stock_quantity");
 
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("integer")
+                        .HasColumnName("transaction_type");
+
                     b.HasKey("Id")
-                        .HasName("pk_product_inventory");
+                        .HasName("pk_product_inventory_transaction");
 
-                    b.HasIndex("AttributeId")
-                        .HasDatabaseName("ix_product_inventory_attribute_id");
+                    b.HasIndex(new[] { "ProductInventoryId" }, "IX_InventoryTransaction_InventoryId")
+                        .HasDatabaseName("ix_product_inventory_transaction_product_inventory_id");
 
-                    b.HasIndex("ProductId")
-                        .HasDatabaseName("ix_product_inventory_product_id");
-
-                    b.ToTable("ProductInventory", "Sale");
+                    b.ToTable("ProductInventoryTransaction", "Sale");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductManufacturer", b =>
@@ -7813,12 +7883,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("character varying(300)")
                         .HasColumnName("review_text");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("title");
-
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
                         .HasColumnName("user_id");
@@ -7879,7 +7943,8 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.Property<string>("Key")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)")
                         .HasColumnName("key");
 
                     b.Property<string>("Name")
@@ -7932,6 +7997,275 @@ namespace Hydra.Infrastructure.Migrations
                             Id = 6,
                             Key = "Featured",
                             Name = "Featured"
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductVariant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("OldSellPrice")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("old_sell_price");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
+
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("sku");
+
+                    b.Property<decimal>("SellPrice")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("sell_price");
+
+                    b.HasKey("Id")
+                        .HasName("pk_product_variant");
+
+                    b.HasIndex(new[] { "ProductId" }, "IX_Variant_ProductId")
+                        .HasDatabaseName("ix_product_variant_product_id");
+
+                    b.HasIndex(new[] { "SKU" }, "IX_Variant_SKU")
+                        .HasDatabaseName("ix_product_variant_sku");
+
+                    b.ToTable("ProductVariant", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2000,
+                            OldSellPrice = 0m,
+                            ProductId = 1000,
+                            SKU = "BOOK-1000-DF",
+                            SellPrice = 129.99m
+                        },
+                        new
+                        {
+                            Id = 2001,
+                            OldSellPrice = 399.99m,
+                            ProductId = 1001,
+                            SKU = "ELECTRONIK-1001-DF",
+                            SellPrice = 299.99m
+                        },
+                        new
+                        {
+                            Id = 2002,
+                            OldSellPrice = 119.99m,
+                            ProductId = 1002,
+                            SKU = "ELECTRONIK-1002-DF",
+                            SellPrice = 79.99m
+                        },
+                        new
+                        {
+                            Id = 2003,
+                            OldSellPrice = 189.99m,
+                            ProductId = 1003,
+                            SKU = "ELECTRONIK-1003-DF",
+                            SellPrice = 149.99m
+                        },
+                        new
+                        {
+                            Id = 2004,
+                            OldSellPrice = 279.99m,
+                            ProductId = 1004,
+                            SKU = "FASHION-1004-DF",
+                            SellPrice = 189.99m
+                        },
+                        new
+                        {
+                            Id = 2005,
+                            OldSellPrice = 279.99m,
+                            ProductId = 1004,
+                            SKU = "FASHION-1004-BLK-M",
+                            SellPrice = 189.99m
+                        },
+                        new
+                        {
+                            Id = 2006,
+                            OldSellPrice = 289.99m,
+                            ProductId = 1004,
+                            SKU = "FASHION-1004-BRN-L",
+                            SellPrice = 199.99m
+                        },
+                        new
+                        {
+                            Id = 2007,
+                            OldSellPrice = 59.99m,
+                            ProductId = 1005,
+                            SKU = "FASION-1005-DF",
+                            SellPrice = 39.99m
+                        },
+                        new
+                        {
+                            Id = 2008,
+                            OldSellPrice = 59.99m,
+                            ProductId = 1005,
+                            SKU = "FASION-1005-WHT-S",
+                            SellPrice = 39.99m
+                        },
+                        new
+                        {
+                            Id = 2009,
+                            OldSellPrice = 59.99m,
+                            ProductId = 1005,
+                            SKU = "FASION-1005-BLK-M",
+                            SellPrice = 39.99m
+                        },
+                        new
+                        {
+                            Id = 2010,
+                            OldSellPrice = 64.99m,
+                            ProductId = 1005,
+                            SKU = "FASION-1005-RED-L",
+                            SellPrice = 44.99m
+                        },
+                        new
+                        {
+                            Id = 2011,
+                            OldSellPrice = 179.99m,
+                            ProductId = 1006,
+                            SKU = "HOME-1006-DF",
+                            SellPrice = 129.99m
+                        },
+                        new
+                        {
+                            Id = 2012,
+                            OldSellPrice = 129.99m,
+                            ProductId = 1007,
+                            SKU = "HOME-1007-DF",
+                            SellPrice = 89.99m
+                        },
+                        new
+                        {
+                            Id = 2013,
+                            OldSellPrice = 64.99m,
+                            ProductId = 1008,
+                            SKU = "HOME-1008-DF",
+                            SellPrice = 44.99m
+                        },
+                        new
+                        {
+                            Id = 2014,
+                            OldSellPrice = 69.99m,
+                            ProductId = 1009,
+                            SKU = "SPORT-1009-DF",
+                            SellPrice = 49.99m
+                        },
+                        new
+                        {
+                            Id = 2015,
+                            OldSellPrice = 129.99m,
+                            ProductId = 1010,
+                            SKU = "BEAUTY-1010-DF",
+                            SellPrice = 89.99m
+                        },
+                        new
+                        {
+                            Id = 2016,
+                            OldSellPrice = 49.99m,
+                            ProductId = 1011,
+                            SKU = "BOOK-1011-DF",
+                            SellPrice = 34.99m
+                        });
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductVariantAttribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttributeId")
+                        .HasColumnType("integer")
+                        .HasColumnName("attribute_id");
+
+                    b.Property<int>("VariantId")
+                        .HasColumnType("integer")
+                        .HasColumnName("variant_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_product_variant_attribute");
+
+                    b.HasIndex("AttributeId")
+                        .HasDatabaseName("ix_product_variant_attribute_attribute_id");
+
+                    b.HasIndex(new[] { "VariantId", "AttributeId" }, "IX_VariantAttribute_VariantId_AttributeId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_product_variant_attribute_variant_id_attribute_id");
+
+                    b.ToTable("ProductVariantAttribute", "Sale");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 4000,
+                            AttributeId = 4,
+                            VariantId = 2005
+                        },
+                        new
+                        {
+                            Id = 4001,
+                            AttributeId = 7,
+                            VariantId = 2005
+                        },
+                        new
+                        {
+                            Id = 4002,
+                            AttributeId = 1,
+                            VariantId = 2006
+                        },
+                        new
+                        {
+                            Id = 4003,
+                            AttributeId = 8,
+                            VariantId = 2006
+                        },
+                        new
+                        {
+                            Id = 4004,
+                            AttributeId = 3,
+                            VariantId = 2008
+                        },
+                        new
+                        {
+                            Id = 4005,
+                            AttributeId = 5,
+                            VariantId = 2008
+                        },
+                        new
+                        {
+                            Id = 4006,
+                            AttributeId = 4,
+                            VariantId = 2009
+                        },
+                        new
+                        {
+                            Id = 4007,
+                            AttributeId = 6,
+                            VariantId = 2009
+                        },
+                        new
+                        {
+                            Id = 4008,
+                            AttributeId = 2,
+                            VariantId = 2010
+                        },
+                        new
+                        {
+                            Id = 4009,
+                            AttributeId = 7,
+                            VariantId = 2010
                         });
                 });
 
@@ -25651,8 +25985,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.Auth.Domain.User", "CreateUser")
                         .WithMany()
                         .HasForeignKey("CreateUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
+                        .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("FK_Product_CreateUser");
 
                     b.HasOne("Hydra.FileStorage.Core.Domain.FileUpload", "ImagePreview")
@@ -25671,6 +26004,7 @@ namespace Hydra.Infrastructure.Migrations
                     b.HasOne("Hydra.Auth.Domain.User", "UpdateUser")
                         .WithMany()
                         .HasForeignKey("UpdateUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("FK_Product_UpdateUser");
 
                     b.Navigation("CreateUser");
@@ -25757,22 +26091,26 @@ namespace Hydra.Infrastructure.Migrations
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventory", b =>
                 {
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductAttribute", "ProductAttribute")
-                        .WithMany("ProductInventories")
-                        .HasForeignKey("AttributeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .HasConstraintName("fk_product_inventory_product_attribute_attribute_id");
-
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
-                        .WithMany("ProductInventories")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductVariant", "Variant")
+                        .WithOne("ProductInventory")
+                        .HasForeignKey("Hydra.Ecommerce.Core.Domain.ProductInventory", "VariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_product_inventory_product_product_id");
+                        .HasConstraintName("fk_product_inventory_product_variant_variant_id");
 
-                    b.Navigation("Product");
+                    b.Navigation("Variant");
+                });
 
-                    b.Navigation("ProductAttribute");
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventoryTransaction", b =>
+                {
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductInventory", "ProductInventory")
+                        .WithMany("InventoryTransactions")
+                        .HasForeignKey("ProductInventoryId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_inventory_transaction_product_inventory_product_invent");
+
+                    b.Navigation("ProductInventory");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductManufacturer", b =>
@@ -25878,6 +26216,39 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("ProductReview");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductVariant", b =>
+                {
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.Product", "Product")
+                        .WithMany("ProductVariants")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_variant_product_product_id");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductVariantAttribute", b =>
+                {
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductAttribute", "Attribute")
+                        .WithMany("VariantAttributes")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_variant_attribute_product_attribute_attribute_id");
+
+                    b.HasOne("Hydra.Ecommerce.Core.Domain.ProductVariant", "Variant")
+                        .WithMany("VariantAttributes")
+                        .HasForeignKey("VariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_variant_attribute_product_variant_variant_id");
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("Variant");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.RelatedProduct", b =>
@@ -26159,13 +26530,13 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.Navigation("ProductImages");
 
-                    b.Navigation("ProductInventories");
-
                     b.Navigation("ProductManufacturers");
 
                     b.Navigation("ProductProductTags");
 
                     b.Navigation("ProductReviews");
+
+                    b.Navigation("ProductVariants");
 
                     b.Navigation("RelatedProduct1Navigation");
 
@@ -26178,7 +26549,12 @@ namespace Hydra.Infrastructure.Migrations
                 {
                     b.Navigation("ProductAttributes");
 
-                    b.Navigation("ProductInventories");
+                    b.Navigation("VariantAttributes");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductInventory", b =>
+                {
+                    b.Navigation("InventoryTransactions");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductReview", b =>
@@ -26189,6 +26565,14 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductTag", b =>
                 {
                     b.Navigation("ProductProductTags");
+                });
+
+            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ProductVariant", b =>
+                {
+                    b.Navigation("ProductInventory")
+                        .IsRequired();
+
+                    b.Navigation("VariantAttributes");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Shipment", b =>

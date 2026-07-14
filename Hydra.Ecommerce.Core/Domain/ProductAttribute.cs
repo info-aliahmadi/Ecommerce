@@ -9,11 +9,12 @@ public class ProductAttribute : BaseEntity<int>
     /// <summary>
     /// 
     /// </summary>
-    public string Name { get; set; }
+    public string DisplayName { get; set; }
+
     /// <summary>
-    /// 
+    /// Key Or SKU
     /// </summary>
-    public string Value { get; set; }
+    public string Key { get; set; }
 
     /// <summary>
     /// 
@@ -36,21 +37,16 @@ public class ProductAttribute : BaseEntity<int>
     public int DisplayOrder { get; set; }
 
     /// <summary>
-    /// show in homepage
-    /// </summary>
-    public bool ShowOnHomepage { get; set; } = false;
-
-    /// <summary>
     /// 
     /// </summary>
     public string? Description { get; set; }
-    /// <summary>
-    /// 
-    /// </summary>
 
-    public virtual List<ProductProductAttribute> ProductAttributes { get; set; } = new();
     /// <summary>
-    /// 
+    /// specific attribute that nit related to inventory like style or pattern or brand
     /// </summary>
-    public virtual List<ProductInventory> ProductInventories { get; set; } = new();
+    public virtual List<ProductProductAttribute> ProductAttributes { get; set; } = new();
+
+
+    public List<ProductVariantAttribute> VariantAttributes { get; set; }
+
 }

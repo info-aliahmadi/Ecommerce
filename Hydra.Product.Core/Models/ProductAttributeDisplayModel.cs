@@ -7,6 +7,22 @@ namespace Hydra.Product.Core.Models
 {
     public class ProductAttributeDisplayModel
     {
+        public ProductAttributeDisplayModel()
+        {
+            
+        }
+        public ProductAttributeDisplayModel(Ecommerce.Core.Domain.ProductAttribute? productAttribute)
+        {
+            if (productAttribute != null)
+            {
+                Id = productAttribute.Id;
+                DisplayName = productAttribute.DisplayName;
+                Key = productAttribute.Key;
+                AttributeType = productAttribute.AttributeType;
+                DisplayOrder = productAttribute.DisplayOrder;
+                Description = productAttribute.Description;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -15,12 +31,12 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public string Name { get; set; }
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Value { get; set; }
+        public string Key { get; set; }
 
         /// <summary>
         /// 
