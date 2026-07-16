@@ -563,7 +563,7 @@ namespace Hydra.Cms.Api.Services
                 // remove then add new relationship
                 await UpdateArticleTags(article.Id, newTagIds);
 
-                _commandRepository.UpdateAsync(article);
+                _commandRepository.Update(article);
                 await _commandRepository.SaveChangesAsync();
 
 
@@ -598,7 +598,7 @@ namespace Hydra.Cms.Api.Services
                 {
                     foreach (var articleTag in articleTags)
                     {
-                        _commandRepository.DeleteAsync(articleTag);
+                        _commandRepository.Delete(articleTag);
                     }
                     foreach (var tag in newTags)
                     {
@@ -639,7 +639,7 @@ namespace Hydra.Cms.Api.Services
                 {
                     foreach (var articleTopic in articleTopics)
                     {
-                        _commandRepository.DeleteAsync(articleTopic);
+                        _commandRepository.Delete(articleTopic);
                     }
                     foreach (var topic in newTopics)
                     {
@@ -680,7 +680,7 @@ namespace Hydra.Cms.Api.Services
 
             article.IsPinned = !article.IsPinned;
 
-            _commandRepository.UpdateAsync(article);
+            _commandRepository.Update(article);
             await _commandRepository.SaveChangesAsync();
 
             return result;
@@ -703,7 +703,7 @@ namespace Hydra.Cms.Api.Services
 
             article.IsDeleted = true;
 
-            _commandRepository.UpdateAsync(article);
+            _commandRepository.Update(article);
             await _commandRepository.SaveChangesAsync();
 
             return result;
@@ -726,7 +726,7 @@ namespace Hydra.Cms.Api.Services
 
             article.IsDeleted = false;
 
-            _commandRepository.UpdateAsync(article);
+            _commandRepository.Update(article);
             await _commandRepository.SaveChangesAsync();
 
             return result;
@@ -748,7 +748,7 @@ namespace Hydra.Cms.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(article);
+            _commandRepository.Delete(article);
 
             await _commandRepository.SaveChangesAsync();
 

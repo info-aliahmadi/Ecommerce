@@ -174,7 +174,7 @@ namespace Hydra.Order.Api.Services
                 orderItem.TotalPrice = orderItemModel.TotalPrice;
                 orderItem.TotalPriceTax = orderItemModel.TotalPriceTax;
 
-                _commandRepository.UpdateAsync(orderItem);
+                _commandRepository.Update(orderItem);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = orderItemModel;
@@ -205,7 +205,7 @@ namespace Hydra.Order.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(orderItem);
+            _commandRepository.Delete(orderItem);
             await _commandRepository.SaveChangesAsync();
 
             return result;

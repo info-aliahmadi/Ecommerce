@@ -147,7 +147,7 @@ namespace Hydra.Auth.Service
             permission.Name = permissionModel.Name;
             permission.NormalizedName = permissionModel.NormalizedName;
 
-            _commandRepository.UpdateAsync(permission);
+            _commandRepository.Update(permission);
 
             await _commandRepository.SaveChangesAsync();
 
@@ -177,7 +177,7 @@ namespace Hydra.Auth.Service
                 return result;
             }
 
-            _commandRepository.DeleteAsync(permission);
+            _commandRepository.Delete(permission);
 
             await _commandRepository.SaveChangesAsync();
 

@@ -264,16 +264,28 @@ namespace Hydra.Product.Core.Models
         /// List of category identifiers the product belongs to.
         /// </summary>
         public List<int> CategoryIds { get; set; } = new();
+        /// <summary>
+        /// List of category identifiers the product belongs to.
+        /// </summary>
+        public List<string> CategoryNames { get; set; } = new();
 
         /// <summary>
         /// List of manufacturer identifiers associated with the product.
         /// </summary>
         public List<int> ManufacturerIds { get; set; } = new();
+        /// <summary>
+        /// List of manufacturer identifiers associated with the product.
+        /// </summary>
+        public List<string> ManufacturerNames { get; set; } = new();
 
         /// <summary>
         /// List of attribute identifiers assigned to the product.
         /// </summary>
         public List<int> AttributeIds { get; set; } = new();
+        /// <summary>
+        /// List of attribute identifiers assigned to the product.
+        /// </summary>
+        public List<string> AttributeNames { get; set; } = new();
 
         /// <summary>
         /// Measurement unit used for dimensions/weight.
@@ -299,6 +311,12 @@ namespace Hydra.Product.Core.Models
         /// Product tag identifiers.
         /// </summary>
         public List<int> TagIds { get; set; } = new();
+
+        /// <summary>
+        /// Product tag identifiers.
+        /// </summary>
+        public List<string> TagNames { get; set; } = new();
+
         public decimal StockQuantity { get; set; }
     }
 

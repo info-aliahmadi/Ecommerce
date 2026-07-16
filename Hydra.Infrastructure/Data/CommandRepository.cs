@@ -71,7 +71,7 @@ namespace Hydra.Infrastructure.Data
             await _dbContext.BulkInsertAsync(entities, _cacheService);
         }
 
-        public void UpdateAsync<T>(T entity, CancellationToken cancellationToken = default)
+        public void Update<T>(T entity, CancellationToken cancellationToken = default)
             where T : class
         {
             if (entity == null)
@@ -83,7 +83,7 @@ namespace Hydra.Infrastructure.Data
             
         }
 
-        public void UpdateAsync<T>(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        public void Update<T>(IEnumerable<T> entities, CancellationToken cancellationToken = default)
             where T : class
         {
             if (entities == null)
@@ -94,7 +94,7 @@ namespace Hydra.Infrastructure.Data
             _dbContext.Set<T>().UpdateRange(entities);
         }
 
-        public void DeleteAsync<T>(T entity, CancellationToken cancellationToken = default)
+        public void Delete<T>(T entity, CancellationToken cancellationToken = default)
             where T : class
         {
             if (entity == null)
@@ -113,7 +113,7 @@ namespace Hydra.Infrastructure.Data
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public void DeleteAsync<T>(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        public void Delete<T>(IEnumerable<T> entities, CancellationToken cancellationToken = default)
             where T : class
         {
             if (entities == null)

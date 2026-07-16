@@ -189,7 +189,7 @@ namespace Hydra.Common.Api.Services
                 address.CreatedOnUtc = addressModel.CreatedOnUtc;
                 //address.Orders = addressModel.Orders;
 
-                _commandRepository.UpdateAsync(address);
+                _commandRepository.Update(address);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = addressModel;
@@ -220,7 +220,7 @@ namespace Hydra.Common.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(address);
+            _commandRepository.Delete(address);
             await _commandRepository.SaveChangesAsync();
 
             return result;

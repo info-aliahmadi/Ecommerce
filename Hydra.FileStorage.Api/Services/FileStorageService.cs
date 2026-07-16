@@ -1,17 +1,18 @@
 ﻿
-using Hydra.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
-using Hydra.FileStorage.Core.Interfaces;
 using Hydra.FileStorage.Core.Domain;
+using Hydra.FileStorage.Core.Interfaces;
 using Hydra.FileStorage.Core.Models;
 using Hydra.FileStorage.Core.Settings;
-using Hydra.Kernel.GeneralModels;
+using Hydra.Infrastructure;
 using Hydra.Infrastructure.Setting.Interface;
+using Hydra.Kernel;
+using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using Hydra.Kernel;
+using System.IO;
 
 namespace Hydra.FileStorage.Api.Services
 {
@@ -42,11 +43,11 @@ namespace Hydra.FileStorage.Api.Services
         /// </summary>
         /// <param name="objectId"></param>
         /// <returns></returns>
-        public bool IsExist(string fileName)
+        public bool IsDbExist(string fileName)
         {
-            var isExist = _queryRepository.Table<FileUpload>().Any(x => x.FileName == fileName);
+            var isDbExist = _queryRepository.Table<FileUpload>().AsNoTracking().Any(x => x.FileName == fileName);
 
-            return isExist;
+            return isDbExist;
         }
 
         /// <summary>
@@ -272,7 +273,7 @@ namespace Hydra.FileStorage.Api.Services
                     result.Message = _validationService.GetValidationMessage(validateResult);
                     return result;
                 }
-                var isExisted = IsExist(uploadModel.FileName);
+                var isExisted = IsDbExist(uploadModel.FileName);
                 if (isExisted && uploadAction != "Rename" && uploadAction != "Replace")
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -281,19 +282,20 @@ namespace Hydra.FileStorage.Api.Services
                 }
                 var extension = Path.GetExtension(uploadModel.FileName).ToLowerInvariant();
                 var directory = GetDirectory(extension);
-                var fileNameWithPath = uploadsPaths + directory;
+                var fullDirectory = Path.Combine(uploadsPaths, directory);
+
+                var oldfileInfo = new FileInfo(Path.Combine(fullDirectory, uploadModel.FileName));
 
                 if (isExisted && uploadAction == "Rename")
                 {
-                    uploadModel.FileName = Rename(uploadModel.FileName);
+                    uploadModel.FileName = Rename(oldfileInfo);
                 }
 
-                fileNameWithPath += uploadModel.FileName;
+                var fileInfo = new FileInfo(Path.Combine(fullDirectory, uploadModel.FileName));
 
 
-                var fileInfo = new FileInfo(fileNameWithPath);
 
-                using (var fs = new FileStream(fileNameWithPath, FileMode.Create, FileAccess.Write))
+                using (var fs = new FileStream(fileInfo.FullName, FileMode.Create, FileAccess.Write))
                 {
                     await fs.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
                 }
@@ -312,7 +314,7 @@ namespace Hydra.FileStorage.Api.Services
                     existedFileUpload.UserId = userId;
                     existedFileUpload.UploadDate = registerDate;
 
-                    _commandRepository.UpdateAsync(existedFileUpload);
+                    _commandRepository.Update(existedFileUpload);
                     await _commandRepository.SaveChangesAsync();
 
                     uploadModel.Id = existedFileUpload.Id;
@@ -397,7 +399,7 @@ namespace Hydra.FileStorage.Api.Services
                     result.Message = _validationService.GetValidationMessage(validateResult);
                     return result;
                 }
-                var isExisted = IsExist(fileName);
+                var isExisted = IsDbExist(fileName);
 
                 if (isExisted && uploadAction != "Rename" && uploadAction != "Replace")
                 {
@@ -407,17 +409,18 @@ namespace Hydra.FileStorage.Api.Services
                 }
                 var extension = Path.GetExtension(fileName).ToLowerInvariant();
                 var directory = GetDirectory(extension);
-                var fileNameWithPath = uploadsPaths + directory;
+                var fullDirectory = Path.Combine(uploadsPaths, directory);
+
+                var oldfileInfo = new FileInfo(Path.Combine(fullDirectory, fileName));
 
                 if (isExisted && uploadAction == "Rename")
                 {
-                    fileName = Rename(fileName);
+                    fileName = Rename(oldfileInfo);
                 }
-                fileNameWithPath += fileName;
 
-                var fileInfo = new FileInfo(fileNameWithPath);
+                var fileInfo = new FileInfo(Path.Combine(fullDirectory, fileName));
 
-                using (var fileStream = File.Create(fileNameWithPath))
+                using (var fileStream = File.Create(fileInfo.FullName))
                 {
                     await stream.CopyToAsync(fileStream);
                 }
@@ -434,7 +437,7 @@ namespace Hydra.FileStorage.Api.Services
                     existedFileUpload.UploadDate = registerDate;
                     existedFileUpload.UserId = userId;
 
-                    _commandRepository.UpdateAsync(existedFileUpload);
+                    _commandRepository.Update(existedFileUpload);
                     await _commandRepository.SaveChangesAsync();
 
                     uploadModel.Id = existedFileUpload.Id;
@@ -554,7 +557,7 @@ namespace Hydra.FileStorage.Api.Services
                     }
                 }
 
-                var isExisted = IsExist(fileName);
+                var isExisted = IsDbExist(fileName);
                 if (isExisted && uploadAction != "Rename" && uploadAction != "Replace")
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -563,21 +566,22 @@ namespace Hydra.FileStorage.Api.Services
                 }
                 var extension = Path.GetExtension(fileName).ToLowerInvariant();
                 var directory = GetDirectory(extension);
-                var fileNameWithPath = uploadsPaths + directory;
+                var fullDirectory = Path.Combine(uploadsPaths, directory);
+
+                var oldfileInfo = new FileInfo(Path.Combine(fullDirectory, fileName));
 
                 if (isExisted && uploadAction == "Rename")
                 {
-                    fileName = Rename(fileName);
+                    fileName = Rename(oldfileInfo);
                 }
-                fileNameWithPath += fileName;
 
-                var fileInfo = new FileInfo(fileNameWithPath);
+                var fileInfo = new FileInfo(Path.Combine(fullDirectory, fileName));
 
 
                 byte[] buffer = new byte[8 * 1024];
                 int len;
                 int totalLength = 0;
-                using (var streamFile = new FileStream(fileNameWithPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None, 1024))
+                using (var streamFile = new FileStream(fileInfo.FullName, FileMode.Create, FileAccess.ReadWrite, FileShare.None, 1024))
                 {
                     // first time we check the signature with operation the turn to while
                     len = await stream.ReadAsync(buffer, 0, buffer.Length);
@@ -603,7 +607,7 @@ namespace Hydra.FileStorage.Api.Services
 
                 if (totalLength > _fileStorageSetting.MaxSizeLimitLargeFile && fileSize == FileSizeEnum.Large)
                 {
-                    File.Delete(fileNameWithPath);
+                    File.Delete(fileInfo.FullName);
                     result.Status = ResultStatusEnum.FileIsTooLarge;
                     result.Message = _validationService.GetValidationMessage(ValidationFileEnum.FileIsTooLarge);
                     return result;
@@ -621,7 +625,7 @@ namespace Hydra.FileStorage.Api.Services
                     existedFileUpload.UploadDate = registerDate;
                     existedFileUpload.UserId = userId;
 
-                    _commandRepository.UpdateAsync(existedFileUpload);
+                    _commandRepository.Update(existedFileUpload);
                     await _commandRepository.SaveChangesAsync();
 
                     uploadModel.Id = existedFileUpload.Id;
@@ -694,7 +698,7 @@ namespace Hydra.FileStorage.Api.Services
                     result.Message = _validationService.GetValidationMessage(validateFileLength);
                     return result;
                 }
-                var isExisted = IsExist(base64File.FileName);
+                var isExisted = IsDbExist(base64File.FileName);
                 if (isExisted && uploadAction != "Rename" && uploadAction != "Replace")
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -702,22 +706,28 @@ namespace Hydra.FileStorage.Api.Services
                     return result;
                 }
 
+         
+
                 var extension = Path.GetExtension(base64File.FileName).ToLowerInvariant();
                 var directory = GetDirectory(extension);
-                var fileNameWithPath = uploadsPaths + directory;
+                var fullDirectory = Path.Combine(uploadsPaths, directory);
+
+                var oldfileInfo = new FileInfo(Path.Combine(fullDirectory, base64File.FileName));
 
                 if (isExisted && uploadAction == "Rename")
                 {
-                    base64File.FileName = Rename(base64File.FileName);
+                    base64File.FileName = Rename(oldfileInfo);
                 }
 
-                fileNameWithPath += base64File.FileName;
+                var fileInfo = new FileInfo(Path.Combine(fullDirectory, base64File.FileName));
 
-                var fileInfo = new FileInfo(fileNameWithPath);
+
+
+
                 if (!string.IsNullOrEmpty(base64File.Base64File))
                 {
                     var fileBytes = HydraHelper.Base64FileToBytes(base64File.Base64File);
-                    await File.WriteAllBytesAsync(string.Format(fileNameWithPath, base64File.FileName), fileBytes.FileBytes);
+                    await File.WriteAllBytesAsync(fileInfo.FullName, fileBytes.FileBytes);
                 }
                 var registerDate = DateTime.UtcNow;
                 var thumbnail = GenerateThumbnail(fileInfo);
@@ -732,7 +742,7 @@ namespace Hydra.FileStorage.Api.Services
                     existedFileUpload.UploadDate = registerDate;
                     existedFileUpload.UserId = userId;
 
-                    _commandRepository.UpdateAsync(existedFileUpload);
+                    _commandRepository.Update(existedFileUpload);
                     await _commandRepository.SaveChangesAsync();
 
                     uploadModel.Id = existedFileUpload.Id;
@@ -801,7 +811,7 @@ namespace Hydra.FileStorage.Api.Services
             {
                 File.Delete(uploadsPaths + directory + fileUpload.Thumbnail);
             }
-            _commandRepository.DeleteAsync(fileUpload);
+            _commandRepository.Delete(fileUpload);
             await _commandRepository.SaveChangesAsync();
 
             return result;
@@ -924,21 +934,25 @@ namespace Hydra.FileStorage.Api.Services
         /// </summary>
         /// <param name="objectId"></param>
         /// <returns></returns>
-        public string Rename(string fileName)
+        public string Rename(FileInfo fileInfo)
         {
 
-            var extension = Path.GetExtension(fileName).ToLower();
-            var fileNameOnly = fileName.Substring(0, fileName.Length - extension.Length);
+            var extension = fileInfo.Extension.ToLower();
+            var fileNameOnly = fileInfo.Name.Substring(0, fileInfo.Name.Length - extension.Length);
 
             for (int i = 1; i < 2000; i++)
             {
                 var newFileName = fileNameOnly + "-" + i + extension;
-                if (!IsExist(newFileName))
+                if (!IsDbExist(newFileName))
                 {
-                    return newFileName;
+                    var newFillName = Path.Combine(fileInfo.DirectoryName, newFileName);
+                    if (!File.Exists(newFillName))
+                    {
+                        return newFileName;
+                    }
                 }
             }
-            return fileName;
+            return fileInfo.Name;
         }
     }
 }

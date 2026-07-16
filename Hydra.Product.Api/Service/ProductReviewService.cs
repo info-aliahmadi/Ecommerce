@@ -169,7 +169,7 @@ namespace Hydra.Product.Api.Services
                 productReview.CreatedOnUtc = productReviewModel.CreatedOnUtc;
                 //productReview.ProductReviewHelpfulnesses = productReviewModel.ProductReviewHelpfulnesses;
 
-                _commandRepository.UpdateAsync(productReview);
+                _commandRepository.Update(productReview);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = productReviewModel;
@@ -200,7 +200,7 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(productReview);
+            _commandRepository.Delete(productReview);
             await _commandRepository.SaveChangesAsync();
 
             return result;

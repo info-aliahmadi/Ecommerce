@@ -261,7 +261,7 @@ $@"
                 //country.StateProvinces = countryModel.StateProvinces;
                 //country.TaxRates = countryModel.TaxRates;
 
-                _commandRepository.UpdateAsync(country);
+                _commandRepository.Update(country);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = countryModel;
@@ -292,7 +292,7 @@ $@"
                 return result;
             }
 
-            _commandRepository.DeleteAsync(country);
+            _commandRepository.Delete(country);
             await _commandRepository.SaveChangesAsync();
 
             return result;

@@ -156,7 +156,7 @@ namespace Hydra.Common.Api.Services
                 //stateProvince.Addresses = stateProvinceModel.Addresses;
                 //stateProvince.TaxRates = stateProvinceModel.TaxRates;
 
-                _commandRepository.UpdateAsync(stateProvince);
+                _commandRepository.Update(stateProvince);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = stateProvinceModel;
@@ -187,7 +187,7 @@ namespace Hydra.Common.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(stateProvince);
+            _commandRepository.Delete(stateProvince);
             await _commandRepository.SaveChangesAsync();
 
             return result;

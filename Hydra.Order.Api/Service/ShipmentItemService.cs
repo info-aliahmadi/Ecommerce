@@ -137,7 +137,7 @@ namespace Hydra.Order.Api.Services
                 shipmentItem.OrderItemId = shipmentItemModel.OrderItemId;
                 shipmentItem.Quantity = shipmentItemModel.Quantity;
 
-                _commandRepository.UpdateAsync(shipmentItem);
+                _commandRepository.Update(shipmentItem);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = shipmentItemModel;
@@ -168,7 +168,7 @@ namespace Hydra.Order.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(shipmentItem);
+            _commandRepository.Delete(shipmentItem);
             await _commandRepository.SaveChangesAsync();
 
             return result;

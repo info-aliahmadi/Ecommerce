@@ -157,7 +157,7 @@ namespace Hydra.Common.Api.Services
                 //taxCategory.Products = taxCategoryModel.Products;
                 //taxCategory.TaxRates = taxCategoryModel.TaxRates;
 
-                _commandRepository.UpdateAsync(taxCategory);
+                _commandRepository.Update(taxCategory);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = taxCategoryModel;
@@ -188,7 +188,7 @@ namespace Hydra.Common.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(taxCategory);
+            _commandRepository.Delete(taxCategory);
             await _commandRepository.SaveChangesAsync();
 
             return result;

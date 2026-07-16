@@ -133,7 +133,7 @@ namespace Hydra.Common.Api.Services
                 searchTerm.Keyword = searchTermModel.Keyword;
                 searchTerm.Count = searchTermModel.Count;
 
-                _commandRepository.UpdateAsync(searchTerm);
+                _commandRepository.Update(searchTerm);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = searchTermModel;
@@ -164,7 +164,7 @@ namespace Hydra.Common.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(searchTerm);
+            _commandRepository.Delete(searchTerm);
             await _commandRepository.SaveChangesAsync();
 
             return result;

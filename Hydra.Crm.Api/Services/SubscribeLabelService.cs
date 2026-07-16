@@ -149,7 +149,7 @@ namespace Hydra.Crm.Api.Services
                 }
 
                 subscribeLabel.Title = subscribeLabelModel.Title;
-                _commandRepository.UpdateAsync(subscribeLabel);
+                _commandRepository.Update(subscribeLabel);
 
                 await _commandRepository.SaveChangesAsync();
 
@@ -187,7 +187,7 @@ namespace Hydra.Crm.Api.Services
                 result.Message = "The SubscribeLabel Has Any Child";
                 return result;
             }
-            _commandRepository.DeleteAsync(subscribeLabel);
+            _commandRepository.Delete(subscribeLabel);
             await _commandRepository.SaveChangesAsync();
 
             return result;

@@ -64,7 +64,7 @@ namespace Hydra.Kernel.Interface
         /// <param name="entity">The entity to be updated.</param>
         /// <param name="cancellationToken"> A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
         /// <returns>Returns <see cref="Task"/>.</returns>
-        void UpdateAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default)
+        void Update<TEntity>(TEntity entity, CancellationToken cancellationToken = default)
             where TEntity : class;
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Hydra.Kernel.Interface
         /// <param name="entities">The entities to be updated.</param>
         /// <param name="cancellationToken"> A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
         /// <returns>Returns <see cref="Task"/>.</returns>
-        void UpdateAsync<TEntity>(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        void Update<TEntity>(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
             where TEntity : class;
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Hydra.Kernel.Interface
         /// <param name="entity">The entity to be deleted.</param>
         /// <param name="cancellationToken"> A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
         /// <returns>Returns <see cref="Task"/>.</returns>
-        void DeleteAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default)
+        void Delete<TEntity>(TEntity entity, CancellationToken cancellationToken = default)
             where TEntity : class;
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Hydra.Kernel.Interface
         /// <param name="entities">The list of entities to be deleted.</param>
         /// <param name="cancellationToken"> A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
         /// <returns>Returns <see cref="Task"/>.</returns>
-        void DeleteAsync<TEntity>(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        void Delete<TEntity>(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
             where TEntity : class;
 
         /// <summary>

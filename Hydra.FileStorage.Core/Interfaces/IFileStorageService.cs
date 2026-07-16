@@ -13,7 +13,7 @@ namespace Hydra.FileStorage.Core.Interfaces
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        bool IsExist(string fileName);
+        bool IsDbExist(string fileName);
 
         /// <summary>
         /// 

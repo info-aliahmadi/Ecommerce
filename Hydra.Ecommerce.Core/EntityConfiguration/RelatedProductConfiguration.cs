@@ -12,6 +12,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasIndex(e => e.ProductId1, "IX_RelatedProduct_ProductId1");
 
+            entity.HasIndex(e => new { e.ProductId1, e.ProductId2 }, "IX_RelatedProduct_ProductId1_ProductId2").IsUnique();
+
             entity.HasOne(d => d.ProductId1Navigation).WithMany(p => p.RelatedProduct1Navigation)
             .HasForeignKey(d => d.ProductId1)
             .OnDelete(DeleteBehavior.Restrict)

@@ -137,7 +137,7 @@ namespace Hydra.Order.Api.Services
                 orderDiscount.OrderId = orderDiscountModel.OrderId;
                 orderDiscount.CreatedOnUtc = orderDiscountModel.CreatedOnUtc;
 
-                _commandRepository.UpdateAsync(orderDiscount);
+                _commandRepository.Update(orderDiscount);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = orderDiscountModel;
@@ -168,7 +168,7 @@ namespace Hydra.Order.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(orderDiscount);
+            _commandRepository.Delete(orderDiscount);
             await _commandRepository.SaveChangesAsync();
 
             return result;

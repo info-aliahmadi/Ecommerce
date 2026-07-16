@@ -11,7 +11,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
         {
             entity.ToTable("ProductTag", "Sale");
 
-            entity.HasIndex(e => e.Name, "IX_ProductTag_Name");
+            entity.HasIndex(e => e.Name, "IX_ProductTag_Name").IsUnique();
 
             entity.Property(e => e.Name)
             .IsRequired()

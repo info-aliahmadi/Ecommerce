@@ -156,7 +156,7 @@ namespace Hydra.Product.Api.Services
             }
 
             MapToEntity(categoryModel, category);
-            _commandRepository.UpdateAsync(category);
+            _commandRepository.Update(category);
             await _commandRepository.SaveChangesAsync();
 
             result.Data = categoryModel;
@@ -177,7 +177,7 @@ namespace Hydra.Product.Api.Services
                 var model = flattenMenus.First(x => x.Id == category.Id);
                 category.DisplayOrder = model.DisplayOrder;
                 category.ParentCategoryId = model.ParentCategoryId;
-                _commandRepository.UpdateAsync(category);
+                _commandRepository.Update(category);
             }
 
             await _commandRepository.SaveChangesAsync();
@@ -198,7 +198,7 @@ namespace Hydra.Product.Api.Services
             }
 
             category.Deleted = true;
-            _commandRepository.UpdateAsync(category);
+            _commandRepository.Update(category);
             await _commandRepository.SaveChangesAsync();
 
             return result;
@@ -216,7 +216,7 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(category);
+            _commandRepository.Delete(category);
             await _commandRepository.SaveChangesAsync();
 
             return result;

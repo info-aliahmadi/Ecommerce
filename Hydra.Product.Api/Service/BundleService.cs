@@ -245,14 +245,14 @@ namespace Hydra.Product.Api.Services
                 bundle.DisplayOrder = bundleModel.DisplayOrder;
                 bundle.ShowOnHomepage = bundleModel.ShowOnHomepage;
 
-                _commandRepository.UpdateAsync(bundle);
+                _commandRepository.Update(bundle);
 
                 // Sync ProductBundles: remove existing, add new ones
                 if (bundle.ProductBundles?.Any() == true)
                 {
                     foreach (var existing in bundle.ProductBundles)
                     {
-                        _commandRepository.DeleteAsync(existing);
+                        _commandRepository.Delete(existing);
                     }
                 }
 
@@ -299,7 +299,7 @@ namespace Hydra.Product.Api.Services
             {
                 var model = linkModelList.First(x => x.Id == item.Id);
                 item.DisplayOrder = model.DisplayOrder;
-                _commandRepository.UpdateAsync(item);
+                _commandRepository.Update(item);
             }
 
             await _commandRepository.SaveChangesAsync();
@@ -327,11 +327,11 @@ namespace Hydra.Product.Api.Services
             {
                 foreach (var existing in bundle.ProductBundles)
                 {
-                    _commandRepository.DeleteAsync(existing);
+                    _commandRepository.Delete(existing);
                 }
             }
 
-            _commandRepository.DeleteAsync(bundle);
+            _commandRepository.Delete(bundle);
             await _commandRepository.SaveChangesAsync();
 
             return result;

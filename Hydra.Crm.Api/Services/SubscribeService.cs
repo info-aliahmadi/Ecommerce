@@ -153,7 +153,7 @@ namespace Hydra.Crm.Api.Services
                 subscribe.SubscribeLabelId = subscribeModel.SubscribeLabelId;
                 subscribe.Email = subscribeModel.Email;
 
-                _commandRepository.UpdateAsync(subscribe);
+                _commandRepository.Update(subscribe);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = subscribeModel;
@@ -184,7 +184,7 @@ namespace Hydra.Crm.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(subscribe);
+            _commandRepository.Delete(subscribe);
             await _commandRepository.SaveChangesAsync();
 
             return result;

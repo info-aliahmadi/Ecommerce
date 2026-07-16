@@ -202,7 +202,7 @@ namespace Hydra.Cms.Api.Services
                 // remove then add new relationship
                 await UpdatePageTags(page.Id, newTagIds);
 
-                _commandRepository.UpdateAsync(page);
+                _commandRepository.Update(page);
                 await _commandRepository.SaveChangesAsync();
 
 
@@ -237,7 +237,7 @@ namespace Hydra.Cms.Api.Services
                 {
                     foreach (var pageTag in pageTags)
                     {
-                        _commandRepository.DeleteAsync(pageTag);
+                        _commandRepository.Delete(pageTag);
                     }
                     foreach (var tag in newTags)
                     {
@@ -275,7 +275,7 @@ namespace Hydra.Cms.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(page);
+            _commandRepository.Delete(page);
 
             await _commandRepository.SaveChangesAsync();
 

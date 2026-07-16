@@ -149,7 +149,7 @@ namespace Hydra.Order.Api.Service
                 shoppingCartItem.CreatedOnUtc = shoppingCartItemModel.CreatedOnUtc;
                 shoppingCartItem.UpdatedOnUtc = shoppingCartItemModel.UpdatedOnUtc;
 
-                _commandRepository.UpdateAsync(shoppingCartItem);
+                _commandRepository.Update(shoppingCartItem);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = shoppingCartItemModel;
@@ -180,7 +180,7 @@ namespace Hydra.Order.Api.Service
                 return result;
             }
 
-            _commandRepository.DeleteAsync(shoppingCartItem);
+            _commandRepository.Delete(shoppingCartItem);
             await _commandRepository.SaveChangesAsync();
 
             return result;

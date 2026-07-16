@@ -180,7 +180,7 @@ namespace Hydra.Cms.Api.Services
 
 
 
-                _commandRepository.UpdateAsync(link);
+                _commandRepository.Update(link);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = linkModel;
@@ -217,7 +217,7 @@ namespace Hydra.Cms.Api.Services
             {
                 var model = linkModelList.First(x => x.Id == item.Id);
                 item.Order = model.Order;
-                _commandRepository.UpdateAsync(item);
+                _commandRepository.Update(item);
             }
 
             await _commandRepository.SaveChangesAsync();
@@ -242,7 +242,7 @@ namespace Hydra.Cms.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(link);
+            _commandRepository.Delete(link);
 
             await _commandRepository.SaveChangesAsync();
 

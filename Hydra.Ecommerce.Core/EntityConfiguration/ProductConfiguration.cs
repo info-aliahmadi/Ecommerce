@@ -11,6 +11,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasIndex(e => new { e.Published, e.Deleted, e.Id }, "IX_Product_Deleted_and_Published");
 
+            entity.HasIndex(e => e.Name, "IX_Product_Name").IsUnique();
+
+            entity.HasIndex(e => e.SKU, "IX_Product_SKU").IsUnique();
+
             entity.Property(e => e.Name)
             .IsRequired()
             .HasMaxLength(100);

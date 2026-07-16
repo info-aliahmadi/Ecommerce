@@ -217,7 +217,7 @@ namespace Hydra.Product.Api.Services
                 productAttribute.DisplayOrder = productAttributeModel.DisplayOrder;
                 productAttribute.ImagePreviewId = productAttributeModel.ImagePreviewId;
 
-                _commandRepository.UpdateAsync(productAttribute);
+                _commandRepository.Update(productAttribute);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = productAttributeModel;
@@ -243,7 +243,7 @@ namespace Hydra.Product.Api.Services
             var productAttribute = await _queryRepository.Table<ProductAttribute>()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            _commandRepository.DeleteAsync(productAttribute);
+            _commandRepository.Delete(productAttribute);
             await _commandRepository.SaveChangesAsync();
 
             return result;

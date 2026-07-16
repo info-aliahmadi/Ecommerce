@@ -69,7 +69,7 @@ namespace Hydra.Infrastructure.Setting.Service
             record.Value = siteSetting.Value;
             record.ValueType = siteSetting.ValueType;
 
-            _commandRepository.UpdateAsync(record);
+            _commandRepository.Update(record);
             _commandRepository.SaveChanges();
 
             return siteSetting;
@@ -91,7 +91,7 @@ namespace Hydra.Infrastructure.Setting.Service
                 return result;
             }
 
-            _commandRepository.DeleteAsync(row);
+            _commandRepository.Delete(row);
 
             _commandRepository.SaveChanges();
 
@@ -113,7 +113,7 @@ namespace Hydra.Infrastructure.Setting.Service
                 return result;
             }
 
-            _commandRepository.DeleteAsync(row);
+            _commandRepository.Delete(row);
 
             _commandRepository.SaveChanges();
 

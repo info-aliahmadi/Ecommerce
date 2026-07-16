@@ -10,6 +10,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
         {
             entity.ToTable("Bundle", "Sale");
 
+            entity.HasIndex(e => e.Name).IsUnique();
+
             entity.HasIndex(e => e.DisplayOrder);
 
             entity.Property(e => e.Name).HasMaxLength(200);

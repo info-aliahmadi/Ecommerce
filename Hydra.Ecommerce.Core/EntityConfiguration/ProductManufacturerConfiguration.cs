@@ -12,7 +12,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.ToTable("ProductManufacturer", "Sale");
 
-            entity.HasIndex(e => new { e.ManufacturerId, e.ProductId }, "IX_PMM_Product_and_Manufacturer");
+            entity.HasIndex(e => new { e.ManufacturerId, e.ProductId }, "IX_PMM_Product_and_Manufacturer").IsUnique();
 
             entity.HasIndex(e => e.ManufacturerId, "IX_Product_Manufacturer_Mapping_ManufacturerId");
 

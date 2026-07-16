@@ -162,7 +162,7 @@ namespace Hydra.Common.Api.Services
                 shippingMethod.DisplayOrder = shippingMethodModel.DisplayOrder;
                 //shippingMethod.Orders = shippingMethodModel.Orders;
 
-                _commandRepository.UpdateAsync(shippingMethod);
+                _commandRepository.Update(shippingMethod);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = shippingMethodModel;
@@ -193,7 +193,7 @@ namespace Hydra.Common.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(shippingMethod);
+            _commandRepository.Delete(shippingMethod);
             await _commandRepository.SaveChangesAsync();
 
             return result;

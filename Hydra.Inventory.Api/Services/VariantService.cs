@@ -237,13 +237,13 @@ namespace Hydra.Inventory.Api.Services
                     variant.SellPrice = model.SellPrice;
                     variant.OldSellPrice = model.OldSellPrice;
 
-                    _commandRepository.UpdateAsync(variant);
+                    _commandRepository.Update(variant);
 
                     if (variant.ProductInventory != null)
                     {
                         variant.ProductInventory.StockQuantity = model.StockQuantity;
                         variant.ProductInventory.ReservedQuantity = model.ReservedQuantity;
-                        _commandRepository.UpdateAsync(variant.ProductInventory);
+                        _commandRepository.Update(variant.ProductInventory);
                     }
                     else
                     {
@@ -265,7 +265,7 @@ namespace Hydra.Inventory.Api.Services
                         .ToList();
                     foreach (var attr in attrsToRemove)
                     {
-                        _commandRepository.DeleteAsync(attr);
+                        _commandRepository.Delete(attr);
                     }
 
                     var attrsToAdd = newAttrIds
@@ -321,21 +321,21 @@ namespace Hydra.Inventory.Api.Services
             {
                 foreach (var txn in variant.ProductInventory.InventoryTransactions)
                 {
-                    _commandRepository.DeleteAsync(txn);
+                    _commandRepository.Delete(txn);
                 }
             }
 
             foreach (var attr in variant.VariantAttributes)
             {
-                _commandRepository.DeleteAsync(attr);
+                _commandRepository.Delete(attr);
             }
 
             if (variant.ProductInventory != null)
             {
-                _commandRepository.DeleteAsync(variant.ProductInventory);
+                _commandRepository.Delete(variant.ProductInventory);
             }
 
-            _commandRepository.DeleteAsync(variant);
+            _commandRepository.Delete(variant);
             await _commandRepository.SaveChangesAsync();
 
             return result;
@@ -371,7 +371,7 @@ namespace Hydra.Inventory.Api.Services
                     return result;
                 }
 
-                _commandRepository.UpdateAsync(inventory);
+                _commandRepository.Update(inventory);
 
                 var transaction = new ProductInventoryTransaction
                 {

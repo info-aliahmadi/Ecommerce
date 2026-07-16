@@ -218,7 +218,7 @@ namespace Hydra.Product.Api.Services
                 productTag.Key = productTagModel.Key;
                 //productTag.Products = productTagModel.Products;
 
-                _commandRepository.UpdateAsync(productTag);
+                _commandRepository.Update(productTag);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = productTagModel;
@@ -249,7 +249,7 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(productTag);
+            _commandRepository.Delete(productTag);
             await _commandRepository.SaveChangesAsync();
 
             return result;

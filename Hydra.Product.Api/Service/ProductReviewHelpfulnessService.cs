@@ -137,7 +137,7 @@ namespace Hydra.Product.Api.Services
                 productReviewHelpfulness.ProductReviewId = productReviewHelpfulnessModel.ProductReviewId;
                 productReviewHelpfulness.WasHelpful = productReviewHelpfulnessModel.WasHelpful;
 
-                _commandRepository.UpdateAsync(productReviewHelpfulness);
+                _commandRepository.Update(productReviewHelpfulness);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = productReviewHelpfulnessModel;
@@ -168,7 +168,7 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(productReviewHelpfulness);
+            _commandRepository.Delete(productReviewHelpfulness);
             await _commandRepository.SaveChangesAsync();
 
             return result;

@@ -193,7 +193,7 @@ namespace Hydra.Cms.Api.Services
             menu.PreviewImageId = menuModel.PreviewImageId;
             menu.UserId = menu.UserId;
 
-            _commandRepository.UpdateAsync(menu);
+            _commandRepository.Update(menu);
 
             await _commandRepository.SaveChangesAsync();
 
@@ -243,7 +243,7 @@ namespace Hydra.Cms.Api.Services
                 var model = flattenMenus.First(x => x.Id == item.Id);
                 item.Order = model.Order;
                 item.ParentId = model.ParentId;
-                _commandRepository.UpdateAsync(item);
+                _commandRepository.Update(item);
             }
 
             await _commandRepository.SaveChangesAsync();
@@ -274,7 +274,7 @@ namespace Hydra.Cms.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(menu);
+            _commandRepository.Delete(menu);
 
             await _commandRepository.SaveChangesAsync();
 

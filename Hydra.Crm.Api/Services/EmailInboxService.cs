@@ -405,7 +405,7 @@ namespace Hydra.Crm.Api.Services
                 var emailInbox = await _queryRepository.Table<EmailInbox>().FirstOrDefaultAsync(x => x.Id == emailInboxId);
                 emailInbox.IsDeleted = true;
 
-                _commandRepository.UpdateAsync(emailInbox);
+                _commandRepository.Update(emailInbox);
                 _commandRepository.SaveChanges();
 
                 return result;
@@ -440,7 +440,7 @@ namespace Hydra.Crm.Api.Services
                 var emailInbox = await _queryRepository.Table<EmailInbox>().FirstOrDefaultAsync(x => x.Id == emailInboxId);
                 emailInbox.IsDeleted = true;
 
-                _commandRepository.UpdateAsync(emailInbox);
+                _commandRepository.Update(emailInbox);
                 await _commandRepository.SaveChangesAsync();
 
                 return result;
@@ -474,7 +474,7 @@ namespace Hydra.Crm.Api.Services
                 var emailInbox = await _queryRepository.Table<EmailInbox>().FirstOrDefaultAsync(x => x.Id == emailInboxId);
                 emailInbox.IsPin = !emailInbox.IsPin;
 
-                _commandRepository.UpdateAsync(emailInbox);
+                _commandRepository.Update(emailInbox);
                 _commandRepository.SaveChanges();
 
                 return result;
@@ -508,7 +508,7 @@ namespace Hydra.Crm.Api.Services
                 var emailInbox = await _queryRepository.Table<EmailInbox>().FirstOrDefaultAsync(x => x.Id == emailInboxId);
                 emailInbox.IsRead = true;
 
-                _commandRepository.UpdateAsync(emailInbox);
+                _commandRepository.Update(emailInbox);
                 _commandRepository.SaveChanges();
 
                 return result;
@@ -544,26 +544,26 @@ namespace Hydra.Crm.Api.Services
 
                 foreach (var attachment in emailInboxAttachment)
                 {
-                    _commandRepository.DeleteAsync(attachment);
+                    _commandRepository.Delete(attachment);
                 }
                 var emailInboxToAddresses = _queryRepository.Table<EmailInboxToAddress>().Where(x => x.Id == emailInboxId);
 
                 foreach (var emailInboxToAddress in emailInboxToAddresses)
                 {
-                    _commandRepository.DeleteAsync(emailInboxToAddress);
+                    _commandRepository.Delete(emailInboxToAddress);
                 }
                 var emailInboxFromAddresses = _queryRepository.Table<EmailInboxFromAddress>().Where(x => x.Id == emailInboxId);
 
                 foreach (var emailInboxFromAddress in emailInboxFromAddresses)
                 {
-                    _commandRepository.DeleteAsync(emailInboxFromAddress);
+                    _commandRepository.Delete(emailInboxFromAddress);
                 }
 
 
                 var emailInbox = _queryRepository.Table<EmailInbox>().FirstOrDefault(x => x.Id == emailInboxId);
 
                 if (emailInbox is not null)
-                    _commandRepository.DeleteAsync(emailInbox);
+                    _commandRepository.Delete(emailInbox);
 
 
                 await _commandRepository.SaveChangesAsync();

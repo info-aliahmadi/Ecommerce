@@ -253,7 +253,7 @@ namespace Hydra.Cms.Api.Services
             topic.UserId = topic.UserId;
             topic.RegisterDate = regsterDate;
 
-            _commandRepository.UpdateAsync(topic);
+            _commandRepository.Update(topic);
 
             await _commandRepository.SaveChangesAsync();
 
@@ -295,7 +295,7 @@ namespace Hydra.Cms.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(topic);
+            _commandRepository.Delete(topic);
 
             await _commandRepository.SaveChangesAsync();
 

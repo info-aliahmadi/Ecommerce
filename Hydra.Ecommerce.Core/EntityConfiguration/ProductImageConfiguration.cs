@@ -12,6 +12,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.ToTable("ProductImage", "Sale");
 
+            entity.HasIndex(e => new { e.ImageId, e.ProductId }, "IX_Product_ProductId_ImageId").IsUnique();
+
             entity.HasIndex(e => e.ImageId, "IX_Product_Image_Mapping_ImageId");
 
             entity.HasIndex(e => e.ProductId, "IX_Product_Image_Mapping_ProductId");

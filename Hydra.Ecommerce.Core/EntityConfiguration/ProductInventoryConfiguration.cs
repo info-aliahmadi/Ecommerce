@@ -12,7 +12,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.ToTable("ProductInventory", "Sale");
 
-            entity.HasIndex(e => e.VariantId, "IX_Inventory_VariantId");
+            entity.HasIndex(e => e.VariantId, "IX_Inventory_VariantId").IsUnique();
 
             entity.Property(e => e.StockQuantity)
                 .HasColumnType("decimal(18,3)");

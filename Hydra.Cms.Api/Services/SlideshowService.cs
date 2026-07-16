@@ -194,7 +194,7 @@ namespace Hydra.Cms.Api.Services
                 slideshow.PreviewImageUrl = slideshowModel.PreviewImageUrl;
                 slideshow.UserId = slideshowModel.UserId;
 
-                _commandRepository.UpdateAsync(slideshow);
+                _commandRepository.Update(slideshow);
                 await _commandRepository.SaveChangesAsync();
 
 
@@ -232,7 +232,7 @@ namespace Hydra.Cms.Api.Services
             {
                 var model = slideshowModelList.First(x => x.Id == item.Id);
                 item.Order = model.Order;
-                _commandRepository.UpdateAsync(item);
+                _commandRepository.Update(item);
             }
 
             await _commandRepository.SaveChangesAsync();
@@ -260,7 +260,7 @@ namespace Hydra.Cms.Api.Services
 
             slideshow.IsVisible = !slideshow.IsVisible;
 
-            _commandRepository.UpdateAsync(slideshow);
+            _commandRepository.Update(slideshow);
             await _commandRepository.SaveChangesAsync();
 
             return result;
@@ -282,7 +282,7 @@ namespace Hydra.Cms.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(slideshow);
+            _commandRepository.Delete(slideshow);
 
             await _commandRepository.SaveChangesAsync();
 

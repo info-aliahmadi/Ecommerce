@@ -12,7 +12,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.ToTable("ProductBundle", "Sale");
 
-            entity.HasIndex(e => new { e.BundleId, e.ProductId }, "IX_PCM_Product_and_Bundle");
+            entity.HasIndex(e => new { e.BundleId, e.ProductId }, "IX_PCM_Product_and_Bundle").IsUnique();
 
             entity.HasIndex(e => e.BundleId, "IX_Product_Bundle_Mapping_BundleId");
 

@@ -1,4 +1,4 @@
-﻿using Hydra.FileStorage.Core.Domain;
+using Hydra.FileStorage.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,6 +12,7 @@ namespace Hydra.FileStorage.Core.EntityConfiguration
             builder.ToTable("FileUpload", "FS");
 
             builder.HasKey(o => o.Id);
+            builder.Property(o => o.Id).ValueGeneratedOnAdd();
 
             builder.Property(o => o.FileName).HasMaxLength(250);
             builder.Property(o => o.Directory).HasMaxLength(250);

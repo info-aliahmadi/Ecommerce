@@ -493,7 +493,7 @@ namespace Hydra.Auth.Service
                 {
                     foreach (var userRole in userRoles)
                     {
-                        _commandRepository.DeleteAsync(userRole);
+                        _commandRepository.Delete(userRole);
                     }
                     foreach (var roleid in newRoles)
                     {

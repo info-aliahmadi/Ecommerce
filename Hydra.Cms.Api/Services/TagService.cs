@@ -232,7 +232,7 @@ namespace Hydra.Cms.Api.Services
 
             tag.Title = tagModel.Title;
 
-            _commandRepository.UpdateAsync(tag);
+            _commandRepository.Update(tag);
 
             await _commandRepository.SaveChangesAsync();
 
@@ -255,7 +255,7 @@ namespace Hydra.Cms.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(tag);
+            _commandRepository.Delete(tag);
 
             await _commandRepository.SaveChangesAsync();
 

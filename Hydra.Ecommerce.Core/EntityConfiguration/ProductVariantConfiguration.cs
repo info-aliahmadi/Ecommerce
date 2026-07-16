@@ -11,8 +11,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
         {
             entity.ToTable("ProductVariant", "Sale");
 
-            entity.HasIndex(e => e.SKU, "IX_Variant_SKU");
+            entity.HasIndex(e => e.SKU, "IX_Variant_SKU").IsUnique();
             entity.HasIndex(e => e.ProductId, "IX_Variant_ProductId");
+
 
             entity.Property(e => e.SKU)
                 .IsRequired()

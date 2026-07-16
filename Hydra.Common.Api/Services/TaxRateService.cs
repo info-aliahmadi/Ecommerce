@@ -162,7 +162,7 @@ namespace Hydra.Common.Api.Services
                 taxRate.CountryId = taxRateModel.CountryId;
                 taxRate.Percentage = taxRateModel.Percentage;
 
-                _commandRepository.UpdateAsync(taxRate);
+                _commandRepository.Update(taxRate);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = taxRateModel;
@@ -193,7 +193,7 @@ namespace Hydra.Common.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(taxRate);
+            _commandRepository.Delete(taxRate);
             await _commandRepository.SaveChangesAsync();
 
             return result;

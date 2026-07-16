@@ -231,7 +231,7 @@ namespace Hydra.Order.Api.Services
                 order.Deleted = orderModel.Deleted;
                 order.CreatedOnUtc = orderModel.CreatedOnUtc;
 
-                _commandRepository.UpdateAsync(order);
+                _commandRepository.Update(order);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = orderModel;
@@ -270,7 +270,7 @@ namespace Hydra.Order.Api.Services
                 order.ShippingStatusId = orderModel.ShippingStatusId;
                 order.PaymentStatusId = orderModel.PaymentStatusId;
 
-                _commandRepository.UpdateAsync(order);
+                _commandRepository.Update(order);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = orderModel;
@@ -301,7 +301,7 @@ namespace Hydra.Order.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(order);
+            _commandRepository.Delete(order);
             await _commandRepository.SaveChangesAsync();
 
             return result;

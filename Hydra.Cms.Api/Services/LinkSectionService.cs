@@ -161,7 +161,7 @@ namespace Hydra.Cms.Api.Services
                 linkSection.Key = linkSectionModel.Key;
                 linkSection.Title = linkSectionModel.Title;
 
-                _commandRepository.UpdateAsync(linkSection);
+                _commandRepository.Update(linkSection);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = linkSectionModel;
@@ -194,7 +194,7 @@ namespace Hydra.Cms.Api.Services
 
             linkSection.IsVisible = !linkSection.IsVisible;
 
-            _commandRepository.UpdateAsync(linkSection);
+            _commandRepository.Update(linkSection);
             await _commandRepository.SaveChangesAsync();
 
             return result;
@@ -224,7 +224,7 @@ namespace Hydra.Cms.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(linkSection);
+            _commandRepository.Delete(linkSection);
 
             await _commandRepository.SaveChangesAsync();
 

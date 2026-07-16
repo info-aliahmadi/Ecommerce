@@ -145,7 +145,7 @@ namespace Hydra.Order.Api.Services
                 orderNote.IsRead = orderNoteModel.IsRead;
                 orderNote.CreatedOnUtc = orderNoteModel.CreatedOnUtc;
 
-                _commandRepository.UpdateAsync(orderNote);
+                _commandRepository.Update(orderNote);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = orderNoteModel;
@@ -176,7 +176,7 @@ namespace Hydra.Order.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(orderNote);
+            _commandRepository.Delete(orderNote);
             await _commandRepository.SaveChangesAsync();
 
             return result;

@@ -156,7 +156,7 @@ namespace Hydra.Product.Api.Services
                 manufacturer.Published = manufacturerModel.Published;
                 manufacturer.UpdatedOnUtc = DateTime.UtcNow;
 
-                _commandRepository.UpdateAsync(manufacturer);
+                _commandRepository.Update(manufacturer);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = manufacturerModel;
@@ -186,7 +186,7 @@ namespace Hydra.Product.Api.Services
             {
                 var model = linkModelList.First(x => x.Id == item.Id);
                 item.DisplayOrder = model.DisplayOrder;
-                _commandRepository.UpdateAsync(item);
+                _commandRepository.Update(item);
             }
 
             await _commandRepository.SaveChangesAsync();
@@ -217,7 +217,7 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(manufacturer);
+            _commandRepository.Delete(manufacturer);
             await _commandRepository.SaveChangesAsync();
 
             return result;

@@ -237,7 +237,7 @@ namespace Hydra.Product.Api.Services
                                     Key = va.Attribute.Key,
                                 }).ToList(),
                             }).ToList(),
-                        }).Cacheable();
+                        }).AsNoTracking().Cacheable();
 
             result.Data = await list.ToPaginatedListAsync(productFilter.PageIndex, productFilter.PageSize);
             result.Data.MaxRange = maxRange;
@@ -263,7 +263,7 @@ namespace Hydra.Product.Api.Services
                             (x.AvailableEndDateTimeUtc != null && x.AvailableEndDateTimeUtc >= currentDateTime)) &&
                     x.ProductAttributes.Any(a =>
                         a.Attribute.AttributeType == AttributeType.Style))
-                .ToListAsync();
+                .AsNoTracking().ToListAsync();
 
             var groups = products
                 .SelectMany(p => p.ProductAttributes
@@ -343,7 +343,7 @@ namespace Hydra.Product.Api.Services
         public async Task<Result<ProductDisplayModel>> GetPublishedProductById(int id)
         {
             var result = new Result<ProductDisplayModel>();
-            var product = await GetPublishedQuery().FirstOrDefaultAsync(x => x.Id == id);
+            var product = await GetPublishedQuery().AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
             var productModel = new ProductDisplayModel()
             {
@@ -504,8 +504,13 @@ namespace Hydra.Product.Api.Services
                                   ImagePreviewId = product.ImagePreviewId,
                                   ImagePreview = new FileStorage.Core.Models.FileUploadModel(product.ImagePreview),
                                   CategoryIds = product.ProductCategories.Select(c => c.CategoryId).ToList(),
+                                  CategoryNames = product.ProductCategories.Select(c => c.Category.Name).ToList(),
                                   ManufacturerIds = product.ProductManufacturers.Select(c => c.ManufacturerId).ToList(),
+                                  ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
                                   AttributeIds = product.ProductAttributes.Select(c => c.AttributeId).ToList(),
+                                  AttributeNames = product.ProductAttributes.Select(c => c.Attribute.DisplayName).ToList(),
+                                  TagIds = product.ProductProductTags.Select(c => c.ProductTagId).ToList(),
+                                  TagNames = product.ProductProductTags.Select(c => c.ProductTag.Name).ToList(),
                                   Variants = product.ProductVariants.Select(v => new ProductVariantModel()
                                   {
                                       Id = v.Id,
@@ -530,9 +535,8 @@ namespace Hydra.Product.Api.Services
                                           Description = va.Attribute.Description,
                                       }).ToList(),
                                   }).ToList(),
-                                  TagIds = product.ProductProductTags.Select(c => c.ProductTagId).ToList(),
 
-                              }).OrderByDescending(x => x.Id).Cacheable().ToPaginatedListAsync(dataGrid);
+                              }).OrderByDescending(x => x.Id).AsNoTracking().Cacheable().ToPaginatedListAsync(dataGrid);
 
             result.Data = list;
             return result;
@@ -551,7 +555,7 @@ namespace Hydra.Product.Api.Services
                 .Include(x => x.ProductProductTags).ThenInclude(x => x.ProductTag)
                 .Include(x => x.ProductVariants).ThenInclude(v => v.ProductInventory)
                 .Include(x => x.ProductVariants).ThenInclude(v => v.VariantAttributes).ThenInclude(va => va.Attribute)
-                .Include(x => x.RelatedProduct2Navigation).FirstOrDefaultAsync(x => x.Id == id);
+                .Include(x => x.RelatedProduct2Navigation).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
             var productModel = new ProductModel()
             {
@@ -668,7 +672,7 @@ namespace Hydra.Product.Api.Services
                 Id = x.Id,
                 Name = x.Id + " | " + x.Name,
                 ImagePreviewId = x.ProductImages.OrderBy(v => v.DisplayOrder).FirstOrDefault().ImageId,
-            }).ToListAsync();
+            }).AsNoTracking().ToListAsync();
             result.Data = products;
             return result;
         }
@@ -687,7 +691,7 @@ namespace Hydra.Product.Api.Services
             {
                 Id = x.Id,
                 Name = x.Id + " | " + x.Name,
-            }).ToListAsync();
+            }).AsNoTracking().ToListAsync();
 
             result.Data = list;
             return result;
@@ -967,7 +971,7 @@ namespace Hydra.Product.Api.Services
                         product.AvailableStartDateTimeUtc = productModel.AvailableStartDateTimeUtc != null ?
                             productModel.AvailableStartDateTimeUtc.Value : currentDateTime;
 
-                    _commandRepository.UpdateAsync(product);
+                    _commandRepository.Update(product);
 
                     await UpdateProductCategory(product.Id, productModel.CategoryIds.ToArray());
                     await UpdateProductAttribute(product.Id, productModel.AttributeIds.ToArray());
@@ -977,7 +981,7 @@ namespace Hydra.Product.Api.Services
                     await UpdateRelatedProducts(product.Id, productModel.RelatedProductIds.ToArray());
                     await UpdateProductVariants(product.Id, productModel.Variants);
 
-                    await _commandRepository.SaveChangesAsync();
+                    _commandRepository.SaveChanges();
                     await transaction.CommitAsync();
                 }
                 catch
@@ -1002,13 +1006,17 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productCategories = _queryRepository.Table<ProductCategory>().AsNoTracking().Where(x => x.ProductId == productId).ToList();
+                var productCategories = _queryRepository.Table<ProductCategory>().Where(x => x.ProductId == productId).ToList();
                 var currentCategories = productCategories.Select(x => x.CategoryId).ToArray();
 
                 if (!newCategories.SequenceEqual(currentCategories))
                 {
                     foreach (var cat in productCategories)
-                        _commandRepository.DeleteAsync(cat);
+                    {
+                        _commandRepository.Delete(cat);
+                        _commandRepository.SaveChanges();
+                    }
+
                     foreach (var id in newCategories)
                         await _commandRepository.InsertAsync(new ProductCategory() { ProductId = productId, CategoryId = id });
                 }
@@ -1027,13 +1035,15 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productManufacturers = _queryRepository.Table<ProductManufacturer>().AsNoTracking().Where(x => x.ProductId == productId).ToList();
+                var productManufacturers = _queryRepository.Table<ProductManufacturer>().Where(x => x.ProductId == productId).ToList();
                 var currentManufacturers = productManufacturers.Select(x => x.ManufacturerId).ToArray();
 
                 if (!newManufacturers.SequenceEqual(currentManufacturers))
                 {
                     foreach (var cat in productManufacturers)
-                        _commandRepository.DeleteAsync(cat);
+                        _commandRepository.Delete(cat);
+                    _commandRepository.SaveChanges();
+
                     foreach (var id in newManufacturers)
                         await _commandRepository.InsertAsync(new ProductManufacturer() { ProductId = productId, ManufacturerId = id });
                 }
@@ -1052,13 +1062,14 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productProductTags = _queryRepository.Table<ProductProductTag>().AsNoTracking().Where(x => x.ProductId == productId).ToList();
+                var productProductTags = _queryRepository.Table<ProductProductTag>().Where(x => x.ProductId == productId).ToList();
                 var currentProductTags = productProductTags.Select(x => x.ProductTagId).ToArray();
 
                 if (!newTags.SequenceEqual(currentProductTags))
                 {
                     foreach (var cat in productProductTags)
-                        _commandRepository.DeleteAsync(cat);
+                        _commandRepository.Delete(cat);
+                    _commandRepository.SaveChanges();
                     foreach (var id in newTags)
                         await _commandRepository.InsertAsync(new ProductProductTag() { ProductId = productId, ProductTagId = id });
                 }
@@ -1077,13 +1088,14 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productAttributes = _queryRepository.Table<ProductProductAttribute>().AsNoTracking().Where(x => x.ProductId == productId).ToList();
+                var productAttributes = _queryRepository.Table<ProductProductAttribute>().Where(x => x.ProductId == productId).ToList();
                 var currentAttributes = productAttributes.Select(x => x.AttributeId).ToArray();
 
                 if (!newAttributes.SequenceEqual(currentAttributes))
                 {
                     foreach (var cat in productAttributes)
-                        _commandRepository.DeleteAsync(cat);
+                        _commandRepository.Delete(cat);
+                    _commandRepository.SaveChanges();
                     foreach (var id in newAttributes)
                         await _commandRepository.InsertAsync(new ProductProductAttribute() { ProductId = productId, AttributeId = id });
                 }
@@ -1102,14 +1114,15 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productPictures = _queryRepository.Table<ProductImage>().AsNoTracking().Where(x => x.ProductId == productId).ToList();
+                var productPictures = _queryRepository.Table<ProductImage>().Where(x => x.ProductId == productId).ToList();
                 var currentOrderedIds = productPictures.OrderBy(x => x.DisplayOrder).Select(x => x.ImageId).ToArray();
                 var newOrderedIds = newPictures.OrderBy(x => x.DisplayOrder).Select(x => x.ImageId).ToArray();
 
                 if (!currentOrderedIds.SequenceEqual(newOrderedIds))
                 {
                     foreach (var pic in productPictures)
-                        _commandRepository.DeleteAsync(pic);
+                        _commandRepository.Delete(pic);
+                    _commandRepository.SaveChanges();
 
                     var ordered = newPictures.OrderBy(x => x.DisplayOrder).ToList();
                     for (int i = 0; i < ordered.Count; i++)
@@ -1147,9 +1160,9 @@ namespace Hydra.Product.Api.Services
 
                 // Delete variants not in the incoming list
                 foreach (var variant in existingVariants.Where(v => !newVariants.Any(nv => nv.Id == v.Id)))
-                {
-                    _commandRepository.DeleteAsync(variant);
-                }
+                    _commandRepository.Delete(variant);
+
+                _commandRepository.SaveChanges();
 
                 var datetime = DateTime.UtcNow;
 
@@ -1159,10 +1172,16 @@ namespace Hydra.Product.Api.Services
                     {
                         // Update existing variant
                         var existing = existingById[variantModel.Id];
-                        existing.SKU = variantModel.SKU;
-                        existing.SellPrice = variantModel.SellPrice;
-                        existing.OldSellPrice = variantModel.OldSellPrice;
-                        _commandRepository.UpdateAsync(existing);
+
+                        if (existing.SKU != variantModel.SKU ||
+                            existing.SellPrice != variantModel.SellPrice ||
+                            existing.OldSellPrice != variantModel.OldSellPrice)
+                        {
+                            existing.SKU = variantModel.SKU.ToUpper();
+                            existing.SellPrice = variantModel.SellPrice;
+                            existing.OldSellPrice = variantModel.OldSellPrice;
+                            _commandRepository.Update(existing);
+                        }
 
                         // Update inventory
                         if (variantModel.ProductInventory != null)
@@ -1174,7 +1193,7 @@ namespace Hydra.Product.Api.Services
                                 {
                                     existing.ProductInventory.StockQuantity = variantModel.ProductInventory.StockQuantity;
                                     existing.ProductInventory.ReservedQuantity = variantModel.ProductInventory.ReservedQuantity;
-                                    _commandRepository.UpdateAsync(existing.ProductInventory);
+                                    _commandRepository.Update(existing.ProductInventory);
                                 }
                             }
                             else
@@ -1190,7 +1209,8 @@ namespace Hydra.Product.Api.Services
                         }
                         else if (existing.ProductInventory != null)
                         {
-                            _commandRepository.DeleteAsync(existing.ProductInventory);
+                            _commandRepository.Delete(existing.ProductInventory);
+                            _commandRepository.SaveChanges();
                         }
 
                         // Update variant attributes
@@ -1200,7 +1220,9 @@ namespace Hydra.Product.Api.Services
                         if (!existingAttrIds.SequenceEqual(newAttrIds))
                         {
                             foreach (var va in existing.VariantAttributes)
-                                _commandRepository.DeleteAsync(va);
+                                _commandRepository.Delete(va);
+
+                            _commandRepository.SaveChanges();
 
                             foreach (var attrId in newAttrIds)
                             {
@@ -1247,6 +1269,7 @@ namespace Hydra.Product.Api.Services
                     }
                 }
 
+
                 return result;
             }
             catch (Exception e)
@@ -1268,7 +1291,10 @@ namespace Hydra.Product.Api.Services
                 if (!newRelateds.SequenceEqual(currentRelateds))
                 {
                     foreach (var cat in productRelateds)
-                        _commandRepository.DeleteAsync(cat);
+                        _commandRepository.Delete(cat);
+
+                    _commandRepository.SaveChanges();
+
                     foreach (var id in newRelateds)
                         await _commandRepository.InsertAsync(new RelatedProduct() { ProductId1 = productId, ProductId2 = id });
                 }
@@ -1307,19 +1333,38 @@ namespace Hydra.Product.Api.Services
             if (!productModel.Variants.Any())
                 errors.Add(new Error(nameof(productModel.Variants), "At least one variant is required."));
 
+            var seenVariantAttributeSets = new HashSet<string>();
+
             for (int i = 0; i < productModel.Variants.Count; i++)
             {
                 var variant = productModel.Variants[i];
                 if (string.IsNullOrWhiteSpace(variant.SKU))
-                    errors.Add(new Error($"Variants[{i}].SKU", "Variant SKU is required."));
+                    errors.Add(new Error(nameof(productModel.Variants), "Variant SKU is required."));
                 if (variant.SellPrice < 0)
-                    errors.Add(new Error($"Variants[{i}].SellPrice", "SellPrice cannot be negative."));
+                    errors.Add(new Error(nameof(productModel.Variants), "SellPrice cannot be negative."));
                 if (variant.OldSellPrice < 0)
-                    errors.Add(new Error($"Variants[{i}].OldSellPrice", "OldSellPrice cannot be negative."));
+                    errors.Add(new Error(nameof(productModel.Variants), "OldSellPrice cannot be negative."));
                 if (variant.ProductInventory == null)
-                    errors.Add(new Error($"Variants[{i}].ProductInventory", "Variant inventory is required."));
+                    errors.Add(new Error(nameof(productModel.Variants), "Variant inventory is required."));
                 else if (variant.ProductInventory.StockQuantity < 0)
-                    errors.Add(new Error($"Variants[{i}].ProductInventory.StockQuantity", "StockQuantity cannot be negative."));
+                    errors.Add(new Error(nameof(productModel.Variants), "StockQuantity cannot be negative."));
+
+                // Check for duplicate attribute types within the same variant (e.g. two Sizes or two Colors)
+                var attributeTypes = variant.ProductAttributes
+                    .GroupBy(a => a.AttributeType)
+                    .Where(g => g.Count() > 1);
+                foreach (var group in attributeTypes)
+                {
+                    errors.Add(new Error(nameof(productModel.Variants), $"Variant cannot have duplicate attribute type '{group.Key}'."));
+                }
+
+                // Check for duplicate variants (same set of attribute IDs)
+                var sortedAttrIds = variant.ProductAttributes.Select(a => a.Id).OrderBy(x => x);
+                var key = string.Join(",", sortedAttrIds);
+                if (!seenVariantAttributeSets.Add(key))
+                {
+                    errors.Add(new Error(nameof(productModel.Variants), "Duplicate variant detected. Two variants cannot have the same attribute combination."));
+                }
             }
 
             return errors;
@@ -1336,7 +1381,7 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
             product.Deleted = true;
-            _commandRepository.UpdateAsync(product);
+            _commandRepository.Update(product);
             await _commandRepository.SaveChangesAsync();
             return result;
         }
@@ -1351,7 +1396,7 @@ namespace Hydra.Product.Api.Services
                 result.Message = "The Product not found";
                 return result;
             }
-            _commandRepository.DeleteAsync(product);
+            _commandRepository.Delete(product);
             await _commandRepository.SaveChangesAsync();
             return result;
         }

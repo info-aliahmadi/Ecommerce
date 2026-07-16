@@ -749,7 +749,7 @@ namespace Hydra.Crm.Api.Services
                 message.Subject = messageModel.Subject;
                 message.Content = messageModel.Content;
                 message.IsDraft = messageModel.IsDraft;
-                _commandRepository.UpdateAsync(message);
+                _commandRepository.Update(message);
 
 
                 // Update Users Receive Message
@@ -761,7 +761,7 @@ namespace Hydra.Crm.Api.Services
 
                     foreach (var user in message.MessageUsers)
                     {
-                        _commandRepository.DeleteAsync(user);
+                        _commandRepository.Delete(user);
                     }
 
                     foreach (var userId in messageModel.ToUserIds)
@@ -786,7 +786,7 @@ namespace Hydra.Crm.Api.Services
                 {
                     foreach (var attachment in message.MessageAttachments)
                     {
-                        _commandRepository.DeleteAsync(attachment);
+                        _commandRepository.Delete(attachment);
                     }
 
                     foreach (var attachmentId in messageModel.Attachments)
@@ -842,7 +842,7 @@ namespace Hydra.Crm.Api.Services
                 }
                 message.IsDeleted = true;
 
-                _commandRepository.UpdateAsync(message);
+                _commandRepository.Update(message);
                 await _commandRepository.SaveChangesAsync();
 
                 return result;
@@ -876,7 +876,7 @@ namespace Hydra.Crm.Api.Services
                 }
                 messageUser.IsDeleted = true;
 
-                _commandRepository.UpdateAsync(messageUser);
+                _commandRepository.Update(messageUser);
                 await _commandRepository.SaveChangesAsync();
 
                 return result;
@@ -910,7 +910,7 @@ namespace Hydra.Crm.Api.Services
                 }
                 messageUser.IsDeleted = false;
 
-                _commandRepository.UpdateAsync(messageUser);
+                _commandRepository.Update(messageUser);
                 await _commandRepository.SaveChangesAsync();
 
                 return result;
@@ -942,7 +942,7 @@ namespace Hydra.Crm.Api.Services
                 }
                 messageUser.IsPin = !messageUser.IsPin;
 
-                _commandRepository.UpdateAsync(messageUser);
+                _commandRepository.Update(messageUser);
                 await _commandRepository.SaveChangesAsync();
 
                 return result;
@@ -975,7 +975,7 @@ namespace Hydra.Crm.Api.Services
                 }
                 messageUser.IsRead = true;
 
-                _commandRepository.UpdateAsync(messageUser);
+                _commandRepository.Update(messageUser);
                 await _commandRepository.SaveChangesAsync();
 
                 return result;
@@ -1017,17 +1017,17 @@ namespace Hydra.Crm.Api.Services
 
                 foreach (var user in messageUser)
                 {
-                    _commandRepository.DeleteAsync(user);
+                    _commandRepository.Delete(user);
                 }
 
                 var messageAttachment = _queryRepository.Table<MessageAttachment>().Where(x => x.Id == messageId);
 
                 foreach (var attachment in messageAttachment)
                 {
-                    _commandRepository.DeleteAsync(attachment);
+                    _commandRepository.Delete(attachment);
                 }
 
-                _commandRepository.DeleteAsync(message);
+                _commandRepository.Delete(message);
 
                 await _commandRepository.SaveChangesAsync();
 

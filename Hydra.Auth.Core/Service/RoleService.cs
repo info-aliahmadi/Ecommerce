@@ -254,7 +254,7 @@ namespace Hydra.Auth.Service
                 role.ConcurrencyStamp = roleModel.ConcurrencyStamp;
                 role.NormalizedName = roleModel.NormalizedName;
 
-                _commandRepository.UpdateAsync(role);
+                _commandRepository.Update(role);
 
                 await _commandRepository.SaveChangesAsync();
 
@@ -300,7 +300,7 @@ namespace Hydra.Auth.Service
                     return result;
                 }
 
-                _commandRepository.DeleteAsync(role);
+                _commandRepository.Delete(role);
 
                 await _commandRepository.SaveChangesAsync();
 

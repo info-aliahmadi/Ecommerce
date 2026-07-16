@@ -161,7 +161,7 @@ namespace Hydra.Order.Api.Services
                 shipment.CreatedOnUtc = shipmentModel.CreatedOnUtc;
                 //shipment.ShipmentItems = shipmentModel.ShipmentItems;
 
-                _commandRepository.UpdateAsync(shipment);
+                _commandRepository.Update(shipment);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = shipmentModel;
@@ -192,7 +192,7 @@ namespace Hydra.Order.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(shipment);
+            _commandRepository.Delete(shipment);
             await _commandRepository.SaveChangesAsync();
 
             return result;

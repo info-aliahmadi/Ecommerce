@@ -11,6 +11,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
         {
             entity.ToTable("ProductAttribute", "Sale");
 
+            entity.HasIndex(e => e.Key, "IX_Attribute_Key").IsUnique();
+
             entity.HasIndex(e => e.DisplayOrder, "IX_Attribute_DisplayOrder");
             entity.HasIndex(e => e.AttributeType, "IX_Attribute_AttributeType");
 

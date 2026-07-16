@@ -202,7 +202,7 @@ namespace Hydra.Common.Api.Services
                 discount.MaximumDiscountedQuantity = discountModel.MaximumDiscountedQuantity;
                 discount.IsActive = discountModel.IsActive;
 
-                _commandRepository.UpdateAsync(discount);
+                _commandRepository.Update(discount);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = discountModel;
@@ -233,7 +233,7 @@ namespace Hydra.Common.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(discount);
+            _commandRepository.Delete(discount);
             await _commandRepository.SaveChangesAsync();
 
             return result;

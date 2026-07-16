@@ -212,7 +212,7 @@ namespace Hydra.Payment.Api.Services
                 payment.CardExpirationMonth = paymentModel.CardExpirationMonth;
                 payment.CardExpirationYear = paymentModel.CardExpirationYear;
 
-                _commandRepository.UpdateAsync(payment);
+                _commandRepository.Update(payment);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = paymentModel;
@@ -243,7 +243,7 @@ namespace Hydra.Payment.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(payment);
+            _commandRepository.Delete(payment);
             await _commandRepository.SaveChangesAsync();
 
             return result;
