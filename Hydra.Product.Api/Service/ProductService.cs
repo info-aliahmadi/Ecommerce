@@ -529,7 +529,7 @@ namespace Hydra.Product.Api.Services
                                       {
                                           Id = va.Attribute.Id,
                                           Name = va.Attribute.DisplayName,
-                                          Value = va.Attribute.Key,
+                                          Key = va.Attribute.Key,
                                           AttributeType = va.Attribute.AttributeType,
                                           DisplayOrder = va.Attribute.DisplayOrder,
                                           Description = va.Attribute.Description,
@@ -555,7 +555,7 @@ namespace Hydra.Product.Api.Services
                 .Include(x => x.ProductProductTags).ThenInclude(x => x.ProductTag)
                 .Include(x => x.ProductVariants).ThenInclude(v => v.ProductInventory)
                 .Include(x => x.ProductVariants).ThenInclude(v => v.VariantAttributes).ThenInclude(va => va.Attribute)
-                .Include(x => x.RelatedProduct2Navigation).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+                .Include(x => x.RelatedProduct1Navigation).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
             var productModel = new ProductModel()
             {
@@ -626,7 +626,7 @@ namespace Hydra.Product.Api.Services
                     DisplayOrder = pi.DisplayOrder
                 }).ToList(),
                 AttributeIds = product.ProductAttributes.Select(cat => cat.AttributeId).ToList(),
-                RelatedProductIds = product.RelatedProduct2Navigation.Select(cat => cat.ProductId2).ToList(),
+                RelatedProductIds = product.RelatedProduct1Navigation.Select(cat => cat.ProductId2).ToList(),
                 TagIds = product.ProductProductTags.Select(c => c.ProductTagId).ToList(),
 
                 StockQuantity = product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity : 0),
@@ -650,7 +650,7 @@ namespace Hydra.Product.Api.Services
                     {
                         Id = va.Attribute.Id,
                         Name = va.Attribute.DisplayName,
-                        Value = va.Attribute.Key,
+                        Key = va.Attribute.Key,
                         AttributeType = va.Attribute.AttributeType,
                         DisplayOrder = va.Attribute.DisplayOrder,
                         Description = va.Attribute.Description,
@@ -1006,18 +1006,18 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productCategories = _queryRepository.Table<ProductCategory>().Where(x => x.ProductId == productId).ToList();
+                var productCategories = _queryRepository.Table<ProductCategory>().AsNoTracking().Where(x => x.ProductId == productId).ToList();
                 var currentCategories = productCategories.Select(x => x.CategoryId).ToArray();
 
                 if (!newCategories.SequenceEqual(currentCategories))
                 {
-                    foreach (var cat in productCategories)
-                    {
-                        _commandRepository.Delete(cat);
-                        _commandRepository.SaveChanges();
-                    }
+                    var toRemove = productCategories.Where(x => !newCategories.Contains(x.CategoryId)).ToList();
+                    var toAdd = newCategories.Where(id => !currentCategories.Contains(id)).ToList();
 
-                    foreach (var id in newCategories)
+                    foreach (var cat in toRemove)
+                        _commandRepository.Delete(cat);
+
+                    foreach (var id in toAdd)
                         await _commandRepository.InsertAsync(new ProductCategory() { ProductId = productId, CategoryId = id });
                 }
                 return result;
@@ -1035,14 +1035,13 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productManufacturers = _queryRepository.Table<ProductManufacturer>().Where(x => x.ProductId == productId).ToList();
+                var productManufacturers = _queryRepository.Table<ProductManufacturer>().AsNoTracking().Where(x => x.ProductId == productId).ToList();
                 var currentManufacturers = productManufacturers.Select(x => x.ManufacturerId).ToArray();
 
                 if (!newManufacturers.SequenceEqual(currentManufacturers))
                 {
                     foreach (var cat in productManufacturers)
                         _commandRepository.Delete(cat);
-                    _commandRepository.SaveChanges();
 
                     foreach (var id in newManufacturers)
                         await _commandRepository.InsertAsync(new ProductManufacturer() { ProductId = productId, ManufacturerId = id });
@@ -1062,14 +1061,14 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productProductTags = _queryRepository.Table<ProductProductTag>().Where(x => x.ProductId == productId).ToList();
+                var productProductTags = _queryRepository.Table<ProductProductTag>().AsNoTracking().Where(x => x.ProductId == productId).ToList();
                 var currentProductTags = productProductTags.Select(x => x.ProductTagId).ToArray();
 
                 if (!newTags.SequenceEqual(currentProductTags))
                 {
                     foreach (var cat in productProductTags)
                         _commandRepository.Delete(cat);
-                    _commandRepository.SaveChanges();
+
                     foreach (var id in newTags)
                         await _commandRepository.InsertAsync(new ProductProductTag() { ProductId = productId, ProductTagId = id });
                 }
@@ -1088,14 +1087,14 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productAttributes = _queryRepository.Table<ProductProductAttribute>().Where(x => x.ProductId == productId).ToList();
+                var productAttributes = _queryRepository.Table<ProductProductAttribute>().AsNoTracking().Where(x => x.ProductId == productId).ToList();
                 var currentAttributes = productAttributes.Select(x => x.AttributeId).ToArray();
 
                 if (!newAttributes.SequenceEqual(currentAttributes))
                 {
                     foreach (var cat in productAttributes)
                         _commandRepository.Delete(cat);
-                    _commandRepository.SaveChanges();
+
                     foreach (var id in newAttributes)
                         await _commandRepository.InsertAsync(new ProductProductAttribute() { ProductId = productId, AttributeId = id });
                 }
@@ -1114,7 +1113,7 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productPictures = _queryRepository.Table<ProductImage>().Where(x => x.ProductId == productId).ToList();
+                var productPictures = _queryRepository.Table<ProductImage>().AsNoTracking().Where(x => x.ProductId == productId).ToList();
                 var currentOrderedIds = productPictures.OrderBy(x => x.DisplayOrder).Select(x => x.ImageId).ToArray();
                 var newOrderedIds = newPictures.OrderBy(x => x.DisplayOrder).Select(x => x.ImageId).ToArray();
 
@@ -1122,7 +1121,7 @@ namespace Hydra.Product.Api.Services
                 {
                     foreach (var pic in productPictures)
                         _commandRepository.Delete(pic);
-                    _commandRepository.SaveChanges();
+
 
                     var ordered = newPictures.OrderBy(x => x.DisplayOrder).ToList();
                     for (int i = 0; i < ordered.Count; i++)
@@ -1154,15 +1153,13 @@ namespace Hydra.Product.Api.Services
                 var existingVariants = await _queryRepository.Table<ProductVariant>()
                     .Include(v => v.ProductInventory)
                     .Include(v => v.VariantAttributes)
-                    .Where(v => v.ProductId == productId).ToListAsync();
+                    .Where(v => v.ProductId == productId).AsNoTracking().ToListAsync();
 
                 var existingById = existingVariants.ToDictionary(v => v.Id);
 
                 // Delete variants not in the incoming list
                 foreach (var variant in existingVariants.Where(v => !newVariants.Any(nv => nv.Id == v.Id)))
                     _commandRepository.Delete(variant);
-
-                _commandRepository.SaveChanges();
 
                 var datetime = DateTime.UtcNow;
 
@@ -1208,10 +1205,7 @@ namespace Hydra.Product.Api.Services
                             }
                         }
                         else if (existing.ProductInventory != null)
-                        {
                             _commandRepository.Delete(existing.ProductInventory);
-                            _commandRepository.SaveChanges();
-                        }
 
                         // Update variant attributes
                         var existingAttrIds = existing.VariantAttributes.Select(va => va.AttributeId).ToArray();
@@ -1222,7 +1216,6 @@ namespace Hydra.Product.Api.Services
                             foreach (var va in existing.VariantAttributes)
                                 _commandRepository.Delete(va);
 
-                            _commandRepository.SaveChanges();
 
                             foreach (var attrId in newAttrIds)
                             {
@@ -1285,15 +1278,13 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             try
             {
-                var productRelateds = _queryRepository.Table<RelatedProduct>().Where(x => x.ProductId1 == productId).ToList();
+                var productRelateds = _queryRepository.Table<RelatedProduct>().Where(x => x.ProductId1 == productId).AsNoTracking().ToList();
                 var currentRelateds = productRelateds.Select(x => x.ProductId2).ToArray();
 
                 if (!newRelateds.SequenceEqual(currentRelateds))
                 {
                     foreach (var cat in productRelateds)
                         _commandRepository.Delete(cat);
-
-                    _commandRepository.SaveChanges();
 
                     foreach (var id in newRelateds)
                         await _commandRepository.InsertAsync(new RelatedProduct() { ProductId1 = productId, ProductId2 = id });

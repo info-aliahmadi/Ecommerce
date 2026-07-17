@@ -32,6 +32,29 @@ namespace Hydra.Product.Api.Handler
             }
 
         }
+        /// <summary>
+        /// Retrieves the list of published categories using the specified category service.
+        /// </summary>
+        /// <remarks>This method wraps the result of the category service in a standardized HTTP response.
+        /// If an exception occurs during retrieval, the error message is returned in a bad request result.</remarks>
+        /// <param name="_categoryService">The category service used to obtain published categories. Cannot be null.</param>
+        /// <returns>An <see cref="IResult"/> containing the published categories if the operation succeeds; otherwise, a bad
+        /// request result with error details.</returns>
+        public static IResult GetPublishedFeaturedCategories(ICategoryService _categoryService)
+        {
+            try
+            {
+                var result = _categoryService.GetPublishedFeaturedHerarchyCategories();
+
+                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
+
+        }
 
         /// <summary>
         /// Retrieves the hierarchical structure of categories using the specified category service and returns the

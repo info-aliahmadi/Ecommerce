@@ -44,6 +44,7 @@ namespace Hydra.Product.Api.Endpoints
             endpoints.MapGet(API_SCHEMA + "/GetProduct", ProductHandler.GetPublishedProductById).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetCuratedStyleProducts", ProductHandler.GetPublishedCuratedStyleProducts).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetCategories", CategoryHandler.GetPublishedCategories).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetFeaturedCategories", CategoryHandler.GetPublishedFeaturedCategories).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetProductTags", ProductTagHandler.GetPublishedList).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetProductAttributesByType", ProductAttributeHandler.GetPublishedAttributeByAttributeType).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetProductAttributes", ProductAttributeHandler.GetPublishedProductAttributes).AllowAnonymous();

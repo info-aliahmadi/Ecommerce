@@ -33,7 +33,7 @@ namespace Hydra.Product.Api.Services
                   {
                       Id = productAttribute.Id,
                       Name = productAttribute.DisplayName,
-                      Value = productAttribute.Key,
+                      Key = productAttribute.Key,
                       AttributeType = productAttribute.AttributeType,
                       Description = productAttribute.Description,
                       DisplayOrder = productAttribute.DisplayOrder,
@@ -59,7 +59,7 @@ namespace Hydra.Product.Api.Services
                 {
                     Id = productAttribute.Id,
                     Name = productAttribute.DisplayName,
-                    Value = productAttribute.Key,
+                    Key = productAttribute.Key,
                     AttributeType = productAttribute.AttributeType,
                     Description = productAttribute.Description,
                     DisplayOrder = productAttribute.DisplayOrder,
@@ -83,7 +83,7 @@ namespace Hydra.Product.Api.Services
                 {
                     Id = productAttribute.Id,
                     Name = productAttribute.DisplayName,
-                    Value = productAttribute.Key,
+                    Key = productAttribute.Key,
                     AttributeType = productAttribute.AttributeType,
                     Description = productAttribute.Description,
                     DisplayOrder = productAttribute.DisplayOrder,
@@ -159,7 +159,7 @@ namespace Hydra.Product.Api.Services
                 {
                     Id = productAttributeModel.Id,
                     DisplayName = productAttributeModel.Name,
-                    Key = productAttributeModel.Value,
+                    Key = productAttributeModel.Key,
                     AttributeType = productAttributeModel.AttributeType,
                     Description = productAttributeModel.Description,
                     DisplayOrder = productAttributeModel.DisplayOrder,
@@ -211,7 +211,7 @@ namespace Hydra.Product.Api.Services
                 }
 
                 productAttribute.DisplayName = productAttributeModel.Name;
-                productAttribute.Key = productAttributeModel.Value;
+                productAttribute.Key = productAttributeModel.Key;
                 productAttribute.AttributeType = productAttributeModel.AttributeType;
                 productAttribute.Description = productAttributeModel.Description;
                 productAttribute.DisplayOrder = productAttributeModel.DisplayOrder;

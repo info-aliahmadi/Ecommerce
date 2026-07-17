@@ -1,5 +1,6 @@
 using EFCoreSecondLevelCacheInterceptor;
 using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.FileStorage.Core.Models;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
@@ -50,7 +51,36 @@ namespace Hydra.Product.Api.Services
 
             return new Result<List<CategoryDisplayModel>> { Data = parents };
         }
+        public Result<List<CategoryDisplayModel>> GetPublishedFeaturedHerarchyCategories()
+        {
+            var displayList = GetPublishedFeaturedCategories();
+            var list = displayList.Select(d => new CategoryDisplayModel
+            {
+                Id = d.Id,
+                Name = d.Name,
+                Key = d.Key,
+                MetaKeywords = d.MetaKeywords,
+                MetaTitle = d.MetaTitle,
+                Description = d.Description,
+                MetaDescription = d.MetaDescription,
+                ParentCategoryId = d.ParentCategoryId,
+                ShowOnHomepage = d.ShowOnHomepage,
+                DisplayOrder = d.DisplayOrder,
+                ImagePreview = d.ImagePreview,
+                Color = d.Color,
+                ProductsCount = d.ProductsCount
+            }).ToList();
 
+            var parents = list.Where(x => x.ParentCategoryId == null).ToList();
+
+            foreach (var parent in parents)
+            {
+                var children = GetChildren(parent, list);
+                parent.Childs.AddRange(children);
+            }
+
+            return new Result<List<CategoryDisplayModel>> { Data = parents };
+        }
         private List<CategoryDisplayModel> GetPublishedCategories()
         {
             return _queryRepository.Table<Category>()
@@ -75,7 +105,33 @@ namespace Hydra.Product.Api.Services
                 .Cacheable()
                 .ToList();
         }
-
+        private List<CategoryDisplayModel> GetPublishedFeaturedCategories()
+        {
+            return _queryRepository.Table<Category>()
+                .Where(x => !x.Deleted && x.Published)
+                .Select(category => new CategoryDisplayModel
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Key = category.Key,
+                    MetaKeywords = category.MetaKeywords,
+                    MetaTitle = category.MetaTitle,
+                    Description = category.Description,
+                    MetaDescription = category.MetaDescription,
+                    ParentCategoryId = category.ParentCategoryId,
+                    ImagePreview = category.ImagePreview != null ? new FileUploadModel(category.ImagePreview) : null,
+                    ShowOnHomepage = category.ShowOnHomepage,
+                    DisplayOrder = category.DisplayOrder,
+                    Color = category.Color,
+                    ProductsCount = category.ProductCategories.Count(c => 
+                                                                        c.Product.Published &&
+                                                                        c.Product.Deleted == false &&
+                                                                        c.Product.ProductProductTags.Any(x=>x.ProductTagId == (int)ProductTagType.Featured))
+                })
+                .OrderBy(x => x.DisplayOrder)
+                .Cacheable()
+                .ToList();
+        }
         public Result<List<CategoryModel>> GetList()
         {
             var categories = GetAllCategories();

@@ -98,6 +98,30 @@ namespace Hydra.Product.Api.Services
                                           Key = z.Key,
                                       }).ToList(),
                                       ProductTags = pb.Product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
+                                      Variants = pb.Product.ProductVariants.Select(v => new ProductVariantDisplayModel()
+                                      {
+                                          Id = v.Id,
+                                          SKU = v.SKU,
+                                          ProductId = v.ProductId,
+                                          SellPrice = v.SellPrice,
+                                          OldSellPrice = v.OldSellPrice,
+                                          ProductInventory = new ProductInventoryDisplayModel()
+                                          {
+                                              Id = v.ProductInventory.Id,
+                                              VariantId = v.ProductInventory.VariantId,
+                                              StockQuantity = v.ProductInventory.StockQuantity,
+                                              ReservedQuantity = v.ProductInventory.ReservedQuantity
+                                          },
+                                          ProductAttributes = v.VariantAttributes != null ? v.VariantAttributes.Select(va => new ProductAttributeDisplayModel()
+                                          {
+                                              Id = va.Attribute.Id,
+                                              DisplayName = va.Attribute.DisplayName,
+                                              Key = va.Attribute.Key,
+                                              AttributeType = va.Attribute.AttributeType,
+                                              DisplayOrder = va.Attribute.DisplayOrder,
+                                              Description = va.Attribute.Description,
+                                          }).ToList() : new List<ProductAttributeDisplayModel>()
+                                      }).ToList()
                                   }).ToList()
                               }).OrderBy(x => x.DisplayOrder).Cacheable().ToListAsync();
             result.Data = list;

@@ -19,7 +19,7 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public string Value { get; set; }
+        public string Key { get; set; }
 
         /// <summary>
         /// 
