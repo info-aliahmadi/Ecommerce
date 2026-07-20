@@ -29,6 +29,7 @@
 		<PackageReference Include="Serilog.Sinks.Elasticsearch" />
 		<PackageReference Include="Serilog.Sinks.SQLite" />
 		<PackageReference Include="Swashbuckle.AspNetCore" />
+		<PackageReference Include="Twilio" />
 	</ItemGroup>
 
 	<ItemGroup>

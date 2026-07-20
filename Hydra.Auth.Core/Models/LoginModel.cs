@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hydra.Auth.Models
 {
     public record LoginModel
     {
         [Required]
-        [EmailAddress]
         public string Username { get; set; }
 
         [Required]

@@ -1,4 +1,4 @@
-﻿using Hydra.Auth.Api.Handler;
+using Hydra.Auth.Api.Handler;
 using Hydra.Auth.Constants;
 using Hydra.Auth.Interface;
 using Hydra.Auth.Service;
@@ -16,6 +16,7 @@ namespace Hydra.Auth.Api.Endpoints
 
         public IServiceCollection RegisterModules(IServiceCollection services)
         {
+            services.AddMemoryCache();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserService, UserService>();
@@ -31,6 +32,9 @@ namespace Hydra.Auth.Api.Endpoints
 
             endpoints.MapPost(API_SCHEMA + "/login", AccountHandler.LoginHandler).AllowAnonymous();
             endpoints.MapPost(API_SCHEMA + "/Register", AccountHandler.RegisterHandler).AllowAnonymous();
+
+            endpoints.MapPost(API_SCHEMA + "/SendOtpCode", AccountHandler.SendOtpCodeHandler).AllowAnonymous();
+            endpoints.MapPost(API_SCHEMA + "/VerifyOtpAndLogin", AccountHandler.VerifyOtpAndLoginHandler).AllowAnonymous();
 
             endpoints.MapPost(API_SCHEMA + "/ExternalLoginCallback", AccountHandler.ExternalLoginCallbackHandler).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/ExternalLoginConfirmation", AccountHandler.ExternalLoginConfirmationHandler).AllowAnonymous();

@@ -1,6 +1,9 @@
-﻿using Hydra.Infrastructure.Notification.Sms.Interface;
+using Hydra.Infrastructure.Notification.Sms.Interface;
 using Hydra.Infrastructure.Notification.Sms.Models;
 using Hydra.Infrastructure.Notification.Sms.Setting;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace Hydra.Infrastructure.Notification.Sms.Service
 {
@@ -23,9 +26,17 @@ namespace Hydra.Infrastructure.Notification.Sms.Service
             throw new NotImplementedException();
         }
 
-        public void Send(SmsMessage emailMessage)
+        public void Send(SmsMessage smsMessage)
         {
-            throw new NotImplementedException();
+            TwilioClient.Init(_smsSetting.AccountSid, _smsSetting.AuthToken);
+            foreach (var number in smsMessage.ToNumbers)
+            {
+                MessageResource.Create(
+                    body: smsMessage.Text,
+                    from: new PhoneNumber(_smsSetting.FromNumber),
+                    to: new PhoneNumber(number)
+                );
+            }
         }
     }
 }

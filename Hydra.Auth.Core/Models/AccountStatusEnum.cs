@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace Hydra.Auth.Models
 {
@@ -35,7 +35,13 @@ namespace Hydra.Auth.Models
         ExternalLoginFailure = 9,
 
         [Description("InvalidCode")]
-        InvalidCode = 10
+        InvalidCode = 10,
+
+        [Description("OtpSent")]
+        OtpSent = 11,
+
+        [Description("PhoneNotFound")]
+        PhoneNotFound = 12
 
     }
 }

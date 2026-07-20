@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hydra.Auth.Models
 {
@@ -10,5 +10,7 @@ namespace Hydra.Auth.Models
         [Required]
         [Phone]
         public string PhoneNumber { get; set; }
+
+        public bool RememberMe { get; set; }
     }
 }

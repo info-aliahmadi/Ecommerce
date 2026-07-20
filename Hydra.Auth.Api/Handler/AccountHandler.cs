@@ -1,4 +1,4 @@
-﻿using Hydra.Auth.Domain;
+using Hydra.Auth.Domain;
 using Hydra.Auth.Models;
 using Hydra.Infrastructure;
 using Hydra.Kernel.Interface;
@@ -10,6 +10,7 @@ using Hydra.Kernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using MiniValidation;
@@ -112,14 +113,14 @@ namespace Hydra.Auth.Api.Handler
                 var result = new AccountResult();
 
                 var user = new User
-                { RegisterDate = DateTime.UtcNow, Name = registerModel.Name, UserName = registerModel.UserName, Email = registerModel.Email };
+                { RegisterDate = DateTime.UtcNow, Name = registerModel.Name, UserName = registerModel.UserName, Email = registerModel.Email, PhoneNumber = registerModel.PhoneNumber };
 
 
                 if (!await _roleManager.RoleExistsAsync("user"))
                     await _roleManager.CreateAsync(new Role() { Name = "user" });
 
 
-                var isExist = _repository.Table<User>().Any(x => x.UserName == registerModel.UserName || x.Email == registerModel.Email);
+                var isExist = _repository.Table<User>().Any(x => x.UserName == registerModel.UserName || x.Email == registerModel.Email || (registerModel.PhoneNumber != null && x.PhoneNumber == registerModel.PhoneNumber));
                 if (!isExist)
                 {
                     var identityResult = await _userManager.CreateAsync(user, registerModel.Password);
@@ -219,7 +220,9 @@ namespace Hydra.Auth.Api.Handler
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
 
-                var user = await _userManager.FindByNameAsync(loginModel.Username);
+                var user = loginModel.Username.Contains('@')
+                    ? await _userManager.FindByEmailAsync(loginModel.Username)
+                    : await _userManager.FindByNameAsync(loginModel.Username);
 
                 if (user == null)
                 {
@@ -329,6 +332,169 @@ namespace Hydra.Auth.Api.Handler
             {
                 return Results.BadRequest("BadRequest");
             }
+        }
+
+
+        public static IResult SendOtpCodeHandler(
+            UserManager<User> _userManager,
+            ISmsService _smsSender,
+            IStringLocalizer<SharedResource> _sharedlocalizer,
+            ILogger<AccountHandler> _logger,
+            IMemoryCache _cache,
+            [FromBody] AddPhoneNumberModel model)
+        {
+            var result = new AccountResult();
+
+            // Rate limit: 1 request per 60 seconds per phone
+            var throttleKey = $"otp:throttle:{model.PhoneNumber}";
+            if (_cache.TryGetValue(throttleKey, out _))
+            {
+                result.Status = AccountStatusEnum.Failed;
+                result.Errors.Add(_sharedlocalizer["Please wait before requesting a new code."]);
+                return Results.BadRequest(result);
+            }
+
+            if (!_smsSender.IsEnabled())
+            {
+                result.Status = AccountStatusEnum.Failed;
+                result.Errors.Add(_sharedlocalizer["SMS service is not enabled."]);
+                return Results.BadRequest(result);
+            }
+
+            // Generate 6-digit code
+            var random = new Random();
+            var code = random.Next(100000, 999999).ToString();
+
+            // Store OTP in cache: 5 minute TTL, max 3 attempts
+            var otpKey = $"otp:phone:{model.PhoneNumber}";
+            var otpEntry = new OtpEntry { Code = code, CreatedAt = DateTime.UtcNow, AttemptCount = 0 };
+            _cache.Set(otpKey, otpEntry, TimeSpan.FromMinutes(5));
+
+            // Set throttle: 60 seconds
+            _cache.Set(throttleKey, true, TimeSpan.FromSeconds(60));
+
+            // Send SMS
+            try
+            {
+                var sms = new SmsMessage
+                {
+                    Text = _sharedlocalizer["Your verification code is: {0}", code]
+                };
+                sms.ToNumbers.Add(model.PhoneNumber);
+                _smsSender.Send(sms);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Failed to send SMS to {PhoneNumber}", model.PhoneNumber);
+                result.Status = AccountStatusEnum.Failed;
+                result.Errors.Add(_sharedlocalizer["Failed to send verification code."]);
+                return Results.BadRequest(result);
+            }
+
+            result.Status = AccountStatusEnum.OtpSent;
+            return Results.Ok(result);
+        }
+
+
+        public static async Task<IResult> VerifyOtpAndLoginHandler(
+            ITokenService tokenService,
+            UserManager<User> _userManager,
+            SignInManager<User> _signInManager,
+            RoleManager<Role> _roleManager,
+            IQueryRepository _repository,
+            IStringLocalizer<SharedResource> _sharedlocalizer,
+            ILogger<AccountHandler> _logger,
+            IMemoryCache _cache,
+            [FromBody] VerifyPhoneNumberModel model)
+        {
+            var result = new Result<UserModel>();
+
+            // Retrieve OTP from cache
+            var otpKey = $"otp:phone:{model.PhoneNumber}";
+            if (!_cache.TryGetValue<OtpEntry>(otpKey, out var otpEntry))
+            {
+                result.Status = ResultStatusEnum.NotFound;
+                result.Errors.Add(new Error("Code", _sharedlocalizer["Verification code has expired or was not sent."]));
+                return Results.Ok(result);
+            }
+
+            // Validate attempts
+            if (otpEntry.AttemptCount >= 3)
+            {
+                _cache.Remove(otpKey);
+                result.Status = ResultStatusEnum.Failed;
+                result.Errors.Add(new Error("Code", _sharedlocalizer["Too many failed attempts. Please request a new code."]));
+                return Results.Ok(result);
+            }
+
+            // Validate code
+            if (otpEntry.Code != model.Code)
+            {
+                otpEntry.AttemptCount++;
+                _cache.Set(otpKey, otpEntry, TimeSpan.FromMinutes(5));
+                result.Status = ResultStatusEnum.NotFound;
+                result.Errors.Add(new Error("Code", _sharedlocalizer["Invalid verification code."]));
+                return Results.Ok(result);
+            }
+
+            // Code valid — remove from cache
+            _cache.Remove(otpKey);
+
+            // Find user by phone number
+            var user = _userManager.Users.FirstOrDefault(u => u.PhoneNumber == model.PhoneNumber);
+
+            // Auto-register if not found
+            if (user == null)
+            {
+                var phoneUsername = $"phone_{model.PhoneNumber.Replace("+", "")}";
+                user = new User
+                {
+                    UserName = phoneUsername,
+                    PhoneNumber = model.PhoneNumber,
+                    PhoneNumberConfirmed = true,
+                    RegisterDate = DateTime.UtcNow,
+                    Name = phoneUsername
+                };
+
+                if (!await _roleManager.RoleExistsAsync("user"))
+                    await _roleManager.CreateAsync(new Role() { Name = "user" });
+
+                var identityResult = await _userManager.CreateAsync(user);
+                if (!identityResult.Succeeded)
+                {
+                    _logger.LogError("Failed to auto-register user for phone {PhoneNumber}", model.PhoneNumber);
+                    result.Status = ResultStatusEnum.Failed;
+                    foreach (var error in identityResult.Errors)
+                    {
+                        result.Errors.Add(new Error("User", error.Description));
+                    }
+                    return Results.Ok(result);
+                }
+
+                await _userManager.AddToRoleAsync(user, "User");
+            }
+
+            // Generate JWT
+            DateTime expireDate = model.RememberMe ? DateTime.Now.AddMonths(6) : DateTime.Now.AddHours(3);
+            var token = tokenService.CreateToken(user, expireDate);
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var userModel = new UserModel()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                UserName = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Avatar = user.Avatar,
+                DefaultLanguage = user.DefaultLanguage,
+                DefaultTheme = user.DefaultTheme,
+                Roles = roles,
+                AccessToken = token,
+                AccessTokenExpires = expireDate,
+            };
+            result.Data = userModel;
+            return Results.Ok(result);
         }
 
 
