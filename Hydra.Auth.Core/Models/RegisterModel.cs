@@ -6,8 +6,7 @@ namespace Hydra.Auth.Models
     {
         public string Name { get; set; }
 
-        [Required]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [Required]
         [EmailAddress]

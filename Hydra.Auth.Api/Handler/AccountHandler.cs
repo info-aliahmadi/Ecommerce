@@ -112,6 +112,9 @@ namespace Hydra.Auth.Api.Handler
             {
                 var result = new AccountResult();
 
+                // Auto-set UserName from Email
+                registerModel.UserName = registerModel.Email;
+
                 var user = new User
                 { RegisterDate = DateTime.UtcNow, Name = registerModel.Name, UserName = registerModel.UserName, Email = registerModel.Email, PhoneNumber = registerModel.PhoneNumber };
 
@@ -120,7 +123,7 @@ namespace Hydra.Auth.Api.Handler
                     await _roleManager.CreateAsync(new Role() { Name = "user" });
 
 
-                var isExist = _repository.Table<User>().Any(x => x.UserName == registerModel.UserName || x.Email == registerModel.Email || (registerModel.PhoneNumber != null && x.PhoneNumber == registerModel.PhoneNumber));
+                var isExist = _repository.Table<User>().Any(x => x.Email == registerModel.Email || (registerModel.PhoneNumber != null && x.PhoneNumber == registerModel.PhoneNumber));
                 if (!isExist)
                 {
                     var identityResult = await _userManager.CreateAsync(user, registerModel.Password);
@@ -363,7 +366,7 @@ namespace Hydra.Auth.Api.Handler
 
             // Generate 6-digit code
             var random = new Random();
-            var code = random.Next(100000, 999999).ToString();
+            var code = random.Next(10000, 99999).ToString();
 
             // Store OTP in cache: 5 minute TTL, max 3 attempts
             var otpKey = $"otp:phone:{model.PhoneNumber}";
@@ -763,131 +766,6 @@ namespace Hydra.Auth.Api.Handler
             return Results.Ok(result);
         }
 
-        public static IResult ExternalLogin(SignInManager<User> _signInManager, HttpContext context, string provider, string? returnUrl = null)
-        {
-            // Request a redirect to the external login provider.
-
-            var redirectUrl = HydraHelper.GetCurrentDomain(context) + $"ExternalLoginCallback/Account?ReturnUrl={returnUrl}";
-
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-            return Results.Challenge(properties);
-        }
-
-
-        public static async Task<IResult> ExternalLoginCallbackHandler(SignInManager<User> _signInManager,
-            HttpContext context,
-            IStringLocalizer<SharedResource> _sharedlocalizer,
-             ILogger<AccountHandler> _logger, string? returnUrl = null, string? remoteError = null)
-        {
-            var result = new AccountResult();
-            if (remoteError != null)
-            {
-                result.Status = AccountStatusEnum.ErrorExternalProvider;
-                _logger.LogError(_sharedlocalizer["Error from external provider: {0}"], remoteError);
-                result.Errors.Add(string.Format(_sharedlocalizer["Error from external provider: {0}"], remoteError));
-                return Results.BadRequest(result);
-            }
-
-            var info = await _signInManager.GetExternalLoginInfoAsync();
-            if (info == null)
-            {
-                result.Status = AccountStatusEnum.NullExternalLoginInfo;
-                _logger.LogError(_sharedlocalizer["Could not get info from an external provider"]);
-                result.Errors.Add(_sharedlocalizer["Could not get info from an external provider"]);
-                return Results.BadRequest(result);
-            }
-
-            // Sign in the user with this external login provider if the user already has a login.
-            var externalLoginResult =
-                await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey,
-                    isPersistent: false);
-            if (externalLoginResult.Succeeded)
-            {
-                // Update any authentication tokens if login succeeded
-                await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
-                _logger.LogInformation(_sharedlocalizer["User logged in with {0} provider."], info.LoginProvider);
-                result.Status = AccountStatusEnum.Succeeded;
-                return Results.Ok(result);
-            }
-
-            if (externalLoginResult.RequiresTwoFactor)
-            {
-                result.Status = AccountStatusEnum.RequiresTwoFactor;
-                return Results.Ok(result);
-            }
-
-            if (externalLoginResult.IsLockedOut)
-            {
-                result.Status = AccountStatusEnum.IsLockedOut;
-                return Results.Ok(result);
-            }
-            else
-            {
-                // If the user does not have an account, then ask the user to create an account.e;
-
-                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-
-                _logger.LogWarning(_sharedlocalizer["Redirect the user {0} to ExternalLoginConfirmation"], email);
-
-                var redirectUrl = HydraHelper.GetCurrentDomain(context) + $"ExternalLoginConfirmation/Account?email={email}";
-
-                return Results.Redirect(redirectUrl, true);
-            }
-        }
-
-        public static async Task<IResult> ExternalLoginConfirmationHandler(UserManager<User> _userManager,
-            IStringLocalizer<SharedResource> _sharedlocalizer,
-             ILogger<AccountHandler> _logger, SignInManager<User> _signInManager, [FromBody] ExternalLoginConfirmationModel model)
-        {
-            var result = new AccountResult();
-            ;
-            if (MiniValidator.TryValidate(model, out var errors))
-            {
-                // Get the information about the user from the external login provider
-                var info = await _signInManager.GetExternalLoginInfoAsync();
-                if (info == null)
-                {
-                    result.Status = AccountStatusEnum.ExternalLoginFailure;
-                    _logger.LogError(_sharedlocalizer["External Login Failure for user: {0}"], model.Email);
-                    return Results.BadRequest(result);
-                }
-
-                var user = new User { UserName = model.Email, Email = model.Email };
-                var userManagerResult = await _userManager.CreateAsync(user);
-                if (userManagerResult.Succeeded)
-                {
-                    userManagerResult = await _userManager.AddLoginAsync(user, info);
-                    if (userManagerResult.Succeeded)
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        _logger.LogInformation(6,
-                            _sharedlocalizer["User created an account using {0} provider; Requested By: {1}"], info.LoginProvider,
-                            model.Email);
-                        result.Status = AccountStatusEnum.Succeeded;
-                        // Update any authentication tokens as well
-                        await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
-
-                        return Results.Ok(result);
-                    }
-                }
-
-                _logger.LogError(_sharedlocalizer["The user could not create a new account after external login.;"] + model.Email);
-                result.Status = AccountStatusEnum.Failed;
-                foreach (var error in userManagerResult.Errors)
-                {
-                    _logger.LogError(error.Description + "; Requested By: " + model.Email);
-                    result.Errors.Add(error.Description);
-                }
-
-                return Results.BadRequest(result);
-            }
-
-            _logger.LogWarning(_sharedlocalizer["Input data are invalid.; Requested By: {0} "], model.Email);
-
-            return Results.BadRequest(errors);
-        }
-
-
         public static async Task<IResult> ConfirmEmailHandler(UserManager<User> _userManager,
             IStringLocalizer<SharedResource> _sharedlocalizer,
              ILogger<AccountHandler> _logger, string userId, string code, string returnUrl)
@@ -946,7 +824,16 @@ namespace Hydra.Auth.Api.Handler
             // If we got this far, something failed, redisplay form
             return Results.BadRequest(errors);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_userManager"></param>
+        /// <param name="context"></param>
+        /// <param name="_sharedlocalizer"></param>
+        /// <param name="_logger"></param>
+        /// <param name="_emailSender"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static async Task<IResult> ForgotPasswordHandler(UserManager<User> _userManager,
             HttpContext context,
             IStringLocalizer<SharedResource> _sharedlocalizer,
@@ -999,7 +886,14 @@ namespace Hydra.Auth.Api.Handler
             return Results.BadRequest(errors);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_userManager"></param>
+        /// <param name="_sharedlocalizer"></param>
+        /// <param name="_logger"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static async Task<IResult> ResetPasswordHandler(UserManager<User> _userManager,
             IStringLocalizer<SharedResource> _sharedlocalizer,
              ILogger<AccountHandler> _logger, [FromBody] ResetPasswordModel model)
@@ -1055,7 +949,17 @@ namespace Hydra.Auth.Api.Handler
             { Providers = factorOptions });
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_userManager"></param>
+        /// <param name="_signInManager"></param>
+        /// <param name="_sharedlocalizer"></param>
+        /// <param name="_logger"></param>
+        /// <param name="_emailSender"></param>
+        /// <param name="_smsSender"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static async Task<IResult> SendCodeHandler(UserManager<User> _userManager, SignInManager<User> _signInManager,
             IStringLocalizer<SharedResource> _sharedlocalizer,
              ILogger<AccountHandler> _logger, IEmailService _emailSender, ISmsService _smsSender, [FromBody] SendCodeModel model)
@@ -1158,6 +1062,10 @@ namespace Hydra.Auth.Api.Handler
         /// <summary>
         /// If Two Factor Authenticator is enabled, the user have to enter 6 digits code by authenticator app
         /// </summary>
+        /// <param name="_signInManager"></param>
+        /// <param name="_sharedlocalizer"></param>
+        /// <param name="_logger"></param>
+        /// <param name="user"></param>
         /// <param name="model"></param>
         /// <returns></returns>
 
@@ -1180,7 +1088,7 @@ namespace Hydra.Auth.Api.Handler
             if (signInResult.Succeeded)
             {
                 result.Status = AccountStatusEnum.Succeeded;
-                return Results.Ok(result);
+                return Results.Ok(resul-t);
             }
 
             if (signInResult.IsLockedOut)
@@ -1200,8 +1108,11 @@ namespace Hydra.Auth.Api.Handler
         }
 
         /// <summary>
-        /// If Two Factor is enabled, the user have to enter code which was sent ti them by email or sms
+        /// If Two Factor is enabled, the user have to enter code which was sent them by email or sms
         /// </summary>
+        /// <param name="_signInManager"></param>
+        /// <param name="_sharedlocalizer"></param>
+        /// <param name="_logger"></param>
         /// <param name="model"></param>
         /// <returns></returns>
 
@@ -1245,9 +1156,11 @@ namespace Hydra.Auth.Api.Handler
         /// <summary>
         /// The user can login by Two Factor Recovery code 
         /// </summary>
+        /// <param name="_signInManager"></param>
+        /// <param name="_sharedlocalizer"></param>
+        /// <param name="_logger"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-
         public static async Task<IResult> UseRecoveryCodeHandler(SignInManager<User> _signInManager,
             IStringLocalizer<SharedResource> _sharedlocalizer,
              ILogger<AccountHandler> _logger, [FromBody] UseRecoveryCodeModel model)
@@ -1274,5 +1187,157 @@ namespace Hydra.Auth.Api.Handler
                 return Results.Ok(result);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_signInManager"></param>
+        /// <param name="context"></param>
+        /// <param name="provider"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
+        public static IResult ExternalLogin(SignInManager<User> _signInManager, HttpContext context, string provider, string? returnUrl = null)
+        {
+            // Request a redirect to the external login provider.
+
+            var redirectUrl = HydraHelper.GetCurrentDomain(context) + $"ExternalLoginCallback/Account?ReturnUrl={returnUrl}";
+
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Results.Challenge(properties);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_signInManager"></param>
+        /// <param name="context"></param>
+        /// <param name="_sharedlocalizer"></param>
+        /// <param name="_logger"></param>
+        /// <param name="returnUrl"></param>
+        /// <param name="remoteError"></param>
+        /// <returns></returns>
+        public static async Task<IResult> ExternalLoginCallbackHandler(SignInManager<User> _signInManager,
+            HttpContext context,
+            IStringLocalizer<SharedResource> _sharedlocalizer,
+             ILogger<AccountHandler> _logger, string? returnUrl = null, string? remoteError = null)
+        {
+            var result = new AccountResult();
+            if (remoteError != null)
+            {
+                result.Status = AccountStatusEnum.ErrorExternalProvider;
+                _logger.LogError(_sharedlocalizer["Error from external provider: {0}"], remoteError);
+                result.Errors.Add(string.Format(_sharedlocalizer["Error from external provider: {0}"], remoteError));
+                return Results.BadRequest(result);
+            }
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                result.Status = AccountStatusEnum.NullExternalLoginInfo;
+                _logger.LogError(_sharedlocalizer["Could not get info from an external provider"]);
+                result.Errors.Add(_sharedlocalizer["Could not get info from an external provider"]);
+                return Results.BadRequest(result);
+            }
+
+            // Sign in the user with this external login provider if the user already has a login.
+            var externalLoginResult =
+                await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey,
+                    isPersistent: false);
+            if (externalLoginResult.Succeeded)
+            {
+                // Update any authentication tokens if login succeeded
+                await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
+                _logger.LogInformation(_sharedlocalizer["User logged in with {0} provider."], info.LoginProvider);
+                result.Status = AccountStatusEnum.Succeeded;
+                return Results.Ok(result);
+            }
+
+            if (externalLoginResult.RequiresTwoFactor)
+            {
+                result.Status = AccountStatusEnum.RequiresTwoFactor;
+                return Results.Ok(result);
+            }
+
+            if (externalLoginResult.IsLockedOut)
+            {
+                result.Status = AccountStatusEnum.IsLockedOut;
+                return Results.Ok(result);
+            }
+            else
+            {
+                // If the user does not have an account, then ask the user to create an account.e;
+
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+                _logger.LogWarning(_sharedlocalizer["Redirect the user {0} to ExternalLoginConfirmation"], email);
+
+                var redirectUrl = HydraHelper.GetCurrentDomain(context) + $"ExternalLoginConfirmation/Account?email={email}";
+
+                return Results.Redirect(redirectUrl, true);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_userManager"></param>
+        /// <param name="_sharedlocalizer"></param>
+        /// <param name="_logger"></param>
+        /// <param name="_signInManager"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static async Task<IResult> ExternalLoginConfirmationHandler(UserManager<User> _userManager,
+            IStringLocalizer<SharedResource> _sharedlocalizer,
+             ILogger<AccountHandler> _logger, SignInManager<User> _signInManager, [FromBody] ExternalLoginConfirmationModel model)
+        {
+            var result = new AccountResult();
+            ;
+            if (MiniValidator.TryValidate(model, out var errors))
+            {
+                // Get the information about the user from the external login provider
+                var info = await _signInManager.GetExternalLoginInfoAsync();
+                if (info == null)
+                {
+                    result.Status = AccountStatusEnum.ExternalLoginFailure;
+                    _logger.LogError(_sharedlocalizer["External Login Failure for user: {0}"], model.Email);
+                    return Results.BadRequest(result);
+                }
+
+                var user = new User { UserName = model.Email, Email = model.Email };
+                var userManagerResult = await _userManager.CreateAsync(user);
+                if (userManagerResult.Succeeded)
+                {
+                    userManagerResult = await _userManager.AddLoginAsync(user, info);
+                    if (userManagerResult.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        _logger.LogInformation(6,
+                            _sharedlocalizer["User created an account using {0} provider; Requested By: {1}"], info.LoginProvider,
+                            model.Email);
+                        result.Status = AccountStatusEnum.Succeeded;
+                        // Update any authentication tokens as well
+                        await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
+
+                        return Results.Ok(result);
+                    }
+                }
+
+                _logger.LogError(_sharedlocalizer["The user could not create a new account after external login.;"] + model.Email);
+                result.Status = AccountStatusEnum.Failed;
+                foreach (var error in userManagerResult.Errors)
+                {
+                    _logger.LogError(error.Description + "; Requested By: " + model.Email);
+                    result.Errors.Add(error.Description);
+                }
+
+                return Results.BadRequest(result);
+            }
+
+            _logger.LogWarning(_sharedlocalizer["Input data are invalid.; Requested By: {0} "], model.Email);
+
+            return Results.BadRequest(errors);
+        }
+
+
     }
 }
