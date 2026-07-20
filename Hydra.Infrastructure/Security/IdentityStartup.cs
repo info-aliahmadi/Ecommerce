@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -56,19 +56,6 @@ namespace Hydra.Infrastructure.Security
                     }
                 };
             });
-            //.AddCookie(options =>
-            //{
-            //    options.Cookie.Name = "HydraCookie";
-            //    options.Cookie.HttpOnly = true;
-            //    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-            //    options.LoginPath = new PathString("/Account/Login");
-            //    options.AccessDeniedPath = new PathString("/Account/AccessDenied");
-            //    options.LogoutPath = new PathString("/Account/Logout");
-            //    // ReturnUrlParameter requires 
-            //    //using Microsoft.AspNetCore.Authentication.Cookies;
-            //    options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
-            //    options.SlidingExpiration = true;
-            //})
 
 
             services.AddAuthorization(options =>
@@ -86,26 +73,25 @@ namespace Hydra.Infrastructure.Security
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 5;
-                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireDigit = configuration.GetValue<bool>("IdentitySettings:Password:RequireDigit");
+                options.Password.RequireLowercase = configuration.GetValue<bool>("IdentitySettings:Password:RequireLowercase");
+                options.Password.RequireNonAlphanumeric = configuration.GetValue<bool>("IdentitySettings:Password:RequireNonAlphanumeric");
+                options.Password.RequireUppercase = configuration.GetValue<bool>("IdentitySettings:Password:RequireUppercase");
+                options.Password.RequiredLength = configuration.GetValue<int>("IdentitySettings:Password:RequiredLength");
+                options.Password.RequiredUniqueChars = configuration.GetValue<int>("IdentitySettings:Password:RequiredUniqueChars");
 
                 // Lockout settings.
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = false;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(configuration.GetValue<int>("IdentitySettings:Lockout:DefaultLockoutTimeSpanMinutes"));
+                options.Lockout.MaxFailedAccessAttempts = configuration.GetValue<int>("IdentitySettings:Lockout:MaxFailedAccessAttempts");
+                options.Lockout.AllowedForNewUsers = configuration.GetValue<bool>("IdentitySettings:Lockout:AllowedForNewUsers");
 
                 // User settings.
-                options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = configuration["IdentitySettings:User:AllowedUserNameCharacters"];
+                options.User.RequireUniqueEmail = configuration.GetValue<bool>("IdentitySettings:User:RequireUniqueEmail");
 
                 // Default SignIn settings.
-                options.SignIn.RequireConfirmedEmail = false;
-                options.SignIn.RequireConfirmedPhoneNumber = false;
+                options.SignIn.RequireConfirmedEmail = configuration.GetValue<bool>("IdentitySettings:SignIn:RequireConfirmedEmail");
+                options.SignIn.RequireConfirmedPhoneNumber = configuration.GetValue<bool>("IdentitySettings:SignIn:RequireConfirmedPhoneNumber");
             });
 
             // Hosting doesn't add IHttpContextAccessor by default
