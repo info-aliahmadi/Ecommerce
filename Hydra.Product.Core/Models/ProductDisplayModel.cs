@@ -1,5 +1,6 @@
 ﻿using Hydra.Ecommerce.Core.Enums;
 using Hydra.FileStorage.Core.Models;
+using Hydra.Kernel.Enums;
 
 
 namespace Hydra.Product.Core.Models

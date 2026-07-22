@@ -1,4 +1,5 @@
-﻿using Hydra.Ecommerce.Core.Domain;
+﻿using Hydra.Ecommerce.Core.Constants;
+using Hydra.Ecommerce.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,7 +22,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 4,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -35,7 +36,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 248,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -49,7 +50,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 8,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -63,7 +64,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 12,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -77,7 +78,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 16,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -91,7 +92,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 20,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -105,7 +106,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 24,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -119,7 +120,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 660,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -133,7 +134,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 10,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -147,7 +148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 28,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -161,7 +162,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 32,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -175,7 +176,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 51,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -189,7 +190,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 533,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -203,7 +204,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 36,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -217,7 +218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 40,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -231,7 +232,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 31,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -245,7 +246,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 44,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -259,7 +260,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 48,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -273,7 +274,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 50,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -287,7 +288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 52,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -301,7 +302,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 112,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -315,7 +316,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 56,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -329,7 +330,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 84,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -343,7 +344,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 204,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -357,7 +358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 60,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -371,7 +372,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 64,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -385,7 +386,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 68,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -399,7 +400,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 535,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -413,7 +414,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 70,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -427,7 +428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 72,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -441,7 +442,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 74,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -455,7 +456,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 76,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -469,7 +470,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 86,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -483,7 +484,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 96,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -497,7 +498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 100,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -511,7 +512,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 854,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -525,7 +526,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 108,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -539,7 +540,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 132,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -553,7 +554,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 116,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -567,7 +568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 120,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -581,7 +582,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 124,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -595,7 +596,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 136,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -609,7 +610,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 140,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -623,7 +624,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 148,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -637,7 +638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 152,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -651,7 +652,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 156,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -665,7 +666,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 162,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -679,7 +680,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 166,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -693,7 +694,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 170,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -707,7 +708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 174,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -721,7 +722,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 178,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -735,7 +736,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 180,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -749,7 +750,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 184,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -763,7 +764,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 188,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -777,7 +778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 384,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -791,7 +792,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 191,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -805,7 +806,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 192,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -819,7 +820,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 531,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -833,7 +834,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 196,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -847,7 +848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 203,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -861,7 +862,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 208,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -875,7 +876,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 262,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -889,7 +890,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 212,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -903,7 +904,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 214,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -917,7 +918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 218,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -931,7 +932,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 818,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -945,7 +946,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 222,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -959,7 +960,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 226,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -973,7 +974,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 232,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -987,7 +988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 233,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1001,7 +1002,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 748,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1015,7 +1016,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 231,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1029,7 +1030,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 238,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1043,7 +1044,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 234,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1057,7 +1058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 242,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1071,7 +1072,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 246,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1085,7 +1086,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 250,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1099,7 +1100,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 254,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1113,7 +1114,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 258,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1127,7 +1128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 260,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1141,7 +1142,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 266,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1155,7 +1156,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 270,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1169,7 +1170,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 268,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1183,7 +1184,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 276,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1197,7 +1198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 288,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1211,7 +1212,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 292,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1225,7 +1226,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 300,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1239,7 +1240,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 304,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1253,7 +1254,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 308,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1267,7 +1268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 312,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1281,7 +1282,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 316,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1295,7 +1296,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 320,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1309,7 +1310,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 831,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1323,7 +1324,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 324,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1337,7 +1338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 624,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1351,7 +1352,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 328,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1365,7 +1366,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 332,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1379,7 +1380,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 334,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1393,13 +1394,13 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 336,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
                 new Country()
                 {
-                    Id = 100,
+                    Id = DefaultSetting.DEFAULT_COUNTRY,
                     Name = "Iran",
                     TwoLetterIsoCode = "IR",
                     ThreeLetterIsoCode = "IRN",
@@ -1422,7 +1423,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 344,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1436,7 +1437,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 348,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1450,7 +1451,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 352,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1464,7 +1465,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 356,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1478,7 +1479,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 360,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1492,7 +1493,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 340,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1506,7 +1507,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 368,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1520,7 +1521,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 372,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1534,7 +1535,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 833,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1548,7 +1549,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 376,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1562,7 +1563,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 380,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1576,7 +1577,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 388,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1590,7 +1591,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 392,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1604,7 +1605,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 832,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1618,7 +1619,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 400,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1632,7 +1633,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 398,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1646,7 +1647,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 404,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1660,7 +1661,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 296,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1674,7 +1675,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 408,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1688,7 +1689,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 410,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1702,7 +1703,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 414,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1716,7 +1717,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 417,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1730,7 +1731,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 418,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1744,7 +1745,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 428,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1758,7 +1759,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 422,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1772,7 +1773,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 426,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1786,7 +1787,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 430,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1800,7 +1801,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 434,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1814,7 +1815,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 438,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1828,7 +1829,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 440,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1842,7 +1843,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 442,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1856,7 +1857,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 446,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1870,7 +1871,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 807,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1884,7 +1885,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 450,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1898,7 +1899,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 454,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1912,7 +1913,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 458,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1926,7 +1927,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 462,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1940,7 +1941,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 466,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1954,7 +1955,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 470,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1968,7 +1969,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 584,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1982,7 +1983,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 474,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -1996,7 +1997,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 478,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2010,7 +2011,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 480,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2024,7 +2025,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 175,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2038,7 +2039,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 484,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2052,7 +2053,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 583,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2066,7 +2067,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 498,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2080,7 +2081,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 492,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2094,7 +2095,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 496,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2108,7 +2109,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 499,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2122,7 +2123,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 500,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2136,7 +2137,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 504,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2150,7 +2151,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 508,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2164,7 +2165,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 104,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2178,7 +2179,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 516,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2192,7 +2193,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 520,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2206,7 +2207,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 524,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2220,7 +2221,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 528,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2234,7 +2235,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 540,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2248,7 +2249,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 554,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2262,7 +2263,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 558,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2276,7 +2277,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 562,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2290,7 +2291,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 566,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2304,7 +2305,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 570,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2318,7 +2319,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 574,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2332,7 +2333,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 580,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2346,7 +2347,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 578,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2360,7 +2361,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 512,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2374,7 +2375,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 586,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2388,7 +2389,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 585,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2402,7 +2403,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 275,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2416,7 +2417,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 591,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2430,7 +2431,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 598,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2444,7 +2445,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 600,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2458,7 +2459,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 604,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2472,7 +2473,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 608,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2486,7 +2487,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 612,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2500,7 +2501,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 616,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2514,7 +2515,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 620,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2528,7 +2529,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 630,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2542,7 +2543,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 634,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2556,7 +2557,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 638,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2570,7 +2571,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 642,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2584,7 +2585,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 643,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2598,7 +2599,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 646,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2612,7 +2613,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 652,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2626,7 +2627,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 654,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2640,7 +2641,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 659,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2654,7 +2655,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 662,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2668,7 +2669,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 663,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2682,7 +2683,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 666,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2696,7 +2697,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 670,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2710,7 +2711,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 882,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2724,7 +2725,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 674,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2738,7 +2739,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 678,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2752,7 +2753,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 682,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2766,7 +2767,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 686,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2780,7 +2781,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 688,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2794,7 +2795,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 690,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2808,7 +2809,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 694,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2822,7 +2823,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 702,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2836,7 +2837,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 534,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2850,7 +2851,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 703,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2864,7 +2865,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 705,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2878,7 +2879,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 90,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2892,7 +2893,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 706,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2906,7 +2907,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 710,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2920,7 +2921,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 239,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2934,7 +2935,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 728,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2948,7 +2949,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 724,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2962,7 +2963,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 144,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2976,7 +2977,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 729,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -2990,7 +2991,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 740,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3004,7 +3005,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 744,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3018,7 +3019,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 752,
                     SubjectToVat = true,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3032,7 +3033,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 756,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3046,7 +3047,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 760,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3060,7 +3061,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 158,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3074,7 +3075,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 762,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3088,7 +3089,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 834,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3102,7 +3103,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 764,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3116,7 +3117,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 626,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3130,7 +3131,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 768,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3144,7 +3145,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 772,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3158,7 +3159,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 776,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3172,7 +3173,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 780,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3186,7 +3187,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 788,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3200,7 +3201,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 792,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3214,7 +3215,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 795,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3228,7 +3229,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 796,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3242,7 +3243,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 798,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3256,7 +3257,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 800,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3270,7 +3271,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 804,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3284,7 +3285,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 784,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3298,7 +3299,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 826,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3312,7 +3313,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 581,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3326,7 +3327,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 840,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1,
                     LimitedToStores = false
                 },
@@ -3340,7 +3341,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 858,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3354,7 +3355,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 860,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3368,7 +3369,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 548,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3382,7 +3383,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 862,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3396,7 +3397,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 704,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3410,7 +3411,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 92,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3424,7 +3425,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 850,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3438,7 +3439,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 876,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3452,7 +3453,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 732,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3466,7 +3467,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 887,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3480,7 +3481,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 894,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 },
@@ -3494,7 +3495,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     AllowsShipping = true,
                     NumericIsoCode = 716,
                     SubjectToVat = false,
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100,
                     LimitedToStores = false
                 }

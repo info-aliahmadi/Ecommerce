@@ -1,4 +1,6 @@
-﻿namespace Hydra.Infrastructure.Payment.Paypal.Models
+﻿using Hydra.Common.Core.Models;
+
+namespace Hydra.Infrastructure.Payment.Paypal.Models
 {
     public sealed class ShippingModel
     {

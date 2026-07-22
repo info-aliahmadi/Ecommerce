@@ -6,7 +6,12 @@ namespace Hydra.Common.Core.Interfaces
 {
     public interface IStateProvinceService
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="countryId"></param>
+        /// <returns></returns>
+        Task<Result<List<StateProvinceModel>>> GetListForSelect(int countryId);
         /// <summary>
         ///
         /// </summary>

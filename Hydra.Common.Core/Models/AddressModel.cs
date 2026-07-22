@@ -9,6 +9,12 @@
         /// <returns></returns>
         public int Id { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string Title { get; set; }
+
 
         /// <summary>
         /// 
@@ -22,6 +28,11 @@
         /// </summary>
         /// <returns></returns>
         public int CountryId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string CountryName { get; set; }
 
 
         /// <summary>
@@ -29,6 +40,12 @@
         /// </summary>
         /// <returns></returns>
         public int StateProvinceId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string StateProvinceName { get; set; }
 
 
         /// <summary>
@@ -44,55 +61,11 @@
         /// <returns></returns>
         public string County { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string FirstName { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string LastName { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string PhoneNumber { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string Email { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string Company { get; set; }
-
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public string Address1 { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string Address2 { get; set; }
-
 
         /// <summary>
         /// 
@@ -105,8 +78,12 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        public string FaxNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
+        /// <summary>
+        /// GPS location
+        /// </summary>
+        public string GeoLocation { get; set; }
 
         /// <summary>
         /// 
@@ -114,6 +91,10 @@
         /// <returns></returns>
         public DateTime CreatedOnUtc { get; set; }
 
+        /// <summary>
+        /// default address
+        /// </summary>
+        public bool IsDefault { get; set; }
 
         /// <summary>
         /// 

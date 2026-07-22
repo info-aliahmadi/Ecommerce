@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Handler\PaypalHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Hydra.Ecommerce.Core\Hydra.Ecommerce.Core.csproj" />
     <ProjectReference Include="..\Hydra.Infrastructure\Hydra.Infrastructure.csproj" />
     <ProjectReference Include="..\Hydra.Payment.Core\Hydra.Payment.Core.csproj" />

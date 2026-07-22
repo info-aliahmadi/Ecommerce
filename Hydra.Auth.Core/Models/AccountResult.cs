@@ -4,7 +4,7 @@ namespace Hydra.Auth.Models
 {
     public class AccountResult
     {
-        public bool Succeeded => Status == AccountStatusEnum.Succeeded;
+        public bool Succeeded => Status == AccountStatusEnum.Succeeded || Status == AccountStatusEnum.OtpSent;
 
         public AccountStatusEnum Status { get; set; }
 

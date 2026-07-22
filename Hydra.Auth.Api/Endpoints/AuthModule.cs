@@ -27,7 +27,6 @@ namespace Hydra.Auth.Api.Endpoints
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
 
-            endpoints.MapGet(API_SCHEMA + "/ApiTest", AccountHandler.ApiTest).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/initialize", AccountHandler.InitializeHandler).AllowAnonymous();
 
             endpoints.MapPost(API_SCHEMA + "/login", AccountHandler.LoginHandler).AllowAnonymous();
@@ -68,6 +67,8 @@ namespace Hydra.Auth.Api.Endpoints
 
 
             endpoints.MapPost(API_SCHEMA + "/ChangePassword", AccountHandler.ChangePasswordHandler).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/HasPassword", AccountHandler.HasPasswordHandler).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/AddPassword", AccountHandler.AddPasswordHandler).RequireAuthorization();
 
             endpoints.MapPost(API_SCHEMA + "/GetUserList", UserHandler.GetList).RequirePermission(AuthPermissionTypes.AUTH_USER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/GetUserListForSelect", UserHandler.GetListForSelect).RequireAuthorization();

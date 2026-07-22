@@ -1,4 +1,4 @@
-﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,7 +18,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Ciudad Autonoma de Buenos Aires",
                     Abbreviation = "CABA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -28,7 +28,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Buenos Aires",
                     Abbreviation = "BA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -38,7 +38,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Catamarca",
                     Abbreviation = "CA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -48,7 +48,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Chaco",
                     Abbreviation = "CH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -58,7 +58,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Chubut",
                     Abbreviation = "CT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -68,7 +68,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Cordoba",
                     Abbreviation = "CB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -78,7 +78,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Corrientes",
                     Abbreviation = "CR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -88,7 +88,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Entre Rios",
                     Abbreviation = "ER",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -98,7 +98,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Formosa",
                     Abbreviation = "FO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -108,7 +108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Jujuy",
                     Abbreviation = "JY",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -118,7 +118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "La Pampa",
                     Abbreviation = "LP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -128,7 +128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "La Rioja",
                     Abbreviation = "LR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -138,7 +138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Mendoza",
                     Abbreviation = "MZ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -148,7 +148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Misiones",
                     Abbreviation = "MI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -158,7 +158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Neuquen",
                     Abbreviation = "NQ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -168,7 +168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Rio Negro",
                     Abbreviation = "RN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -178,7 +178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Salta",
                     Abbreviation = "SA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -188,7 +188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "San Juan",
                     Abbreviation = "SJ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -198,7 +198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "San Luis",
                     Abbreviation = "SL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -208,7 +208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Santa Cruz",
                     Abbreviation = "SC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -218,7 +218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Santa Fe",
                     Abbreviation = "SF",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -228,7 +228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Santiago del Estero",
                     Abbreviation = "SE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -238,7 +238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Tierra del Fuego",
                     Abbreviation = "TF",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -248,7 +248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 11,
                     Name = "Tucuman",
                     Abbreviation = "TU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -258,7 +258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Երևան",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -268,7 +268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Արարատի մարզ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -278,7 +278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Արմավիրի մարզ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -288,7 +288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Կոտայքի մարզ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -298,7 +298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Արագածոտնի մարտ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -308,7 +308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Գեղարքունիքի մարզ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -318,7 +318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Շիրակի մարզ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -328,7 +328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Լոռու մարզ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -338,7 +338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Վայոց ձորի մարզ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -348,7 +348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Սյունիքի մարզ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -358,7 +358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 12,
                     Name = "Տավուշի մարզ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -368,7 +368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 14,
                     Name = "Australian Capital Territory",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -378,7 +378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 14,
                     Name = "New South Wales",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -388,7 +388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 14,
                     Name = "Northern Territory",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -398,7 +398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 14,
                     Name = "Queensland",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -408,7 +408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 14,
                     Name = "South Australia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -418,7 +418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 14,
                     Name = "Tasmania",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -428,7 +428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 14,
                     Name = "Victoria",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -438,7 +438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 14,
                     Name = "Western Australia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -448,7 +448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 15,
                     Name = "Wien",
                     Abbreviation = "W",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -458,7 +458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 15,
                     Name = "Niederösterreich",
                     Abbreviation = "NÖ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -468,7 +468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 15,
                     Name = "Oberösterreich",
                     Abbreviation = "OÖ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -478,7 +478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 15,
                     Name = "Salzburg",
                     Abbreviation = "S",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -488,7 +488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 15,
                     Name = "Tirol",
                     Abbreviation = "T",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -498,7 +498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 15,
                     Name = "Vorarlberg",
                     Abbreviation = "V",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -508,7 +508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 15,
                     Name = "Burgenland",
                     Abbreviation = "B",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -518,7 +518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 15,
                     Name = "Steiermark",
                     Abbreviation = "ST",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -528,7 +528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 15,
                     Name = "Kärnten",
                     Abbreviation = "K",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -538,7 +538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "বরগুনা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -548,7 +548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "বরিশাল",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -558,7 +558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "ভোলা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -568,7 +568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "ঝালকাঠি",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -578,7 +578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "পটুয়াখালী",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -588,7 +588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "পিরোজপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -598,7 +598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "বান্দরবান",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -608,7 +608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "ব্রাহ্মণবাড়ীয়া",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -618,7 +618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "চাঁদপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -628,7 +628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "চট্টগ্রাম",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -638,7 +638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "কুমিল্লা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -648,7 +648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "কক্সবাজার",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -658,7 +658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "ফেনী",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -668,7 +668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "খাগড়াছড়ি",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -678,7 +678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "লক্ষ্মীপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -688,7 +688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "নোয়াখালী",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -698,7 +698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "রাঙ্গামাটি",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -708,7 +708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "ঢাকা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -718,7 +718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "ফরিদপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -728,7 +728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "গাজীপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -738,7 +738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "গোপালগঞ্জ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -748,7 +748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "কিশোরগঞ্জ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -758,7 +758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "মাদারীপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -768,7 +768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "মানিকগঞ্জ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -778,7 +778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "মুন্সীগঞ্জ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -788,7 +788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "নারায়ণগঞ্জ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -798,7 +798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "নরসিংদী",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -808,7 +808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "রাজবাড়ী",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -818,7 +818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "শরীয়তপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -828,7 +828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "টাঙ্গাইল",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -838,7 +838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "বাগেরহাট",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -848,7 +848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "চুয়াডাঙ্গা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -858,7 +858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "যশোর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -868,7 +868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "ঝিনাইদহ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -878,7 +878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "খুলনা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -888,7 +888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "কুষ্টিয়া",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -898,7 +898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "মাগুরা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -908,7 +908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "মেহেরপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -918,7 +918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "নড়াইল",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -928,7 +928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "সাতক্ষিরা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -938,7 +938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "জামালপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -948,7 +948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "ময়মনসিংহ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -958,7 +958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "নেত্রকোনা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -968,7 +968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "শেরপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -978,7 +978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "বগুড়া",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -988,7 +988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "জয়পুরহাট",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -998,7 +998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "নওগাঁ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1008,7 +1008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "নাটোর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1018,7 +1018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "চাঁপাই নবাবগঞ্জ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1028,7 +1028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "পাবনা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1038,7 +1038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "রাজশাহী",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1048,7 +1048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "সিরাজগঞ্জ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1058,7 +1058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "দিনাজপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1068,7 +1068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "গাইবান্ধা",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1078,7 +1078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "কুড়িগ্রাম",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1088,7 +1088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "লালমনিরহাট",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1098,7 +1098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "নীলফামারী",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1108,7 +1108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "পঞ্চগড়",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1118,7 +1118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "রংপুর",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1128,7 +1128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "ঠাকুরগাঁও",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1138,7 +1138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "হবিগঞ্জ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1148,7 +1148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "মৌলভীবাজার",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1158,7 +1158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "সুনামগঞ্জ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1168,7 +1168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 19,
                     Name = "সিলেট",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1178,7 +1178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 21,
                     Name = "Брестская область",
                     Abbreviation = "1",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1188,7 +1188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 21,
                     Name = "Витебская область",
                     Abbreviation = "2",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1198,7 +1198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 21,
                     Name = "Гомельская область",
                     Abbreviation = "3",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1208,7 +1208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 21,
                     Name = "Гродненская область",
                     Abbreviation = "4",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1218,7 +1218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 21,
                     Name = "Минская область",
                     Abbreviation = "5",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1228,7 +1228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 21,
                     Name = "Могилёвская область",
                     Abbreviation = "6",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1238,7 +1238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 21,
                     Name = "Минск",
                     Abbreviation = "7",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1248,7 +1248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 22,
                     Name = "Antwerpen",
                     Abbreviation = "ANT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1258,7 +1258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 22,
                     Name = "Brabant wallon",
                     Abbreviation = "VBR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1268,7 +1268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 22,
                     Name = "Hainaut",
                     Abbreviation = "HAI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1278,7 +1278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 22,
                     Name = "Liège",
                     Abbreviation = "LIE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1288,7 +1288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 22,
                     Name = "Limburg",
                     Abbreviation = "LIM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1298,7 +1298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 22,
                     Name = "Luxembourg",
                     Abbreviation = "LUX",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1308,7 +1308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 22,
                     Name = "Namur",
                     Abbreviation = "NAM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1318,7 +1318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 22,
                     Name = "Oost-Vlaanderen",
                     Abbreviation = "OVL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1328,7 +1328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 22,
                     Name = "Vlaams-Brabant",
                     Abbreviation = "VBR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1338,7 +1338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 22,
                     Name = "West-Vlaanderen",
                     Abbreviation = "WVL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1348,7 +1348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Acre",
                     Abbreviation = "AC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1358,7 +1358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Alagoas",
                     Abbreviation = "AL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1368,7 +1368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Amapá",
                     Abbreviation = "AP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1378,7 +1378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Amazonas",
                     Abbreviation = "AM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1388,7 +1388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Bahia",
                     Abbreviation = "BA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1398,7 +1398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Ceará",
                     Abbreviation = "CE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1408,7 +1408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Distrito Federal",
                     Abbreviation = "DF",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1418,7 +1418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Espírito Santo",
                     Abbreviation = "ES",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1428,7 +1428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Goiás",
                     Abbreviation = "GO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1438,7 +1438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Maranhão",
                     Abbreviation = "MA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1448,7 +1448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Mato Grosso",
                     Abbreviation = "MT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1458,7 +1458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Mato Grosso do Sul",
                     Abbreviation = "MS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1468,7 +1468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Minas Gerais",
                     Abbreviation = "MG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1478,7 +1478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Pará",
                     Abbreviation = "PA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1488,7 +1488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Paraíba",
                     Abbreviation = "PB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1498,7 +1498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Paraná",
                     Abbreviation = "PR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1508,7 +1508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Pernambuco",
                     Abbreviation = "PE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1518,7 +1518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Piauí",
                     Abbreviation = "PI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1528,7 +1528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Rio de Janeiro",
                     Abbreviation = "RJ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1538,7 +1538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Rio Grande do Norte",
                     Abbreviation = "RN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1548,7 +1548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Rio Grande do Sul",
                     Abbreviation = "RS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1558,7 +1558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Rondônia",
                     Abbreviation = "RO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1568,7 +1568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Roraima",
                     Abbreviation = "RR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1578,7 +1578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Santa Catarina",
                     Abbreviation = "SC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1588,7 +1588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "São Paulo",
                     Abbreviation = "SP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1598,7 +1598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Sergipe",
                     Abbreviation = "SE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1608,7 +1608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 32,
                     Name = "Tocantins",
                     Abbreviation = "TO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1618,7 +1618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 34,
                     Name = "Belait",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1628,7 +1628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 34,
                     Name = "Brunei-Muara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -1638,7 +1638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 34,
                     Name = "Temburong",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -1648,7 +1648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 34,
                     Name = "Tutong",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -1658,7 +1658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Blagoevgrad",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1668,7 +1668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Burgas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1678,7 +1678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Dobrich",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1688,7 +1688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Gabrovo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1698,7 +1698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Haskovo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1708,7 +1708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Kardzhali",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1718,7 +1718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Kyustendil",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1728,7 +1728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Lovech",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1738,7 +1738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Montana",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1748,7 +1748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Pazardzhik",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1758,7 +1758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Pernik",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1768,7 +1768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Pleven",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1778,7 +1778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Plovdiv",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1788,7 +1788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Razgrad",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1798,7 +1798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Ruse",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1808,7 +1808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Shumen",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1818,7 +1818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Silistra",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1828,7 +1828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Sliven",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1838,7 +1838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Smolyan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1848,7 +1848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Sofia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1858,7 +1858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Sofia city",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1868,7 +1868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Stara Zagora",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1878,7 +1878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Targovishte",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1888,7 +1888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Varna",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1898,7 +1898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Veliko Tarnovo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1908,7 +1908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Vidin",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1918,7 +1918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Vratsa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1928,7 +1928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 35,
                     Name = "Yambol",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -1938,7 +1938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Alberta",
                     Abbreviation = "AB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1948,7 +1948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "British Columbia",
                     Abbreviation = "BC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1958,7 +1958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Manitoba",
                     Abbreviation = "MB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1968,7 +1968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "New Brunswick",
                     Abbreviation = "NB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1978,7 +1978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Newfoundland and Labrador",
                     Abbreviation = "NL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1988,7 +1988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Northwest Territories",
                     Abbreviation = "NT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -1998,7 +1998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Nova Scotia",
                     Abbreviation = "NS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2008,7 +2008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Nunavut",
                     Abbreviation = "NU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2018,7 +2018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Ontario",
                     Abbreviation = "ON",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2028,7 +2028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Prince Edward Island",
                     Abbreviation = "PE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2038,7 +2038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Quebec",
                     Abbreviation = "QC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2048,7 +2048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Saskatchewan",
                     Abbreviation = "SK",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2058,7 +2058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 41,
                     Name = "Yukon Territory",
                     Abbreviation = "YU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2068,7 +2068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "北京市",
                     Abbreviation = "北京市",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2078,7 +2078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "天津市",
                     Abbreviation = "天津市",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -2088,7 +2088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "河北省",
                     Abbreviation = "河北省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -2098,7 +2098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "山西省",
                     Abbreviation = "山西省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -2108,7 +2108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "内蒙古自治区",
                     Abbreviation = "内蒙古自治区",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -2118,7 +2118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "辽宁省",
                     Abbreviation = "辽宁省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -2128,7 +2128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "吉林省",
                     Abbreviation = "吉林省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -2138,7 +2138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "黑龙江省",
                     Abbreviation = "黑龙江省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -2148,7 +2148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "上海市",
                     Abbreviation = "上海市",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -2158,7 +2158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "江苏省",
                     Abbreviation = "江苏省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -2168,7 +2168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "浙江省",
                     Abbreviation = "浙江省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -2178,7 +2178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "安徽省",
                     Abbreviation = "安徽省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -2188,7 +2188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "福建省",
                     Abbreviation = "福建省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -2198,7 +2198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "江西省",
                     Abbreviation = "江西省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -2208,7 +2208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "山东省",
                     Abbreviation = "山东省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -2218,7 +2218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "河南省",
                     Abbreviation = "河南省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -2228,7 +2228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "湖北省",
                     Abbreviation = "湖北省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -2238,7 +2238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "湖南省",
                     Abbreviation = "湖南省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -2248,7 +2248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "广东省",
                     Abbreviation = "广东省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -2258,7 +2258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "广西壮族自治区",
                     Abbreviation = "广西壮族自治区",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -2268,7 +2268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "海南省",
                     Abbreviation = "海南省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -2278,7 +2278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "重庆市",
                     Abbreviation = "重庆市",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -2288,7 +2288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "四川省",
                     Abbreviation = "四川省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -2298,7 +2298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "贵州省",
                     Abbreviation = "贵州省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -2308,7 +2308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "云南省",
                     Abbreviation = "云南省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 25
                 },
 
@@ -2318,7 +2318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "西藏自治区",
                     Abbreviation = "西藏自治区",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 26
                 },
 
@@ -2328,7 +2328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "陕西省",
                     Abbreviation = "陕西省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 27
                 },
 
@@ -2338,7 +2338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "甘肃省",
                     Abbreviation = "甘肃省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 28
                 },
 
@@ -2348,7 +2348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "青海省",
                     Abbreviation = "青海省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 29
                 },
 
@@ -2358,7 +2358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "宁夏回族自治区",
                     Abbreviation = "宁夏回族自治区",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 30
                 },
 
@@ -2368,7 +2368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "新疆维吾尔自治区",
                     Abbreviation = "新疆维吾尔自治区",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 31
                 },
 
@@ -2378,7 +2378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "香港特别行政区",
                     Abbreviation = "香港特别行政区",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 32
                 },
 
@@ -2388,7 +2388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "澳门特别行政区",
                     Abbreviation = "澳门特别行政区",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 33
                 },
 
@@ -2398,7 +2398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 46,
                     Name = "台湾省",
                     Abbreviation = "台湾省",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 34
                 },
 
@@ -2408,7 +2408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Amazonas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2418,7 +2418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Antioquia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2428,7 +2428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Arauca",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2438,7 +2438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Atlántico",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2448,7 +2448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Bolívar",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2458,7 +2458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Boyacá",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2468,7 +2468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Caldas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2478,7 +2478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Caquetá",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2488,7 +2488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Casanare",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2498,7 +2498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Cauca",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2508,7 +2508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Cesar",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2518,7 +2518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Chocó",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2528,7 +2528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Córdoba",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2538,7 +2538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Cundinamarca",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2548,7 +2548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Guainía",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2558,7 +2558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Guaviare",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2568,7 +2568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Huila",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2578,7 +2578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "La Guajira",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2588,7 +2588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Magdalena",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2598,7 +2598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Meta",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2608,7 +2608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Nariño",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2618,7 +2618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Norte de Santander",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2628,7 +2628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Putumayo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2638,7 +2638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Quindío",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2648,7 +2648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Risaralda",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2658,7 +2658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "San Andrés y Providencia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2668,7 +2668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Santander",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2678,7 +2678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Sucre",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2688,7 +2688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Tolima",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2698,7 +2698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Valle del Cauca",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2708,7 +2708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Vaupés",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2718,7 +2718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 49,
                     Name = "Vichada",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2728,7 +2728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 54,
                     Name = "Alajuela",
                     Abbreviation = "CR-A",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2738,7 +2738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 54,
                     Name = "Cartago",
                     Abbreviation = "CR-C",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2748,7 +2748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 54,
                     Name = "Guanacaste",
                     Abbreviation = "CR-G",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2758,7 +2758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 54,
                     Name = "Heredia",
                     Abbreviation = "CR-H",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2768,7 +2768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 54,
                     Name = "Limón",
                     Abbreviation = "CR-L",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2778,7 +2778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 54,
                     Name = "Puntarenas",
                     Abbreviation = "CR-P",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2788,7 +2788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 54,
                     Name = "San José",
                     Abbreviation = "CR-SJ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2798,7 +2798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Grad Zagreb",
                     Abbreviation = "GZG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -2808,7 +2808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Bjelovarsko-bilogorska",
                     Abbreviation = "BBŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2818,7 +2818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Brodsko-posavska",
                     Abbreviation = "BPŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2828,7 +2828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Dubrovačko-neretvanska",
                     Abbreviation = "DNŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2838,7 +2838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Istarska",
                     Abbreviation = "IŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2848,7 +2848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Karlovačka",
                     Abbreviation = "KŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2858,7 +2858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Koprivničko-križevačka",
                     Abbreviation = "KKŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2868,7 +2868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Krapinsko-zagorska",
                     Abbreviation = "KZŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2878,7 +2878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Ličko-senjska",
                     Abbreviation = "LSŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2888,7 +2888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Međimurska",
                     Abbreviation = "MŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2898,7 +2898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Osječko-baranjska",
                     Abbreviation = "OBŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2908,7 +2908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Požeško-slavonska",
                     Abbreviation = "PSŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2918,7 +2918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Primorsko-goranska",
                     Abbreviation = "PGŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2928,7 +2928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Sisačko-moslavačka",
                     Abbreviation = "SMŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2938,7 +2938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Splitsko-dalmatinska",
                     Abbreviation = "SDŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2948,7 +2948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Šibensko-kninska",
                     Abbreviation = "ŠKŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2958,7 +2958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Varaždinska",
                     Abbreviation = "VŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2968,7 +2968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Virovitičko-podravska",
                     Abbreviation = "VPŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2978,7 +2978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Vukovarsko-srijemska",
                     Abbreviation = "VSŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2988,7 +2988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Zadarska",
                     Abbreviation = "ZDŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -2998,7 +2998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 56,
                     Name = "Zagrebačka",
                     Abbreviation = "ZGŽ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -3008,7 +3008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Pinar del Río",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -3018,7 +3018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Artemisa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -3028,7 +3028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "La Habana",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -3038,7 +3038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Mayabeque",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -3048,7 +3048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Matanzas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -3058,7 +3058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Cienfuegos",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -3068,7 +3068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Villa Clara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -3078,7 +3078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Sancti Spíritus",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -3088,7 +3088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Ciego de Ávila",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -3098,7 +3098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Camagüey",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -3108,7 +3108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Las Tunas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -3118,7 +3118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Holguín",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -3128,7 +3128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Granma",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -3138,7 +3138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Santiago de Cuba",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -3148,7 +3148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Guantánamo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -3158,7 +3158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 57,
                     Name = "Isla de la Juventud",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -3168,7 +3168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 59,
                     Name = "Famagusta district",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3178,7 +3178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 59,
                     Name = "Kyrenia district",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3188,7 +3188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 59,
                     Name = "Limassol district",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3198,7 +3198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 59,
                     Name = "Larnaca district",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3208,7 +3208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 59,
                     Name = "Nicosia district",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3218,7 +3218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 59,
                     Name = "Paphos district",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3228,7 +3228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Hlavní město Praha",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3238,7 +3238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Středočeský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3248,7 +3248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Jihočeský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3258,7 +3258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Plzeňský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3268,7 +3268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Karlovarský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3278,7 +3278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Ústecký kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3288,7 +3288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Liberecký kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3298,7 +3298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Královéhradecký kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3308,7 +3308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Pardubický kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3318,7 +3318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Kraj Vysočina",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3328,7 +3328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Jihomoravský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3338,7 +3338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Olomoucký kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3348,7 +3348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Zlínský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3358,7 +3358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 60,
                     Name = "Moravskoslezský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -3368,7 +3368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 61,
                     Name = "Hovedstaden",
                     Abbreviation = "84",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -3378,7 +3378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 61,
                     Name = "Midtjylland",
                     Abbreviation = "82",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -3388,7 +3388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 61,
                     Name = "Nordjylland",
                     Abbreviation = "81",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -3398,7 +3398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 61,
                     Name = "Sjælland",
                     Abbreviation = "85",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -3408,7 +3408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 61,
                     Name = "Syddanmark",
                     Abbreviation = "83",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -3418,7 +3418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Cairo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -3428,7 +3428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Alexandria",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -3438,7 +3438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Ismailia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -3448,7 +3448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Aswan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -3458,7 +3458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Asyut",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -3468,7 +3468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Beheira",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -3478,7 +3478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Beni Suef",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -3488,7 +3488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Dakahlia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -3498,7 +3498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Damietta",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -3508,7 +3508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Faiyum",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -3518,7 +3518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Gharbia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -3528,7 +3528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Giza",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -3538,7 +3538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Kafr El Sheikh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -3548,7 +3548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Luxor",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -3558,7 +3558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Matruh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -3568,7 +3568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Minya",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -3578,7 +3578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Monufia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -3588,7 +3588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "New Valley",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -3598,7 +3598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "North Sinai",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -3608,7 +3608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Port Said",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -3618,7 +3618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Qalyubia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -3628,7 +3628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Qena",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -3638,7 +3638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Red Sea",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -3648,7 +3648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Sharqia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -3658,7 +3658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Sohag",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 25
                 },
 
@@ -3668,7 +3668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "South Sinai",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 26
                 },
 
@@ -3678,7 +3678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 66,
                     Name = "Suez",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 27
                 },
 
@@ -3688,7 +3688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Harjumaa",
                     Abbreviation = "37",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -3698,7 +3698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Hiiumaa",
                     Abbreviation = "39",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -3708,7 +3708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Ida-Virumaa",
                     Abbreviation = "44",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -3718,7 +3718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Jõgevamaa",
                     Abbreviation = "49",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -3728,7 +3728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Järvamaa",
                     Abbreviation = "51",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -3738,7 +3738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Läänemaa",
                     Abbreviation = "57",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -3748,7 +3748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Lääne-Virumaa",
                     Abbreviation = "59",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -3758,7 +3758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Põlvamaa",
                     Abbreviation = "65",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -3768,7 +3768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Pärnumaa",
                     Abbreviation = "67",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -3778,7 +3778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Raplamaa",
                     Abbreviation = "70",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -3788,7 +3788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Saaremaa",
                     Abbreviation = "74",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -3798,7 +3798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Tartumaa",
                     Abbreviation = "78",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -3808,7 +3808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Valgamaa",
                     Abbreviation = "82",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -3818,7 +3818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Viljandimaa",
                     Abbreviation = "84",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -3828,7 +3828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 70,
                     Name = "Võrumaa",
                     Abbreviation = "86",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -3838,7 +3838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Ahvenanmaan maakunta/Landskapet Åland",
                     Abbreviation = "01",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -3848,7 +3848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Etelä-Karjala/Södra Karelen",
                     Abbreviation = "02",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -3858,7 +3858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Etelä-Pohjanmaa/Södra Österbotten",
                     Abbreviation = "03",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -3868,7 +3868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Etelä-Savo/Södra Savolax",
                     Abbreviation = "04",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -3878,7 +3878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Kainuu/Kajanaland",
                     Abbreviation = "05",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -3888,7 +3888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Kanta-Häme/Egentliga Tavastland",
                     Abbreviation = "06",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -3898,7 +3898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Keski-Pohjanmaa/Mellersta Österbotten",
                     Abbreviation = "07",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -3908,7 +3908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Keski-Suomi/Mellersta Finland",
                     Abbreviation = "08",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -3918,7 +3918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Kymenlaakso/Kymmenedalen",
                     Abbreviation = "09",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -3928,7 +3928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Lappi/Lappland",
                     Abbreviation = "10",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -3938,7 +3938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Pirkanmaa/Birkaland",
                     Abbreviation = "11",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -3948,7 +3948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Pohjanmaa/Österbotten",
                     Abbreviation = "12",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -3958,7 +3958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Pohjois-Karjala/Norra Karelen",
                     Abbreviation = "13",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -3968,7 +3968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Pohjois-Pohjanmaa/Norra Österbotten",
                     Abbreviation = "14",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -3978,7 +3978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Pohjois-Savo/Norra Savolax",
                     Abbreviation = "15",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -3988,7 +3988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Päijät-Häme/Päijänne-Tavastland",
                     Abbreviation = "16",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -3998,7 +3998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Satakunta/Satakunda",
                     Abbreviation = "17",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -4008,7 +4008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Uusimaa/Nyland",
                     Abbreviation = "18",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -4018,7 +4018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 76,
                     Name = "Varsinais-Suomi/Egentliga Finland",
                     Abbreviation = "19",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -4028,7 +4028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Ain",
                     Abbreviation = "01",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -4038,7 +4038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Aisne",
                     Abbreviation = "02",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -4048,7 +4048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Allier",
                     Abbreviation = "03",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -4058,7 +4058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Alpes de Hautes-Provence",
                     Abbreviation = "04",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -4068,7 +4068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Alpes (Hautes)",
                     Abbreviation = "05",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -4078,7 +4078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Alpes Maritimes",
                     Abbreviation = "06",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -4088,7 +4088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Ardèche",
                     Abbreviation = "07",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -4098,7 +4098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Ardennes",
                     Abbreviation = "08",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -4108,7 +4108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Ariège",
                     Abbreviation = "09",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -4118,7 +4118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Aube",
                     Abbreviation = "10",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -4128,7 +4128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Aude",
                     Abbreviation = "11",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -4138,7 +4138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Aveyron",
                     Abbreviation = "12",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -4148,7 +4148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Bouches du Rhône",
                     Abbreviation = "13",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -4158,7 +4158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Calvados",
                     Abbreviation = "14",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -4168,7 +4168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Cantal",
                     Abbreviation = "15",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -4178,7 +4178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Charente",
                     Abbreviation = "16",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -4188,7 +4188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Charente Maritime",
                     Abbreviation = "17",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -4198,7 +4198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Cher",
                     Abbreviation = "18",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -4208,7 +4208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Corrèze",
                     Abbreviation = "19",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -4218,7 +4218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Corse du sud",
                     Abbreviation = "2A",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -4228,7 +4228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Haute corse",
                     Abbreviation = "2B",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -4238,7 +4238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Côte-d'Or",
                     Abbreviation = "21",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -4248,7 +4248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Côtes d'Armor",
                     Abbreviation = "22",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -4258,7 +4258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Creuse",
                     Abbreviation = "23",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 26
                 },
 
@@ -4268,7 +4268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Dordogne",
                     Abbreviation = "24",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 27
                 },
 
@@ -4278,7 +4278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Doubs",
                     Abbreviation = "25",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 28
                 },
 
@@ -4288,7 +4288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Drôme",
                     Abbreviation = "26",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 29
                 },
 
@@ -4298,7 +4298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Eure",
                     Abbreviation = "27",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 30
                 },
 
@@ -4308,7 +4308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Eure et Loir",
                     Abbreviation = "28",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 31
                 },
 
@@ -4318,7 +4318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Finistère",
                     Abbreviation = "29",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 32
                 },
 
@@ -4328,7 +4328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Gard",
                     Abbreviation = "30",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 33
                 },
 
@@ -4338,7 +4338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Garonne (Haute)",
                     Abbreviation = "31",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 34
                 },
 
@@ -4348,7 +4348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Gers",
                     Abbreviation = "32",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 35
                 },
 
@@ -4358,7 +4358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Gironde",
                     Abbreviation = "33",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 36
                 },
 
@@ -4368,7 +4368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Hérault",
                     Abbreviation = "34",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 37
                 },
 
@@ -4378,7 +4378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Ille et Vilaine",
                     Abbreviation = "35",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 38
                 },
 
@@ -4388,7 +4388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Indre",
                     Abbreviation = "36",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 39
                 },
 
@@ -4398,7 +4398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Indre et Loire",
                     Abbreviation = "37",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 40
                 },
 
@@ -4408,7 +4408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Isère",
                     Abbreviation = "38",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 41
                 },
 
@@ -4418,7 +4418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Jura",
                     Abbreviation = "39",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 42
                 },
 
@@ -4428,7 +4428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Landes",
                     Abbreviation = "40",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 43
                 },
 
@@ -4438,7 +4438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Loir et Cher",
                     Abbreviation = "41",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 44
                 },
 
@@ -4448,7 +4448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Loire",
                     Abbreviation = "42",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 45
                 },
 
@@ -4458,7 +4458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Loire (Haute)",
                     Abbreviation = "43",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 46
                 },
 
@@ -4468,7 +4468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Loire Atlantique",
                     Abbreviation = "44",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 47
                 },
 
@@ -4478,7 +4478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Loiret",
                     Abbreviation = "45",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 48
                 },
 
@@ -4488,7 +4488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Lot",
                     Abbreviation = "46",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 49
                 },
 
@@ -4498,7 +4498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Lot et Garonne",
                     Abbreviation = "47",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 50
                 },
 
@@ -4508,7 +4508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Lozère",
                     Abbreviation = "48",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 51
                 },
 
@@ -4518,7 +4518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Maine et Loire",
                     Abbreviation = "49",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 52
                 },
 
@@ -4528,7 +4528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Manche",
                     Abbreviation = "50",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 53
                 },
 
@@ -4538,7 +4538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Marne",
                     Abbreviation = "51",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 54
                 },
 
@@ -4548,7 +4548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Marne (Haute)",
                     Abbreviation = "52",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 55
                 },
 
@@ -4558,7 +4558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Mayenne",
                     Abbreviation = "53",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 56
                 },
 
@@ -4568,7 +4568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Meurthe et Moselle",
                     Abbreviation = "54",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 57
                 },
 
@@ -4578,7 +4578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Meuse",
                     Abbreviation = "55",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 58
                 },
 
@@ -4588,7 +4588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Morbihan",
                     Abbreviation = "56",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 59
                 },
 
@@ -4598,7 +4598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Moselle",
                     Abbreviation = "57",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 60
                 },
 
@@ -4608,7 +4608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Nièvre",
                     Abbreviation = "58",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 61
                 },
 
@@ -4618,7 +4618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Nord",
                     Abbreviation = "59",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 62
                 },
 
@@ -4628,7 +4628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Oise",
                     Abbreviation = "60",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 63
                 },
 
@@ -4638,7 +4638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Orne",
                     Abbreviation = "61",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 64
                 },
 
@@ -4648,7 +4648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Pas de Calais",
                     Abbreviation = "62",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 65
                 },
 
@@ -4658,7 +4658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Puy de Dôme",
                     Abbreviation = "63",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 66
                 },
 
@@ -4668,7 +4668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Pyrénées Atlantiques",
                     Abbreviation = "64",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 67
                 },
 
@@ -4678,7 +4678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Pyrénées (Hautes)",
                     Abbreviation = "65",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 68
                 },
 
@@ -4688,7 +4688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Pyrénées Orientales",
                     Abbreviation = "66",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 69
                 },
 
@@ -4698,7 +4698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Rhin (Bas)",
                     Abbreviation = "67",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 70
                 },
 
@@ -4708,7 +4708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Rhin (Haut)",
                     Abbreviation = "68",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 71
                 },
 
@@ -4718,7 +4718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Rhône",
                     Abbreviation = "69",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 72
                 },
 
@@ -4728,7 +4728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Saône (Haute)",
                     Abbreviation = "70",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 73
                 },
 
@@ -4738,7 +4738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Saône et Loire",
                     Abbreviation = "71",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 74
                 },
 
@@ -4748,7 +4748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Sarthe",
                     Abbreviation = "72",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 75
                 },
 
@@ -4758,7 +4758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Savoie",
                     Abbreviation = "73",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 76
                 },
 
@@ -4768,7 +4768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Savoie (Haute)",
                     Abbreviation = "74",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 77
                 },
 
@@ -4778,7 +4778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Paris",
                     Abbreviation = "75",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 78
                 },
 
@@ -4788,7 +4788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Seine Maritime",
                     Abbreviation = "76",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 79
                 },
 
@@ -4798,7 +4798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Seine et Marne",
                     Abbreviation = "77",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 80
                 },
 
@@ -4808,7 +4808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Yvelines",
                     Abbreviation = "78",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 81
                 },
 
@@ -4818,7 +4818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Sèvres (Deux)",
                     Abbreviation = "79",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 82
                 },
 
@@ -4828,7 +4828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Somme",
                     Abbreviation = "80",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 83
                 },
 
@@ -4838,7 +4838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Tarn",
                     Abbreviation = "81",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 84
                 },
 
@@ -4848,7 +4848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Tarn et Garonne",
                     Abbreviation = "82",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 85
                 },
 
@@ -4858,7 +4858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Var",
                     Abbreviation = "83",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 86
                 },
 
@@ -4868,7 +4868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Vaucluse",
                     Abbreviation = "84",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 87
                 },
 
@@ -4878,7 +4878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Vendée",
                     Abbreviation = "85",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 88
                 },
 
@@ -4888,7 +4888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Vienne",
                     Abbreviation = "86",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 89
                 },
 
@@ -4898,7 +4898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Vienne (Haute)",
                     Abbreviation = "87",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 90
                 },
 
@@ -4908,7 +4908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Vosges",
                     Abbreviation = "88",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 91
                 },
 
@@ -4918,7 +4918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Yonne",
                     Abbreviation = "89",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 92
                 },
 
@@ -4928,7 +4928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Belfort (Territoire de)",
                     Abbreviation = "90",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 93
                 },
 
@@ -4938,7 +4938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Essonne",
                     Abbreviation = "91",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 94
                 },
 
@@ -4948,7 +4948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Hauts de Seine",
                     Abbreviation = "92",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 95
                 },
 
@@ -4958,7 +4958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Seine Saint Denis",
                     Abbreviation = "93",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 96
                 },
 
@@ -4968,7 +4968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Val de Marne",
                     Abbreviation = "94",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 97
                 },
 
@@ -4978,7 +4978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Val d'oise",
                     Abbreviation = "95",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 98
                 },
 
@@ -4988,7 +4988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Guadeloupe",
                     Abbreviation = "971",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 99
                 },
 
@@ -4998,7 +4998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Martinique",
                     Abbreviation = "972",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 100
                 },
 
@@ -5008,7 +5008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Guyane",
                     Abbreviation = "973",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 101
                 },
 
@@ -5018,7 +5018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Réunion",
                     Abbreviation = "974",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 102
                 },
 
@@ -5028,7 +5028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Saint-Pierre-et-Miquelon",
                     Abbreviation = "975",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 103
                 },
 
@@ -5038,7 +5038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Mayotte",
                     Abbreviation = "976",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 104
                 },
 
@@ -5048,7 +5048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Terres Australes et Antarctiques",
                     Abbreviation = "984",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 105
                 },
 
@@ -5058,7 +5058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Wallis et futuna",
                     Abbreviation = "986",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 106
                 },
 
@@ -5068,7 +5068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Polynésie Française",
                     Abbreviation = "987",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 107
                 },
 
@@ -5078,7 +5078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 77,
                     Name = "Nouvelle-Calédonie",
                     Abbreviation = "988",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 108
                 },
 
@@ -5088,7 +5088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Baden-Württemberg",
                     Abbreviation = "BW",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5098,7 +5098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Bayern",
                     Abbreviation = "BY",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5108,7 +5108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Berlin",
                     Abbreviation = "BE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5118,7 +5118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Brandenburg",
                     Abbreviation = "BB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5128,7 +5128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Bremen",
                     Abbreviation = "HB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5138,7 +5138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Hamburg",
                     Abbreviation = "HH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5148,7 +5148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Hessen",
                     Abbreviation = "HE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5158,7 +5158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Mecklenburg-Vorpommern",
                     Abbreviation = "MV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5168,7 +5168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Niedersachsen",
                     Abbreviation = "NI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5178,7 +5178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Nordrhein-Westfalen",
                     Abbreviation = "NW",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5188,7 +5188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Rheinland-Pfalz",
                     Abbreviation = "RP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5198,7 +5198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Saarland",
                     Abbreviation = "SL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5208,7 +5208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Sachsen",
                     Abbreviation = "SN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5218,7 +5218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Sachsen-Anhalt",
                     Abbreviation = "ST",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5228,7 +5228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Schleswig-Holstein",
                     Abbreviation = "SH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5238,7 +5238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 84,
                     Name = "Thüringen",
                     Abbreviation = "TH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5248,7 +5248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΑΙΤΩΛΟΑΚΑΡΝΑΝΙΑΣ",
                     Abbreviation = "ΑΙΤ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -5258,7 +5258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΑΡΓΟΛΙΔΑΣ",
                     Abbreviation = "ΑΡΓ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -5268,7 +5268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΑΡΚΑΔΙΑΣ",
                     Abbreviation = "ΑΡΚ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -5278,7 +5278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΑΡΤΑΣ",
                     Abbreviation = "ΑΡΤ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -5288,7 +5288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΑΤΤΙΚΗΣ",
                     Abbreviation = "ΑΤΤ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -5298,7 +5298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΑΧΑΙΑΣ",
                     Abbreviation = "ΑΧΑ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -5308,7 +5308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΒΟΙΩΤΙΑΣ",
                     Abbreviation = "ΒΟΙ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -5318,7 +5318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΓΡΕΒΕΝΩΝ",
                     Abbreviation = "ΓΡΕ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -5328,7 +5328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΔΡΑΜΑΣ",
                     Abbreviation = "ΔΡΑ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -5338,7 +5338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΔΩΔΕΚΑΝΗΣΟΥ",
                     Abbreviation = "ΔΩΔ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -5348,7 +5348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΕΒΡΟΥ",
                     Abbreviation = "ΕΒΡ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -5358,7 +5358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΕΥΒΟΙΑΣ",
                     Abbreviation = "ΕΥΒ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -5368,7 +5368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΕΥΡΥΤΑΝΙΑΣ",
                     Abbreviation = "ΕΥΡ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -5378,7 +5378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΖΑΚΥΝΘΟΥ",
                     Abbreviation = "ΖΑΚ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -5388,7 +5388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΗΛΕΙΑΣ",
                     Abbreviation = "ΗΛΕ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -5398,7 +5398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΗΜΑΘΙΑΣ",
                     Abbreviation = "ΗΜΑ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -5408,7 +5408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΗΡΑΚΛΕΙΟΥ",
                     Abbreviation = "ΗΡΑ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -5418,7 +5418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΘΕΣΠΡΩΤΙΑΣ",
                     Abbreviation = "ΘΕΣ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -5428,7 +5428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΘΕΣΣΑΛΟΝΙΚΗΣ",
                     Abbreviation = "ΘΕΣ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -5438,7 +5438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΙΩΑΝΝΙΝΩΝ",
                     Abbreviation = "ΙΩΑ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -5448,7 +5448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΚΑΒΑΛΑΣ",
                     Abbreviation = "ΚΑΒ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -5458,7 +5458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΚΑΡΔΙΤΣΑΣ",
                     Abbreviation = "ΚΑΡ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -5468,7 +5468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΚΑΣΤΟΡΙΑΣ",
                     Abbreviation = "ΚΑΣ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -5478,7 +5478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΚΕΡΚΥΡΑΣ",
                     Abbreviation = "ΚΕΡ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -5488,7 +5488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΚΕΦΑΛΛΗΝΙΑΣ",
                     Abbreviation = "ΚΕΦ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 25
                 },
 
@@ -5498,7 +5498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΚΙΛΚΙΣ",
                     Abbreviation = "ΚΙΛ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 26
                 },
 
@@ -5508,7 +5508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΚΟΖΑΝΗΣ",
                     Abbreviation = "ΚΟΖ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 27
                 },
 
@@ -5518,7 +5518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΚΟΡΙΝΘΙΑΣ",
                     Abbreviation = "ΚΟΡ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 28
                 },
 
@@ -5528,7 +5528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΚΥΚΛΑΔΩΝ",
                     Abbreviation = "ΚΥΚ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 29
                 },
 
@@ -5538,7 +5538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΛΑΚΩΝΙΑΣ",
                     Abbreviation = "ΛΑΚ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 30
                 },
 
@@ -5548,7 +5548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΛΑΡΙΣΑΣ",
                     Abbreviation = "ΛΑΡ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 31
                 },
 
@@ -5558,7 +5558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΛΑΣΙΘΙΟΥ",
                     Abbreviation = "ΛΑΣ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 32
                 },
 
@@ -5568,7 +5568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΛΕΣΒΟΥ",
                     Abbreviation = "ΛΕΣ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 33
                 },
 
@@ -5578,7 +5578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΛΕΥΚΑΔΑΣ",
                     Abbreviation = "ΛΕΥ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 34
                 },
 
@@ -5588,7 +5588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΜΑΓΝΗΣΙΑΣ",
                     Abbreviation = "ΜΑΓ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 35
                 },
 
@@ -5598,7 +5598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΜΕΣΣΗΝΙΑΣ",
                     Abbreviation = "ΜΕΣ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 36
                 },
 
@@ -5608,7 +5608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΞΑΝΘΗΣ",
                     Abbreviation = "ΞΑΝ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 37
                 },
 
@@ -5618,7 +5618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΠΕΛΛΗΣ",
                     Abbreviation = "ΠΕΛ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 38
                 },
 
@@ -5628,7 +5628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΠΙΕΡΙΑΣ",
                     Abbreviation = "ΠΙΕ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 39
                 },
 
@@ -5638,7 +5638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΠΡΕΒΕΖΑΣ",
                     Abbreviation = "ΠΡΕ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 40
                 },
 
@@ -5648,7 +5648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΡΕΘΥΜΝΗΣ",
                     Abbreviation = "ΡΕΘ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 41
                 },
 
@@ -5658,7 +5658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΡΟΔΟΠΗΣ",
                     Abbreviation = "ΡΟΔ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 42
                 },
 
@@ -5668,7 +5668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΣΑΜΟΥ",
                     Abbreviation = "ΣΑΜ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 43
                 },
 
@@ -5678,7 +5678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΣΕΡΡΩΝ",
                     Abbreviation = "ΣΕΡ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 44
                 },
 
@@ -5688,7 +5688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΤΡΙΚΑΛΩΝ",
                     Abbreviation = "ΤΡΙ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 45
                 },
 
@@ -5698,7 +5698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΦΘΙΩΤΙΔΑΣ",
                     Abbreviation = "ΦΘΙ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 46
                 },
 
@@ -5708,7 +5708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΦΛΩΡΙΝΑΣ",
                     Abbreviation = "ΦΛΩ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 47
                 },
 
@@ -5718,7 +5718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΦΩΚΙΔΑΣ",
                     Abbreviation = "ΦΩΚ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 48
                 },
 
@@ -5728,7 +5728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΧΑΛΚΙΔΙΚΗΣ",
                     Abbreviation = "ΧΑΛ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 49
                 },
 
@@ -5738,7 +5738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΧΑΝΙΩΝ",
                     Abbreviation = "ΧΑΝ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 50
                 },
 
@@ -5748,7 +5748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 87,
                     Name = "ΧΙΟΥ",
                     Abbreviation = "ΧΙΟ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 51
                 },
 
@@ -5758,7 +5758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Budapest",
                     Abbreviation = "BU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -5768,7 +5768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Bács-Kiskun",
                     Abbreviation = "BK",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -5778,7 +5778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Baranya",
                     Abbreviation = "BA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -5788,7 +5788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Békés",
                     Abbreviation = "BE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -5798,7 +5798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Borsod-Abaúj-Zemplén",
                     Abbreviation = "BZ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -5808,7 +5808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Csongrád",
                     Abbreviation = "CS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -5818,7 +5818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Fejér",
                     Abbreviation = "FE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -5828,7 +5828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Győr-Moson-Sopron",
                     Abbreviation = "GS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -5838,7 +5838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Hajdú-Bihar",
                     Abbreviation = "HB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -5848,7 +5848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Heves",
                     Abbreviation = "HE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -5858,7 +5858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Jász-Nagykun-Szolnok",
                     Abbreviation = "JN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -5868,7 +5868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Komárom-Esztergom",
                     Abbreviation = "KE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -5878,7 +5878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Nógrád",
                     Abbreviation = "NO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -5888,7 +5888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Pest",
                     Abbreviation = "PE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -5898,7 +5898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Somogy",
                     Abbreviation = "SO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -5908,7 +5908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Szabolcs-Szatmár-Bereg",
                     Abbreviation = "SZ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -5918,7 +5918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Tolna",
                     Abbreviation = "TO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -5928,7 +5928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Vas",
                     Abbreviation = "VA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -5938,7 +5938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Veszprém",
                     Abbreviation = "VE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -5948,7 +5948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 102,
                     Name = "Zala",
                     Abbreviation = "ZA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -5958,7 +5958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 103,
                     Name = "Höfuðborgarsvæðið",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5968,7 +5968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 103,
                     Name = "Suðurnes",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5978,7 +5978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 103,
                     Name = "Vesturland",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5988,7 +5988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 103,
                     Name = "Vestfirðir",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -5998,7 +5998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 103,
                     Name = "Norðurland vestra",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6008,7 +6008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 103,
                     Name = "Norðurland eystra",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6018,7 +6018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 103,
                     Name = "Austurland",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6028,7 +6028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 103,
                     Name = "Suðurland",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6038,7 +6038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Andhra Pradesh",
                     Abbreviation = "AP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6048,7 +6048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Arunachal Pradesh",
                     Abbreviation = "AR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6058,7 +6058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Assam",
                     Abbreviation = "AS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6068,7 +6068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Bihar",
                     Abbreviation = "BR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6078,7 +6078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Chhattisgarh",
                     Abbreviation = "CT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6088,7 +6088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Goa",
                     Abbreviation = "GA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6098,7 +6098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Gujarat",
                     Abbreviation = "GJ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6108,7 +6108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Haryana",
                     Abbreviation = "HR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6118,7 +6118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Himachal Pradesh",
                     Abbreviation = "HP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6128,7 +6128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Jammu and Kashmir",
                     Abbreviation = "JK",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6138,7 +6138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Jharkhand",
                     Abbreviation = "JH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6148,7 +6148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Karnataka",
                     Abbreviation = "KA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6158,7 +6158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Kerala",
                     Abbreviation = "KL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6168,7 +6168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Madhya Pradesh",
                     Abbreviation = "MP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6178,7 +6178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Maharashtra",
                     Abbreviation = "MH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6188,7 +6188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Manipur",
                     Abbreviation = "MN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6198,7 +6198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Meghalaya",
                     Abbreviation = "ML",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6208,7 +6208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Mizoram",
                     Abbreviation = "MZ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6218,7 +6218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Nagaland",
                     Abbreviation = "NL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6228,7 +6228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Odisha",
                     Abbreviation = "OR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6238,7 +6238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Punjab",
                     Abbreviation = "PB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6248,7 +6248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Rajasthan",
                     Abbreviation = "RJ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6258,7 +6258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Sikkim",
                     Abbreviation = "SK",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6268,7 +6268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Tamil Nadu",
                     Abbreviation = "TN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6278,7 +6278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Telangana",
                     Abbreviation = "TG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6288,7 +6288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Tripura",
                     Abbreviation = "TR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6298,7 +6298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Uttarakhand",
                     Abbreviation = "UT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6308,7 +6308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Uttar Pradesh",
                     Abbreviation = "UP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6318,7 +6318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "West Bengal",
                     Abbreviation = "WB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6328,7 +6328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Andaman and Nicobar Islands",
                     Abbreviation = "AN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6338,7 +6338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Chandigarh",
                     Abbreviation = "CH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6348,7 +6348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Dadra and Nagar Haveli",
                     Abbreviation = "DN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6358,7 +6358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Daman and Diu",
                     Abbreviation = "DD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6368,7 +6368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Delhi",
                     Abbreviation = "DL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6378,7 +6378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Lakshadweep",
                     Abbreviation = "LD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6388,7 +6388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 104,
                     Name = "Puducherry",
                     Abbreviation = "PY",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6398,7 +6398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Aceh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -6408,7 +6408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Bali",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -6418,7 +6418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Banten",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -6428,7 +6428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Bengkulu",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -6438,7 +6438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Gorontalo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -6448,7 +6448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Jakarta",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -6458,7 +6458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Jambi",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -6468,7 +6468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Jawa Barat",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -6478,7 +6478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Jawa Tengah",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -6488,7 +6488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Jawa Timur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -6498,7 +6498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Kalimantan Barat",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -6508,7 +6508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Kalimantan Selatan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -6518,7 +6518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Kalimantan Tengah",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -6528,7 +6528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Kalimantan Timur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -6538,7 +6538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Kalimantan Utara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -6548,7 +6548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Kepulauan Bangka Belitung",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -6558,7 +6558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Kepulauan Riau",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -6568,7 +6568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Lampung",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -6578,7 +6578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Maluku",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -6588,7 +6588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Maluku Utara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -6598,7 +6598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Nusa Tenggara Barat",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -6608,7 +6608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Nusa Tenggara Timur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -6618,7 +6618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Papua",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -6628,7 +6628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Papua Barat",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -6638,7 +6638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Riau",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 25
                 },
 
@@ -6648,7 +6648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Sulawesi Barat",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 26
                 },
 
@@ -6658,7 +6658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Sulawesi Selatan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 27
                 },
 
@@ -6668,7 +6668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Sulawesi Tengah",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 28
                 },
 
@@ -6678,7 +6678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Sulawesi Tenggara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 29
                 },
 
@@ -6688,7 +6688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Sulawesi Utara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 30
                 },
 
@@ -6698,7 +6698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Sumatera Barat",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 31
                 },
 
@@ -6708,7 +6708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Sumatera Selatan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 32
                 },
 
@@ -6718,7 +6718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Sumatera Utara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 33
                 },
 
@@ -6728,7 +6728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 105,
                     Name = "Yogyakarta",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 34
                 },
 
@@ -6738,7 +6738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "آذربایجان شرقی",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6748,7 +6748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "آذربایجان غربی",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6758,7 +6758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "اردبیل",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6768,7 +6768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "اصفهان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6778,7 +6778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "البرز",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6788,7 +6788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "ایلام",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6798,7 +6798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "بوشهر",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6808,7 +6808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "تهران",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6818,7 +6818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "چهارمحال و بختیاری",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6828,7 +6828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "خراسان جنوبی",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6838,7 +6838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "خراسان رضوی",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6848,7 +6848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "خراسان شمالی",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6858,7 +6858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "خوزستان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6868,7 +6868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "زنجان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6878,7 +6878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "سمنان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6888,7 +6888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "سیستان و بلوچستان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6898,7 +6898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "فارس",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6908,7 +6908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "قزوین",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6918,7 +6918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "قم",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6928,7 +6928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "کردستان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6938,7 +6938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "کرمان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6948,7 +6948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "کرمانشاه",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6958,7 +6958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "کهگیلویه و بویراحمد",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6968,7 +6968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "گلستان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6978,7 +6978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "گیلان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6988,7 +6988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "لرستان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -6998,7 +6998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "مازندران",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -7008,7 +7008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "مرکزی",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -7018,7 +7018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "هرمزگان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -7028,7 +7028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "همدان",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -7038,7 +7038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 106,
                     Name = "یزد",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -7048,7 +7048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Carlow",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7058,7 +7058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Cavan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -7068,7 +7068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Clare",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -7078,7 +7078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Cork",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -7088,7 +7088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Donegal",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -7098,7 +7098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Dublin",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -7108,7 +7108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Galway",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -7118,7 +7118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Kerry",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -7128,7 +7128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Kildare",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -7138,7 +7138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Kilkenny",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -7148,7 +7148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Laois",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -7158,7 +7158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Leitrim",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -7168,7 +7168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Limerick",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -7178,7 +7178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Longford",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -7188,7 +7188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Louth",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -7198,7 +7198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Mayo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -7208,7 +7208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Meath",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -7218,7 +7218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Monaghan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -7228,7 +7228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Offaly",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -7238,7 +7238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Roscommon",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -7248,7 +7248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Sligo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -7258,7 +7258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Tipperary",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -7268,7 +7268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Waterford",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -7278,7 +7278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Westmeath",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -7288,7 +7288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Wexford",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 25
                 },
 
@@ -7298,7 +7298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 108,
                     Name = "County Wicklow",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 26
                 },
 
@@ -7308,7 +7308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Agrigento",
                     Abbreviation = "AG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7318,7 +7318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Alessandria",
                     Abbreviation = "AL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7328,7 +7328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Ancona",
                     Abbreviation = "AN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7338,7 +7338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Aosta",
                     Abbreviation = "AO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7348,7 +7348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Arezzo",
                     Abbreviation = "AR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7358,7 +7358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Ascoli Piceno",
                     Abbreviation = "AP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7368,7 +7368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Asti",
                     Abbreviation = "AT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7378,7 +7378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Avellino",
                     Abbreviation = "AV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7388,7 +7388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Bari",
                     Abbreviation = "BA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7398,7 +7398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Barletta-Andria-Trani",
                     Abbreviation = "BT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7408,7 +7408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Belluno",
                     Abbreviation = "BL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7418,7 +7418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Benevento",
                     Abbreviation = "BN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7428,7 +7428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Bergamo",
                     Abbreviation = "BG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7438,7 +7438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Biella",
                     Abbreviation = "BI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7448,7 +7448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Bologna",
                     Abbreviation = "BO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7458,7 +7458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Bolzano",
                     Abbreviation = "BZ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7468,7 +7468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Brescia",
                     Abbreviation = "BS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7478,7 +7478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Brindisi",
                     Abbreviation = "BR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7488,7 +7488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Cagliari",
                     Abbreviation = "CA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7498,7 +7498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Caltanissetta",
                     Abbreviation = "CL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7508,7 +7508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Campobasso",
                     Abbreviation = "CB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7518,7 +7518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Carbonia-Iglesias",
                     Abbreviation = "CI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7528,7 +7528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Caserta",
                     Abbreviation = "CE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7538,7 +7538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Catania",
                     Abbreviation = "CT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7548,7 +7548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Catanzaro",
                     Abbreviation = "CZ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7558,7 +7558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Chieti",
                     Abbreviation = "CH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7568,7 +7568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Como",
                     Abbreviation = "CO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7578,7 +7578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Cosenza",
                     Abbreviation = "CS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7588,7 +7588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Cremona",
                     Abbreviation = "CR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7598,7 +7598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Crotone",
                     Abbreviation = "KR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7608,7 +7608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Cuneo",
                     Abbreviation = "CN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7618,7 +7618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Enna",
                     Abbreviation = "EN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7628,7 +7628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Fermo",
                     Abbreviation = "FM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7638,7 +7638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Ferrara",
                     Abbreviation = "FE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7648,7 +7648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Firenze",
                     Abbreviation = "FI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7658,7 +7658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Foggia",
                     Abbreviation = "FG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7668,7 +7668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Forlì-Cesena",
                     Abbreviation = "FC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7678,7 +7678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Frosinone",
                     Abbreviation = "FR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7688,7 +7688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Genova",
                     Abbreviation = "GE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7698,7 +7698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Gorizia",
                     Abbreviation = "GO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7708,7 +7708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Grosseto",
                     Abbreviation = "GR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7718,7 +7718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Imperia",
                     Abbreviation = "IM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7728,7 +7728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Isernia",
                     Abbreviation = "IS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7738,7 +7738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "La Spezia",
                     Abbreviation = "SP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7748,7 +7748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "L'Aquila",
                     Abbreviation = "AQ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7758,7 +7758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Latina",
                     Abbreviation = "LT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7768,7 +7768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Lecce",
                     Abbreviation = "LE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7778,7 +7778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Lecco",
                     Abbreviation = "LC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7788,7 +7788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Livorno",
                     Abbreviation = "LI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7798,7 +7798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Lodi",
                     Abbreviation = "LO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7808,7 +7808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Lucca",
                     Abbreviation = "LU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7818,7 +7818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Macerata",
                     Abbreviation = "MC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7828,7 +7828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Mantova",
                     Abbreviation = "MN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7838,7 +7838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Massa-Carrara",
                     Abbreviation = "MS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7848,7 +7848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Matera",
                     Abbreviation = "MT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7858,7 +7858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Medio Campidano",
                     Abbreviation = "VS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7868,7 +7868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Messina",
                     Abbreviation = "ME",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7878,7 +7878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Milano",
                     Abbreviation = "MI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7888,7 +7888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Modena",
                     Abbreviation = "MO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7898,7 +7898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Monza e della Brianza",
                     Abbreviation = "MB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7908,7 +7908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Napoli",
                     Abbreviation = "NA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7918,7 +7918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Novara",
                     Abbreviation = "NO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7928,7 +7928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Nuoro",
                     Abbreviation = "NU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7938,7 +7938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Ogliastra",
                     Abbreviation = "OG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7948,7 +7948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Olbia-Tempio",
                     Abbreviation = "OT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7958,7 +7958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Oristano",
                     Abbreviation = "OR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7968,7 +7968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Padova",
                     Abbreviation = "PD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7978,7 +7978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Palermo",
                     Abbreviation = "PA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7988,7 +7988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Parma",
                     Abbreviation = "PR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -7998,7 +7998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Pavia",
                     Abbreviation = "PV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8008,7 +8008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Perugia",
                     Abbreviation = "PG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8018,7 +8018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Pesaro e Urbino",
                     Abbreviation = "PU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8028,7 +8028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Pescara",
                     Abbreviation = "PE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8038,7 +8038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Piacenza",
                     Abbreviation = "PC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8048,7 +8048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Pisa",
                     Abbreviation = "PI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8058,7 +8058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Pistoia",
                     Abbreviation = "PT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8068,7 +8068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Pordenone",
                     Abbreviation = "PN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8078,7 +8078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Potenza",
                     Abbreviation = "PZ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8088,7 +8088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Prato",
                     Abbreviation = "PO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8098,7 +8098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Ragusa",
                     Abbreviation = "RG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8108,7 +8108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Ravenna",
                     Abbreviation = "RA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8118,7 +8118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Reggio Calabria",
                     Abbreviation = "RC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8128,7 +8128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Reggio Emilia",
                     Abbreviation = "RE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8138,7 +8138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Rieti",
                     Abbreviation = "RI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8148,7 +8148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Rimini",
                     Abbreviation = "RN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8158,7 +8158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Roma",
                     Abbreviation = "RM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8168,7 +8168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Rovigo",
                     Abbreviation = "RO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8178,7 +8178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Salerno",
                     Abbreviation = "SA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8188,7 +8188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Sassari",
                     Abbreviation = "SS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8198,7 +8198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Savona",
                     Abbreviation = "SV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8208,7 +8208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Siena",
                     Abbreviation = "SI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8218,7 +8218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Siracusa",
                     Abbreviation = "SR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8228,7 +8228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Sondrio",
                     Abbreviation = "SO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8238,7 +8238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Taranto",
                     Abbreviation = "TA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8248,7 +8248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Teramo",
                     Abbreviation = "TE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8258,7 +8258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Terni",
                     Abbreviation = "TR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8268,7 +8268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Torino",
                     Abbreviation = "TO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8278,7 +8278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Trapani",
                     Abbreviation = "TP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8288,7 +8288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Trento",
                     Abbreviation = "TN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8298,7 +8298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Treviso",
                     Abbreviation = "TV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8308,7 +8308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Trieste",
                     Abbreviation = "TS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8318,7 +8318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Udine",
                     Abbreviation = "UD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8328,7 +8328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Varese",
                     Abbreviation = "VA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8338,7 +8338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Venezia",
                     Abbreviation = "VE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8348,7 +8348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Verbano-Cusio-Ossola",
                     Abbreviation = "VB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8358,7 +8358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Vercelli",
                     Abbreviation = "VC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8368,7 +8368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Verona",
                     Abbreviation = "VR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8378,7 +8378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Vibo Valentia",
                     Abbreviation = "VV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8388,7 +8388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Vicenza",
                     Abbreviation = "VI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8398,7 +8398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 111,
                     Name = "Viterbo",
                     Abbreviation = "VT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -8408,7 +8408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 121,
                     Name = "Al Asimah",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8418,7 +8418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 121,
                     Name = "Hawalli",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8428,7 +8428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 121,
                     Name = "Al Farwaniya",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8438,7 +8438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 121,
                     Name = "Mubarak Al Kabeer",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8448,7 +8448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 121,
                     Name = "Al Ahmadi",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8458,7 +8458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 121,
                     Name = "Al Jahraa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8468,7 +8468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 130,
                     Name = "Alytaus apskritis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8478,7 +8478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 130,
                     Name = "Kauno apskritis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8488,7 +8488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 130,
                     Name = "Klaipėdos apskritis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8498,7 +8498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 130,
                     Name = "Marijampolės apskritis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8508,7 +8508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 130,
                     Name = "Panevėžio apskritis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8518,7 +8518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 130,
                     Name = "Šiaulių apskritis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8528,7 +8528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 130,
                     Name = "Tauragės apskritis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8538,7 +8538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 130,
                     Name = "Telšių apskritis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8548,7 +8548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 130,
                     Name = "Utenos apskritis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8558,7 +8558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 130,
                     Name = "Vilniaus apskritis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8568,7 +8568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Capellen",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8578,7 +8578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Clerveaux",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8588,7 +8588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Diekirch",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8598,7 +8598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Echternach",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8608,7 +8608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Esch-Sur-Azette",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8618,7 +8618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Greven-Macher",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8628,7 +8628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Luxembourg Campagne",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8638,7 +8638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Mersch",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8648,7 +8648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Redange",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8658,7 +8658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Remich",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8668,7 +8668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Vianden",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8678,7 +8678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 131,
                     Name = "Wiltz",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8688,7 +8688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Johor",
                     Abbreviation = "JHR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8698,7 +8698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Kedah",
                     Abbreviation = "KDH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8708,7 +8708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Kelantan",
                     Abbreviation = "KTN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8718,7 +8718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Kuala Lumpur",
                     Abbreviation = "KUL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8728,7 +8728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Labuan",
                     Abbreviation = "LBN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8738,7 +8738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Melaka",
                     Abbreviation = "MLK",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8748,7 +8748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Negeri Sembilan",
                     Abbreviation = "NSN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8758,7 +8758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Pahang",
                     Abbreviation = "PHG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8768,7 +8768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Perak",
                     Abbreviation = "PRK",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8778,7 +8778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Perlis",
                     Abbreviation = "PLS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8788,7 +8788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Pulau Pinang",
                     Abbreviation = "PNG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8798,7 +8798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Putrajaya",
                     Abbreviation = "PJY",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8808,7 +8808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Sabah",
                     Abbreviation = "SBH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8818,7 +8818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Sarawak",
                     Abbreviation = "SWK",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8828,7 +8828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Selangor",
                     Abbreviation = "SGR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8838,7 +8838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 136,
                     Name = "Terengganu",
                     Abbreviation = "TRG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8848,7 +8848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Aguascalientes",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8858,7 +8858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Baja California",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8868,7 +8868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Baja California Sur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8878,7 +8878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Campeche",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8888,7 +8888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Chiapas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8898,7 +8898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Chihuahua",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8908,7 +8908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Coahuila",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8918,7 +8918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Colima",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8928,7 +8928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Distrito Federal",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8938,7 +8938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Durango",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8948,7 +8948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Estado de México",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8958,7 +8958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Guanajuato",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8968,7 +8968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Guerrero",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8978,7 +8978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Hidalgo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8988,7 +8988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Jalisco",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -8998,7 +8998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Michoacán",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9008,7 +9008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Morelos",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9018,7 +9018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Nayarit",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9028,7 +9028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Nuevo León",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9038,7 +9038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Oaxaca",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9048,7 +9048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Puebla",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9058,7 +9058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Querétaro",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9068,7 +9068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Quintana Roo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9078,7 +9078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "San Luis Potosí",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9088,7 +9088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Sinaloa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9098,7 +9098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Sonora",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9108,7 +9108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Tabasco",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9118,7 +9118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Tamaulipas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9128,7 +9128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Tlaxcala",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9138,7 +9138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Veracruz",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9148,7 +9148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Yucatán",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9158,7 +9158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 145,
                     Name = "Zacatecas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9168,7 +9168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Улаанбаатар хот - Багануур дүүрэг",
                     Abbreviation = "БН",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -9178,7 +9178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Улаанбаатар хот - Багахангай дүүрэг",
                     Abbreviation = "БХ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -9188,7 +9188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Улаанбаатар хот - Баянгол дүүрэг",
                     Abbreviation = "БГ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -9198,7 +9198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Улаанбаатар хот - Баянзүрх дүүрэг",
                     Abbreviation = "БЗ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -9208,7 +9208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Улаанбаатар хот - Налайх дүүрэг",
                     Abbreviation = "НА",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -9218,7 +9218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Улаанбаатар хот - Сонгино хайрхан дүүрэг",
                     Abbreviation = "СХ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -9228,7 +9228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Улаанбаатар хот - Сүхбаатар дүүрэг",
                     Abbreviation = "СБ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -9238,7 +9238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Улаанбаатар хот - Хан-Уул дүүрэг",
                     Abbreviation = "ХУ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -9248,7 +9248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Улаанбаатар хот - Чингэлтэй дүүрэг",
                     Abbreviation = "ЧИ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -9258,7 +9258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Архангай аймаг",
                     Abbreviation = "АР",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9268,7 +9268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Баян-Өлгий аймаг",
                     Abbreviation = "БӨ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9278,7 +9278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Баянхонгор аймаг",
                     Abbreviation = "БХ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9288,7 +9288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Булган аймаг",
                     Abbreviation = "БУ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9298,7 +9298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Өвөрхангай аймаг",
                     Abbreviation = "ӨВ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9308,7 +9308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Говь-Алтай аймаг",
                     Abbreviation = "ГА",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9318,7 +9318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Говьсүмбэр аймаг",
                     Abbreviation = "ГС",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9328,7 +9328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Дархан-Уул аймаг",
                     Abbreviation = "ДА",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9338,7 +9338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Дорноговь аймаг",
                     Abbreviation = "ДГ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9348,7 +9348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Дорнод аймаг",
                     Abbreviation = "ДО",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9358,7 +9358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Дундговь аймаг",
                     Abbreviation = "ДУ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9368,7 +9368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Завхан аймаг",
                     Abbreviation = "ЗА",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9378,7 +9378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Өмнөговь аймаг",
                     Abbreviation = "ӨМ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9388,7 +9388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Орхон аймаг",
                     Abbreviation = "ОР",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9398,7 +9398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Сүхбаатар аймаг",
                     Abbreviation = "СҮ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9408,7 +9408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Сэлэнгэ аймаг",
                     Abbreviation = "СЭ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9418,7 +9418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Төв аймаг",
                     Abbreviation = "ТӨ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9428,7 +9428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Увс аймаг",
                     Abbreviation = "УВ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9438,7 +9438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Хөвсгөл аймаг",
                     Abbreviation = "ХӨ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9448,7 +9448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Ховд аймаг",
                     Abbreviation = "ХО",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9458,7 +9458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 149,
                     Name = "Хэнтий аймаг",
                     Abbreviation = "ХЭ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9468,7 +9468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Agadir",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9478,7 +9478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Beni mellal",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9488,7 +9488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Berkane",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9498,7 +9498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Casablanca",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9508,7 +9508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "El jadida",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9518,7 +9518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Fes",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9528,7 +9528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Inezgane",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9538,7 +9538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Kenitra",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9548,7 +9548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Khemisset",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9558,7 +9558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Khenifra",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9568,7 +9568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Khouribga",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9578,7 +9578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Laayoune",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9588,7 +9588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Marrakech",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9598,7 +9598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Meknes",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9608,7 +9608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Mohammedia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9618,7 +9618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Nador",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9628,7 +9628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Oujda",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9638,7 +9638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Rabat",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9648,7 +9648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Safi",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9658,7 +9658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Sale",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9668,7 +9668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Tanger",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9678,7 +9678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Taza",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9688,7 +9688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Temara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9698,7 +9698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 152,
                     Name = "Tetouan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9708,7 +9708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 157,
                     Name = "Province No. 1",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -9718,7 +9718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 157,
                     Name = "Province No. 2",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -9728,7 +9728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 157,
                     Name = "Province No. 3",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -9738,7 +9738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 157,
                     Name = "Gandaki Pradesh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -9748,7 +9748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 157,
                     Name = "Province No. 5",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -9758,7 +9758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 157,
                     Name = "Karnali Pradesh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -9768,7 +9768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 157,
                     Name = "Sudurpashchim Pradesh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -9778,7 +9778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Drenthe",
                     Abbreviation = "DR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9788,7 +9788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Flevoland",
                     Abbreviation = "FL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9798,7 +9798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Friesland",
                     Abbreviation = "FR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9808,7 +9808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Gelderland",
                     Abbreviation = "GD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9818,7 +9818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Groningen",
                     Abbreviation = "GR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9828,7 +9828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Limburg",
                     Abbreviation = "LB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9838,7 +9838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Noord-Brabant",
                     Abbreviation = "NB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9848,7 +9848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Noord-Holland",
                     Abbreviation = "NH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9858,7 +9858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Overijssel",
                     Abbreviation = "OV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9868,7 +9868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Utrecht",
                     Abbreviation = "UT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9878,7 +9878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Zeeland",
                     Abbreviation = "ZL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9888,7 +9888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 158,
                     Name = "Zuid-Holland",
                     Abbreviation = "ZH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9898,7 +9898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Northland",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9908,7 +9908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Auckland",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9918,7 +9918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Waikato",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9928,7 +9928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Waitomo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9938,7 +9938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Bay of Plenty",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9948,7 +9948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Taupo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9958,7 +9958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "King Country",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9968,7 +9968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Taranaki",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9978,7 +9978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Wanganui",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9988,7 +9988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Manawatu",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -9998,7 +9998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Horowhenua",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10008,7 +10008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Kapiti",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10018,7 +10018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Gisborne",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10028,7 +10028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Hawkes Bay",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10038,7 +10038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Wairarapa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10048,7 +10048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Wellington",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10058,7 +10058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Nelson",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10068,7 +10068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Marlborough",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10078,7 +10078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Buller",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10088,7 +10088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "West Coast",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10098,7 +10098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Canterbury",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10108,7 +10108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Otago",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10118,7 +10118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 160,
                     Name = "Southland",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10128,7 +10128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Abia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10138,7 +10138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Adamawa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10148,7 +10148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Akwa Ibom",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10158,7 +10158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Anambra",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10168,7 +10168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Bauchi",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10178,7 +10178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Bayelsa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10188,7 +10188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Benue",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10198,7 +10198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Borno",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10208,7 +10208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Cross River",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10218,7 +10218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Delta",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10228,7 +10228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Ebonyi",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10238,7 +10238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Edo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10248,7 +10248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Enugu",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10258,7 +10258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Ekiti",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10268,7 +10268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "FCT",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10278,7 +10278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Gombe",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10288,7 +10288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Imo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10298,7 +10298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Jigawa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10308,7 +10308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Kaduna",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10318,7 +10318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Kano",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10328,7 +10328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Katsina",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10338,7 +10338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Kebbi",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10348,7 +10348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Kogi",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10358,7 +10358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Kwara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10368,7 +10368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Lagos",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10378,7 +10378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Nasarawa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10388,7 +10388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Niger",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10398,7 +10398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Ogun",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10408,7 +10408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Ondo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10418,7 +10418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Osun",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10428,7 +10428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Oyo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10438,7 +10438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Plateau",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10448,7 +10448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Rivers",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10458,7 +10458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Sokoto",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10468,7 +10468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Taraba",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10478,7 +10478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Yobe",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10488,7 +10488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 163,
                     Name = "Zamafara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10498,7 +10498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Østfold",
                     Abbreviation = "01",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -10508,7 +10508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Akershus",
                     Abbreviation = "02",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -10518,7 +10518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Oslo",
                     Abbreviation = "03",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -10528,7 +10528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Hedmark",
                     Abbreviation = "04",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -10538,7 +10538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Oppland",
                     Abbreviation = "05",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -10548,7 +10548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Buskerud",
                     Abbreviation = "06",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -10558,7 +10558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Vestfold",
                     Abbreviation = "07",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -10568,7 +10568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Telemark",
                     Abbreviation = "08",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -10578,7 +10578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Aust-Agder",
                     Abbreviation = "09",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -10588,7 +10588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Vest-Agder",
                     Abbreviation = "10",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -10598,7 +10598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Rogaland",
                     Abbreviation = "11",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -10608,7 +10608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Hordaland",
                     Abbreviation = "12",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -10618,7 +10618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Sogn og Fjordane",
                     Abbreviation = "14",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -10628,7 +10628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Møre og Romsdal",
                     Abbreviation = "15",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -10638,7 +10638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Sør-Trøndelag",
                     Abbreviation = "16",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -10648,7 +10648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Nord-Trøndelag",
                     Abbreviation = "17",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -10658,7 +10658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Nordland",
                     Abbreviation = "18",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -10668,7 +10668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Troms",
                     Abbreviation = "19",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -10678,7 +10678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Finnmark",
                     Abbreviation = "20",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -10688,7 +10688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Svalbard",
                     Abbreviation = "21",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -10698,7 +10698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 167,
                     Name = "Jan Mayen",
                     Abbreviation = "22",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -10708,7 +10708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 169,
                     Name = "Azad Kashmir",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10718,7 +10718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 169,
                     Name = "Balochistan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10728,7 +10728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 169,
                     Name = "Capital Territory",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10738,7 +10738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 169,
                     Name = "Gilgit–Baltistan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10748,7 +10748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 169,
                     Name = "Khyber Pakhtunkhwa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10758,7 +10758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 169,
                     Name = "Punjab",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10768,7 +10768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 169,
                     Name = "Sindh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10778,7 +10778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 169,
                     Name = "Tribal Areas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -10788,7 +10788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Abra",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -10798,7 +10798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Agusan del Norte",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -10808,7 +10808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Agusan del Sur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -10818,7 +10818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Aklan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -10828,7 +10828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Albay",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -10838,7 +10838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Antique",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -10848,7 +10848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Apayao",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -10858,7 +10858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Aurora",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -10868,7 +10868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Basilan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -10878,7 +10878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Bataan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -10888,7 +10888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Batanes",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -10898,7 +10898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Batangas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -10908,7 +10908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Benguet",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -10918,7 +10918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Biliran",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -10928,7 +10928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Bohol",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -10938,7 +10938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Bukidnon",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -10948,7 +10948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Bulacan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -10958,7 +10958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Cagayan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -10968,7 +10968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Camarines Norte",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -10978,7 +10978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Camarines Sur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -10988,7 +10988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Camiguin",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -10998,7 +10998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Capiz",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -11008,7 +11008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Catanduanes",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -11018,7 +11018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Cavite",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -11028,7 +11028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Cebu",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 25
                 },
 
@@ -11038,7 +11038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Compostela Valley",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 26
                 },
 
@@ -11048,7 +11048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Cotabato",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 27
                 },
 
@@ -11058,7 +11058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Davao del Norte",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 28
                 },
 
@@ -11068,7 +11068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Davao del Sur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 29
                 },
 
@@ -11078,7 +11078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Davao Occidental",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 30
                 },
 
@@ -11088,7 +11088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Davao Oriental",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 31
                 },
 
@@ -11098,7 +11098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Dinagat Islands",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 32
                 },
 
@@ -11108,7 +11108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Eastern Samar",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 33
                 },
 
@@ -11118,7 +11118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Guimaras",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 34
                 },
 
@@ -11128,7 +11128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Ifugao",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 35
                 },
 
@@ -11138,7 +11138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Ilocos Norte",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 36
                 },
 
@@ -11148,7 +11148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Ilocos Sur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 37
                 },
 
@@ -11158,7 +11158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Iloilo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 38
                 },
 
@@ -11168,7 +11168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Isabela",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 39
                 },
 
@@ -11178,7 +11178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Kalinga",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 40
                 },
 
@@ -11188,7 +11188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "La Union",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 41
                 },
 
@@ -11198,7 +11198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Laguna",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 42
                 },
 
@@ -11208,7 +11208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Lanao del Norte",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 43
                 },
 
@@ -11218,7 +11218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Lanao del Sur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 44
                 },
 
@@ -11228,7 +11228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Leyte",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 45
                 },
 
@@ -11238,7 +11238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Maguindanao",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 46
                 },
 
@@ -11248,7 +11248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Marinduque",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 47
                 },
 
@@ -11258,7 +11258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Masbate",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 48
                 },
 
@@ -11268,7 +11268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Misamis Occidental",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 49
                 },
 
@@ -11278,7 +11278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Misamis Oriental",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 50
                 },
 
@@ -11288,7 +11288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Mountain Province",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 51
                 },
 
@@ -11298,7 +11298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Negros Occidental",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 52
                 },
 
@@ -11308,7 +11308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Negros Oriental",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 53
                 },
 
@@ -11318,7 +11318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Northern Samar",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 54
                 },
 
@@ -11328,7 +11328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Nueva Ecija",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 55
                 },
 
@@ -11338,7 +11338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Nueva Vizcaya",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 56
                 },
 
@@ -11348,7 +11348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Occidental Mindoro",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 57
                 },
 
@@ -11358,7 +11358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Oriental Mindoro",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 58
                 },
 
@@ -11368,7 +11368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Palawan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 59
                 },
 
@@ -11378,7 +11378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Pampanga",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 60
                 },
 
@@ -11388,7 +11388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Pangasinan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 61
                 },
 
@@ -11398,7 +11398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Quezon",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 62
                 },
 
@@ -11408,7 +11408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Quirino",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 63
                 },
 
@@ -11418,7 +11418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Rizal",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 64
                 },
 
@@ -11428,7 +11428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Romblon",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 65
                 },
 
@@ -11438,7 +11438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Samar",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 66
                 },
 
@@ -11448,7 +11448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Sarangani",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 67
                 },
 
@@ -11458,7 +11458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Siquijor",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 68
                 },
 
@@ -11468,7 +11468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Sorsogon",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 69
                 },
 
@@ -11478,7 +11478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "South Cotabato",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 70
                 },
 
@@ -11488,7 +11488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Southern Leyte",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 71
                 },
 
@@ -11498,7 +11498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Sultan Kudarat",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 72
                 },
 
@@ -11508,7 +11508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Sulu",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 73
                 },
 
@@ -11518,7 +11518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Surigao del Norte",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 74
                 },
 
@@ -11528,7 +11528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Surigao del Sur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 75
                 },
 
@@ -11538,7 +11538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Tarlac",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 76
                 },
 
@@ -11548,7 +11548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Tawi-Tawi",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 77
                 },
 
@@ -11558,7 +11558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Zambales",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 78
                 },
 
@@ -11568,7 +11568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Zamboanga del Norte",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 79
                 },
 
@@ -11578,7 +11578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Zamboanga del Sur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 80
                 },
 
@@ -11588,7 +11588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Zamboanga Sibugay",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 81
                 },
 
@@ -11598,7 +11598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 176,
                     Name = "Metro Manila",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 82
                 },
 
@@ -11608,7 +11608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Dolnośląskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11618,7 +11618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Kujawsko-pomorskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11628,7 +11628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Lubelskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11638,7 +11638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Lubuskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11648,7 +11648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Łódzkie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11658,7 +11658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Małopolskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11668,7 +11668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Mazowieckie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11678,7 +11678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Opolskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11688,7 +11688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Podkarpackie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11698,7 +11698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Podlaskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11708,7 +11708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Pomorskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11718,7 +11718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Śląskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11728,7 +11728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Świętokrzyskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11738,7 +11738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Warmińsko-mazurskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11748,7 +11748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Wielkopolskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11758,7 +11758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 178,
                     Name = "Zachodniopomorskie",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -11768,7 +11768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Aveiro",
                     Abbreviation = "01",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -11778,7 +11778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Beja",
                     Abbreviation = "02",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -11788,7 +11788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Braga",
                     Abbreviation = "03",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -11798,7 +11798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Bragança",
                     Abbreviation = "04",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -11808,7 +11808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Castelo Branco",
                     Abbreviation = "05",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -11818,7 +11818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Coimbra",
                     Abbreviation = "06",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -11828,7 +11828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Évora",
                     Abbreviation = "07",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -11838,7 +11838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Faro",
                     Abbreviation = "08",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -11848,7 +11848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Guarda",
                     Abbreviation = "09",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -11858,7 +11858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Leiria",
                     Abbreviation = "10",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -11868,7 +11868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Lisboa",
                     Abbreviation = "11",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -11878,7 +11878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Portalegre",
                     Abbreviation = "12",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -11888,7 +11888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Porto",
                     Abbreviation = "13",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -11898,7 +11898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Santarém",
                     Abbreviation = "14",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -11908,7 +11908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Setúbal",
                     Abbreviation = "15",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -11918,7 +11918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Viana do Castelo",
                     Abbreviation = "16",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -11928,7 +11928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Vila Real",
                     Abbreviation = "17",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -11938,7 +11938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Viseu",
                     Abbreviation = "18",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -11948,7 +11948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Região Autónoma dos Açores",
                     Abbreviation = "20",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -11958,7 +11958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 179,
                     Name = "Região Autónoma da Madeira",
                     Abbreviation = "30",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -11968,7 +11968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Alba",
                     Abbreviation = "AB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -11978,7 +11978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Arad",
                     Abbreviation = "AR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -11988,7 +11988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Argeș",
                     Abbreviation = "AG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -11998,7 +11998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Bacău",
                     Abbreviation = "BC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -12008,7 +12008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Bihor",
                     Abbreviation = "BH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -12018,7 +12018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Bistrița-Năsăud",
                     Abbreviation = "BN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -12028,7 +12028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Botoșani",
                     Abbreviation = "BT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -12038,7 +12038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Brașov",
                     Abbreviation = "BV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -12048,7 +12048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Brăila",
                     Abbreviation = "BR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -12058,7 +12058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "București Sector 1",
                     Abbreviation = "B",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -12068,7 +12068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "București Sector 2",
                     Abbreviation = "B",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -12078,7 +12078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "București Sector 3",
                     Abbreviation = "B",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -12088,7 +12088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "București Sector 4",
                     Abbreviation = "B",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -12098,7 +12098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "București Sector 5",
                     Abbreviation = "B",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -12108,7 +12108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "București Sector 6",
                     Abbreviation = "B",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -12118,7 +12118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Buzău",
                     Abbreviation = "BZ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -12128,7 +12128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Caraș-Severin",
                     Abbreviation = "CS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -12138,7 +12138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Călărași",
                     Abbreviation = "CL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -12148,7 +12148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Cluj",
                     Abbreviation = "CJ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -12158,7 +12158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Constanța",
                     Abbreviation = "CT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -12168,7 +12168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Covasna",
                     Abbreviation = "CV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -12178,7 +12178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Dâmbovița",
                     Abbreviation = "DB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -12188,7 +12188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Dolj",
                     Abbreviation = "DJ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -12198,7 +12198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Galați",
                     Abbreviation = "GL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -12208,7 +12208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Giurgiu",
                     Abbreviation = "GR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 25
                 },
 
@@ -12218,7 +12218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Gorj",
                     Abbreviation = "GJ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 26
                 },
 
@@ -12228,7 +12228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Harghita",
                     Abbreviation = "HR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 27
                 },
 
@@ -12238,7 +12238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Hunedoara",
                     Abbreviation = "HD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 28
                 },
 
@@ -12248,7 +12248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Ialomița",
                     Abbreviation = "IL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 29
                 },
 
@@ -12258,7 +12258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Iași",
                     Abbreviation = "IS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 30
                 },
 
@@ -12268,7 +12268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Ilfov",
                     Abbreviation = "IF",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 31
                 },
 
@@ -12278,7 +12278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Maramureș",
                     Abbreviation = "MM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 32
                 },
 
@@ -12288,7 +12288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Mehedinți",
                     Abbreviation = "MH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 33
                 },
 
@@ -12298,7 +12298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Mureș",
                     Abbreviation = "MS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 34
                 },
 
@@ -12308,7 +12308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Neamț",
                     Abbreviation = "NT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 35
                 },
 
@@ -12318,7 +12318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Olt",
                     Abbreviation = "OT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 36
                 },
 
@@ -12328,7 +12328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Prahova",
                     Abbreviation = "PH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 37
                 },
 
@@ -12338,7 +12338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Satu Mare",
                     Abbreviation = "SM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 38
                 },
 
@@ -12348,7 +12348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Sălaj",
                     Abbreviation = "SJ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 39
                 },
 
@@ -12358,7 +12358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Sibiu",
                     Abbreviation = "SB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 40
                 },
 
@@ -12368,7 +12368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Suceava",
                     Abbreviation = "SV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 41
                 },
 
@@ -12378,7 +12378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Teleorman",
                     Abbreviation = "TR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 42
                 },
 
@@ -12388,7 +12388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Timiș",
                     Abbreviation = "TM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 43
                 },
 
@@ -12398,7 +12398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Tulcea",
                     Abbreviation = "TL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 44
                 },
 
@@ -12408,7 +12408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Vaslui",
                     Abbreviation = "VS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 45
                 },
 
@@ -12418,7 +12418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Vâlcea",
                     Abbreviation = "VL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 46
                 },
 
@@ -12428,7 +12428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 183,
                     Name = "Vrancea",
                     Abbreviation = "VN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 47
                 },
 
@@ -12438,7 +12438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Адыгея",
                     Abbreviation = "01",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12448,7 +12448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Алтай",
                     Abbreviation = "04",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12458,7 +12458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Алтайский край",
                     Abbreviation = "22",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12468,7 +12468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Амурская область",
                     Abbreviation = "28",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12478,7 +12478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Архангельская область",
                     Abbreviation = "29",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12488,7 +12488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Астраханская область",
                     Abbreviation = "30",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12498,7 +12498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Башкортостан",
                     Abbreviation = "02",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12508,7 +12508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Белгородская область",
                     Abbreviation = "31",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12518,7 +12518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Брянская область",
                     Abbreviation = "32",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12528,7 +12528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Бурятия",
                     Abbreviation = "03",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12538,7 +12538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Владимирская область",
                     Abbreviation = "33",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12548,7 +12548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Волгоградская область",
                     Abbreviation = "34",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12558,7 +12558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Вологодская область",
                     Abbreviation = "35",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12568,7 +12568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Воронежская область",
                     Abbreviation = "36",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12578,7 +12578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Дагестан",
                     Abbreviation = "05",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12588,7 +12588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Еврейская автономная область",
                     Abbreviation = "79",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12598,7 +12598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Забайкальский край",
                     Abbreviation = "75",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12608,7 +12608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Ивановская область",
                     Abbreviation = "37",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12618,7 +12618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Ингушетия",
                     Abbreviation = "06",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12628,7 +12628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Иркутская область",
                     Abbreviation = "38",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12638,7 +12638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Кабардино-Балкарская Республика",
                     Abbreviation = "7",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12648,7 +12648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Калининградская область",
                     Abbreviation = "39",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12658,7 +12658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Калмыкия",
                     Abbreviation = "08",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12668,7 +12668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Калужская область",
                     Abbreviation = "40",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12678,7 +12678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Камчатский край",
                     Abbreviation = "41",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12688,7 +12688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Карачаево-Черкесская Республика",
                     Abbreviation = "09",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12698,7 +12698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Карелия",
                     Abbreviation = "10",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12708,7 +12708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Кемеровская область",
                     Abbreviation = "42",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12718,7 +12718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Кировская область",
                     Abbreviation = "43",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12728,7 +12728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Коми",
                     Abbreviation = "11",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12738,7 +12738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Костромская область",
                     Abbreviation = "44",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12748,7 +12748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Краснодарский край",
                     Abbreviation = "23",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12758,7 +12758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Красноярский край",
                     Abbreviation = "24",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12768,7 +12768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Курганская область",
                     Abbreviation = "45",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12778,7 +12778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Курская область",
                     Abbreviation = "46",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12788,7 +12788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Ленинградская область",
                     Abbreviation = "47",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12798,7 +12798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Липецкая область",
                     Abbreviation = "48",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12808,7 +12808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Магаданская область",
                     Abbreviation = "49",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12818,7 +12818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Марий Эл",
                     Abbreviation = "12",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12828,7 +12828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Мордовия",
                     Abbreviation = "13",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12838,7 +12838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Москва",
                     Abbreviation = "77",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12848,7 +12848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Московская область",
                     Abbreviation = "50",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12858,7 +12858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Мурманская область",
                     Abbreviation = "51",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12868,7 +12868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Ненецкий автономный округ",
                     Abbreviation = "83",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12878,7 +12878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Нижегородская область",
                     Abbreviation = "52",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12888,7 +12888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Новгородская область",
                     Abbreviation = "53",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12898,7 +12898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Новосибирская область",
                     Abbreviation = "54",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12908,7 +12908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Омская область",
                     Abbreviation = "55",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12918,7 +12918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Оренбургская область",
                     Abbreviation = "56",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12928,7 +12928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Орловская область",
                     Abbreviation = "57",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12938,7 +12938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Пензенская область",
                     Abbreviation = "58",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12948,7 +12948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Пермский край",
                     Abbreviation = "59",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12958,7 +12958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Приморский край",
                     Abbreviation = "25",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12968,7 +12968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Псковская область",
                     Abbreviation = "60",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12978,7 +12978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Ростовская область",
                     Abbreviation = "61",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12988,7 +12988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Рязанская область",
                     Abbreviation = "62",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -12998,7 +12998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Самарская область",
                     Abbreviation = "63",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13008,7 +13008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Санкт-Петербург",
                     Abbreviation = "78",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13018,7 +13018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Саратовская область",
                     Abbreviation = "64",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13028,7 +13028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Саха (Якутия)",
                     Abbreviation = "14",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13038,7 +13038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Сахалинская область",
                     Abbreviation = "65",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13048,7 +13048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Свердловская область",
                     Abbreviation = "66",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13058,7 +13058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Севастополь",
                     Abbreviation = "92",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13068,7 +13068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Северная Осетия-Алания",
                     Abbreviation = "15",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13078,7 +13078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Смоленская область",
                     Abbreviation = "67",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13088,7 +13088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Ставропольский край",
                     Abbreviation = "26",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13098,7 +13098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Тамбовская область",
                     Abbreviation = "68",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13108,7 +13108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Татарстан",
                     Abbreviation = "16",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13118,7 +13118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Тверская область",
                     Abbreviation = "69",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13128,7 +13128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Томская область",
                     Abbreviation = "70",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13138,7 +13138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Тульская область",
                     Abbreviation = "71",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13148,7 +13148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Тыва",
                     Abbreviation = "17",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13158,7 +13158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Тюменская область",
                     Abbreviation = "72",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13168,7 +13168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Удмуртская Республика",
                     Abbreviation = "18",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13178,7 +13178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Ульяновская область",
                     Abbreviation = "73",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13188,7 +13188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Хабаровский край",
                     Abbreviation = "27",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13198,7 +13198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Хакасия",
                     Abbreviation = "19",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13208,7 +13208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Ханты-Мансийский автономный округ-Югра",
                     Abbreviation = "86",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13218,7 +13218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Челябинская область",
                     Abbreviation = "74",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13228,7 +13228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Чеченская Республика",
                     Abbreviation = "95",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13238,7 +13238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Чувашская Республика",
                     Abbreviation = "21",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13248,7 +13248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Чукотский автономный округ",
                     Abbreviation = "87",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13258,7 +13258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Ямало-Ненецкий автономный округ",
                     Abbreviation = "89",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13268,7 +13268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 184,
                     Name = "Ярославская область",
                     Abbreviation = "76",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13278,7 +13278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Eastern Cape",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13288,7 +13288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Al Bahah",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13298,7 +13298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Al Jawf",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -13308,7 +13308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Al Madinah",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -13318,7 +13318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Al Qasim",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -13328,7 +13328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Al Riyadh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -13338,7 +13338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Asir",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -13348,7 +13348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Eastern Province",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -13358,7 +13358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Ha'il",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -13368,7 +13368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Jizan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -13378,7 +13378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Makkah",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -13388,7 +13388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Najran",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -13398,7 +13398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Northern Borders",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -13408,7 +13408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 196,
                     Name = "Tabuk",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -13418,7 +13418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 198,
                     Name = "Serbia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13428,7 +13428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 198,
                     Name = "Kosovo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13438,7 +13438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 198,
                     Name = "Vojvodina",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13448,7 +13448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 203,
                     Name = "Bratislavský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13458,7 +13458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 203,
                     Name = "Trnavský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13468,7 +13468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 203,
                     Name = "Nitrianský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13478,7 +13478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 203,
                     Name = "Trenčianský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13488,7 +13488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 203,
                     Name = "Žilinský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13498,7 +13498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 203,
                     Name = "Banskobystrický kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13508,7 +13508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 203,
                     Name = "Košický kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13518,7 +13518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 203,
                     Name = "Prešovský kraj",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13528,7 +13528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Pomurska",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13538,7 +13538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Podravska",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13548,7 +13548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Koroška",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13558,7 +13558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Savinjska",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13568,7 +13568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Zasavska",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13578,7 +13578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Posavska",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13588,7 +13588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Jugovzhodna Slovenija",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13598,7 +13598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Primorsko-notranjska",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13608,7 +13608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Osrednjeslovenska",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13618,7 +13618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Gorenjska",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13628,7 +13628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Goriška",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13638,7 +13638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 204,
                     Name = "Obalno-kraška",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13648,7 +13648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 207,
                     Name = "Eastern Cape",
                     Abbreviation = "EC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13658,7 +13658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 207,
                     Name = "Free State",
                     Abbreviation = "FS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13668,7 +13668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 207,
                     Name = "Gauteng",
                     Abbreviation = "GP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13678,7 +13678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 207,
                     Name = "KwaZulu-Natal",
                     Abbreviation = "KZN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13688,7 +13688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 207,
                     Name = "Limpopo",
                     Abbreviation = "LP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13698,7 +13698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 207,
                     Name = "Mpumalanga",
                     Abbreviation = "MP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13708,7 +13708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 207,
                     Name = "Northern Cape",
                     Abbreviation = "NC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13718,7 +13718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 207,
                     Name = "North West",
                     Abbreviation = "NW",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13728,7 +13728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 207,
                     Name = "Western Cape",
                     Abbreviation = "WC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -13738,7 +13738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Álava",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -13748,7 +13748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Albacete",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -13758,7 +13758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Alicante",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -13768,7 +13768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Almería",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -13778,7 +13778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Ávila",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -13788,7 +13788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Badajoz",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -13798,7 +13798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Baleares (Illes)",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -13808,7 +13808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Barcelona",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -13818,7 +13818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Burgos",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -13828,7 +13828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Cáceres",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -13838,7 +13838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Cádiz",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -13848,7 +13848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Castellón",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -13858,7 +13858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Ciudad Real",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -13868,7 +13868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Córdoba",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -13878,7 +13878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "A Coruña",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -13888,7 +13888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Cuenca",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -13898,7 +13898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Girona",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -13908,7 +13908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Granada",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -13918,7 +13918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Guadalajara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -13928,7 +13928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Guipúzcoa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -13938,7 +13938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Huelva",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -13948,7 +13948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Huesca",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -13958,7 +13958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Jaén",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -13968,7 +13968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "León",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -13978,7 +13978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Lleida",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 25
                 },
 
@@ -13988,7 +13988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "La Rioja",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 26
                 },
 
@@ -13998,7 +13998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Lugo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 27
                 },
 
@@ -14008,7 +14008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Madrid",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 28
                 },
 
@@ -14018,7 +14018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Málaga",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 29
                 },
 
@@ -14028,7 +14028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Murcia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 30
                 },
 
@@ -14038,7 +14038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Navarra",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 31
                 },
 
@@ -14048,7 +14048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Ourense",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 32
                 },
 
@@ -14058,7 +14058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Asturias",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 33
                 },
 
@@ -14068,7 +14068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Palencia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 34
                 },
 
@@ -14078,7 +14078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Las Palmas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 35
                 },
 
@@ -14088,7 +14088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Pontevedra",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 36
                 },
 
@@ -14098,7 +14098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Salamanca",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 37
                 },
 
@@ -14108,7 +14108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Santa Cruz de Tenerife",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 38
                 },
 
@@ -14118,7 +14118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Cantabria",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 39
                 },
 
@@ -14128,7 +14128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Segovia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 40
                 },
 
@@ -14138,7 +14138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Sevilla",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 41
                 },
 
@@ -14148,7 +14148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Soria",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 42
                 },
 
@@ -14158,7 +14158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Tarragona",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 43
                 },
 
@@ -14168,7 +14168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Teruel",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 44
                 },
 
@@ -14178,7 +14178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Toledo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 45
                 },
 
@@ -14188,7 +14188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Valencia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 46
                 },
 
@@ -14198,7 +14198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Valladolid",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 47
                 },
 
@@ -14208,7 +14208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Vizcaya",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 48
                 },
 
@@ -14218,7 +14218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Zamora",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 49
                 },
 
@@ -14228,7 +14228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Zaragoza",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 50
                 },
 
@@ -14238,7 +14238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Ceuta",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 51
                 },
 
@@ -14248,7 +14248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 210,
                     Name = "Melilla",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 52
                 },
 
@@ -14258,7 +14258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Stockholms län",
                     Abbreviation = "01",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -14268,7 +14268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Uppsala län",
                     Abbreviation = "03",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -14278,7 +14278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Södermanlands län",
                     Abbreviation = "04",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -14288,7 +14288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Östergötlands län",
                     Abbreviation = "05",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -14298,7 +14298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Jönköpings län",
                     Abbreviation = "06",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -14308,7 +14308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Kronobergs län",
                     Abbreviation = "07",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -14318,7 +14318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Kalmar län",
                     Abbreviation = "08",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -14328,7 +14328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Gotlands län",
                     Abbreviation = "09",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -14338,7 +14338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Blekinge län",
                     Abbreviation = "11",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -14348,7 +14348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Skåne län",
                     Abbreviation = "12",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -14358,7 +14358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Hallands län",
                     Abbreviation = "14",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -14368,7 +14368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Västra Götalands län",
                     Abbreviation = "15",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -14378,7 +14378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Värmlands län",
                     Abbreviation = "17",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -14388,7 +14388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Örebro län",
                     Abbreviation = "18",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -14398,7 +14398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Västmanlands län",
                     Abbreviation = "19",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -14408,7 +14408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Dalarnas län",
                     Abbreviation = "20",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -14418,7 +14418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Gävleborgs län",
                     Abbreviation = "21",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -14428,7 +14428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Jämtlands län",
                     Abbreviation = "22",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -14438,7 +14438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Västernorrlands län",
                     Abbreviation = "23",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -14448,7 +14448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Västerbottens län",
                     Abbreviation = "24",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -14458,7 +14458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 215,
                     Name = "Norbottens län",
                     Abbreviation = "25",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 25
                 },
 
@@ -14468,7 +14468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Aargau",
                     Abbreviation = "AG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14478,7 +14478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Appenzell Ausserrhoden",
                     Abbreviation = "AR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14488,7 +14488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Appenzell Innerrhoden",
                     Abbreviation = "AI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14498,7 +14498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Basel-Landschaft",
                     Abbreviation = "BL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14508,7 +14508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Basel-Stadt",
                     Abbreviation = "BS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14518,7 +14518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Bern",
                     Abbreviation = "BE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14528,7 +14528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Fribourg/Freiburg",
                     Abbreviation = "FR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14538,7 +14538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Genève",
                     Abbreviation = "GE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14548,7 +14548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Glarus",
                     Abbreviation = "GL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14558,7 +14558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Graubünden/Grischun",
                     Abbreviation = "GR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14568,7 +14568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Jura",
                     Abbreviation = "JU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14578,7 +14578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Luzern",
                     Abbreviation = "LU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14588,7 +14588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Neuchâtel",
                     Abbreviation = "NE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14598,7 +14598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Nidwalden",
                     Abbreviation = "NW",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14608,7 +14608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Obwalden",
                     Abbreviation = "OW",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14618,7 +14618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Schaffhausen",
                     Abbreviation = "SH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14628,7 +14628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Schwyz",
                     Abbreviation = "SZ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14638,7 +14638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Solothurn",
                     Abbreviation = "SO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14648,7 +14648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "St. Gallen",
                     Abbreviation = "SG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14658,7 +14658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Ticino",
                     Abbreviation = "TI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14668,7 +14668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Thurgau",
                     Abbreviation = "TG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14678,7 +14678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Uri",
                     Abbreviation = "UR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14688,7 +14688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Vaud",
                     Abbreviation = "VD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14698,7 +14698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Valais/Wallis",
                     Abbreviation = "VS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14708,7 +14708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Zug",
                     Abbreviation = "ZG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14718,7 +14718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 216,
                     Name = "Zürich",
                     Abbreviation = "ZH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14728,7 +14728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Adana",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14738,7 +14738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Adıyaman",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14748,7 +14748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Afyonkarahisar",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14758,7 +14758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Ağrı",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14768,7 +14768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Aksaray",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14778,7 +14778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Amasya",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14788,7 +14788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Ankara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14798,7 +14798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Antalya",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14808,7 +14808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Ardahan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14818,7 +14818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Artvin",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14828,7 +14828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Aydın",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14838,7 +14838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Balıkesir",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14848,7 +14848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Bartın",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14858,7 +14858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Batman",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14868,7 +14868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Bayburt",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14878,7 +14878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Bilecik",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14888,7 +14888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Bingöl",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14898,7 +14898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Bitlis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14908,7 +14908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Bolu",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14918,7 +14918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Burdur",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14928,7 +14928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Bursa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14938,7 +14938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Çanakkale",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14948,7 +14948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Çankırı",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14958,7 +14958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Çorum",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14968,7 +14968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Denizli",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14978,7 +14978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Diyarbakır",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14988,7 +14988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Düzce",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -14998,7 +14998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Edirne",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15008,7 +15008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Elazığ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15018,7 +15018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Erzincan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15028,7 +15028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Erzurum",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15038,7 +15038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Eskişehir",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15048,7 +15048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Gaziantep",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15058,7 +15058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Giresun",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15068,7 +15068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Gümüşhane",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15078,7 +15078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Hakkari",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15088,7 +15088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Hatay",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15098,7 +15098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Iğdır",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15108,7 +15108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Isparta",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15118,7 +15118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "İstanbul",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15128,7 +15128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "İzmir",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15138,7 +15138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Kahramanmaraş",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15148,7 +15148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Karabük",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15158,7 +15158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Karaman",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15168,7 +15168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Kars",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15178,7 +15178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Kastamonu",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15188,7 +15188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Kayseri",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15198,7 +15198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Kırıkkale",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15208,7 +15208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Kırklareli",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15218,7 +15218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Kırşehir",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15228,7 +15228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Kilis",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15238,7 +15238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Kocaeli",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15248,7 +15248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Konya",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15258,7 +15258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Kütahya",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15268,7 +15268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Malatya",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15278,7 +15278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Manisa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15288,7 +15288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Mardin",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15298,7 +15298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Mersin",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15308,7 +15308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Muğla",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15318,7 +15318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Muş",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15328,7 +15328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Nevşehir",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15338,7 +15338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Niğde",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15348,7 +15348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Ordu",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15358,7 +15358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Osmaniye",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15368,7 +15368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Rize",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15378,7 +15378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Sakarya",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15388,7 +15388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Samsun",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15398,7 +15398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Siirt",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15408,7 +15408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Sinop",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15418,7 +15418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Sivas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15428,7 +15428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Şanlıurfa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15438,7 +15438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Şırnak",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15448,7 +15448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Tekirdağ",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15458,7 +15458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Tokat",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15468,7 +15468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Trabzon",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15478,7 +15478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Tunceli",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15488,7 +15488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Uşak",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15498,7 +15498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Van",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15508,7 +15508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Yalova",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15518,7 +15518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Yozgat",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15528,7 +15528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 228,
                     Name = "Zonguldak",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -15538,7 +15538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Вінницька область",
                     Abbreviation = "Вінн. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -15548,7 +15548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Волинська область",
                     Abbreviation = "Волин. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -15558,7 +15558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Дніпропетровська область",
                     Abbreviation = "Дніпроп. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -15568,7 +15568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Донецька область",
                     Abbreviation = "Донец. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -15578,7 +15578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Житомирська область",
                     Abbreviation = "Житом. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -15588,7 +15588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Закарпатська область",
                     Abbreviation = "Закарп. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -15598,7 +15598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Запорізька область",
                     Abbreviation = "Запоріз. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -15608,7 +15608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Івано-Франківська область",
                     Abbreviation = "Івано-Фр. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -15618,7 +15618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Київська область",
                     Abbreviation = "Київ. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -15628,7 +15628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Кіровоградська область",
                     Abbreviation = "Кіровогр. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -15638,7 +15638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Луганська область",
                     Abbreviation = "Луган. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -15648,7 +15648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Львівська область",
                     Abbreviation = "Львів. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -15658,7 +15658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Миколаївська область",
                     Abbreviation = "Микол. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -15668,7 +15668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Одеська область",
                     Abbreviation = "Одес. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -15678,7 +15678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Полтавська область",
                     Abbreviation = "Полтав. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -15688,7 +15688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Рівненська область",
                     Abbreviation = "Рівн. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -15698,7 +15698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Сумська область",
                     Abbreviation = "Сумськ. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -15708,7 +15708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Тернопільська область",
                     Abbreviation = "Терноп. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -15718,7 +15718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Харківська область",
                     Abbreviation = "Харк. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -15728,7 +15728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Херсонська область",
                     Abbreviation = "Херсон. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -15738,7 +15738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Хмельницька область",
                     Abbreviation = "Хмельн. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -15748,7 +15748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Черкаська область",
                     Abbreviation = "Черкас. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -15758,7 +15758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Чернівецька область",
                     Abbreviation = "Чернів. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -15768,7 +15768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 233,
                     Name = "Чернігівська область",
                     Abbreviation = "Черніг. обл.",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -15778,7 +15778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Aberdeenshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15788,7 +15788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Anglesey/Sir Fon",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15798,7 +15798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Angus",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15808,7 +15808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Argyll and Bute",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15818,7 +15818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Ayrshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15828,7 +15828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Berkshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15838,7 +15838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Blaenau Gwent",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15848,7 +15848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Bridgend",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15858,7 +15858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Bristol",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15868,7 +15868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Buckinghamshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15878,7 +15878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Caerphilly",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15888,7 +15888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Cambridgeshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15898,7 +15898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Cardiff",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15908,7 +15908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Carmarthenshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15918,7 +15918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Ceredigion",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15928,7 +15928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Cheshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15938,7 +15938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Clackmannanshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15948,7 +15948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Conwy",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15958,7 +15958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Cornwall",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15968,7 +15968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "County Antrim",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15978,7 +15978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "County Armagh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15988,7 +15988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "County Down",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -15998,7 +15998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "County Fermanagh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16008,7 +16008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "County Londonderry",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16018,7 +16018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "County Tyrone",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16028,7 +16028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Cumbria",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16038,7 +16038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Denbighshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16048,7 +16048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Derbyshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16058,7 +16058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Devon",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16068,7 +16068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Dorset",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16078,7 +16078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Dumfries and Galloway",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16088,7 +16088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Dunbartonshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16098,7 +16098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Dundee",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16108,7 +16108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Durham",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16118,7 +16118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "East Lothian",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16128,7 +16128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "East Riding of Yorkshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16138,7 +16138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "East Sussex",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16148,7 +16148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Edinburgh",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16158,7 +16158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Essex",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16168,7 +16168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Falkirk",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16178,7 +16178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Fife",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16188,7 +16188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Flintshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16198,7 +16198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Glamorgan",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16208,7 +16208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Glasgow",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16218,7 +16218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Gloucestershire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16228,7 +16228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Greater Manchester",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16238,7 +16238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Gwynedd",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16248,7 +16248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Hampshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16258,7 +16258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Hereford and Worcester",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16268,7 +16268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Hertfordshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16278,7 +16278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Highland",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16288,7 +16288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Inverclyde",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16298,7 +16298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Isle of Man",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16308,7 +16308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Isle of Wight",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16318,7 +16318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Kent",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16328,7 +16328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Lanarkshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16338,7 +16338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Lancashire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16348,7 +16348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Leicestershire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16358,7 +16358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Lincolnshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16368,7 +16368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "London",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16378,7 +16378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Merseyside",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16388,7 +16388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Merthyr Tydfil",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16398,7 +16398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Middlesex",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16408,7 +16408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Midlothian",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16418,7 +16418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Monmouthshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16428,7 +16428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Moray",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16438,7 +16438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Neath Port Talbot",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16448,7 +16448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Newport",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16458,7 +16458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Norfolk",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16468,7 +16468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "North Yorkshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16478,7 +16478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Northamptonshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16488,7 +16488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Northumberland",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16498,7 +16498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Nottinghamshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16508,7 +16508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Orkney",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16518,7 +16518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Oxfordshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16528,7 +16528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Pembrokeshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16538,7 +16538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Perth and Kinross",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16548,7 +16548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Powys",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16558,7 +16558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Renfrewshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16568,7 +16568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Rhondda Cynon Taff",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16578,7 +16578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Rutland",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16588,7 +16588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Scottish Borders",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16598,7 +16598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Shetland Isles",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16608,7 +16608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Shropshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16618,7 +16618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Somerset",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16628,7 +16628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "South Yorkshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16638,7 +16638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Staffordshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16648,7 +16648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Stirlingshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16658,7 +16658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Suffolk",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16668,7 +16668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Surrey",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16678,7 +16678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Swansea",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16688,7 +16688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Torfaen",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16698,7 +16698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Tyne and Wear",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16708,7 +16708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Warwickshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16718,7 +16718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "West Lothian",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16728,7 +16728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "West Midlands",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16738,7 +16738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "West Sussex",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16748,7 +16748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "West Yorkshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16758,7 +16758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Western Isles",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16768,7 +16768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Wiltshire",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16778,7 +16778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 235,
                     Name = "Wrexham",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16788,7 +16788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "AA (Armed Forces Americas)",
                     Abbreviation = "AA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16798,7 +16798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "AE (Armed Forces Europe)",
                     Abbreviation = "AE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16808,7 +16808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Alabama",
                     Abbreviation = "AL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16818,7 +16818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Alaska",
                     Abbreviation = "AK",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16828,7 +16828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "American Samoa",
                     Abbreviation = "AS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16838,7 +16838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "AP (Armed Forces Pacific)",
                     Abbreviation = "AP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16848,7 +16848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Arizona",
                     Abbreviation = "AZ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16858,7 +16858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Arkansas",
                     Abbreviation = "AR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16868,7 +16868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "California",
                     Abbreviation = "CA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16878,7 +16878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Colorado",
                     Abbreviation = "CO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16888,7 +16888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Connecticut",
                     Abbreviation = "CT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16898,7 +16898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Delaware",
                     Abbreviation = "DE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16908,7 +16908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "District of Columbia",
                     Abbreviation = "DC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16918,7 +16918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Federated States of Micronesia",
                     Abbreviation = "FM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16928,7 +16928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Florida",
                     Abbreviation = "FL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16938,7 +16938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Georgia",
                     Abbreviation = "GA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16948,7 +16948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Guam",
                     Abbreviation = "GU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16958,7 +16958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Hawaii",
                     Abbreviation = "HI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16968,7 +16968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Idaho",
                     Abbreviation = "ID",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16978,7 +16978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Illinois",
                     Abbreviation = "IL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16988,7 +16988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Indiana",
                     Abbreviation = "IN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -16998,7 +16998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Iowa",
                     Abbreviation = "IA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17008,7 +17008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Kansas",
                     Abbreviation = "KS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17018,7 +17018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Kentucky",
                     Abbreviation = "KY",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17028,7 +17028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Louisiana",
                     Abbreviation = "LA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17038,7 +17038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Maine",
                     Abbreviation = "ME",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17048,7 +17048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Marshall Islands",
                     Abbreviation = "MH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17058,7 +17058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Maryland",
                     Abbreviation = "MD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17068,7 +17068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Massachusetts",
                     Abbreviation = "MA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17078,7 +17078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Michigan",
                     Abbreviation = "MI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17088,7 +17088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Minnesota",
                     Abbreviation = "MN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17098,7 +17098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Mississippi",
                     Abbreviation = "MS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17108,7 +17108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Missouri",
                     Abbreviation = "MO",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17118,7 +17118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Montana",
                     Abbreviation = "MT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17128,7 +17128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Nebraska",
                     Abbreviation = "NE",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17138,7 +17138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Nevada",
                     Abbreviation = "NV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17148,7 +17148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "New Hampshire",
                     Abbreviation = "NH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17158,7 +17158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "New Jersey",
                     Abbreviation = "NJ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17168,7 +17168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "New Mexico",
                     Abbreviation = "NM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17178,7 +17178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "New York",
                     Abbreviation = "NY",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17188,7 +17188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "North Carolina",
                     Abbreviation = "NC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17198,7 +17198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "North Dakota",
                     Abbreviation = "ND",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17208,7 +17208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Northern Mariana Islands",
                     Abbreviation = "MP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17218,7 +17218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Ohio",
                     Abbreviation = "OH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17228,7 +17228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Oklahoma",
                     Abbreviation = "OK",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17238,7 +17238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Oregon",
                     Abbreviation = "OR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17248,7 +17248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Palau",
                     Abbreviation = "PW",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17258,7 +17258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Pennsylvania",
                     Abbreviation = "PA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17268,7 +17268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Puerto Rico",
                     Abbreviation = "PR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17278,7 +17278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Rhode Island",
                     Abbreviation = "RI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17288,7 +17288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "South Carolina",
                     Abbreviation = "SC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17298,7 +17298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "South Dakota",
                     Abbreviation = "SD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17308,7 +17308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Tennessee",
                     Abbreviation = "TN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17318,7 +17318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Texas",
                     Abbreviation = "TX",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17328,7 +17328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Utah",
                     Abbreviation = "UT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17338,7 +17338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Vermont",
                     Abbreviation = "VT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17348,7 +17348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Virgin Islands",
                     Abbreviation = "VI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17358,7 +17358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Virginia",
                     Abbreviation = "VA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17368,7 +17368,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Washington",
                     Abbreviation = "WA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17378,7 +17378,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "West Virginia",
                     Abbreviation = "WV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17388,7 +17388,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Wisconsin",
                     Abbreviation = "WI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17398,7 +17398,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 237,
                     Name = "Wyoming",
                     Abbreviation = "WY",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17408,7 +17408,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Amazonas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17418,7 +17418,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Anzoategui",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -17428,7 +17428,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Apure",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -17438,7 +17438,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Aragua",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -17448,7 +17448,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Barinas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -17458,7 +17458,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Bolívar",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17468,7 +17468,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Carabobo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 7
                 },
 
@@ -17478,7 +17478,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Cojedes",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 8
                 },
 
@@ -17488,7 +17488,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Delta Amacuro",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 9
                 },
 
@@ -17498,7 +17498,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Distrito Capital",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 10
                 },
 
@@ -17508,7 +17508,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Falcón",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 11
                 },
 
@@ -17518,7 +17518,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Guárico",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 12
                 },
 
@@ -17528,7 +17528,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Lara",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 13
                 },
 
@@ -17538,7 +17538,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Mérida",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 14
                 },
 
@@ -17548,7 +17548,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Miranda",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 15
                 },
 
@@ -17558,7 +17558,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Monagas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 16
                 },
 
@@ -17568,7 +17568,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Nueva Esparta",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 17
                 },
 
@@ -17578,7 +17578,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Portuguesa",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 18
                 },
 
@@ -17588,7 +17588,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Sucre",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 19
                 },
 
@@ -17598,7 +17598,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Táchira",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 20
                 },
 
@@ -17608,7 +17608,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Trujillo",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 21
                 },
 
@@ -17618,7 +17618,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Vargas",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 22
                 },
 
@@ -17628,7 +17628,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Yaracuy",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 23
                 },
 
@@ -17638,7 +17638,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 241,
                     Name = "Zulia",
                     Abbreviation = "",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 24
                 },
 
@@ -17648,7 +17648,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Hà Nội",
                     Abbreviation = "HN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 1
                 },
 
@@ -17658,7 +17658,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Hồ Chí Minh",
                     Abbreviation = "HCM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 2
                 },
 
@@ -17668,7 +17668,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Đà Nẵng",
                     Abbreviation = "ĐN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 3
                 },
 
@@ -17678,7 +17678,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Hải Phòng",
                     Abbreviation = "HP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 4
                 },
 
@@ -17688,7 +17688,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Cần Thơ",
                     Abbreviation = "CT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 5
                 },
 
@@ -17698,7 +17698,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Hà Giang",
                     Abbreviation = "HG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17708,7 +17708,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Cao Bằng",
                     Abbreviation = "CB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17718,7 +17718,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Bắc Kạn",
                     Abbreviation = "BK",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17728,7 +17728,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Tuyên Quang",
                     Abbreviation = "TQ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17738,7 +17738,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Lào Cai",
                     Abbreviation = "LC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17748,7 +17748,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Điện Biên",
                     Abbreviation = "ĐB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17758,7 +17758,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Lai Châu",
                     Abbreviation = "LC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17768,7 +17768,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Sơn La",
                     Abbreviation = "SL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17778,7 +17778,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Yên Bái",
                     Abbreviation = "YB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17788,7 +17788,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Hòa Bình",
                     Abbreviation = "HB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17798,7 +17798,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Thái Nguyên",
                     Abbreviation = "TN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17808,7 +17808,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Lạng Sơn",
                     Abbreviation = "LS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17818,7 +17818,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Quảng Ninh",
                     Abbreviation = "QN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17828,7 +17828,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Bắc Giang",
                     Abbreviation = "BG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17838,7 +17838,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Phú Thọ",
                     Abbreviation = "PT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17848,7 +17848,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Vĩnh Phúc",
                     Abbreviation = "VP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17858,7 +17858,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Bắc Ninh",
                     Abbreviation = "BN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17868,7 +17868,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Hải Dương",
                     Abbreviation = "HD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17878,7 +17878,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Hưng Yên",
                     Abbreviation = "HY",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17888,7 +17888,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Thái Bình",
                     Abbreviation = "TB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17898,7 +17898,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Hà Nam",
                     Abbreviation = "HN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17908,7 +17908,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Nam Định",
                     Abbreviation = "NĐ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17918,7 +17918,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Ninh Bình",
                     Abbreviation = "NB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17928,7 +17928,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Thanh Hóa",
                     Abbreviation = "TH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17938,7 +17938,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Nghệ An",
                     Abbreviation = "NA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17948,7 +17948,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Hà Tĩnh",
                     Abbreviation = "HT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17958,7 +17958,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Quảng Bình",
                     Abbreviation = "QB",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17968,7 +17968,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Quảng Trị",
                     Abbreviation = "QT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17978,7 +17978,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Thừa Thiên Huế",
                     Abbreviation = "TTH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17988,7 +17988,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Quảng Nam",
                     Abbreviation = "QN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -17998,7 +17998,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Quảng Ngãi",
                     Abbreviation = "QN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18008,7 +18008,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Bình Định",
                     Abbreviation = "BĐ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18018,7 +18018,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Phú Yên",
                     Abbreviation = "PY",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18028,7 +18028,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Khánh Hòa",
                     Abbreviation = "KH",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18038,7 +18038,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Ninh Thuận",
                     Abbreviation = "NT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18048,7 +18048,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Bình Thuận",
                     Abbreviation = "BT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18058,7 +18058,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Kon Tum",
                     Abbreviation = "KT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18068,7 +18068,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Gia Lai",
                     Abbreviation = "GL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18078,7 +18078,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Đắk Lắk",
                     Abbreviation = "ĐL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18088,7 +18088,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Đắk Nông",
                     Abbreviation = "ĐN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18098,7 +18098,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Lâm Đồng",
                     Abbreviation = "LĐ",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18108,7 +18108,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Bình Phước",
                     Abbreviation = "BP",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18118,7 +18118,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Tây Ninh",
                     Abbreviation = "TN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18128,7 +18128,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Bình Dương",
                     Abbreviation = "BD",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18138,7 +18138,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Đồng Nai",
                     Abbreviation = "ĐN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18148,7 +18148,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Bà Rịa - Vũng Tàu",
                     Abbreviation = "BR",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18158,7 +18158,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Long An",
                     Abbreviation = "LA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18168,7 +18168,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Tiền Giang",
                     Abbreviation = "TG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18178,7 +18178,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Bến Tre",
                     Abbreviation = "BT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18188,7 +18188,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Trà Vinh",
                     Abbreviation = "TV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18198,7 +18198,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Vĩnh Long",
                     Abbreviation = "VL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18208,7 +18208,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Đồng Tháp",
                     Abbreviation = "ĐT",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18218,7 +18218,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "An Giang",
                     Abbreviation = "AG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18228,7 +18228,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Kiên Giang",
                     Abbreviation = "KG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18238,7 +18238,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Hậu Giang",
                     Abbreviation = "HG",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18248,7 +18248,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Sóc Trăng",
                     Abbreviation = "ST",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18258,7 +18258,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Bạc Liêu",
                     Abbreviation = "BL",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18268,7 +18268,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 242,
                     Name = "Cà Mau",
                     Abbreviation = "CM",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 6
                 },
 
@@ -18278,7 +18278,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 249,
                     Name = "Bulawayo",
                     Abbreviation = "BU",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -18288,7 +18288,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 249,
                     Name = "Harare",
                     Abbreviation = "HA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -18298,7 +18298,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 249,
                     Name = "Manicaland",
                     Abbreviation = "MA",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -18308,7 +18308,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 249,
                     Name = "Mashonaland Central",
                     Abbreviation = "MC",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -18318,7 +18318,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 249,
                     Name = "Mashonaland East",
                     Abbreviation = "ME",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -18328,7 +18328,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 249,
                     Name = "Mashonaland West",
                     Abbreviation = "MW",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -18338,7 +18338,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 249,
                     Name = "Masvingo",
                     Abbreviation = "MV",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -18348,7 +18348,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 249,
                     Name = "Matabeleland North",
                     Abbreviation = "MN",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -18358,7 +18358,7 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 249,
                     Name = "Matabeleland South",
                     Abbreviation = "MS",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
                 },
 
@@ -18368,8 +18368,318 @@ namespace Hydra.Ecommerce.Core.Seed.EntityConfiguration
                     CountryId = 249,
                     Name = "Midlands",
                     Abbreviation = "MI",
-                    Published = true,
+                    Published = false,
                     DisplayOrder = 0
+                },
+
+                new StateProvince()
+                {
+                    Id = 1837,
+                    CountryId = 100,
+                    Name = "البرز",
+                    Abbreviation = "ALZ",
+                    Published = true,
+                    DisplayOrder = 1
+                },
+
+                new StateProvince()
+                {
+                    Id = 1838,
+                    CountryId = 100,
+                    Name = "اردبیل",
+                    Abbreviation = "ARD",
+                    Published = true,
+                    DisplayOrder = 2
+                },
+
+                new StateProvince()
+                {
+                    Id = 1839,
+                    CountryId = 100,
+                    Name = "بوشهر",
+                    Abbreviation = "BUS",
+                    Published = true,
+                    DisplayOrder = 3
+                },
+
+                new StateProvince()
+                {
+                    Id = 1840,
+                    CountryId = 100,
+                    Name = "چهارمحال و بختیاری",
+                    Abbreviation = "CBA",
+                    Published = true,
+                    DisplayOrder = 4
+                },
+
+                new StateProvince()
+                {
+                    Id = 1841,
+                    CountryId = 100,
+                    Name = "آذربایجان شرقی",
+                    Abbreviation = "EAZ",
+                    Published = true,
+                    DisplayOrder = 5
+                },
+
+                new StateProvince()
+                {
+                    Id = 1842,
+                    CountryId = 100,
+                    Name = "فارس",
+                    Abbreviation = "FAR",
+                    Published = true,
+                    DisplayOrder = 6
+                },
+
+                new StateProvince()
+                {
+                    Id = 1843,
+                    CountryId = 100,
+                    Name = "گیلان",
+                    Abbreviation = "GIL",
+                    Published = true,
+                    DisplayOrder = 7
+                },
+
+                new StateProvince()
+                {
+                    Id = 1844,
+                    CountryId = 100,
+                    Name = "گلستان",
+                    Abbreviation = "GOL",
+                    Published = true,
+                    DisplayOrder = 8
+                },
+
+                new StateProvince()
+                {
+                    Id = 1845,
+                    CountryId = 100,
+                    Name = "همدان",
+                    Abbreviation = "HAM",
+                    Published = true,
+                    DisplayOrder = 9
+                },
+
+                new StateProvince()
+                {
+                    Id = 1846,
+                    CountryId = 100,
+                    Name = "هرمزگان",
+                    Abbreviation = "HOR",
+                    Published = true,
+                    DisplayOrder = 10
+                },
+
+                new StateProvince()
+                {
+                    Id = 1847,
+                    CountryId = 100,
+                    Name = "ایلام",
+                    Abbreviation = "ILM",
+                    Published = true,
+                    DisplayOrder = 11
+                },
+
+                new StateProvince()
+                {
+                    Id = 1848,
+                    CountryId = 100,
+                    Name = "اصفهان",
+                    Abbreviation = "ISF",
+                    Published = true,
+                    DisplayOrder = 12
+                },
+
+                new StateProvince()
+                {
+                    Id = 1849,
+                    CountryId = 100,
+                    Name = "کرمان",
+                    Abbreviation = "KER",
+                    Published = true,
+                    DisplayOrder = 13
+                },
+
+                new StateProvince()
+                {
+                    Id = 1850,
+                    CountryId = 100,
+                    Name = "کرمانشاه",
+                    Abbreviation = "KRM",
+                    Published = true,
+                    DisplayOrder = 14
+                },
+
+                new StateProvince()
+                {
+                    Id = 1851,
+                    CountryId = 100,
+                    Name = "خوزستان",
+                    Abbreviation = "KHU",
+                    Published = true,
+                    DisplayOrder = 15
+                },
+
+                new StateProvince()
+                {
+                    Id = 1852,
+                    CountryId = 100,
+                    Name = "کهگیلویه و بویراحمد",
+                    Abbreviation = "KBA",
+                    Published = true,
+                    DisplayOrder = 16
+                },
+
+                new StateProvince()
+                {
+                    Id = 1853,
+                    CountryId = 100,
+                    Name = "کردستان",
+                    Abbreviation = "KUR",
+                    Published = true,
+                    DisplayOrder = 17
+                },
+
+                new StateProvince()
+                {
+                    Id = 1854,
+                    CountryId = 100,
+                    Name = "لرستان",
+                    Abbreviation = "LOR",
+                    Published = true,
+                    DisplayOrder = 18
+                },
+
+                new StateProvince()
+                {
+                    Id = 1855,
+                    CountryId = 100,
+                    Name = "مرکزی",
+                    Abbreviation = "MAR",
+                    Published = true,
+                    DisplayOrder = 19
+                },
+
+                new StateProvince()
+                {
+                    Id = 1856,
+                    CountryId = 100,
+                    Name = "مازندران",
+                    Abbreviation = "MAZ",
+                    Published = true,
+                    DisplayOrder = 20
+                },
+
+                new StateProvince()
+                {
+                    Id = 1857,
+                    CountryId = 100,
+                    Name = "خراسان شمالی",
+                    Abbreviation = "NKH",
+                    Published = true,
+                    DisplayOrder = 21
+                },
+
+                new StateProvince()
+                {
+                    Id = 1858,
+                    CountryId = 100,
+                    Name = "قزوین",
+                    Abbreviation = "QAZ",
+                    Published = true,
+                    DisplayOrder = 22
+                },
+
+                new StateProvince()
+                {
+                    Id = 1859,
+                    CountryId = 100,
+                    Name = "قم",
+                    Abbreviation = "QOM",
+                    Published = true,
+                    DisplayOrder = 23
+                },
+
+                new StateProvince()
+                {
+                    Id = 1860,
+                    CountryId = 100,
+                    Name = "خراسان رضوی",
+                    Abbreviation = "RKH",
+                    Published = true,
+                    DisplayOrder = 24
+                },
+
+                new StateProvince()
+                {
+                    Id = 1861,
+                    CountryId = 100,
+                    Name = "سمنان",
+                    Abbreviation = "SEM",
+                    Published = true,
+                    DisplayOrder = 25
+                },
+
+                new StateProvince()
+                {
+                    Id = 1862,
+                    CountryId = 100,
+                    Name = "سیستان و بلوچستان",
+                    Abbreviation = "SBA",
+                    Published = true,
+                    DisplayOrder = 26
+                },
+
+                new StateProvince()
+                {
+                    Id = 1863,
+                    CountryId = 100,
+                    Name = "خراسان جنوبی",
+                    Abbreviation = "SKH",
+                    Published = true,
+                    DisplayOrder = 27
+                },
+
+                new StateProvince()
+                {
+                    Id = 1864,
+                    CountryId = 100,
+                    Name = "تهران",
+                    Abbreviation = "TEH",
+                    Published = true,
+                    DisplayOrder = 28
+                },
+
+                new StateProvince()
+                {
+                    Id = 1865,
+                    CountryId = 100,
+                    Name = "آذربایجان غربی",
+                    Abbreviation = "WAZ",
+                    Published = true,
+                    DisplayOrder = 29
+                },
+
+                new StateProvince()
+                {
+                    Id = 1866,
+                    CountryId = 100,
+                    Name = "یزد",
+                    Abbreviation = "YAZ",
+                    Published = true,
+                    DisplayOrder = 30
+                },
+
+                new StateProvince()
+                {
+                    Id = 1867,
+                    CountryId = 100,
+                    Name = "زنجان",
+                    Abbreviation = "ZAN",
+                    Published = true,
+                    DisplayOrder = 31
                 }
                 );
             #endregion

@@ -30,6 +30,20 @@ namespace Hydra.Common.Api.Endpoints
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
 
+            endpoints.MapGet(API_SCHEMA + "/GetUserAddresses", AddressHandler.GetUserAddresses).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/AddAddress", AddressHandler.AddAddress).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/UpdateAddress", AddressHandler.UpdateAddress).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/DeleteAddress", AddressHandler.DeleteAddress).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/SetAsDefault", AddressHandler.SetAsDefault).RequireAuthorization();
+
+            endpoints.MapGet(API_SCHEMA + "/GetCountriesForSelect", CountryHandler.GetCountryListForSelect).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/GetStateProvincesForSelect", StateProvinceHandler.GetStateProvincesSelect).RequireAuthorization();
+
+            endpoints.MapGet(API_SCHEMA + "/GetTaxCategoryListForSelect", TaxCategoryHandler.GetTaxCategoryListForSelect).RequireAuthorization();
+
+
+            endpoints.MapGet(API_SCHEMA + "/GetTaxRateListForSelect", TaxRateHandler.GetTaxRateListForSelect).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/GetShippingMethodListForSelect", ShippingMethodHandler.GetShippingMethodListForSelect).RequireAuthorization();
 
             endpoints.MapPost(API_SCHEMA + "/GetSearchTermList", SearchTermHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_SEARCH_TERM_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetSearchTermById", SearchTermHandler.GetSearchTermById).RequirePermission(EcommercePermissionTypes.SALE_SEARCH_TERM_MANAGEMENT);
@@ -46,7 +60,6 @@ namespace Hydra.Common.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/UpdateDiscount", DiscountHandler.UpdateDiscount).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/DeleteDiscount", DiscountHandler.DeleteDiscount).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
 
-            endpoints.MapGet(API_SCHEMA + "/GetCountryListForSelect", CountryHandler.GetCountryListForSelect).RequireAuthorization();
             endpoints.MapPost(API_SCHEMA + "/GetStateProvinceList", StateProvinceHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_STATE_PROVINCE_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetStateProvinceById", StateProvinceHandler.GetStateProvinceById).RequirePermission(EcommercePermissionTypes.SALE_STATE_PROVINCE_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddStateProvince", StateProvinceHandler.AddStateProvince).RequirePermission(EcommercePermissionTypes.SALE_STATE_PROVINCE_MANAGEMENT);
@@ -55,26 +68,20 @@ namespace Hydra.Common.Api.Endpoints
 
             endpoints.MapPost(API_SCHEMA + "/GetAddressList", AddressHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_ADDRESS_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetAddressById", AddressHandler.GetAddressById).RequirePermission(EcommercePermissionTypes.SALE_ADDRESS_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddAddress", AddressHandler.AddAddress).RequirePermission(EcommercePermissionTypes.SALE_ADDRESS_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/UpdateAddress", AddressHandler.UpdateAddress).RequirePermission(EcommercePermissionTypes.SALE_ADDRESS_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/DeleteAddress", AddressHandler.DeleteAddress).RequirePermission(EcommercePermissionTypes.SALE_ADDRESS_MANAGEMENT);
+       
 
-
-            endpoints.MapGet(API_SCHEMA + "/GetTaxCategoryListForSelect", TaxCategoryHandler.GetTaxCategoryListForSelect).RequireAuthorization();
             endpoints.MapGet(API_SCHEMA + "/GetTaxCategoryList", TaxCategoryHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetTaxCategoryById", TaxCategoryHandler.GetTaxCategoryById).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddTaxCategory", TaxCategoryHandler.AddTaxCategory).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateTaxCategory", TaxCategoryHandler.UpdateTaxCategory).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/DeleteTaxCategory", TaxCategoryHandler.DeleteTaxCategory).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
 
-            endpoints.MapGet(API_SCHEMA + "/GetTaxRateListForSelect", TaxRateHandler.GetTaxRateListForSelect).RequireAuthorization();
             endpoints.MapPost(API_SCHEMA + "/GetTaxRateList", TaxRateHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetTaxRateById", TaxRateHandler.GetTaxRateById).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddTaxRate", TaxRateHandler.AddTaxRate).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateTaxRate", TaxRateHandler.UpdateTaxRate).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/DeleteTaxRate", TaxRateHandler.DeleteTaxRate).RequirePermission(EcommercePermissionTypes.SALE_TAX_MANAGEMENT);
 
-            endpoints.MapGet(API_SCHEMA + "/GetShippingMethodListForSelect", ShippingMethodHandler.GetShippingMethodListForSelect).RequireAuthorization();
             endpoints.MapGet(API_SCHEMA + "/GetShippingMethodList", ShippingMethodHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetShippingMethodById", ShippingMethodHandler.GetShippingMethodById).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddShippingMethod", ShippingMethodHandler.AddShippingMethod).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT);

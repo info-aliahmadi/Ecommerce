@@ -1,6 +1,6 @@
 ﻿using Hydra.Auth.Domain;
-using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel.Data;
+using Hydra.Kernel.Enums;
 
 namespace Hydra.Ecommerce.Core.Domain;
 

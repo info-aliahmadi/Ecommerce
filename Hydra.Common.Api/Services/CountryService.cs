@@ -1,12 +1,13 @@
-﻿using System.Text;
-using Hydra.Kernel.GeneralModels;
-using Hydra.Kernel.Interface;
-using Hydra.Ecommerce.Core.Domain;
+﻿using EFCoreSecondLevelCacheInterceptor;
 using Hydra.Common.Core.Interfaces;
 using Hydra.Common.Core.Models;
-using Microsoft.EntityFrameworkCore;
+using Hydra.Ecommerce.Core.Constants;
+using Hydra.Ecommerce.Core.Domain;
 using Hydra.Kernel.Extension;
-using EFCoreSecondLevelCacheInterceptor;
+using Hydra.Kernel.GeneralModels;
+using Hydra.Kernel.Interface;
+using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace Hydra.Common.Api.Services
 {
@@ -28,8 +29,8 @@ namespace Hydra.Common.Api.Services
         {
             var result = new Result<List<CountryModel>>();
 
-            var list = await (from country in _queryRepository.Table<Country>().Where(x=>x.Published)
-                        select new CountryModel()
+            var list = await _queryRepository.Table<Country>().Where(x=>x.Published && x.Id == DefaultSetting.DEFAULT_COUNTRY)
+                              .Select(country => new CountryModel()
                         {
                             Id = country.Id,
                             Name = country.Name,

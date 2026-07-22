@@ -17,15 +17,12 @@ using MiniValidation;
 using System.Security.Claims;
 using Hydra.Auth.Interface;
 using Hydra.Kernel.GeneralModels;
+using Hydra.Ecommerce.Core.Constants;
 
 namespace Hydra.Auth.Api.Handler
 {
     public class AccountHandler
     {
-        public static async Task<IResult> ApiTest()
-        {
-            return Results.Ok();
-        }
         /// <summary>
         /// 
         /// </summary>
@@ -50,7 +47,15 @@ namespace Hydra.Auth.Api.Handler
                 var result = new AccountResult();
 
                 var user = new User
-                { RegisterDate = DateTime.UtcNow, Name = "admin", UserName = "admin", Email = "admin@admin.com", EmailConfirmed = true, DefaultTheme = "dark", DefaultLanguage = "en" };
+                { 
+                    RegisterDate = DateTime.UtcNow, 
+                    Name = "admin",
+                    UserName = "admin", 
+                    Email = "admin@admin.com",
+                    EmailConfirmed = true,
+                    DefaultTheme = DefaultSetting.DEFAULT_THEME,
+                    DefaultLanguage = DefaultSetting.DEFAULT_LANGUAGE
+                };
 
 
                 if (!await _roleManager.RoleExistsAsync("SuperAdmin"))
@@ -384,7 +389,7 @@ namespace Hydra.Auth.Api.Handler
                     Text = _sharedlocalizer["Your verification code is: {0}", code]
                 };
                 sms.ToNumbers.Add(model.PhoneNumber);
-                _smsSender.Send(sms);
+                //_smsSender.Send(sms);
             }
             catch (Exception e)
             {
@@ -824,6 +829,79 @@ namespace Hydra.Auth.Api.Handler
             // If we got this far, something failed, redisplay form
             return Results.BadRequest(errors);
         }
+
+        public static async Task<IResult> AddPasswordHandler(UserManager<User> _userManager,
+            HttpContext context,
+            IStringLocalizer<SharedResource> _sharedlocalizer,
+             ILogger<AccountHandler> _logger,
+             IEmailService _emailSender, ClaimsPrincipal userClaim, AddPasswordModel addPasswordModel)
+        {
+
+            var result = new AccountResult();
+            if (MiniValidator.TryValidate(addPasswordModel, out var errors))
+            {
+                var userId = userClaim.GetUserId();
+                var user = await _userManager.FindByIdAsync(userId.ToString());
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    result.Status = AccountStatusEnum.Failed;
+                    return Results.BadRequest(result);
+                }
+                var hasPassword = await _userManager.HasPasswordAsync(user);
+                if (hasPassword)
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    result.Status = AccountStatusEnum.Failed;
+                    return Results.BadRequest(result);
+
+                }
+
+                var addPasswordResult = await _userManager.AddPasswordAsync(user, addPasswordModel.Password);
+
+                if (addPasswordResult.Succeeded)
+                {
+                    var setEmailResult = _userManager.SetEmailAsync(user, addPasswordModel.Email);
+                    if (setEmailResult.IsCompletedSuccessfully)
+                    {
+                        _logger.LogWarning(_sharedlocalizer["Successfully changed password; Requested By: "] + user.Email);
+                        return Results.Ok(addPasswordResult);
+                    }
+                }
+                else
+                {
+                    _logger.LogWarning(_sharedlocalizer["Failed to chnage password; Requested By: "] + user.Email);
+                    return Results.BadRequest(addPasswordResult);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return Results.BadRequest(errors);
+        }
+
+        public static async Task<IResult> HasPasswordHandler(UserManager<User> _userManager,
+            HttpContext context,
+            IStringLocalizer<SharedResource> _sharedlocalizer,
+             ILogger<AccountHandler> _logger,
+             IEmailService _emailSender, ClaimsPrincipal userClaim)
+        {
+
+            var result = new Result<bool>();
+            var userId = userClaim.GetUserId();
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist or is not confirmed
+                result.Status = ResultStatusEnum.Failed;
+                return Results.BadRequest(result);
+            }
+
+            var hasPassword = await _userManager.HasPasswordAsync(user);
+            result.Data = hasPassword;
+            return Results.Ok(result);
+
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1088,7 +1166,7 @@ namespace Hydra.Auth.Api.Handler
             if (signInResult.Succeeded)
             {
                 result.Status = AccountStatusEnum.Succeeded;
-                return Results.Ok(resul-t);
+                return Results.Ok(result);
             }
 
             if (signInResult.IsLockedOut)

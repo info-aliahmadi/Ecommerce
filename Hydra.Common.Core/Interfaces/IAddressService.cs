@@ -8,6 +8,13 @@ namespace Hydra.Common.Core.Interfaces
     {
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<Result<List<AddressModel>>> GetUserAddresses(int userId);
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="dataGrid"></param>
@@ -34,6 +41,14 @@ namespace Hydra.Common.Core.Interfaces
         /// <param name="addressModel"></param>
         /// <returns></returns>
         Task<Result<AddressModel>> Update(AddressModel addressModel);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="addressId"></param>
+        /// <returns></returns>
+        Task<Result<bool>> SetAsDefault(int userId, int addressId);
 
         /// <summary>
         ///

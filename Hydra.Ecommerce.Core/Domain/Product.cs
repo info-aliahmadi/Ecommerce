@@ -2,6 +2,7 @@
 using Hydra.Ecommerce.Core.Enums;
 using Hydra.FileStorage.Core.Domain;
 using Hydra.Kernel.Data;
+using Hydra.Kernel.Enums;
 
 namespace Hydra.Ecommerce.Core.Domain;
 

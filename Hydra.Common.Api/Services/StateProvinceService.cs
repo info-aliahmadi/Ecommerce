@@ -23,6 +23,35 @@ namespace Hydra.Common.Api.Services
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
+        public async Task<Result<List<StateProvinceModel>>> GetListForSelect(int countryId)
+        {
+            var result = new Result<List<StateProvinceModel>>();
+
+            var list = await _queryRepository.Table<StateProvince>().Include(x => x.Country)
+                .Where(stateProvince => stateProvince.CountryId == countryId && stateProvince.Published == true)
+                .Select(stateProvince => new StateProvinceModel()
+                {
+                    Id = stateProvince.Id,
+                    Name = stateProvince.Name,
+                    Abbreviation = stateProvince.Abbreviation,
+                    CountryId = stateProvince.CountryId,
+                    CountryName = stateProvince.Country.Name,
+                    Published = stateProvince.Published,
+                    DisplayOrder = stateProvince.DisplayOrder
+
+                }).OrderByDescending(x => x.Id).ToListAsync();
+
+            result.Data = list;
+
+            return result;
+        }
+
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="dataGrid"></param>
+        /// <returns></returns>
         public async Task<Result<PaginatedList<StateProvinceModel>>> GetList(GridDataBound dataGrid)
         {
             var result = new Result<PaginatedList<StateProvinceModel>>();
@@ -82,8 +111,8 @@ namespace Hydra.Common.Api.Services
             var result = new Result<StateProvinceModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<StateProvince>().AnyAsync(x => 
-                                                                                        x.CountryId == stateProvinceModel.CountryId 
+                bool isExist = await _queryRepository.Table<StateProvince>().AnyAsync(x =>
+                                                                                        x.CountryId == stateProvinceModel.CountryId
                                                                                         && x.Name == stateProvinceModel.Name);
                 if (isExist)
                 {

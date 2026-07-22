@@ -1,6 +1,7 @@
 ﻿using Hydra.Ecommerce.Core.Domain;
 using Hydra.Ecommerce.Core.Enums;
 using Hydra.FileStorage.Core.Models;
+using Hydra.Kernel.Enums;
 using Hydra.Kernel.GeneralModels;
 
 

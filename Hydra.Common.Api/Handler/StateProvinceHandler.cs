@@ -11,6 +11,19 @@ namespace Hydra.Common.Api.Handler
     {
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stateProvinceService"></param>
+        /// <param name="countryId"></param>
+        /// <returns></returns>
+        public static async Task<IResult> GetStateProvincesSelect(IStateProvinceService stateProvinceService, int countryId)
+        {
+            var result = await stateProvinceService.GetListForSelect(countryId);
+            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+        }
+
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="stateProvinceService"></param>

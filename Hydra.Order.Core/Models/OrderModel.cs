@@ -1,4 +1,5 @@
 ﻿using Hydra.Ecommerce.Core.Enums;
+using Hydra.Kernel.Enums;
 using Microsoft.OpenApi.Extensions;
 
 namespace Hydra.Order.Core.Models

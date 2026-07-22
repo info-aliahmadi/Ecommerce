@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Hydra.Ecommerce.Core.Enums
+namespace Hydra.Kernel.Enums
 {
 
     /// <summary>
