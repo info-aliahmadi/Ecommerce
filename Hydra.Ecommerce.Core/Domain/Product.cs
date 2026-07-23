@@ -118,8 +118,6 @@ public class Product : BaseEntity<int>
 
     public virtual List<RelatedProduct> RelatedProduct2Navigation { get; set; } = new();
 
-    public virtual List<ShoppingCartItem> ShoppingCartItems { get; set; } = new();
-
     public virtual TaxCategory TaxCategory { get; set; }
 
     public virtual User CreateUser { get; set; }

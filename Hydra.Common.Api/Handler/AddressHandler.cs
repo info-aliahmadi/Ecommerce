@@ -42,7 +42,7 @@ namespace Hydra.Common.Api.Handler
         {
             addressModel.UserId = userClaim.GetUserId();
             var result = await addressService.Add(addressModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return  Results.Ok(result);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Hydra.Common.Api.Handler
         {
             addressModel.UserId = userClaim.GetUserId();
             var result = await addressService.Update(addressModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
         /// <summary>
         ///
@@ -69,7 +69,7 @@ namespace Hydra.Common.Api.Handler
         {
             var userId = userClaim.GetUserId();
             var result = await addressService.SetAsDefault(userId, addressId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result) ;
         }
 
         /// <summary>

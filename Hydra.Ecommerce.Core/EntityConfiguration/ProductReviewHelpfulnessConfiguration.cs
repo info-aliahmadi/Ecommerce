@@ -14,12 +14,12 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasOne(d => d.ProductReview).WithMany(p => p.ProductReviewHelpfulnesses)
             .HasForeignKey(d => d.ProductReviewId)
-            .OnDelete(DeleteBehavior.Restrict)
+            .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName("FK_ProductReviewHelpfulness_ProductReview");
 
             entity.HasOne(d => d.User).WithMany()
             .HasForeignKey(d => d.UserId)
-            .OnDelete(DeleteBehavior.Restrict)
+            .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName("FK_ProductReviewHelpfulness_User");
         }
     }

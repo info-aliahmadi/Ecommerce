@@ -1,4 +1,5 @@
-﻿using Hydra.Auth.Domain;
+using Hydra.Auth.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
@@ -9,7 +10,9 @@ public class ShoppingCartItem : BaseEntity<int>
 
     public int ProductId { get; set; }
 
-    public byte ShoppingCartTypeId { get; set; }
+    public int ProductVariantId { get; set; }
+
+    public ShoppingCartTypeEnum ShoppingCartTypeId { get; set; }
 
     public int Quantity { get; set; }
 
@@ -17,7 +20,7 @@ public class ShoppingCartItem : BaseEntity<int>
 
     public DateTime UpdatedOnUtc { get; set; }
 
-    public virtual Product Product { get; set; }
+    public virtual ProductVariant ProductVariant { get; set; }
 
     public virtual User User { get; set; }
 }

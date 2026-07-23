@@ -1,10 +1,11 @@
-﻿using Hydra.Kernel.GeneralModels;
-using Hydra.Kernel.Interface;
 using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
+using Hydra.Kernel.Extension;
+using Hydra.Kernel.GeneralModels;
+using Hydra.Kernel.Interface;
 using Hydra.ShoppingCart.Core.Interfaces;
 using Hydra.ShoppingCart.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using Hydra.Kernel.Extension;
 
 namespace Hydra.ShoppingCart.Api.Services
 {
@@ -18,11 +19,6 @@ namespace Hydra.ShoppingCart.Api.Services
             _commandRepository = commandRepository;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
         public async Task<Result<PaginatedList<ShoppingCartItemModel>>> GetList(GridDataBound dataGrid)
         {
             var result = new Result<PaginatedList<ShoppingCartItemModel>>();
@@ -32,81 +28,53 @@ namespace Hydra.ShoppingCart.Api.Services
                               {
                                   Id = shoppingCartItem.Id,
                                   UserId = shoppingCartItem.UserId,
-                                  ProductId = shoppingCartItem.ProductId,
+                                  ProductVariantId = shoppingCartItem.ProductVariantId,
                                   ShoppingCartTypeId = shoppingCartItem.ShoppingCartTypeId,
                                   Quantity = shoppingCartItem.Quantity,
                                   CreatedOnUtc = shoppingCartItem.CreatedOnUtc,
                                   UpdatedOnUtc = shoppingCartItem.UpdatedOnUtc,
-
                               }).OrderByDescending(x => x.Id).ToPaginatedListAsync(dataGrid);
 
             result.Data = list;
-
             return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public async Task<Result<ShoppingCartItemModel>> GetById(int id)
         {
             var result = new Result<ShoppingCartItemModel>();
             var shoppingCartItem = await _queryRepository.Table<ShoppingCartItem>().FirstOrDefaultAsync(x => x.Id == id);
 
-            var shoppingCartItemModel = new ShoppingCartItemModel()
+            if (shoppingCartItem is null)
             {
-                Id = shoppingCartItem.Id,
-                UserId = shoppingCartItem.UserId,
-                ProductId = shoppingCartItem.ProductId,
-                ShoppingCartTypeId = shoppingCartItem.ShoppingCartTypeId,
-                Quantity = shoppingCartItem.Quantity,
-                CreatedOnUtc = shoppingCartItem.CreatedOnUtc,
-                UpdatedOnUtc = shoppingCartItem.UpdatedOnUtc,
+                result.Status = ResultStatusEnum.NotFound;
+                result.Message = "The ShoppingCartItem not found";
+                return result;
+            }
 
-            };
-            result.Data = shoppingCartItemModel;
-
+            result.Data = MapToModel(shoppingCartItem);
             return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="shoppingCartItemModel"></param>
-        /// <returns></returns>
         public async Task<Result<ShoppingCartItemModel>> Add(ShoppingCartItemModel shoppingCartItemModel)
         {
             var result = new Result<ShoppingCartItemModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<ShoppingCartItem>().AnyAsync(x => x.Id == shoppingCartItemModel.Id);
-                if (isExist)
-                {
-                    result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(shoppingCartItemModel.Id), "The Id already exist"));
-                    return result;
-                }
                 var shoppingCartItem = new ShoppingCartItem()
                 {
                     UserId = shoppingCartItemModel.UserId,
-                    ProductId = shoppingCartItemModel.ProductId,
+                    ProductVariantId = shoppingCartItemModel.ProductVariantId,
                     ShoppingCartTypeId = shoppingCartItemModel.ShoppingCartTypeId,
                     Quantity = shoppingCartItemModel.Quantity,
-                    CreatedOnUtc = shoppingCartItemModel.CreatedOnUtc,
-                    UpdatedOnUtc = shoppingCartItemModel.UpdatedOnUtc,
-
+                    CreatedOnUtc = DateTime.UtcNow,
+                    UpdatedOnUtc = DateTime.UtcNow,
                 };
 
                 await _commandRepository.InsertAsync(shoppingCartItem);
                 await _commandRepository.SaveChangesAsync();
 
                 shoppingCartItemModel.Id = shoppingCartItem.Id;
-
                 result.Data = shoppingCartItemModel;
-
                 return result;
             }
             catch (Exception e)
@@ -117,43 +85,29 @@ namespace Hydra.ShoppingCart.Api.Services
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="shoppingCartItemModel"></param>
-        /// <returns></returns>
         public async Task<Result<ShoppingCartItemModel>> Update(ShoppingCartItemModel shoppingCartItemModel)
         {
             var result = new Result<ShoppingCartItemModel>();
             try
             {
-                var shoppingCartItem = await _queryRepository.Table<ShoppingCartItem>().FirstAsync(x => x.Id == shoppingCartItemModel.Id);
+                var shoppingCartItem = await _queryRepository.Table<ShoppingCartItem>().FirstOrDefaultAsync(x => x.Id == shoppingCartItemModel.Id);
                 if (shoppingCartItem is null)
                 {
                     result.Status = ResultStatusEnum.NotFound;
                     result.Message = "The ShoppingCartItem not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<ShoppingCartItem>().AnyAsync(x => x.Id != shoppingCartItemModel.Id);
-                if (isExist)
-                {
-                    result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(shoppingCartItemModel.Id), "The Id already exist"));
-                    return result;
-                }
+
                 shoppingCartItem.UserId = shoppingCartItemModel.UserId;
-                shoppingCartItem.ProductId = shoppingCartItemModel.ProductId;
+                shoppingCartItem.ProductVariantId = shoppingCartItemModel.ProductVariantId;
                 shoppingCartItem.ShoppingCartTypeId = shoppingCartItemModel.ShoppingCartTypeId;
                 shoppingCartItem.Quantity = shoppingCartItemModel.Quantity;
-                shoppingCartItem.CreatedOnUtc = shoppingCartItemModel.CreatedOnUtc;
-                shoppingCartItem.UpdatedOnUtc = shoppingCartItemModel.UpdatedOnUtc;
+                shoppingCartItem.UpdatedOnUtc = DateTime.UtcNow;
 
-                _commandRepository.UpdateAsync(shoppingCartItem);
+                _commandRepository.Update(shoppingCartItem);
                 await _commandRepository.SaveChangesAsync();
 
                 result.Data = shoppingCartItemModel;
-
                 return result;
             }
             catch (Exception e)
@@ -164,11 +118,6 @@ namespace Hydra.ShoppingCart.Api.Services
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public async Task<Result> Delete(int id)
         {
             var result = new Result();
@@ -180,11 +129,234 @@ namespace Hydra.ShoppingCart.Api.Services
                 return result;
             }
 
-            _commandRepository.DeleteAsync(shoppingCartItem);
+            _commandRepository.Delete(shoppingCartItem);
             await _commandRepository.SaveChangesAsync();
-
             return result;
         }
 
+        public async Task<Result<List<ShoppingCartItemModel>>> GetByUserId(int userId)
+        {
+            var result = new Result<List<ShoppingCartItemModel>>();
+
+            var items = await _queryRepository.Table<ShoppingCartItem>()
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.CreatedOnUtc)
+                .ToListAsync();
+
+            result.Data = items.Select(MapToModel).ToList();
+            return result;
+        }
+
+        public async Task<Result<List<ShoppingCartItemModel>>> GetByUserIdAndType(int userId, ShoppingCartTypeEnum type)
+        {
+            var result = new Result<List<ShoppingCartItemModel>>();
+
+            var items = await _queryRepository.Table<ShoppingCartItem>()
+                .Where(x => x.UserId == userId && x.ShoppingCartTypeId == type)
+                .OrderByDescending(x => x.CreatedOnUtc)
+                .ToListAsync();
+
+            result.Data = items.Select(MapToModel).ToList();
+            return result;
+        }
+
+        public async Task<Result<ShoppingCartItemModel>> AddToCart(int userId, int productVariantId, int quantity)
+        {
+            var result = new Result<ShoppingCartItemModel>();
+            try
+            {
+                var existing = await _queryRepository.Table<ShoppingCartItem>()
+                    .FirstOrDefaultAsync(x => x.UserId == userId
+                        && x.ProductVariantId == productVariantId
+                        && x.ShoppingCartTypeId == ShoppingCartTypeEnum.ShoppingCart);
+
+                if (existing != null)
+                {
+                    existing.Quantity += quantity;
+                    existing.UpdatedOnUtc = DateTime.UtcNow;
+                    _commandRepository.Update(existing);
+                    await _commandRepository.SaveChangesAsync();
+                    result.Data = MapToModel(existing);
+                    return result;
+                }
+
+                var item = new ShoppingCartItem()
+                {
+                    UserId = userId,
+                    ProductVariantId = productVariantId,
+                    ShoppingCartTypeId = ShoppingCartTypeEnum.ShoppingCart,
+                    Quantity = quantity,
+                    CreatedOnUtc = DateTime.UtcNow,
+                    UpdatedOnUtc = DateTime.UtcNow,
+                };
+
+                await _commandRepository.InsertAsync(item);
+                await _commandRepository.SaveChangesAsync();
+
+                result.Data = MapToModel(item);
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                return result;
+            }
+        }
+
+        public async Task<Result<ShoppingCartItemModel>> AddToWishlist(int userId, int productVariantId)
+        {
+            var result = new Result<ShoppingCartItemModel>();
+            try
+            {
+                var existing = await _queryRepository.Table<ShoppingCartItem>()
+                    .FirstOrDefaultAsync(x => x.UserId == userId
+                        && x.ProductVariantId == productVariantId
+                        && x.ShoppingCartTypeId == ShoppingCartTypeEnum.Wishlist);
+
+                if (existing != null)
+                {
+                    result.Status = ResultStatusEnum.ItsDuplicate;
+                    result.Message = "Item already in wishlist";
+                    return result;
+                }
+
+                var item = new ShoppingCartItem()
+                {
+                    UserId = userId,
+                    ProductVariantId = productVariantId,
+                    ShoppingCartTypeId = ShoppingCartTypeEnum.Wishlist,
+                    Quantity = 1,
+                    CreatedOnUtc = DateTime.UtcNow,
+                    UpdatedOnUtc = DateTime.UtcNow,
+                };
+
+                await _commandRepository.InsertAsync(item);
+                await _commandRepository.SaveChangesAsync();
+
+                result.Data = MapToModel(item);
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                return result;
+            }
+        }
+
+        public async Task<Result> RemoveFromCart(int userId, int productVariantId)
+        {
+            var result = new Result();
+            var item = await _queryRepository.Table<ShoppingCartItem>()
+                .FirstOrDefaultAsync(x => x.UserId == userId
+                    && x.ProductVariantId == productVariantId
+                    && x.ShoppingCartTypeId == ShoppingCartTypeEnum.ShoppingCart);
+
+            if (item is null)
+            {
+                result.Status = ResultStatusEnum.NotFound;
+                result.Message = "Item not found in cart";
+                return result;
+            }
+
+            _commandRepository.Delete(item);
+            await _commandRepository.SaveChangesAsync();
+            return result;
+        }
+
+        public async Task<Result> RemoveFromWishlist(int userId, int productVariantId)
+        {
+            var result = new Result();
+            var item = await _queryRepository.Table<ShoppingCartItem>()
+                .FirstOrDefaultAsync(x => x.UserId == userId
+                    && x.ProductVariantId == productVariantId
+                    && x.ShoppingCartTypeId == ShoppingCartTypeEnum.Wishlist);
+
+            if (item is null)
+            {
+                result.Status = ResultStatusEnum.NotFound;
+                result.Message = "Item not found in wishlist";
+                return result;
+            }
+
+            _commandRepository.Delete(item);
+            await _commandRepository.SaveChangesAsync();
+            return result;
+        }
+
+        public async Task<Result> ClearCart(int userId)
+        {
+            var result = new Result();
+            var items = await _queryRepository.Table<ShoppingCartItem>()
+                .Where(x => x.UserId == userId && x.ShoppingCartTypeId == ShoppingCartTypeEnum.ShoppingCart)
+                .ToListAsync();
+
+            if (items.Count == 0)
+                return result;
+
+            _commandRepository.Delete(items);
+            await _commandRepository.SaveChangesAsync();
+            return result;
+        }
+
+        public async Task<Result> ClearWishlist(int userId)
+        {
+            var result = new Result();
+            var items = await _queryRepository.Table<ShoppingCartItem>()
+                .Where(x => x.UserId == userId && x.ShoppingCartTypeId == ShoppingCartTypeEnum.Wishlist)
+                .ToListAsync();
+
+            if (items.Count == 0)
+                return result;
+
+            _commandRepository.Delete(items);
+            await _commandRepository.SaveChangesAsync();
+            return result;
+        }
+
+        public async Task<Result<ShoppingCartItemModel>> UpdateQuantity(int itemId, int quantity)
+        {
+            var result = new Result<ShoppingCartItemModel>();
+            try
+            {
+                var item = await _queryRepository.Table<ShoppingCartItem>().FirstOrDefaultAsync(x => x.Id == itemId);
+                if (item is null)
+                {
+                    result.Status = ResultStatusEnum.NotFound;
+                    result.Message = "The ShoppingCartItem not found";
+                    return result;
+                }
+
+                item.Quantity = quantity;
+                item.UpdatedOnUtc = DateTime.UtcNow;
+
+                _commandRepository.Update(item);
+                await _commandRepository.SaveChangesAsync();
+
+                result.Data = MapToModel(item);
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                return result;
+            }
+        }
+
+        private static ShoppingCartItemModel MapToModel(ShoppingCartItem item)
+        {
+            return new ShoppingCartItemModel()
+            {
+                Id = item.Id,
+                UserId = item.UserId,
+                ProductVariantId = item.ProductVariantId,
+                ShoppingCartTypeId = item.ShoppingCartTypeId,
+                Quantity = item.Quantity,
+                CreatedOnUtc = item.CreatedOnUtc,
+                UpdatedOnUtc = item.UpdatedOnUtc,
+            };
+        }
     }
 }

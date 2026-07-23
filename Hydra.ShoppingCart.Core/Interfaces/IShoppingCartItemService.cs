@@ -1,5 +1,5 @@
-﻿using Hydra.Kernel.GeneralModels;
-
+using Hydra.Ecommerce.Core.Enums;
+using Hydra.Kernel.GeneralModels;
 using Hydra.ShoppingCart.Core.Models;
 
 namespace Hydra.ShoppingCart.Core.Interfaces
@@ -7,40 +7,20 @@ namespace Hydra.ShoppingCart.Core.Interfaces
     public interface IShoppingCartItemService
     {
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
         Task<Result<PaginatedList<ShoppingCartItemModel>>> GetList(GridDataBound dataGrid);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         Task<Result<ShoppingCartItemModel>> GetById(int id);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="shoppingCartItemModel"></param>
-        /// <returns></returns>
         Task<Result<ShoppingCartItemModel>> Add(ShoppingCartItemModel shoppingCartItemModel);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="shoppingCartItemModel"></param>
-        /// <returns></returns>
         Task<Result<ShoppingCartItemModel>> Update(ShoppingCartItemModel shoppingCartItemModel);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         Task<Result> Delete(int id);
+        Task<Result<List<ShoppingCartItemModel>>> GetByUserId(int userId);
+        Task<Result<List<ShoppingCartItemModel>>> GetByUserIdAndType(int userId, ShoppingCartTypeEnum type);
+        Task<Result<ShoppingCartItemModel>> AddToCart(int userId, int productVariantId, int quantity);
+        Task<Result<ShoppingCartItemModel>> AddToWishlist(int userId, int productVariantId);
+        Task<Result> RemoveFromCart(int userId, int productVariantId);
+        Task<Result> RemoveFromWishlist(int userId, int productVariantId);
+        Task<Result> ClearCart(int userId);
+        Task<Result> ClearWishlist(int userId);
+        Task<Result<ShoppingCartItemModel>> UpdateQuantity(int itemId, int quantity);
 
     }
 }

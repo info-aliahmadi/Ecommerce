@@ -31,6 +31,7 @@ namespace Hydra.Common.Api.Services
                 .ThenInclude(x => x.StateProvinces)
                 .Where(x => x.UserId == userId).Select(address => new AddressModel()
                 {
+                    Id = address.Id,
                     UserId = address.UserId,
                     CountryId = address.CountryId,
                     CountryName = address.Country.Name,
@@ -135,11 +136,19 @@ namespace Hydra.Common.Api.Services
             var result = new Result<AddressModel>();
             try
             {
-                bool isExist = await _queryRepository.Table<Address>().AnyAsync(x => x.Id == addressModel.Id);
+                bool isExist = await _queryRepository.Table<Address>().AsNoTracking().AnyAsync(x => x.Id == addressModel.Id);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
                     result.Message = "The Id already exist";
+                    result.Errors.Add(new Error(nameof(addressModel.Id), "The Id already exist"));
+                    return result;
+                }
+                bool isTitleExist = await _queryRepository.Table<Address>().AsNoTracking().AnyAsync(x => x.UserId == addressModel.UserId && x.Title == addressModel.Title);
+                if (isTitleExist)
+                {
+                    result.Status = ResultStatusEnum.ItsDuplicate;
+                    result.Message = "The Title already exist";
                     result.Errors.Add(new Error(nameof(addressModel.Id), "The Id already exist"));
                     return result;
                 }
@@ -162,8 +171,10 @@ namespace Hydra.Common.Api.Services
 
                 await _commandRepository.InsertAsync(address);
                 await _commandRepository.SaveChangesAsync();
-
-                await SetAsDefault(addressModel.UserId, address.Id);
+                var addressCount = _queryRepository.Table<Address>().AsNoTracking().Count(x => x.UserId == addressModel.UserId);
+                // first address
+                if (addressCount == 1 || addressModel.IsDefault)
+                    await SetAsDefault(addressModel.UserId, address);
 
                 addressModel.Id = address.Id;
 
@@ -189,21 +200,24 @@ namespace Hydra.Common.Api.Services
             var result = new Result<AddressModel>();
             try
             {
-                var address = await _queryRepository.Table<Address>().FirstAsync(x => x.Id == addressModel.Id);
+                var address = await _queryRepository.Table<Address>().AsNoTracking().FirstAsync(x => x.Id == addressModel.Id);
                 if (address is null)
                 {
                     result.Status = ResultStatusEnum.NotFound;
                     result.Message = "The Address not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<Address>().AnyAsync(x => x.Id != addressModel.Id);
+                bool isExist = await _queryRepository.Table<Address>()
+                    .AnyAsync(x => x.UserId == addressModel.UserId && x.Id != addressModel.Id && x.Title == addressModel.Title);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(addressModel.Id), "The Id already exist"));
+                    result.Message = "The Title already exist";
+                    result.Errors.Add(new Error(nameof(addressModel.Id), "The Title already exist"));
                     return result;
                 }
+
+
                 address.UserId = addressModel.UserId;
                 address.CountryId = addressModel.CountryId;
                 address.StateProvinceId = addressModel.StateProvinceId;
@@ -221,9 +235,44 @@ namespace Hydra.Common.Api.Services
                 await _commandRepository.SaveChangesAsync();
 
                 if (addressModel.IsDefault == true)
-                    await SetAsDefault(addressModel.UserId, address.Id);
+                    await SetAsDefault(addressModel.UserId, address);
 
                 result.Data = addressModel;
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                return result;
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="addressModel"></param>
+        /// <returns></returns>
+        private async Task<Result<bool>> SetAsDefault(int userId, Address address)
+        {
+            var result = new Result<bool>();
+            try
+            {
+                var addresses = _queryRepository.Table<Address>().AsNoTracking().Where(x => x.UserId == userId && x.IsDefault == true && x.Id != address.Id).ToList();
+                foreach (var item in addresses)
+                {
+                    item.IsDefault = false;
+                    _commandRepository.Update(item);
+                }
+                await _commandRepository.SaveChangesAsync();
+
+                address.IsDefault = true;
+
+                _commandRepository.Update(address);
+                await _commandRepository.SaveChangesAsync();
+
+                result.Data = true;
 
                 return result;
             }
@@ -253,7 +302,7 @@ namespace Hydra.Common.Api.Services
                     return result;
                 }
 
-                var addresses = _queryRepository.Table<Address>().Where(x => x.UserId == userId && x.IsDefault).ToList();
+                var addresses = _queryRepository.Table<Address>().AsNoTracking().Where(x => x.UserId == userId && x.IsDefault == true && x.Id != addressId).ToList();
                 foreach (var item in addresses)
                 {
                     item.IsDefault = false;
@@ -292,12 +341,18 @@ namespace Hydra.Common.Api.Services
                 result.Message = "The Address not found";
                 return result;
             }
-
+            var isDefault = address.IsDefault;
+            var userId = address.UserId;
             _commandRepository.Delete(address);
             await _commandRepository.SaveChangesAsync();
+            if (isDefault)
+            {
+                var firstAddress = _queryRepository.Table<Address>().FirstOrDefault(x => x.UserId == userId);
+                if (firstAddress != null)
+                    await SetAsDefault(userId, firstAddress);
 
+            }
             return result;
         }
-
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Hydra.Order.Core.Models
+using Hydra.Ecommerce.Core.Enums;
+
+namespace Hydra.Order.Core.Models
 {
     public class ShoppingCartItemModel
     {
@@ -21,14 +23,14 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        public int ProductId { get; set; }
+        public int ProductVariantId { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public byte ShoppingCartTypeId { get; set; }
+        public ShoppingCartTypeEnum ShoppingCartTypeId { get; set; }
 
 
         /// <summary>

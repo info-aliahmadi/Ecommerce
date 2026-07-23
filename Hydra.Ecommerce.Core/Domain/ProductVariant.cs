@@ -40,4 +40,6 @@ public class ProductVariant : BaseEntity<int>
     /// </summary>
     public List<ProductVariantAttribute> VariantAttributes { get; set; }
 
+    public virtual List<ShoppingCartItem> ShoppingCartItems { get; set; } = new();
+
 }

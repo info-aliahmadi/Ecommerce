@@ -1,12 +1,15 @@
 using Hydra.Auth.Domain;
+using Hydra.Auth.Interface;
 using Hydra.Auth.Models;
+using Hydra.Ecommerce.Core.Constants;
 using Hydra.Infrastructure;
-using Hydra.Kernel.Interface;
 using Hydra.Infrastructure.Notification.Email.Interface;
 using Hydra.Infrastructure.Notification.Email.Models;
 using Hydra.Infrastructure.Notification.Sms.Interface;
 using Hydra.Infrastructure.Notification.Sms.Models;
 using Hydra.Kernel;
+using Hydra.Kernel.GeneralModels;
+using Hydra.Kernel.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +17,8 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using MiniValidation;
+using System.Collections.Generic;
 using System.Security.Claims;
-using Hydra.Auth.Interface;
-using Hydra.Kernel.GeneralModels;
-using Hydra.Ecommerce.Core.Constants;
 
 namespace Hydra.Auth.Api.Handler
 {
@@ -47,10 +48,10 @@ namespace Hydra.Auth.Api.Handler
                 var result = new AccountResult();
 
                 var user = new User
-                { 
-                    RegisterDate = DateTime.UtcNow, 
+                {
+                    RegisterDate = DateTime.UtcNow,
                     Name = "admin",
-                    UserName = "admin", 
+                    UserName = "admin@admin.com",
                     Email = "admin@admin.com",
                     EmailConfirmed = true,
                     DefaultTheme = DefaultSetting.DEFAULT_THEME,
@@ -101,7 +102,18 @@ namespace Hydra.Auth.Api.Handler
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_repository"></param>
+        /// <param name="_emailSender"></param>
+        /// <param name="_userManager"></param>
+        /// <param name="_roleManager"></param>
+        /// <param name="_signInManager"></param>
+        /// <param name="_sharedlocalizer"></param>
+        /// <param name="_logger"></param>
+        /// <param name="registerModel"></param>
+        /// <returns></returns>
         public static async Task<IResult> RegisterHandler(
              IQueryRepository _repository,
              IEmailService _emailSender,
@@ -207,6 +219,36 @@ namespace Hydra.Auth.Api.Handler
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_userManager"></param>
+        /// <param name="userPrincipal"></param>
+        /// <returns></returns>
+        public static async Task<IResult> DeleteCurrentHandler(
+            UserManager<User> _userManager,
+            IUserService _userService,
+            ClaimsPrincipal userPrincipal)
+        {
+            try
+            {
+                var result = new Result();
+                var userIdentity = userPrincipal.GetUserId();
+
+                if (userIdentity == null)
+                {
+                    return Results.BadRequest("ERROR: PLEASE LOGIN");
+
+                }
+                var deletedResult = await _userService.DeleteUser(userIdentity);
+                
+                return Results.Ok(deletedResult);
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest("BadRequest");
+            }
+        }
 
         /// <summary>
         /// 
@@ -454,7 +496,9 @@ namespace Hydra.Auth.Api.Handler
             // Auto-register if not found
             if (user == null)
             {
-                var phoneUsername = $"phone_{model.PhoneNumber.Replace("+", "")}";
+                var shortId = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
+                    .Replace("+", "").Replace("/", "").Replace("!", "").Replace("=", "")[..10];
+                var phoneUsername = $"user_{shortId}";
                 user = new User
                 {
                     UserName = phoneUsername,
@@ -794,10 +838,8 @@ namespace Hydra.Auth.Api.Handler
 
 
         public static async Task<IResult> ChangePasswordHandler(UserManager<User> _userManager,
-            HttpContext context,
             IStringLocalizer<SharedResource> _sharedlocalizer,
-             ILogger<AccountHandler> _logger,
-             IEmailService _emailSender, ClaimsPrincipal userClaim, ChangePasswordModel model)
+             ILogger<AccountHandler> _logger, ClaimsPrincipal userClaim, ChangePasswordModel model)
         {
 
             var result = new AccountResult();
@@ -831,10 +873,8 @@ namespace Hydra.Auth.Api.Handler
         }
 
         public static async Task<IResult> AddPasswordHandler(UserManager<User> _userManager,
-            HttpContext context,
             IStringLocalizer<SharedResource> _sharedlocalizer,
-             ILogger<AccountHandler> _logger,
-             IEmailService _emailSender, ClaimsPrincipal userClaim, AddPasswordModel addPasswordModel)
+             ILogger<AccountHandler> _logger, ClaimsPrincipal userClaim, AddPasswordModel addPasswordModel)
         {
 
             var result = new AccountResult();
@@ -842,7 +882,7 @@ namespace Hydra.Auth.Api.Handler
             {
                 var userId = userClaim.GetUserId();
                 var user = await _userManager.FindByIdAsync(userId.ToString());
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     result.Status = AccountStatusEnum.Failed;
@@ -861,8 +901,8 @@ namespace Hydra.Auth.Api.Handler
 
                 if (addPasswordResult.Succeeded)
                 {
-                    var setEmailResult = _userManager.SetEmailAsync(user, addPasswordModel.Email);
-                    if (setEmailResult.IsCompletedSuccessfully)
+                    var setEmailResult = await _userManager.SetEmailAsync(user, addPasswordModel.Email);
+                    if (setEmailResult.Succeeded)
                     {
                         _logger.LogWarning(_sharedlocalizer["Successfully changed password; Requested By: "] + user.Email);
                         return Results.Ok(addPasswordResult);
@@ -880,10 +920,8 @@ namespace Hydra.Auth.Api.Handler
         }
 
         public static async Task<IResult> HasPasswordHandler(UserManager<User> _userManager,
-            HttpContext context,
             IStringLocalizer<SharedResource> _sharedlocalizer,
-             ILogger<AccountHandler> _logger,
-             IEmailService _emailSender, ClaimsPrincipal userClaim)
+             ILogger<AccountHandler> _logger, ClaimsPrincipal userClaim)
         {
 
             var result = new Result<bool>();
@@ -918,18 +956,16 @@ namespace Hydra.Auth.Api.Handler
              ILogger<AccountHandler> _logger,
              IEmailService _emailSender, [FromBody] ForgotPasswordModel model)
         {
-            var result = new AccountResult();
+            var result = new Result<bool>();
             if (MiniValidator.TryValidate(model, out var errors))
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    result.Status = AccountStatusEnum.Failed;
-                    return Results.BadRequest(result);
+                    result.Status = ResultStatusEnum.NotFound;
+                    return Results.Ok(result);
                 }
-
-                result.Status = AccountStatusEnum.RequireConfirmedEmail;
 
                 var emailRequest = new EmailMessage();
                 //For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
@@ -945,23 +981,26 @@ namespace Hydra.Auth.Api.Handler
                 {
                     _emailSender.Send(emailRequest);
 
-                    result.Status = AccountStatusEnum.Succeeded;
                     return Results.Ok(result);
                 }
                 catch (Exception e)
                 {
                     _logger.LogError(e.InnerException + "_" + e.Message);
-                    result.Errors.Add(_sharedlocalizer["RequireConfirmedEmail action throw an error"]);
+                    result.Errors.Add(new Error()
+                    {
+                        Description = _sharedlocalizer["RequireConfirmedEmail action throw an error"],
+                        Property = nameof(model.Email)
+                    });
                     return Results.BadRequest(result);
                 }
 
 
             }
-
+            result.Errors.AddRange(errors.Select(x => new Error() { Description = x.Value.ToString() }));
             // If we got this far, something failed, redisplay form
             _logger.LogWarning(_sharedlocalizer["Input data are invalid.; Requested By: "] + model.Email);
 
-            return Results.BadRequest(errors);
+            return Results.Ok(result);
         }
 
         /// <summary>

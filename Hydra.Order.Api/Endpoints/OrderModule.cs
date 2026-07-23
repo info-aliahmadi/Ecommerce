@@ -30,6 +30,7 @@ namespace Hydra.Order.Api.Endpoints
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
 
+
             endpoints.MapPost(API_SCHEMA + "/GetOrderList", OrderHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetOrderById", OrderHandler.GetOrderById).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetAllOrderStatus", OrderHandler.GetAllOrderStatus).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);

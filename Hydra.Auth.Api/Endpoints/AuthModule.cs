@@ -50,6 +50,7 @@ namespace Hydra.Auth.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/ResetPassword", AccountHandler.ResetPasswordHandler).AllowAnonymous();
 
 
+            endpoints.MapGet(API_SCHEMA + "/DeleteCurrentUser", AccountHandler.DeleteCurrentHandler).RequireAuthorization();
             endpoints.MapGet(API_SCHEMA + "/GetCurrentUser", AccountHandler.GetCurrentUserHandler).RequireAuthorization();
             endpoints.MapPost(API_SCHEMA + "/UpdateCurrentUser", AccountHandler.UpdateCurrentUserHandler).RequireAuthorization();
             endpoints.MapPost(API_SCHEMA + "/SignOut", AccountHandler.SignOutHandler).RequireAuthorization();
@@ -67,7 +68,7 @@ namespace Hydra.Auth.Api.Endpoints
 
 
             endpoints.MapPost(API_SCHEMA + "/ChangePassword", AccountHandler.ChangePasswordHandler).RequireAuthorization();
-            endpoints.MapPost(API_SCHEMA + "/HasPassword", AccountHandler.HasPasswordHandler).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/HasPassword", AccountHandler.HasPasswordHandler).RequireAuthorization();
             endpoints.MapPost(API_SCHEMA + "/AddPassword", AccountHandler.AddPasswordHandler).RequireAuthorization();
 
             endpoints.MapPost(API_SCHEMA + "/GetUserList", UserHandler.GetList).RequirePermission(AuthPermissionTypes.AUTH_USER_MANAGEMENT);

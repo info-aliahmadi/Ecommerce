@@ -35,7 +35,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.HasOne(d => d.User).WithMany()
             .HasForeignKey(d => d.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
 
         }
