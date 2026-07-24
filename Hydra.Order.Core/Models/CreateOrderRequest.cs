@@ -1,10 +1,12 @@
+using Hydra.Ecommerce.Core.Enums;
+
 namespace Hydra.Order.Core.Models
 {
     public class CreateOrderRequest
     {
         public int? AddressId { get; set; }
         public int? ShippingMethodId { get; set; }
-        public byte? PaymentMethodId { get; set; }
+        public PaymentMethod? PaymentMethodId { get; set; }
         public List<CreateOrderItemRequest> Items { get; set; } = new();
     }
 

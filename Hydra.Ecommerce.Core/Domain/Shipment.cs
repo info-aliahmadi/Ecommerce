@@ -1,4 +1,4 @@
-﻿using Hydra.Kernel.Data;
+using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
 
@@ -7,6 +7,8 @@ public class Shipment : BaseEntity<int>
     public int OrderId { get; set; }
 
     public string TrackingNumber { get; set; }
+
+    public string ShippingAddressSnapshot { get; set; }
 
     public decimal? TotalWeight { get; set; }
 

@@ -1,4 +1,4 @@
-﻿using Hydra.Kernel.GeneralModels;
+using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
 using Hydra.Ecommerce.Core.Domain;
 using Hydra.Order.Core.Interfaces;
@@ -33,6 +33,7 @@ namespace Hydra.Order.Api.Services
                                   Id = shipment.Id,
                                   OrderId = shipment.OrderId,
                                   TrackingNumber = shipment.TrackingNumber,
+                                  ShippingAddressSnapshot = shipment.ShippingAddressSnapshot,
                                   TotalWeight = shipment.TotalWeight,
                                   ShippedDateUtc = shipment.ShippedDateUtc,
                                   DeliveryDateUtc = shipment.DeliveryDateUtc,
@@ -63,6 +64,7 @@ namespace Hydra.Order.Api.Services
                 Id = shipment.Id,
                 OrderId = shipment.OrderId,
                 TrackingNumber = shipment.TrackingNumber,
+                ShippingAddressSnapshot = shipment.ShippingAddressSnapshot,
                 TotalWeight = shipment.TotalWeight,
                 ShippedDateUtc = shipment.ShippedDateUtc,
                 DeliveryDateUtc = shipment.DeliveryDateUtc,
@@ -99,6 +101,7 @@ namespace Hydra.Order.Api.Services
                 {
                     OrderId = shipmentModel.OrderId,
                     TrackingNumber = shipmentModel.TrackingNumber,
+                    ShippingAddressSnapshot = shipmentModel.ShippingAddressSnapshot,
                     TotalWeight = shipmentModel.TotalWeight,
                     ShippedDateUtc = shipmentModel.ShippedDateUtc,
                     DeliveryDateUtc = shipmentModel.DeliveryDateUtc,

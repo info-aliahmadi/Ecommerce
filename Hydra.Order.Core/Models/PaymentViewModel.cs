@@ -1,4 +1,4 @@
-﻿using Hydra.Ecommerce.Core.Enums;
+using Hydra.Ecommerce.Core.Enums;
 using Microsoft.OpenApi.Extensions;
 
 namespace Hydra.Order.Core.Models
@@ -38,12 +38,12 @@ namespace Hydra.Order.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public byte? PaymentTypeId { get; set; }
+        public PaymentMethod? PaymentTypeId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string PaymentTypeTitle => PaymentTypeId.HasValue ? ((PaymentType)PaymentTypeId).GetDisplayName() : string.Empty;
+        public string PaymentTypeTitle => PaymentTypeId.HasValue ? ((PaymentMethod)PaymentTypeId).GetDisplayName() : string.Empty;
 
         /// <summary>
         /// 

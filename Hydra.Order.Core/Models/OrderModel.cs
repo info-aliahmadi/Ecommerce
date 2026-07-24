@@ -1,4 +1,4 @@
-﻿using Hydra.Ecommerce.Core.Enums;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel.Enums;
 using Microsoft.OpenApi.Extensions;
 
@@ -38,9 +38,14 @@ namespace Hydra.Order.Core.Models
         /// <returns></returns>
         public int? AddressId { get; set; }
 
+        /// <summary>
+        ///
+        /// </summary>
+        public string AddressSnapshot { get; set; }
+
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public int? ShippingMethodId { get; set; }
@@ -54,13 +59,13 @@ namespace Hydra.Order.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public byte OrderStatusId { get; set; }
+        public OrderStatus OrderStatusId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public byte ShippingStatusId { get; set; }
+        public ShippingStatus ShippingStatusId { get; set; }
 
         /// <summary>
         /// 
@@ -84,7 +89,7 @@ namespace Hydra.Order.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public byte? PaymentMethodId { get; set; }
+        public PaymentMethod? PaymentMethodId { get; set; }
 
         /// <summary>
         /// 

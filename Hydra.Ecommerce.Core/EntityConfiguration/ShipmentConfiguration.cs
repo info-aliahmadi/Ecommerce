@@ -11,6 +11,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.ToTable("Shipment", "Sale");
 
             entity.HasIndex(e => e.OrderId, "IX_Shipment_OrderId");
+            entity.Property(e => e.ShippingAddressSnapshot).HasMaxLength(300);
 
             entity.Property(e => e.AdminComment).HasMaxLength(300);
             entity.Property(e => e.CreatedOnUtc).HasPrecision(6);

@@ -1,4 +1,4 @@
-﻿using Hydra.Ecommerce.Core.Enums;
+using Hydra.Ecommerce.Core.Enums;
 
 namespace Hydra.Order.Core.Models
 {
@@ -44,7 +44,7 @@ namespace Hydra.Order.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public byte? PaymentTypeId { get; set; }
+        public PaymentMethod? PaymentTypeId { get; set; }
 
 
         /// <summary>

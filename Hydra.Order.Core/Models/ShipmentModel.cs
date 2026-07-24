@@ -1,4 +1,4 @@
-﻿namespace Hydra.Order.Core.Models
+namespace Hydra.Order.Core.Models
 {
     public class ShipmentModel
     {
@@ -25,7 +25,13 @@
 
 
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        public string ShippingAddressSnapshot { get; set; }
+
+
+        /// <summary>
+        ///
         /// </summary>
         /// <returns></returns>
         public decimal? TotalWeight { get; set; }

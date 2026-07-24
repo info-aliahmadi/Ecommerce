@@ -16,6 +16,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
 
             entity.Property(e => e.CreatedOnUtc).HasPrecision(6);
             entity.Property(e => e.CustomerIp).HasMaxLength(50);
+            entity.Property(e => e.AddressSnapshot).HasMaxLength(300);
             entity.Property(e => e.ShippingTax).HasColumnType("decimal(18, 4)");
             entity.Property(e => e.ShippingAmount).HasColumnType("decimal(18, 4)");
             entity.Property(e => e.ShippingAmountTax).HasColumnType("decimal(18, 4)");

@@ -48,6 +48,7 @@ namespace Hydra.Order.Api.Services
                                   UserName = order.User.Name,
                                   ShipmentId = order.ShipmentId,
                                   AddressId = order.AddressId,
+                                  AddressSnapshot = order.AddressSnapshot,
                                   ShippingMethodId = order.ShippingMethodId,
                                   ShippingMethodTitle = order.ShippingMethod.Name,
                                   OrderStatusId = order.OrderStatusId,
@@ -97,6 +98,7 @@ namespace Hydra.Order.Api.Services
                 UserId = order.UserId,
                 ShipmentId = order.ShipmentId,
                 AddressId = order.AddressId,
+                AddressSnapshot = order.AddressSnapshot,
                 ShippingMethodId = order.ShippingMethodId,
                 OrderStatusId = order.OrderStatusId,
                 ShippingStatusId = order.ShippingStatusId,
@@ -213,8 +215,8 @@ namespace Hydra.Order.Api.Services
                 order.ShipmentId = orderModel.ShipmentId;
                 order.AddressId = orderModel.AddressId;
                 order.ShippingMethodId = orderModel.ShippingMethodId;
-                order.OrderStatusId = orderModel.OrderStatusId;
-                order.ShippingStatusId = orderModel.ShippingStatusId;
+                order.OrderStatusId = (OrderStatus)orderModel.OrderStatusId;
+                order.ShippingStatusId = (ShippingStatus)orderModel.ShippingStatusId;
                 order.PaymentStatusId = orderModel.PaymentStatusId;
                 order.PaymentMethodId = orderModel.PaymentMethodId;
                 order.UserCurrencyType = orderModel.UserCurrencyType;
@@ -267,8 +269,8 @@ namespace Hydra.Order.Api.Services
                 }
 
                 order.ShippingMethodId = orderModel.ShippingMethodId;
-                order.OrderStatusId = orderModel.OrderStatusId;
-                order.ShippingStatusId = orderModel.ShippingStatusId;
+                order.OrderStatusId = (OrderStatus)orderModel.OrderStatusId;
+                order.ShippingStatusId = (ShippingStatus)orderModel.ShippingStatusId;
                 order.PaymentStatusId = orderModel.PaymentStatusId;
 
                 _commandRepository.Update(order);
@@ -372,6 +374,7 @@ namespace Hydra.Order.Api.Services
                                   UserName = order.User.Name,
                                   ShipmentId = order.ShipmentId,
                                   AddressId = order.AddressId,
+                                  AddressSnapshot = order.AddressSnapshot,
                                   ShippingMethodId = order.ShippingMethodId,
                                   ShippingMethodTitle = order.ShippingMethod.Name,
                                   OrderStatusId = order.OrderStatusId,
@@ -425,6 +428,7 @@ namespace Hydra.Order.Api.Services
                                    UserName = o.User.Name,
                                    ShipmentId = o.ShipmentId,
                                    AddressId = o.AddressId,
+                                   AddressSnapshot = o.AddressSnapshot,
                                    ShippingMethodId = o.ShippingMethodId,
                                    ShippingMethodTitle = o.ShippingMethod.Name,
                                    OrderStatusId = o.OrderStatusId,
@@ -509,13 +513,27 @@ namespace Hydra.Order.Api.Services
                     return result;
                 }
 
+                // Snapshot the address at order creation time
+                string addressSnapshot = null;
+                if (request.AddressId.HasValue)
+                {
+                    var address = await _queryRepository.Table<Address>()
+                        .Include(a => a.Country).Include(a => a.StateProvince)
+                        .FirstOrDefaultAsync(a => a.Id == request.AddressId.Value);
+                    if (address != null)
+                    {
+                        addressSnapshot = FormatAddress(address);
+                    }
+                }
+
                 var order = new Ecommerce.Core.Domain.Order()
                 {
                     UserId = userId,
                     AddressId = request.AddressId,
+                    AddressSnapshot = addressSnapshot,
                     ShippingMethodId = request.ShippingMethodId,
                     PaymentMethodId = request.PaymentMethodId,
-                    OrderStatusId = (byte)OrderStatus.Pending,
+                    OrderStatusId = OrderStatus.Pending,
                     ShippingStatusId = 0,
                     PaymentStatusId = 0,
                     UserCurrencyType = CurrencyType.Dollar,
@@ -546,6 +564,7 @@ namespace Hydra.Order.Api.Services
                     Id = order.Id,
                     UserId = order.UserId,
                     AddressId = order.AddressId,
+                    AddressSnapshot = order.AddressSnapshot,
                     ShippingMethodId = order.ShippingMethodId,
                     PaymentMethodId = order.PaymentMethodId,
                     OrderStatusId = order.OrderStatusId,
@@ -579,14 +598,14 @@ namespace Hydra.Order.Api.Services
                     return result;
                 }
 
-                if (order.OrderStatusId != (byte)OrderStatus.Pending)
+                if (order.OrderStatusId != OrderStatus.Pending)
                 {
                     result.Status = ResultStatusEnum.Failed;
                     result.Message = "Only pending orders can be cancelled";
                     return result;
                 }
 
-                order.OrderStatusId = (byte)OrderStatus.Cancelled;
+                order.OrderStatusId = OrderStatus.Cancelled;
                 _commandRepository.Update(order);
                 await _commandRepository.SaveChangesAsync();
 
@@ -598,6 +617,19 @@ namespace Hydra.Order.Api.Services
                 result.Status = ResultStatusEnum.ExceptionThrowed;
                 return result;
             }
+        }
+
+        private static string FormatAddress(Address address)
+        {
+            var parts = new List<string>();
+            if (address.Country != null && !string.IsNullOrEmpty(address.Country.Name)) parts.Add(address.Country.Name);
+            if (address.StateProvince != null && !string.IsNullOrEmpty(address.StateProvince.Name)) parts.Add(address.StateProvince.Name);
+            if (!string.IsNullOrEmpty(address.City)) parts.Add(address.City);
+            if (!string.IsNullOrEmpty(address.County)) parts.Add(address.County);
+            if (!string.IsNullOrEmpty(address.Address1)) parts.Add(address.Address1);
+            if (!string.IsNullOrEmpty(address.ZipPostalCode)) parts.Add(address.ZipPostalCode);
+            if (!string.IsNullOrEmpty(address.PhoneNumber)) parts.Add("Ph: " + address.PhoneNumber);
+            return string.Join(", ", parts);
         }
     }
 }
