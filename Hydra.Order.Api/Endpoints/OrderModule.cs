@@ -1,10 +1,11 @@
-﻿using Hydra.Ecommerce.Core.Constants;
+using Hydra.Ecommerce.Core.Constants;
 using Hydra.Infrastructure.ModuleExtension;
 using Hydra.Infrastructure.Security.Extension;
 using Hydra.Order.Api.Handler;
 using Hydra.Order.Api.Service;
 using Hydra.Order.Api.Services;
 using Hydra.Order.Core.Interfaces;
+using Hydra.Payment.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,12 +24,39 @@ namespace Hydra.Order.Api.Endpoints
             services.AddScoped<IShipmentService, ShipmentService>();
             services.AddScoped<IShipmentItemService, ShipmentItemService>();
             services.AddScoped<IShoppingCartItemService, ShoppingCartItemService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             return services;
         }
 
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
+
+            // User-facing shopping cart & wishlist endpoints (authenticated, user operates on own data)
+            endpoints.MapGet(API_SCHEMA + "/GetMyCartItems", ShoppingCartItemHandler.GetMyCartItems).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/GetMyWishlistItems", ShoppingCartItemHandler.GetMyWishlistItems).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/GetAllMyShoppingItems", ShoppingCartItemHandler.GetAllMyShoppingItems).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/AddToCart", ShoppingCartItemHandler.AddToCart).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/AddToWishlist", ShoppingCartItemHandler.AddToWishlist).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/RemoveFromCart", ShoppingCartItemHandler.RemoveFromCart).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/RemoveFromWishlist", ShoppingCartItemHandler.RemoveFromWishlist).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/ClearCart", ShoppingCartItemHandler.ClearCart).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/ClearWishlist", ShoppingCartItemHandler.ClearWishlist).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/UpdateCartItemQuantity", ShoppingCartItemHandler.UpdateCartItemQuantity).RequireAuthorization();
+
+            // User-facing order endpoints
+            endpoints.MapGet(API_SCHEMA + "/GetMyOrders", OrderHandler.GetMyOrders).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/GetMyOrderById", OrderHandler.GetMyOrderById).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/GetMyOrderItems", OrderHandler.GetMyOrderItems).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/CreateOrder", OrderHandler.CreateOrder).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/CancelMyOrder", OrderHandler.CancelMyOrder).RequireAuthorization();
+
+            // User-facing payment endpoints
+            endpoints.MapGet(API_SCHEMA + "/GetMyPayments", PaymentHandler.GetMyPayments).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/GetMyPaymentById", PaymentHandler.GetMyPaymentById).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/ProcessPayment", PaymentHandler.ProcessPayment).RequireAuthorization();
+
+
 
 
             endpoints.MapPost(API_SCHEMA + "/GetOrderList", OrderHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
@@ -77,6 +105,17 @@ namespace Hydra.Order.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/AddShoppingCartItem", ShoppingCartItemHandler.AddShoppingCartItem).RequirePermission(EcommercePermissionTypes.SALE_SHOPPING_CART_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateShoppingCartItem", ShoppingCartItemHandler.UpdateShoppingCartItem).RequirePermission(EcommercePermissionTypes.SALE_SHOPPING_CART_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/DeleteShoppingCartItem", ShoppingCartItemHandler.DeleteShoppingCartItem).RequirePermission(EcommercePermissionTypes.SALE_SHOPPING_CART_MANAGEMENT);
+
+
+
+
+            endpoints.MapGet(API_SCHEMA + "/GetOrderPaymentById", PaymentHandler.GetOrderPaymentById).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/GetPaymentList", PaymentHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetPaymentById", PaymentHandler.GetPaymentById).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetAllPaymentStatus", PaymentHandler.GetAllPaymentStatus).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddPayment", PaymentHandler.AddPayment).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdatePayment", PaymentHandler.UpdatePayment).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/DeletePayment", PaymentHandler.DeletePayment).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
 
 
 

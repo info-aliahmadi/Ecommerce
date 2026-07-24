@@ -27,10 +27,6 @@
     <Project Path="Hydra.Order.Api/Hydra.Order.Api.csproj" />
     <Project Path="Hydra.Order.Core/Hydra.Order.Core.csproj" />
   </Folder>
-  <Folder Name="/Modules/Ecommerce/Payment/">
-    <Project Path="Hydra.Payment.Api/Hydra.Payment.Api.csproj" />
-    <Project Path="Hydra.Payment.Core/Hydra.Payment.Core.csproj" />
-  </Folder>
   <Folder Name="/Modules/Ecommerce/Product/">
     <Project Path="Hydra.Product.Api/Hydra.Product.Api.csproj" />
     <Project Path="Hydra.Product.Core/Hydra.Product.Core.csproj" />

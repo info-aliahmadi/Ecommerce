@@ -1,4 +1,4 @@
-﻿using Hydra.Kernel.GeneralModels;
+using Hydra.Kernel.GeneralModels;
 using Hydra.Order.Core.Models;
 
 namespace Hydra.Order.Core.Interfaces
@@ -6,59 +6,22 @@ namespace Hydra.Order.Core.Interfaces
     public interface IOrderService
     {
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
+        // User-facing methods
+        Task<Result<List<OrderModel>>> GetMyOrders(int userId);
+        Task<Result<OrderModel>> GetMyOrderById(int userId, int orderId);
+        Task<Result<List<OrderItemModel>>> GetMyOrderItems(int userId, int orderId);
+        Task<Result<OrderModel>> CreateOrder(int userId, CreateOrderRequest request);
+        Task<Result> CancelMyOrder(int userId, int orderId);
+
+
+
         Task<Result<PaginatedList<OrderModel>>> GetList(GridDataBound dataGrid);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         Task<Result<OrderModel>> GetById(int id);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="orderModel"></param>
-        /// <returns></returns>
         Task<Result<OrderModel>> Add(OrderModel orderModel);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="orderModel"></param>
-        /// <returns></returns>
         Task<Result<OrderModel>> Update(OrderModel orderModel);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="orderModel"></param>
-        /// <returns></returns>
         Task<Result<OrderModel>> UpdateState(OrderModel orderModel);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         Task<Result> Delete(int id);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         Task<Result<List<OrderStatusModel>>> GetAllOrderStatus();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         Task<Result<List<ShippingStatusModel>>> GetAllShippingStatus();
-
     }
 }

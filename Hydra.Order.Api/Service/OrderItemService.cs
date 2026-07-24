@@ -26,14 +26,14 @@ namespace Hydra.Order.Api.Services
         {
             var result = new Result<Tuple<List<OrderItemModel>, SumOrderItemsModel>>();
             var list = await (from orderItem in _queryRepository.Table<OrderItem>()
-                              .Include(x => x.Product)
+                              .Include(x => x.ProductVariant)
                               where orderItem.OrderId == orderId
                               select new OrderItemModel()
                               {
                                   Id = orderItem.Id,
                                   OrderId = orderItem.OrderId,
-                                  ProductId = orderItem.ProductId,
-                                  ProductName = orderItem.Product.Name,
+                                  ProductId = orderItem.ProductVariantId,
+                                  ProductName = orderItem.ProductVariant.Product.Name,
                                   Quantity = orderItem.Quantity,
                                   DiscountAmount = orderItem.DiscountAmount,
                                   UnitPrice = orderItem.UnitPrice,
@@ -83,7 +83,7 @@ namespace Hydra.Order.Api.Services
             {
                 Id = orderItem.Id,
                 OrderId = orderItem.OrderId,
-                ProductId = orderItem.ProductId,
+                ProductId = orderItem.ProductVariantId,
                 Quantity = orderItem.Quantity,
                 DiscountAmount = orderItem.DiscountAmount,
                 UnitPrice = orderItem.UnitPrice,
@@ -116,7 +116,7 @@ namespace Hydra.Order.Api.Services
                 var orderItem = new OrderItem()
                 {
                     OrderId = orderItemModel.OrderId,
-                    ProductId = orderItemModel.ProductId,
+                    ProductVariantId = orderItemModel.ProductId,
                     Quantity = orderItemModel.Quantity,
                     DiscountAmount = orderItemModel.DiscountAmount,
                     UnitPrice = orderItemModel.UnitPrice,
@@ -167,7 +167,7 @@ namespace Hydra.Order.Api.Services
                     return result;
                 }
                 orderItem.OrderId = orderItemModel.OrderId;
-                orderItem.ProductId = orderItemModel.ProductId;
+                orderItem.ProductVariantId = orderItemModel.ProductId;
                 orderItem.Quantity = orderItemModel.Quantity;
                 orderItem.DiscountAmount = orderItemModel.DiscountAmount;
                 orderItem.UnitPrice = orderItemModel.UnitPrice;

@@ -1,4 +1,5 @@
-﻿using Hydra.Kernel.Data;
+﻿using Hydra.Ecommerce.Core.Enums;
+using Hydra.Kernel.Data;
 
 namespace Hydra.Ecommerce.Core.Domain;
 
@@ -14,7 +15,7 @@ public class Payment : BaseEntity<int>
 
     public byte? PaymentTypeId { get; set; }
 
-    public int? Status { get; set; }
+    public PaymentStatus? Status { get; set; }
 
     public bool Deleted { get; set; }
 

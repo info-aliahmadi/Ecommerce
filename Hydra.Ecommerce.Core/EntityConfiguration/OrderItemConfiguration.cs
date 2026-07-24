@@ -25,9 +25,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.HasOne(d => d.Discount).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.DiscountId);
 
-            entity.HasOne(d => d.Product).WithMany(p => p.OrderItems)
-            .HasForeignKey(d => d.ProductId)
-            .HasConstraintName("FK_OrderItem_ProductId_Product_Id");
+            entity.HasOne(d => d.ProductVariant).WithMany(p => p.OrderItems)
+            .HasForeignKey(d => d.ProductVariantId)
+            .HasConstraintName("FK_ProductVariant_ProductId_Product_Id");
         }
     }
 }

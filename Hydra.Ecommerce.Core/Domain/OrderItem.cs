@@ -6,7 +6,7 @@ public class OrderItem : BaseEntity<int>
 {
     public int OrderId { get; set; }
 
-    public int ProductId { get; set; }
+    public int ProductVariantId { get; set; }
 
     public int? DiscountId { get; set; }
 
@@ -22,7 +22,8 @@ public class OrderItem : BaseEntity<int>
 
     public virtual Order Order { get; set; }
 
-    public virtual Product Product { get; set; }
+    public virtual ProductVariant ProductVariant { get; set; }
+
     public virtual Discount? Discount { get; set; }
 
     public virtual ICollection<ShipmentItem> ShipmentItems { get; set; } = new List<ShipmentItem>();

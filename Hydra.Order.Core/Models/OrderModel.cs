@@ -72,7 +72,7 @@ namespace Hydra.Order.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public byte PaymentStatusId { get; set; }
+        public PaymentStatus PaymentStatusId { get; set; }
 
         /// <summary>
         /// 

@@ -103,8 +103,6 @@ public class Product : BaseEntity<int>
 
     public MeasureType MeasureType { get; set; }
 
-    public virtual List<OrderItem> OrderItems { get; set; } = new();
-
     public virtual List<ProductCategory> ProductCategories { get; set; } = new();
     public virtual List<ProductBundle> ProductBundles { get; set; } = new();
 

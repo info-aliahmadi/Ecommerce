@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hydra.Common.Core\Hydra.Common.Core.csproj" />
     <ProjectReference Include="..\Hydra.Ecommerce.Core\Hydra.Ecommerce.Core.csproj" />
     <ProjectReference Include="..\Hydra.Kernel\Hydra.Kernel.csproj" />
   </ItemGroup>

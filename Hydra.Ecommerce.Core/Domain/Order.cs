@@ -1,4 +1,5 @@
 ﻿using Hydra.Auth.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel.Data;
 using Hydra.Kernel.Enums;
 
@@ -14,11 +15,11 @@ public class Order : BaseEntity<int>
 
     public int? ShippingMethodId { get; set; }
 
-    public byte OrderStatusId { get; set; }
+    public OrderStatus OrderStatusId { get; set; }
 
-    public byte ShippingStatusId { get; set; }
+    public ShippingStatus ShippingStatusId { get; set; }
 
-    public byte PaymentStatusId { get; set; }
+    public PaymentStatus PaymentStatusId { get; set; }
 
     public byte? PaymentMethodId { get; set; }
 

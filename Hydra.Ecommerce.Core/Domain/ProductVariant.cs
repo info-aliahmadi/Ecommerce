@@ -42,4 +42,6 @@ public class ProductVariant : BaseEntity<int>
 
     public virtual List<ShoppingCartItem> ShoppingCartItems { get; set; } = new();
 
+    public virtual List<OrderItem> OrderItems { get; set; } = new();
+
 }

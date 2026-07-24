@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
+using Hydra.Kernel;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Order.Core.Interfaces;
 using Hydra.Order.Core.Models;
@@ -10,6 +11,43 @@ namespace Hydra.Order.Api.Handler
     public static class OrderHandler
     {
 
+
+        // --- User-facing endpoints ---
+
+        public static async Task<IResult> GetMyOrders(ClaimsPrincipal userClaim, IOrderService orderService)
+        {
+            var userId = userClaim.GetUserId();
+            var result = await orderService.GetMyOrders(userId);
+            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+        }
+
+        public static async Task<IResult> GetMyOrderById(ClaimsPrincipal userClaim, IOrderService orderService, int orderId)
+        {
+            var userId = userClaim.GetUserId();
+            var result = await orderService.GetMyOrderById(userId, orderId);
+            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+        }
+
+        public static async Task<IResult> GetMyOrderItems(ClaimsPrincipal userClaim, IOrderService orderService, int orderId)
+        {
+            var userId = userClaim.GetUserId();
+            var result = await orderService.GetMyOrderItems(userId, orderId);
+            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+        }
+
+        public static async Task<IResult> CreateOrder(ClaimsPrincipal userClaim, IOrderService orderService, [FromBody] CreateOrderRequest request)
+        {
+            var userId = userClaim.GetUserId();
+            var result = await orderService.CreateOrder(userId, request);
+            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+        }
+
+        public static async Task<IResult> CancelMyOrder(ClaimsPrincipal userClaim, IOrderService orderService, int orderId)
+        {
+            var userId = userClaim.GetUserId();
+            var result = await orderService.CancelMyOrder(userId, orderId);
+            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+        }
         /// <summary>
         ///
         /// </summary>
