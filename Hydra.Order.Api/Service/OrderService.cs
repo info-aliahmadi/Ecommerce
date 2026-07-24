@@ -31,7 +31,6 @@ namespace Hydra.Order.Api.Services
 
             var list = await (from order in _queryRepository.Table<Ecommerce.Core.Domain.Order>()
                     .Include(x => x.User)
-                    .Include(x => x.ShippingMethod)
                     .Include(x => x.OrderNotes)
                               join payment in _queryRepository.Table<Ecommerce.Core.Domain.Payment>() on order.Id equals payment.OrderId
                               into pays
@@ -50,7 +49,6 @@ namespace Hydra.Order.Api.Services
                                   AddressId = order.AddressId,
                                   AddressSnapshot = order.AddressSnapshot,
                                   ShippingMethodId = order.ShippingMethodId,
-                                  ShippingMethodTitle = order.ShippingMethod.Name,
                                   OrderStatusId = order.OrderStatusId,
                                   ShippingStatusId = order.ShippingStatusId,
                                   PaymentStatusId = order.PaymentStatusId,
@@ -356,7 +354,6 @@ namespace Hydra.Order.Api.Services
 
             var list = await (from order in _queryRepository.Table<Ecommerce.Core.Domain.Order>()
                     .Include(x => x.User)
-                    .Include(x => x.ShippingMethod)
                     .Include(x => x.OrderNotes)
                     .Where(x => x.UserId == userId)
                               join payment in _queryRepository.Table<Ecommerce.Core.Domain.Payment>() on order.Id equals payment.OrderId
@@ -376,7 +373,6 @@ namespace Hydra.Order.Api.Services
                                   AddressId = order.AddressId,
                                   AddressSnapshot = order.AddressSnapshot,
                                   ShippingMethodId = order.ShippingMethodId,
-                                  ShippingMethodTitle = order.ShippingMethod.Name,
                                   OrderStatusId = order.OrderStatusId,
                                   ShippingStatusId = order.ShippingStatusId,
                                   PaymentStatusId = order.PaymentStatusId,
@@ -412,7 +408,6 @@ namespace Hydra.Order.Api.Services
 
             var order = await (from o in _queryRepository.Table<Ecommerce.Core.Domain.Order>()
                     .Include(x => x.User)
-                    .Include(x => x.ShippingMethod)
                     .Include(x => x.OrderNotes)
                     .Where(x => x.Id == orderId && x.UserId == userId)
                                join payment in _queryRepository.Table<Ecommerce.Core.Domain.Payment>() on o.Id equals payment.OrderId
@@ -430,7 +425,6 @@ namespace Hydra.Order.Api.Services
                                    AddressId = o.AddressId,
                                    AddressSnapshot = o.AddressSnapshot,
                                    ShippingMethodId = o.ShippingMethodId,
-                                   ShippingMethodTitle = o.ShippingMethod.Name,
                                    OrderStatusId = o.OrderStatusId,
                                    ShippingStatusId = o.ShippingStatusId,
                                    PaymentStatusId = o.PaymentStatusId,

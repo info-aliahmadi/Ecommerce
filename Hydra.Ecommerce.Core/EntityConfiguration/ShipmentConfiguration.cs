@@ -1,4 +1,4 @@
-﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,6 +13,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.HasIndex(e => e.OrderId, "IX_Shipment_OrderId");
             entity.Property(e => e.ShippingAddressSnapshot).HasMaxLength(300);
 
+            entity.Property(e => e.RecipientName).HasMaxLength(200);
+            entity.Property(e => e.PhoneNumber).HasMaxLength(50);
+            entity.Property(e => e.Email).HasMaxLength(200);
             entity.Property(e => e.AdminComment).HasMaxLength(300);
             entity.Property(e => e.CreatedOnUtc).HasPrecision(6);
             entity.Property(e => e.DeliveryDateUtc).HasPrecision(6);

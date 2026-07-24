@@ -18,6 +18,12 @@ public class Shipment : BaseEntity<int>
 
     public DateTime? ReadyForPickupDateUtc { get; set; }
 
+    public string RecipientName { get; set; }
+
+    public string PhoneNumber { get; set; }
+
+    public string Email { get; set; }
+
     public string AdminComment { get; set; }
 
     public DateTime CreatedOnUtc { get; set; }

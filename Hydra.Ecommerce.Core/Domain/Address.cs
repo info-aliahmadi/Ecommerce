@@ -14,7 +14,7 @@ public class Address : BaseEntity<int>
 
     public string City { get; set; }
 
-    public string County { get; set; }
+    public string? County { get; set; }
 
     public string ZipPostalCode { get; set; }
 
@@ -27,7 +27,7 @@ public class Address : BaseEntity<int>
     /// <summary>
     /// GPS location
     /// </summary>
-    public string GeoLocation { get; set; }
+    public string? GeoLocation { get; set; }
 
     /// <summary>
     /// default address

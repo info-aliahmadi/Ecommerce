@@ -1,4 +1,4 @@
-﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -33,10 +33,6 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.HasOne(d => d.Address).WithMany(p => p.Orders)
             .HasForeignKey(d => d.AddressId)
             .HasConstraintName("FK_Order_Address");
-
-            entity.HasOne(d => d.ShippingMethod).WithMany(p => p.Orders)
-            .HasForeignKey(d => d.ShippingMethodId)
-            .HasConstraintName("FK_Order_ShippingMethod");
 
             entity.HasOne(d => d.User).WithMany()
             .HasForeignKey(d => d.UserId)

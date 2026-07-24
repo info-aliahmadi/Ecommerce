@@ -29,6 +29,7 @@ namespace Hydra.Auth.Service
                                                   new Claim(CustomClaimTypes.Identity, user.Id.ToString()),
                                                   new Claim(ClaimTypes.Name, user.UserName ?? ""),
                                                   new Claim(ClaimTypes.Email, user.Email ?? ""),
+                                                  new Claim("phoneNumber", user.PhoneNumber ?? ""),
                                                   new Claim(ClaimTypes.Surname, user.Name ?? ""),
                                                   new Claim(CustomClaimTypes.Avatar, user.Avatar ?? "")
                                               }),

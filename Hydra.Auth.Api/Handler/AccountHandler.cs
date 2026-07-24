@@ -303,6 +303,7 @@ namespace Hydra.Auth.Api.Handler
                         Name = user.Name,
                         UserName = user.UserName,
                         Email = user.Email,
+                        PhoneNumber = user.PhoneNumber,
                         Avatar = user.Avatar,
                         DefaultLanguage = user.DefaultLanguage,
                         DefaultTheme = user.DefaultTheme,

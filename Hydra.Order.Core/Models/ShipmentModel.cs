@@ -59,6 +59,24 @@ namespace Hydra.Order.Core.Models
 
 
         /// <summary>
+        ///
+        /// </summary>
+        public string RecipientName { get; set; }
+
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string PhoneNumber { get; set; }
+
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string Email { get; set; }
+
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>

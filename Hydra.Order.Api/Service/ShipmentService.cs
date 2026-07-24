@@ -38,6 +38,9 @@ namespace Hydra.Order.Api.Services
                                   ShippedDateUtc = shipment.ShippedDateUtc,
                                   DeliveryDateUtc = shipment.DeliveryDateUtc,
                                   ReadyForPickupDateUtc = shipment.ReadyForPickupDateUtc,
+                                  RecipientName = shipment.RecipientName,
+                                  PhoneNumber = shipment.PhoneNumber,
+                                  Email = shipment.Email,
                                   AdminComment = shipment.AdminComment,
                                   CreatedOnUtc = shipment.CreatedOnUtc,
                                   //ShipmentItems = shipment.ShipmentItems,
@@ -69,6 +72,9 @@ namespace Hydra.Order.Api.Services
                 ShippedDateUtc = shipment.ShippedDateUtc,
                 DeliveryDateUtc = shipment.DeliveryDateUtc,
                 ReadyForPickupDateUtc = shipment.ReadyForPickupDateUtc,
+                RecipientName = shipment.RecipientName,
+                PhoneNumber = shipment.PhoneNumber,
+                Email = shipment.Email,
                 AdminComment = shipment.AdminComment,
                 CreatedOnUtc = shipment.CreatedOnUtc,
                 //ShipmentItems = shipment.ShipmentItems,
@@ -111,6 +117,19 @@ namespace Hydra.Order.Api.Services
                     //ShipmentItems = shipmentModel.ShipmentItems,
 
                 };
+
+                // Auto-populate contact info from Order if not provided by caller
+                var order = await _queryRepository.Table<Hydra.Ecommerce.Core.Domain.Order>()
+                    .Include(o => o.User)
+                    .Include(o => o.Address)
+                    .FirstOrDefaultAsync(o => o.Id == shipmentModel.OrderId);
+
+                if (order is not null)
+                {
+                    shipment.RecipientName = shipmentModel.RecipientName ?? order.User?.Name;
+                    shipment.PhoneNumber = shipmentModel.PhoneNumber ?? order.Address?.PhoneNumber;
+                    shipment.Email = shipmentModel.Email ?? order.User?.Email;
+                }
 
                 await _commandRepository.InsertAsync(shipment);
                 await _commandRepository.SaveChangesAsync();
@@ -160,6 +179,9 @@ namespace Hydra.Order.Api.Services
                 shipment.ShippedDateUtc = shipmentModel.ShippedDateUtc;
                 shipment.DeliveryDateUtc = shipmentModel.DeliveryDateUtc;
                 shipment.ReadyForPickupDateUtc = shipmentModel.ReadyForPickupDateUtc;
+                shipment.RecipientName = shipmentModel.RecipientName;
+                shipment.PhoneNumber = shipmentModel.PhoneNumber;
+                shipment.Email = shipmentModel.Email;
                 shipment.AdminComment = shipmentModel.AdminComment;
                 shipment.CreatedOnUtc = shipmentModel.CreatedOnUtc;
                 //shipment.ShipmentItems = shipmentModel.ShipmentItems;

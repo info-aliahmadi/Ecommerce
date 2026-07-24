@@ -15,7 +15,7 @@ public class Order : BaseEntity<int>
 
     public string AddressSnapshot { get; set; }
 
-    public int? ShippingMethodId { get; set; }
+    public ShippingMethod? ShippingMethodId { get; set; }
 
     public OrderStatus OrderStatusId { get; set; }
 
@@ -68,8 +68,6 @@ public class Order : BaseEntity<int>
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
     public virtual ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
-
-    public virtual ShippingMethod ShippingMethod { get; set; }
 
     public virtual User User { get; set; }
 

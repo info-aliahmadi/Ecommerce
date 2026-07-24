@@ -340,36 +340,30 @@ namespace Hydra.Infrastructure.Migrations
                         new
                         {
                             Id = 5020,
-                            Name = "SALE.SHIPMENT_METHOD_MANAGEMENT",
-                            NormalizedName = "SALE.SHIPMENT_METHOD_MANAGEMENT"
-                        },
-                        new
-                        {
-                            Id = 5021,
                             Name = "SALE.COUNTRY_MANAGEMENT",
                             NormalizedName = "SALE.COUNTRY_MANAGEMENT"
                         },
                         new
                         {
-                            Id = 5022,
+                            Id = 5021,
                             Name = "SALE.STATE_PROVINCE_MANAGEMENT",
                             NormalizedName = "SALE.STATE_PROVINCE_MANAGEMENT"
                         },
                         new
                         {
-                            Id = 5023,
+                            Id = 5022,
                             Name = "SALE.ADDRESS_MANAGEMENT",
                             NormalizedName = "SALE.ADDRESS_MANAGEMENT"
                         },
                         new
                         {
-                            Id = 5024,
+                            Id = 5023,
                             Name = "SALE.TAX_MANAGEMENT",
                             NormalizedName = "SALE.TAX_MANAGEMENT"
                         },
                         new
                         {
-                            Id = 5025,
+                            Id = 5024,
                             Name = "SALE.BUNDLE_MANAGEMENT",
                             NormalizedName = "SALE.BUNDLE_MANAGEMENT"
                         },
@@ -1906,7 +1900,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnName("country_id");
 
                     b.Property<string>("County")
-                        .IsRequired()
                         .HasMaxLength(70)
                         .HasColumnType("character varying(70)")
                         .HasColumnName("county");
@@ -1917,7 +1910,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnName("created_on_utc");
 
                     b.Property<string>("GeoLocation")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("character varying(40)")
                         .HasColumnName("geo_location");
@@ -6084,6 +6076,12 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("address_id");
 
+                    b.Property<string>("AddressSnapshot")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("address_snapshot");
+
                     b.Property<bool>("AllowStoringCreditCardNumber")
                         .HasColumnType("boolean")
                         .HasColumnName("allow_storing_credit_card_number");
@@ -6111,8 +6109,8 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("decimal(18, 4)")
                         .HasColumnName("final_price");
 
-                    b.Property<byte>("OrderStatusId")
-                        .HasColumnType("smallint")
+                    b.Property<int>("OrderStatusId")
+                        .HasColumnType("integer")
                         .HasColumnName("order_status_id");
 
                     b.Property<DateTime?>("PaidDateUtc")
@@ -6148,12 +6146,12 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("decimal(18, 4)")
                         .HasColumnName("shipping_amount_tax");
 
-                    b.Property<int?>("ShippingMethodId")
-                        .HasColumnType("integer")
+                    b.Property<byte?>("ShippingMethodId")
+                        .HasColumnType("smallint")
                         .HasColumnName("shipping_method_id");
 
-                    b.Property<byte>("ShippingStatusId")
-                        .HasColumnType("smallint")
+                    b.Property<int>("ShippingStatusId")
+                        .HasColumnType("integer")
                         .HasColumnName("shipping_status_id");
 
                     b.Property<decimal>("ShippingTax")
@@ -6184,9 +6182,6 @@ namespace Hydra.Infrastructure.Migrations
 
                     b.HasIndex("PaymentId")
                         .HasDatabaseName("ix_order_payment_id");
-
-                    b.HasIndex("ShippingMethodId")
-                        .HasDatabaseName("ix_order_shipping_method_id");
 
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_order_user_id");
@@ -8360,19 +8355,43 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("timestamp(6) with time zone")
                         .HasColumnName("delivery_date_utc");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("email");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("integer")
                         .HasColumnName("order_id");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("phone_number");
 
                     b.Property<DateTime?>("ReadyForPickupDateUtc")
                         .HasPrecision(6)
                         .HasColumnType("timestamp(6) with time zone")
                         .HasColumnName("ready_for_pickup_date_utc");
 
+                    b.Property<string>("RecipientName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("recipient_name");
+
                     b.Property<DateTime?>("ShippedDateUtc")
                         .HasPrecision(6)
                         .HasColumnType("timestamp(6) with time zone")
                         .HasColumnName("shipped_date_utc");
+
+                    b.Property<string>("ShippingAddressSnapshot")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("shipping_address_snapshot");
 
                     b.Property<decimal?>("TotalWeight")
                         .HasColumnType("decimal(18, 4)")
@@ -8424,60 +8443,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasDatabaseName("ix_shipment_item_shipment_id");
 
                     b.ToTable("ShipmentItem", "Sale");
-                });
-
-            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ShippingMethod", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("description");
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("integer")
-                        .HasColumnName("display_order");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("character varying(70)")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id")
-                        .HasName("pk_shipping_method");
-
-                    b.ToTable("ShippingMethod", "Sale");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Shipping by land transport",
-                            DisplayOrder = 1,
-                            Name = "Ground"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "The one day air shipping",
-                            DisplayOrder = 2,
-                            Name = "Next Day Air"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "The two day air shipping",
-                            DisplayOrder = 3,
-                            Name = "2nd Day Air"
-                        });
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ShoppingCartItem", b =>
@@ -26168,11 +26133,6 @@ namespace Hydra.Infrastructure.Migrations
                         .HasForeignKey("PaymentId")
                         .HasConstraintName("fk_order_payment_payment_id");
 
-                    b.HasOne("Hydra.Ecommerce.Core.Domain.ShippingMethod", "ShippingMethod")
-                        .WithMany("Orders")
-                        .HasForeignKey("ShippingMethodId")
-                        .HasConstraintName("FK_Order_ShippingMethod");
-
                     b.HasOne("Hydra.Auth.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -26183,8 +26143,6 @@ namespace Hydra.Infrastructure.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("Payment");
-
-                    b.Navigation("ShippingMethod");
 
                     b.Navigation("User");
                 });
@@ -26869,11 +26827,6 @@ namespace Hydra.Infrastructure.Migrations
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.Shipment", b =>
                 {
                     b.Navigation("ShipmentItems");
-                });
-
-            modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.ShippingMethod", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Hydra.Ecommerce.Core.Domain.StateProvince", b =>

@@ -109,31 +109,26 @@ namespace Hydra.Ecommerce.Core.Seed
             }, new Permission()
             {
                 Id = INCREMENTER + 20,
-                Name = EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT,
-                NormalizedName = EcommercePermissionTypes.SALE_SHIPMENT_METHOD_MANAGEMENT,
-            }, new Permission()
-            {
-                Id = INCREMENTER + 21,
                 Name = EcommercePermissionTypes.SALE_COUNTRY_MANAGEMENT,
                 NormalizedName = EcommercePermissionTypes.SALE_COUNTRY_MANAGEMENT,
             }, new Permission()
             {
-                Id = INCREMENTER + 22,
+                Id = INCREMENTER + 21,
                 Name = EcommercePermissionTypes.SALE_STATE_PROVINCE_MANAGEMENT,
                 NormalizedName = EcommercePermissionTypes.SALE_STATE_PROVINCE_MANAGEMENT,
             }, new Permission()
             {
-                Id = INCREMENTER + 23,
+                Id = INCREMENTER + 22,
                 Name = EcommercePermissionTypes.SALE_ADDRESS_MANAGEMENT,
                 NormalizedName = EcommercePermissionTypes.SALE_ADDRESS_MANAGEMENT,
             }, new Permission()
             {
-                Id = INCREMENTER + 24,
+                Id = INCREMENTER + 23,
                 Name = EcommercePermissionTypes.SALE_TAX_MANAGEMENT,
                 NormalizedName = EcommercePermissionTypes.SALE_TAX_MANAGEMENT,
             }, new Permission()
             {
-                Id = INCREMENTER + 25,
+                Id = INCREMENTER + 24,
                 Name = EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT,
                 NormalizedName = EcommercePermissionTypes.SALE_BUNDLE_MANAGEMENT,
             });

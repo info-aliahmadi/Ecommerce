@@ -48,12 +48,7 @@ namespace Hydra.Order.Core.Models
         ///
         /// </summary>
         /// <returns></returns>
-        public int? ShippingMethodId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ShippingMethodTitle { get; set; }
+        public ShippingMethod? ShippingMethodId { get; set; }
 
         /// <summary>
         /// 
