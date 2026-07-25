@@ -80,29 +80,9 @@ namespace Hydra.Infrastructure.Migrations
                 table: "OrderItem",
                 newName: "ix_order_item_product_variant_id");
 
-            migrationBuilder.Sql(@"UPDATE ""Auth"".""User"" SET ""default_theme"" = CASE ""default_theme"" WHEN 'Light' THEN '0' WHEN 'Dark' THEN '1' WHEN 'System' THEN '2' ELSE NULL END WHERE ""default_theme"" IS NOT NULL");
-            migrationBuilder.AlterColumn<byte>(
-                name: "default_theme",
-                schema: "Auth",
-                table: "User",
-                type: "smallint",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "character varying(10)",
-                oldMaxLength: 10,
-                oldNullable: true);
+            migrationBuilder.Sql(@"ALTER TABLE ""Auth"".""User"" ALTER COLUMN ""default_theme"" TYPE smallint USING CASE ""default_theme"" WHEN 'Light' THEN 0 WHEN 'Dark' THEN 1 WHEN 'System' THEN 2 END");
 
-            migrationBuilder.Sql(@"UPDATE ""Auth"".""User"" SET ""default_language"" = CASE ""default_language"" WHEN 'Arabic' THEN '1' WHEN 'Persian' THEN '2' WHEN 'English' THEN '3' ELSE NULL END WHERE ""default_language"" IS NOT NULL");
-            migrationBuilder.AlterColumn<byte>(
-                name: "default_language",
-                schema: "Auth",
-                table: "User",
-                type: "smallint",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "character varying(6)",
-                oldMaxLength: 6,
-                oldNullable: true);
+            migrationBuilder.Sql(@"ALTER TABLE ""Auth"".""User"" ALTER COLUMN ""default_language"" TYPE smallint USING CASE ""default_language"" WHEN 'Arabic' THEN 1 WHEN 'Persian' THEN 2 WHEN 'English' THEN 3 END");
 
             migrationBuilder.AddColumn<int>(
                 name: "product_variant_id",
