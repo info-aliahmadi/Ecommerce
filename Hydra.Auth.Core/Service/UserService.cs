@@ -250,7 +250,7 @@ namespace Hydra.Auth.Service
                     PhoneNumber = userModel.PhoneNumber,
                     DefaultLanguage = userModel.DefaultLanguage,
                     RegisterDate = DateTime.UtcNow,
-                    DefaultTheme = "light",
+                    DefaultTheme = DefaultSetting.DEFAULT_THEME,
                     LockoutEnabled = false,
                 };
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Hydra.Kernel.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace Hydra.Auth.Domain
 {
@@ -14,10 +15,10 @@ namespace Hydra.Auth.Domain
         public DateTime? RegisterDate { get; set; }
 
         [PersonalData]
-        public string? DefaultLanguage { get; set; }
+        public LanguageType? DefaultLanguage { get; set; } = LanguageType.English;
 
         [PersonalData]
-        public string? DefaultTheme { get; set; }
+        public ThemeType? DefaultTheme { get; set; } = ThemeType.Light;
 
         [PersonalData]
         public string? Avatar { get; set; }

@@ -200,7 +200,7 @@ namespace Hydra.Common.Api.Services
             var result = new Result<AddressModel>();
             try
             {
-                var address = await _queryRepository.Table<Address>().AsNoTracking().FirstAsync(x => x.Id == addressModel.Id);
+                var address = await _queryRepository.Table<Address>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == addressModel.Id);
                 if (address is null)
                 {
                     result.Status = ResultStatusEnum.NotFound;

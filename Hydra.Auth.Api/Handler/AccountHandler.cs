@@ -1,13 +1,13 @@
 using Hydra.Auth.Domain;
 using Hydra.Auth.Interface;
 using Hydra.Auth.Models;
-using Hydra.Ecommerce.Core.Constants;
 using Hydra.Infrastructure;
 using Hydra.Infrastructure.Notification.Email.Interface;
 using Hydra.Infrastructure.Notification.Email.Models;
 using Hydra.Infrastructure.Notification.Sms.Interface;
 using Hydra.Infrastructure.Notification.Sms.Models;
 using Hydra.Kernel;
+using Hydra.Kernel.Enums;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
 using Microsoft.AspNetCore.Http;
@@ -757,7 +757,7 @@ namespace Hydra.Auth.Api.Handler
         /// <param name="_userManager"></param>
         /// <param name="userClaim"></param>
         /// <returns></returns>
-        public static async Task<IResult> SetDefaultLanguageHandler(string defaultLanguage, UserManager<User> _userManager,
+        public static async Task<IResult> SetDefaultLanguageHandler(LanguageType defaultLanguage, UserManager<User> _userManager,
             ClaimsPrincipal userClaim)
         {
             var userId = userClaim.GetUserId();
@@ -800,7 +800,7 @@ namespace Hydra.Auth.Api.Handler
         /// <param name="_userManager"></param>
         /// <param name="userClaim"></param>
         /// <returns></returns>
-        public static async Task<IResult> SetDefaultThemeHandler(string defaultTheme, UserManager<User> _userManager,
+        public static async Task<IResult> SetDefaultThemeHandler(ThemeType defaultTheme, UserManager<User> _userManager,
             ClaimsPrincipal userClaim)
         {
             var userId = userClaim.GetUserId();

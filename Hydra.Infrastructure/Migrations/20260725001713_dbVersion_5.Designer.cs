@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hydra.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260724183654_dbVersion_5")]
+    [Migration("20260725001713_dbVersion_5")]
     partial class dbVersion_5
     {
         /// <inheritdoc />
@@ -506,14 +506,12 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("character varying(50)")
                         .HasColumnName("concurrency_stamp");
 
-                    b.Property<string>("DefaultLanguage")
-                        .HasMaxLength(6)
-                        .HasColumnType("character varying(6)")
+                    b.Property<byte?>("DefaultLanguage")
+                        .HasColumnType("smallint")
                         .HasColumnName("default_language");
 
-                    b.Property<string>("DefaultTheme")
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
+                    b.Property<byte?>("DefaultTheme")
+                        .HasColumnType("smallint")
                         .HasColumnName("default_theme");
 
                     b.Property<string>("Email")

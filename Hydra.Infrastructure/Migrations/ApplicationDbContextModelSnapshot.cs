@@ -503,14 +503,12 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("character varying(50)")
                         .HasColumnName("concurrency_stamp");
 
-                    b.Property<string>("DefaultLanguage")
-                        .HasMaxLength(6)
-                        .HasColumnType("character varying(6)")
+                    b.Property<byte?>("DefaultLanguage")
+                        .HasColumnType("smallint")
                         .HasColumnName("default_language");
 
-                    b.Property<string>("DefaultTheme")
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
+                    b.Property<byte?>("DefaultTheme")
+                        .HasColumnType("smallint")
                         .HasColumnName("default_theme");
 
                     b.Property<string>("Email")

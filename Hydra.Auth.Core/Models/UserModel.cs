@@ -1,5 +1,7 @@
 ﻿
 
+using Hydra.Kernel.Enums;
+
 namespace Hydra.Auth.Models
 {
     public class UserModel
@@ -13,8 +15,8 @@ namespace Hydra.Auth.Models
         public string? Avatar { get; set; }
         public string? AvatarFile { get; set; }
         public DateTime? RegisterDate { get; set; }
-        public string? DefaultLanguage { get; set; }
-        public string? DefaultTheme { get; set; }
+        public LanguageType? DefaultLanguage { get; set; }
+        public ThemeType? DefaultTheme { get; set; }
         public string? Password { get; set; }
         public string? AccessToken { get; set; }
         public DateTime? AccessTokenExpires { get; set; }

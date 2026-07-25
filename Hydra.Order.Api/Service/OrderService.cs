@@ -7,6 +7,7 @@ using Hydra.Order.Core.Models;
 using Hydra.Ecommerce.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Hydra.Kernel.Extension;
+using Hydra.Kernel;
 
 namespace Hydra.Order.Api.Services
 {
@@ -530,19 +531,44 @@ namespace Hydra.Order.Api.Services
                     OrderStatusId = OrderStatus.Pending,
                     ShippingStatusId = 0,
                     PaymentStatusId = 0,
-                    UserCurrencyType = CurrencyType.Dollar,
+                    UserCurrencyType = DefaultSetting.DEFAULT_CURRENCY,
                     TotalAmount = request.Items.Sum(x => x.UnitPrice * x.Quantity),
                     FinalPrice = request.Items.Sum(x => x.UnitPrice * x.Quantity),
-                    CreatedOnUtc = DateTime.UtcNow,
+                    CreatedOnUtc = DateTime.UtcNow
                 };
 
                 await _commandRepository.InsertAsync(order);
                 await _commandRepository.SaveChangesAsync();
+                if (!string.IsNullOrEmpty(request.OrderNote?.Trim()))
+                {
+                    var orderNote = new Ecommerce.Core.Domain.OrderNote()
+                    {
+                        OrderId = order.Id,
+                        UserId = userId,
+                        Note = request.OrderNote,
+                        IsRead = false,
+                        CreatedOnUtc = DateTime.UtcNow
+                    };
 
+                    await _commandRepository.InsertAsync(orderNote);
+                    await _commandRepository.SaveChangesAsync();
+                }
+                if (request.DiscountId != null)
+                {
+                    var orderDiscount = new Ecommerce.Core.Domain.OrderDiscount()
+                    {
+                        OrderId = order.Id,
+                        DiscountId = request.DiscountId.Value,
+                        CreatedOnUtc = DateTime.UtcNow
+                    };
+
+                    await _commandRepository.InsertAsync(orderDiscount);
+                    await _commandRepository.SaveChangesAsync();
+                }
                 var orderItems = request.Items.Select(item => new OrderItem()
                 {
                     OrderId = order.Id,
-                    ProductVariantId = item.ProductId,
+                    ProductVariantId = item.ProductVariantId,
                     Quantity = item.Quantity,
                     UnitPrice = item.UnitPrice,
                     TotalPrice = item.UnitPrice * item.Quantity,

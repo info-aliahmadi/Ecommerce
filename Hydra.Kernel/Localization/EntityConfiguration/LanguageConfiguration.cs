@@ -18,21 +18,21 @@ namespace Hydra.Kernel.Localization.EntityConfiguration
             builder.HasData(
                 new Language()
                 {
-                    Id = (int)LanguageId.Arabic,
+                    Id = (int)LanguageType.Arabic,
                     Name = "Arabic",
                     CultureInfo = "ar",
                     IsVisible = true
                 },
                 new Language()
                 {
-                    Id = (int)LanguageId.Persian,
+                    Id = (int)LanguageType.Persian,
                     Name = "Persian",
                     CultureInfo = "fa-IR",
                     IsVisible = true
                 },
                 new Language()
                 {
-                    Id = (int)LanguageId.English,
+                    Id = (int)LanguageType.English,
                     Name = "English",
                     CultureInfo = "en-US",
                     IsVisible = true

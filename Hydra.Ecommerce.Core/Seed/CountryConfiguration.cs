@@ -1,5 +1,5 @@
-﻿using Hydra.Ecommerce.Core.Constants;
-using Hydra.Ecommerce.Core.Domain;
+﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.Kernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

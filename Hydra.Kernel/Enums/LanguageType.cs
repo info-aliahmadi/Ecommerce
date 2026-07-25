@@ -1,8 +1,7 @@
-﻿using System.ComponentModel;
-
+﻿
 namespace Hydra.Kernel.Enums
 {
-    public enum LanguageId
+    public enum LanguageType : byte
     {
         Arabic = 1,
         Persian = 2,

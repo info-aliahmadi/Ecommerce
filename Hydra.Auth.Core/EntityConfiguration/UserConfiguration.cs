@@ -18,8 +18,8 @@ namespace Hydra.Auth.EntityConfiguration
             builder.Property(o => o.NormalizedEmail).HasMaxLength(256);
             builder.Property(o => o.Name).HasMaxLength(50);
             builder.Property(o => o.Avatar).HasMaxLength(50);
-            builder.Property(o => o.DefaultLanguage).HasMaxLength(6);
-            builder.Property(o => o.DefaultTheme).HasMaxLength(10);
+            builder.Property(o => o.DefaultLanguage);
+            builder.Property(o => o.DefaultTheme);
             builder.Property(o => o.PhoneNumber).HasMaxLength(20);
             builder.Property(o => o.SecurityStamp).HasMaxLength(50);
             builder.Property(o => o.PasswordHash).HasMaxLength(100);

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -79,6 +79,30 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 table: "OrderItem",
                 newName: "ix_order_item_product_variant_id");
+
+            migrationBuilder.Sql(@"UPDATE ""Auth"".""User"" SET ""default_theme"" = CASE ""default_theme"" WHEN 'Light' THEN '0' WHEN 'Dark' THEN '1' WHEN 'System' THEN '2' ELSE NULL END WHERE ""default_theme"" IS NOT NULL");
+            migrationBuilder.AlterColumn<byte>(
+                name: "default_theme",
+                schema: "Auth",
+                table: "User",
+                type: "smallint",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "character varying(10)",
+                oldMaxLength: 10,
+                oldNullable: true);
+
+            migrationBuilder.Sql(@"UPDATE ""Auth"".""User"" SET ""default_language"" = CASE ""default_language"" WHEN 'Arabic' THEN '1' WHEN 'Persian' THEN '2' WHEN 'English' THEN '3' ELSE NULL END WHERE ""default_language"" IS NOT NULL");
+            migrationBuilder.AlterColumn<byte>(
+                name: "default_language",
+                schema: "Auth",
+                table: "User",
+                type: "smallint",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "character varying(6)",
+                oldMaxLength: 6,
+                oldNullable: true);
 
             migrationBuilder.AddColumn<int>(
                 name: "product_variant_id",
@@ -382,6 +406,28 @@ namespace Hydra.Infrastructure.Migrations
                 schema: "Sale",
                 table: "OrderItem",
                 newName: "ix_order_item_product_id");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "default_theme",
+                schema: "Auth",
+                table: "User",
+                type: "character varying(10)",
+                maxLength: 10,
+                nullable: true,
+                oldClrType: typeof(byte),
+                oldType: "smallint",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "default_language",
+                schema: "Auth",
+                table: "User",
+                type: "character varying(6)",
+                maxLength: 6,
+                nullable: true,
+                oldClrType: typeof(byte),
+                oldType: "smallint",
+                oldNullable: true);
 
             migrationBuilder.AlterColumn<byte>(
                 name: "shipping_status_id",
