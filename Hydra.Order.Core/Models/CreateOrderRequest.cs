@@ -10,6 +10,7 @@ namespace Hydra.Order.Core.Models
         public string? OrderNote { get; set; }
         public int? DiscountId { get; set; }
         public List<CreateOrderItemRequest> Items { get; set; } = new();
+        public string CustomerIp { get; set; } = string.Empty;
     }
 
     public class CreateOrderItemRequest

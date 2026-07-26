@@ -35,9 +35,10 @@ namespace Hydra.Order.Api.Handler
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
-        public static async Task<IResult> CreateOrder(ClaimsPrincipal userClaim, IOrderService orderService, [FromBody] CreateOrderRequest request)
+        public static async Task<IResult> CreateOrder(ClaimsPrincipal userClaim, IOrderService orderService, IHttpContextAccessor httpContextAccessor, [FromBody] CreateOrderRequest request)
         {
             var userId = userClaim.GetUserId();
+            request.CustomerIp = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? string.Empty;
             var result = await orderService.CreateOrder(userId, request);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }

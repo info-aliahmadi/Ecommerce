@@ -79,7 +79,10 @@ namespace Hydra.Auth.Api.Handler
                         {
                             _logger.LogError(_sharedlocalizer["{0}; Requested By: {1}"], error.Description,
                                 "admin@admin.com");
-                            result.Errors.Add(error.Description);
+                            result.Errors = new List<string>()
+                            {
+                                error.Description
+                            };
                         }
 
                         _logger.LogError(_sharedlocalizer["The user could not create a new account.; Requested By: {0}"],

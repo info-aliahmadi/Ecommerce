@@ -520,10 +520,10 @@ namespace Hydra.Order.Api.Services
                         addressSnapshot = FormatAddress(address);
                     }
                 }
-
                 var order = new Ecommerce.Core.Domain.Order()
                 {
                     UserId = userId,
+                    CustomerIp = request.CustomerIp,
                     AddressId = request.AddressId,
                     AddressSnapshot = addressSnapshot,
                     ShippingMethodId = request.ShippingMethodId,
