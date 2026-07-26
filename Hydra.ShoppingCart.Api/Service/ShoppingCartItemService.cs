@@ -170,30 +170,42 @@ namespace Hydra.ShoppingCart.Api.Services
                         && x.ProductVariantId == productVariantId
                         && x.ShoppingCartTypeId == ShoppingCartTypeEnum.ShoppingCart);
 
+                ShoppingCartItem cartItem;
+
                 if (existing != null)
                 {
                     existing.Quantity += quantity;
                     existing.UpdatedOnUtc = DateTime.UtcNow;
                     _commandRepository.Update(existing);
-                    await _commandRepository.SaveChangesAsync();
-                    result.Data = MapToModel(existing);
-                    return result;
+                    cartItem = existing;
+                }
+                else
+                {
+                    cartItem = new ShoppingCartItem()
+                    {
+                        UserId = userId,
+                        ProductVariantId = productVariantId,
+                        ShoppingCartTypeId = ShoppingCartTypeEnum.ShoppingCart,
+                        Quantity = quantity,
+                        CreatedOnUtc = DateTime.UtcNow,
+                        UpdatedOnUtc = DateTime.UtcNow,
+                    };
+
+                    await _commandRepository.InsertAsync(cartItem);
                 }
 
-                var item = new ShoppingCartItem()
-                {
-                    UserId = userId,
-                    ProductVariantId = productVariantId,
-                    ShoppingCartTypeId = ShoppingCartTypeEnum.ShoppingCart,
-                    Quantity = quantity,
-                    CreatedOnUtc = DateTime.UtcNow,
-                    UpdatedOnUtc = DateTime.UtcNow,
-                };
+                var inventory = await _queryRepository.Table<ProductInventory>()
+                    .FirstOrDefaultAsync(x => x.VariantId == productVariantId);
 
-                await _commandRepository.InsertAsync(item);
+                if (inventory != null)
+                {
+                    inventory.ReservedQuantity += quantity;
+                    _commandRepository.Update(inventory);
+                }
+
                 await _commandRepository.SaveChangesAsync();
 
-                result.Data = MapToModel(item);
+                result.Data = MapToModel(cartItem);
                 return result;
             }
             catch (Exception e)
