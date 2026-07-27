@@ -46,7 +46,14 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> CancelMyOrder(ClaimsPrincipal userClaim, IOrderService orderService, int orderId)
         {
             var userId = userClaim.GetUserId();
-            var result = await orderService.CancelMyOrder(userId, orderId);
+            var result = await orderService.CancelOrder(userId, orderId);
+            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+        }
+
+        public static async Task<IResult> ConfirmOrder(ClaimsPrincipal userClaim, IOrderService orderService, int orderId)
+        {
+            var userId = userClaim.GetUserId();
+            var result = await orderService.ConfirmOrder(userId, orderId);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
         /// <summary>

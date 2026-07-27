@@ -2,7 +2,6 @@ using Hydra.Ecommerce.Core.Constants;
 using Hydra.Infrastructure.ModuleExtension;
 using Hydra.Infrastructure.Security.Extension;
 using Hydra.Order.Api.Handler;
-using Hydra.Order.Api.Service;
 using Hydra.Order.Api.Services;
 using Hydra.Order.Core.Interfaces;
 using Hydra.Payment.Api.Services;
@@ -49,6 +48,7 @@ namespace Hydra.Order.Api.Endpoints
             endpoints.MapGet(API_SCHEMA + "/GetMyOrderById", OrderHandler.GetMyOrderById).RequireAuthorization();
             endpoints.MapGet(API_SCHEMA + "/GetMyOrderItems", OrderHandler.GetMyOrderItems).RequireAuthorization();
             endpoints.MapPost(API_SCHEMA + "/CreateOrder", OrderHandler.CreateOrder).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/ConfirmOrder", OrderHandler.ConfirmOrder).RequireAuthorization();
             endpoints.MapPost(API_SCHEMA + "/CancelMyOrder", OrderHandler.CancelMyOrder).RequireAuthorization();
 
             // User-facing payment endpoints

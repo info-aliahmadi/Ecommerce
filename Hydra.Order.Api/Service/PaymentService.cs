@@ -6,6 +6,7 @@ using Hydra.Kernel.Extension;
 using Hydra.Ecommerce.Core.Enums;
 using Hydra.Order.Core.Models;
 using Hydra.Order.Core.Interfaces;
+using Hydra.Order.Api.Services;
 
 
 namespace Hydra.Payment.Api.Services
@@ -14,10 +15,12 @@ namespace Hydra.Payment.Api.Services
     {
         private readonly IQueryRepository _queryRepository;
         private readonly ICommandRepository _commandRepository;
-        public PaymentService(IQueryRepository queryRepository, ICommandRepository commandRepository)
+        private readonly IOrderService _orderService;
+        public PaymentService(IQueryRepository queryRepository, ICommandRepository commandRepository, IOrderService orderService)
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
+            _orderService = orderService;
         }
 
         public async Task<Result<List<PaymentStatusModel>>> GetAllPaymentStatus()
@@ -151,6 +154,8 @@ namespace Hydra.Payment.Api.Services
                 _commandRepository.Update(order);
 
                 await _commandRepository.SaveChangesAsync();
+
+                await _orderService.ConfirmOrder(userId, request.OrderId);
 
                 result.Data = new PaymentModel()
                 {

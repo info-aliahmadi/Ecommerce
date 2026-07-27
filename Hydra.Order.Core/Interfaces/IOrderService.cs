@@ -11,7 +11,8 @@ namespace Hydra.Order.Core.Interfaces
         Task<Result<OrderModel>> GetMyOrderById(int userId, int orderId);
         Task<Result<List<OrderItemModel>>> GetMyOrderItems(int userId, int orderId);
         Task<Result<OrderModel>> CreateOrder(int userId, CreateOrderRequest request);
-        Task<Result> CancelMyOrder(int userId, int orderId);
+        Task<Result> ConfirmOrder(int userId, int orderId);
+        Task<Result> CancelOrder(int userId, int orderId);
 
 
 

@@ -465,6 +465,9 @@ namespace Hydra.Auth.Api.Handler
 
             // Retrieve OTP from cache
             var otpKey = $"otp:phone:{model.PhoneNumber}";
+            // Rate limit: 1 request per 60 seconds per phone
+            var throttleKey = $"otp:throttle:{model.PhoneNumber}";
+
             if (!_cache.TryGetValue<OtpEntry>(otpKey, out var otpEntry))
             {
                 result.Status = ResultStatusEnum.NotFound;
@@ -493,6 +496,7 @@ namespace Hydra.Auth.Api.Handler
 
             // Code valid — remove from cache
             _cache.Remove(otpKey);
+            _cache.Remove(throttleKey);
 
             // Find user by phone number
             var user = _userManager.Users.FirstOrDefault(u => u.PhoneNumber == model.PhoneNumber);

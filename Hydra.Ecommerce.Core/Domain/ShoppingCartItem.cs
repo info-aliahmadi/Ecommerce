@@ -8,8 +8,6 @@ public class ShoppingCartItem : BaseEntity<int>
 {
     public int UserId { get; set; }
 
-    public int ProductId { get; set; }
-
     public int ProductVariantId { get; set; }
 
     public ShoppingCartTypeEnum ShoppingCartTypeId { get; set; }

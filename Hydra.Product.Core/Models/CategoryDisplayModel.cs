@@ -1,9 +1,22 @@
-﻿using Hydra.FileStorage.Core.Models;
+﻿using Hydra.Ecommerce.Core.Domain;
+using Hydra.FileStorage.Core.Models;
 
 namespace Hydra.Product.Core.Models
 {
     public class CategoryDisplayModel
     {
+        public CategoryDisplayModel()
+        {
+            
+        }
+        public CategoryDisplayModel(Category category)
+        {
+            Id = category.Id;
+            Name = category.Name;
+            Key = category.Key;
+            Color = category.Color;
+                
+        }
         /// <summary>
         /// The unique identifier of the category.
         /// </summary>

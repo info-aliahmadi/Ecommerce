@@ -1,9 +1,23 @@
 ﻿
+using Hydra.Ecommerce.Core.Domain;
+
 namespace Hydra.Product.Core.Models
 {
     public class ProductVariantDisplayModel
     {
-
+        public ProductVariantDisplayModel()
+        {
+            
+        }
+        public ProductVariantDisplayModel(ProductVariant productVariant)
+        {
+            Id = productVariant.Id;
+            SKU = productVariant.SKU;
+            ProductId = productVariant.ProductId;
+            SellPrice = productVariant.SellPrice;
+            OldSellPrice = productVariant.OldSellPrice;
+                
+        }
         /// <summary>
         /// 
         /// </summary>

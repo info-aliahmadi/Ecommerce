@@ -4,6 +4,7 @@
     {
         Purchase = 0,
         Sale = 1,
-        Return = 2
+        Return = 2,
+        FailOrder = 3
     }
 }

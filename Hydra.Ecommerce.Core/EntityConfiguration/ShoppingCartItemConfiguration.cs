@@ -16,7 +16,7 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.Property(e => e.UpdatedOnUtc).HasPrecision(6);
 
             entity.HasOne(d => d.ProductVariant).WithMany(p => p.ShoppingCartItems)
-            .HasForeignKey(d => d.ProductId)
+            .HasForeignKey(d => d.ProductVariantId)
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("FK_ShoppingCartItem_ProductVariant");
 

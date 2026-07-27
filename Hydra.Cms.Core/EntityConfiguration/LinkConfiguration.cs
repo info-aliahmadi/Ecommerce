@@ -45,7 +45,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     LinkSectionId = 1,
                     Id = 12,
                     Title = "New Arrivals",
-                    Url = "/products?sorting=date-new",
+                    Url = "/products?sort=newest",
                     Description = "New Products",
                     Order = 2,
                     
@@ -56,7 +56,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     LinkSectionId = 1,
                     Id = 13,
                     Title = "Best Sellers",
-                    Url = "/products?sorting=orders-high",
+                    Url = "/products?sort=popular",
                     Description = "Products with most sell",
                     Order = 3,
                     
@@ -67,7 +67,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     LinkSectionId = 1,
                     Id = 14,
                     Title = "Deals & Offers",
-                    Url = "/products/?sorting=price-lower",
+                    Url = "/products?sort=price-asc",
                     Description = "Recommended Products",
                     Order = 4,
                     
@@ -157,7 +157,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     LinkSectionId = 3,
                     Id = 32,
                     Title = "Careers",
-                    Url = "/pages/about",
+                    Url = "/pages/careers",
                     Description = "About",
                     Order = 2,
                     
@@ -168,7 +168,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     LinkSectionId = 3,
                     Id = 33,
                     Title = "Press",
-                    Url = "/pages/about",
+                    Url = "/pages/press",
                     Description = "About",
                     Order = 3,
                     

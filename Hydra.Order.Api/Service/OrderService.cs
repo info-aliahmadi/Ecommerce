@@ -508,7 +508,8 @@ namespace Hydra.Order.Api.Services
                     return result;
                 }
 
-                // Snapshot the address at order creation time
+                using var transaction = await _commandRepository.BeginTransactionAsync();
+
                 string addressSnapshot = null;
                 if (request.AddressId.HasValue)
                 {
@@ -528,9 +529,10 @@ namespace Hydra.Order.Api.Services
                     AddressSnapshot = addressSnapshot,
                     ShippingMethodId = request.ShippingMethodId,
                     PaymentMethodId = request.PaymentMethodId,
-                    OrderStatusId = OrderStatus.Pending,
-                    ShippingStatusId = 0,
-                    PaymentStatusId = 0,
+                    OrderStatusId = request.PaymentMethodId == PaymentMethod.CashOnDelivery ? OrderStatus.Processing : OrderStatus.Pending,
+
+                    ShippingStatusId = ShippingStatus.NotYetShipped,
+                    PaymentStatusId = request.PaymentMethodId == PaymentMethod.CashOnDelivery ? PaymentStatus.Authorized : PaymentStatus.Pending,
                     UserCurrencyType = DefaultSetting.DEFAULT_CURRENCY,
                     TotalAmount = request.Items.Sum(x => x.UnitPrice * x.Quantity),
                     FinalPrice = request.Items.Sum(x => x.UnitPrice * x.Quantity),
@@ -579,6 +581,55 @@ namespace Hydra.Order.Api.Services
                 await _commandRepository.InsertRangeAsync(orderItems);
                 await _commandRepository.SaveChangesAsync();
 
+                //var payment = new Ecommerce.Core.Domain.Payment()
+                //{
+                //    OrderId = order.Id,
+                //    ...
+                //};
+
+                //await _commandRepository.InsertAsync(payment);
+                //await _commandRepository.SaveChangesAsync();
+
+                foreach (var item in orderItems)
+                {
+                    var inventory = await _queryRepository.Table<ProductInventory>()
+                        .FirstOrDefaultAsync(x => x.VariantId == item.ProductVariantId);
+
+                    if (inventory != null)
+                    {
+                        var available = inventory.StockQuantity - inventory.ReservedQuantity;
+                        if (available < item.Quantity)
+                        {
+                            result.Status = ResultStatusEnum.Failed;
+                            result.Message = $"Insufficient stock for product variant {item.ProductVariant.SKU}";
+                            await transaction.RollbackAsync();
+                            return result;
+                        }
+                        if (request.PaymentMethodId == PaymentMethod.CashOnDelivery)
+                        {
+                            inventory.StockQuantity -= item.Quantity;
+                        }
+                        else
+                        {
+                            inventory.ReservedQuantity += item.Quantity;
+                        }
+                        _commandRepository.Update(inventory);
+
+                        var inventoryTransaction = new ProductInventoryTransaction
+                        {
+                            ProductInventoryId = inventory.Id,
+                            TransactionType = TransactionType.Sale,
+                            StockQuantity = inventory.StockQuantity,
+                            ReservedQuantity = inventory.ReservedQuantity,
+                            CreatedDatetime = DateTime.UtcNow
+                        };
+                        await _commandRepository.InsertAsync(inventoryTransaction);
+                    }
+                }
+
+                await _commandRepository.SaveChangesAsync();
+                await transaction.CommitAsync();
+
                 result.Data = new OrderModel()
                 {
                     Id = order.Id,
@@ -603,12 +654,95 @@ namespace Hydra.Order.Api.Services
             }
         }
 
-        public async Task<Result> CancelMyOrder(int userId, int orderId)
+        public async Task<Result> ConfirmOrder(int userId, int orderId)
         {
             var result = new Result();
             try
             {
                 var order = await _queryRepository.Table<Ecommerce.Core.Domain.Order>()
+                    .Include(x => x.OrderItems)
+                    .FirstOrDefaultAsync(x => x.Id == orderId && x.UserId == userId);
+
+                if (order is null)
+                {
+                    result.Status = ResultStatusEnum.NotFound;
+                    result.Message = "Order not found";
+                    return result;
+                }
+
+                if (order.OrderStatusId != OrderStatus.Pending)
+                {
+                    result.Status = ResultStatusEnum.Failed;
+                    result.Message = "Only pending orders can be confirmed";
+                    return result;
+                }
+
+                using var transaction = await _commandRepository.BeginTransactionAsync();
+
+                foreach (var item in order.OrderItems)
+                {
+                    var inventory = await _queryRepository.Table<ProductInventory>()
+                        .FirstOrDefaultAsync(x => x.VariantId == item.ProductVariantId);
+
+                    if (inventory == null)
+                    {
+                        result.Status = ResultStatusEnum.NotFound;
+                        result.Message = $"Inventory not found for product variant {item.ProductVariantId}";
+                        await transaction.RollbackAsync();
+                        return result;
+                    }
+
+                    var available = inventory.StockQuantity - inventory.ReservedQuantity;
+                    if (available < item.Quantity)
+                    {
+                        result.Status = ResultStatusEnum.Failed;
+                        result.Message = $"Insufficient stock for product variant {item.ProductVariantId}";
+                        continue;
+                    }
+
+                    inventory.StockQuantity -= item.Quantity;
+                    inventory.ReservedQuantity -= item.Quantity;
+                    _commandRepository.Update(inventory);
+
+                    var inventoryTransaction = new ProductInventoryTransaction
+                    {
+                        ProductInventoryId = inventory.Id,
+                        TransactionType = TransactionType.Sale,
+                        StockQuantity = inventory.StockQuantity,
+                        ReservedQuantity = inventory.ReservedQuantity,
+                        CreatedDatetime = DateTime.UtcNow
+                    };
+                    await _commandRepository.InsertAsync(inventoryTransaction);
+                }
+
+                order.OrderStatusId = OrderStatus.Processing;
+                if (order.PaymentStatusId != PaymentStatus.Paid)
+                {
+                    order.PaymentStatusId = PaymentStatus.Paid;
+                }
+                order.PaidDateUtc = DateTime.UtcNow;
+                _commandRepository.Update(order);
+
+                await _commandRepository.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                return result;
+            }
+        }
+
+        public async Task<Result> CancelOrder(int userId, int orderId)
+        {
+            var result = new Result();
+            try
+            {
+                var order = await _queryRepository.Table<Ecommerce.Core.Domain.Order>()
+                    .Include(x => x.OrderItems)
                     .FirstOrDefaultAsync(x => x.Id == orderId && x.UserId == userId);
 
                 if (order is null)
@@ -625,9 +759,36 @@ namespace Hydra.Order.Api.Services
                     return result;
                 }
 
+                using var transaction = await _commandRepository.BeginTransactionAsync();
+
+                foreach (var item in order.OrderItems)
+                {
+                    var inventory = await _queryRepository.Table<ProductInventory>()
+                        .FirstOrDefaultAsync(x => x.VariantId == item.ProductVariantId);
+
+                    if (inventory != null)
+                    {
+                        inventory.ReservedQuantity -= item.Quantity;
+                        if (inventory.ReservedQuantity < 0) inventory.ReservedQuantity = 0;
+                        _commandRepository.Update(inventory);
+
+                        var inventoryTransaction = new ProductInventoryTransaction
+                        {
+                            ProductInventoryId = inventory.Id,
+                            TransactionType = TransactionType.Purchase,
+                            StockQuantity = inventory.StockQuantity,
+                            ReservedQuantity = inventory.ReservedQuantity,
+                            CreatedDatetime = DateTime.UtcNow
+                        };
+                        await _commandRepository.InsertAsync(inventoryTransaction);
+                    }
+                }
+
                 order.OrderStatusId = OrderStatus.Cancelled;
                 _commandRepository.Update(order);
+
                 await _commandRepository.SaveChangesAsync();
+                await transaction.CommitAsync();
 
                 return result;
             }

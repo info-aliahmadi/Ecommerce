@@ -1,4 +1,4 @@
-using System.Security.Claims;
+using Hydra.Auth.Domain;
 using Hydra.Ecommerce.Core.Enums;
 using Hydra.Kernel;
 using Hydra.Kernel.GeneralModels;
@@ -6,6 +6,7 @@ using Hydra.Order.Core.Interfaces;
 using Hydra.Order.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Hydra.Order.Api.Handler
 {
@@ -82,28 +83,28 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> AddToCart(ClaimsPrincipal userClaim, IShoppingCartItemService shoppingCartItemService, [FromBody] AddToCartRequest request)
         {
             var userId = userClaim.GetUserId();
-            var result = await shoppingCartItemService.AddToCart(userId, request.ProductVariantId, request.Quantity);
+            var result = await shoppingCartItemService.AddToCart(userId, request);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
         public static async Task<IResult> AddToWishlist(ClaimsPrincipal userClaim, IShoppingCartItemService shoppingCartItemService, [FromBody] AddToWishlistRequest request)
         {
             var userId = userClaim.GetUserId();
-            var result = await shoppingCartItemService.AddToWishlist(userId, request.ProductVariantId);
+            var result = await shoppingCartItemService.AddToWishlist(userId, request.VariantId);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
         public static async Task<IResult> RemoveFromCart(ClaimsPrincipal userClaim, IShoppingCartItemService shoppingCartItemService, [FromBody] RemoveFromCartRequest request)
         {
             var userId = userClaim.GetUserId();
-            var result = await shoppingCartItemService.RemoveFromCart(userId, request.ProductVariantId);
+            var result = await shoppingCartItemService.RemoveFromCart(userId, request.VariantId);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
         public static async Task<IResult> RemoveFromWishlist(ClaimsPrincipal userClaim, IShoppingCartItemService shoppingCartItemService, [FromBody] RemoveFromWishlistRequest request)
         {
             var userId = userClaim.GetUserId();
-            var result = await shoppingCartItemService.RemoveFromWishlist(userId, request.ProductVariantId);
+            var result = await shoppingCartItemService.RemoveFromWishlist(userId, request.VariantId);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
@@ -121,11 +122,12 @@ namespace Hydra.Order.Api.Handler
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
-        public static async Task<IResult> UpdateCartItemQuantity(IShoppingCartItemService shoppingCartItemService, [FromBody] UpdateQuantityRequest request)
+        public static async Task<IResult> UpdateCartItemQuantity(ClaimsPrincipal userClaim, IShoppingCartItemService shoppingCartItemService, [FromBody] UpdateQuantityRequest request)
         {
-            var result = await shoppingCartItemService.UpdateQuantity(request.ItemId, request.Quantity);
+            var userId = userClaim.GetUserId();
+            var result = await shoppingCartItemService.UpdateQuantity(userId, request);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
     }
-  
+
 }

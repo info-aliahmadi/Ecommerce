@@ -6,33 +6,38 @@
     public enum PaymentStatus
     {
         /// <summary>
-        /// Pending
+        /// Initial state — order created, payment not yet initiated or awaiting customer action (e.g., redirect to payment gateway).
         /// </summary>
         Pending = 1,
 
         /// <summary>
-        /// Authorized
+        /// Payment authorized (hold placed on funds) but not yet captured. Common for delayed-capture flows (e.g., pre-orders, manual review).
         /// </summary>
         Authorized = 2,
 
         /// <summary>
-        /// Paid
+        /// Payment fully captured/succeeded. Funds transferred. Order can proceed to fulfillment.
         /// </summary>
         Paid = 3,
 
         /// <summary>
-        /// Partially Refunded
+        /// Failed in payment
         /// </summary>
-        PartiallyRefunded = 4,
+        Failed = 4,
 
         /// <summary>
-        /// Refunded
+        /// A portion of the paid amount has been refunded to the customer.
         /// </summary>
-        Refunded = 5,
+        PartiallyRefunded = 5,
 
         /// <summary>
-        /// Voided
+        /// Full amount refunded. Order typically moves to cancelled/returned state.
         /// </summary>
-        Voided = 6
+        Refunded = 6,
+
+        /// <summary>
+        /// Authorization cancelled before capture (no money moved). Used when order is cancelled before settlement.
+        /// </summary>
+        Voided = 7
     }
 }
