@@ -601,7 +601,7 @@ namespace Hydra.Order.Api.Services
                         if (available < item.Quantity)
                         {
                             result.Status = ResultStatusEnum.Failed;
-                            result.Message = $"Insufficient stock for product variant {item.ProductVariant.SKU}";
+                            result.Message = $"Insufficient stock for product variant {item.ProductVariantId}";
                             await transaction.RollbackAsync();
                             return result;
                         }
@@ -619,15 +619,25 @@ namespace Hydra.Order.Api.Services
                         {
                             ProductInventoryId = inventory.Id,
                             TransactionType = TransactionType.Sale,
-                            StockQuantity = inventory.StockQuantity,
-                            ReservedQuantity = inventory.ReservedQuantity,
+                            StockQuantity = request.PaymentMethodId == PaymentMethod.CashOnDelivery ? -item.Quantity : 0,
+                            ReservedQuantity = request.PaymentMethodId == PaymentMethod.CashOnDelivery ? 0 : item.Quantity,
                             CreatedDatetime = DateTime.UtcNow
                         };
                         await _commandRepository.InsertAsync(inventoryTransaction);
                     }
                 }
 
+                var payment = new Ecommerce.Core.Domain.Payment()
+                {
+                    OrderId = order.Id,
+                    PaymentTypeId = request.PaymentMethodId,
+                    Status = request.PaymentMethodId == PaymentMethod.CashOnDelivery ? PaymentStatus.Authorized : PaymentStatus.Pending,
+                    CreatedOnUtc = DateTime.UtcNow
+                };
+
+                await _commandRepository.InsertAsync(payment);
                 await _commandRepository.SaveChangesAsync();
+
                 await transaction.CommitAsync();
 
                 result.Data = new OrderModel()
@@ -692,40 +702,51 @@ namespace Hydra.Order.Api.Services
                         return result;
                     }
 
-                    var available = inventory.StockQuantity - inventory.ReservedQuantity;
-                    if (available < item.Quantity)
+                    if (order.PaymentMethodId != PaymentMethod.CashOnDelivery)
                     {
-                        result.Status = ResultStatusEnum.Failed;
-                        result.Message = $"Insufficient stock for product variant {item.ProductVariantId}";
-                        continue;
+                        var available = inventory.StockQuantity - inventory.ReservedQuantity;
+                        if (available < item.Quantity)
+                        {
+                            result.Status = ResultStatusEnum.Failed;
+                            result.Message = $"Insufficient stock for product variant {item.ProductVariantId}";
+                            await transaction.RollbackAsync();
+                            return result;
+                        }
+
+                        inventory.StockQuantity -= item.Quantity;
+                        inventory.ReservedQuantity -= item.Quantity;
+                        _commandRepository.Update(inventory);
+
+                        var inventoryTransaction = new ProductInventoryTransaction
+                        {
+                            ProductInventoryId = inventory.Id,
+                            TransactionType = TransactionType.Sale,
+                            StockQuantity = -item.Quantity,
+                            ReservedQuantity = -item.Quantity,
+                            CreatedDatetime = DateTime.UtcNow
+                        };
+                        await _commandRepository.InsertAsync(inventoryTransaction);
                     }
-
-                    inventory.StockQuantity -= item.Quantity;
-                    inventory.ReservedQuantity -= item.Quantity;
-                    _commandRepository.Update(inventory);
-
-                    var inventoryTransaction = new ProductInventoryTransaction
-                    {
-                        ProductInventoryId = inventory.Id,
-                        TransactionType = TransactionType.Sale,
-                        StockQuantity = inventory.StockQuantity,
-                        ReservedQuantity = inventory.ReservedQuantity,
-                        CreatedDatetime = DateTime.UtcNow
-                    };
-                    await _commandRepository.InsertAsync(inventoryTransaction);
                 }
 
                 order.OrderStatusId = OrderStatus.Processing;
-                if (order.PaymentStatusId != PaymentStatus.Paid)
-                {
-                    order.PaymentStatusId = PaymentStatus.Paid;
-                }
+                order.PaymentStatusId = PaymentStatus.Paid;
                 order.PaidDateUtc = DateTime.UtcNow;
                 _commandRepository.Update(order);
+
+                var payment = await _queryRepository.Table<Ecommerce.Core.Domain.Payment>()
+                    .FirstOrDefaultAsync(x => x.OrderId == orderId);
+                if (payment != null)
+                {
+                    payment.Status = PaymentStatus.Paid;
+                    payment.PaymentDateUtc = DateTime.UtcNow;
+                    _commandRepository.Update(payment);
+                }
 
                 await _commandRepository.SaveChangesAsync();
                 await transaction.CommitAsync();
 
+                result.Message = "Order confirmed successfully";
                 return result;
             }
             catch (Exception e)
