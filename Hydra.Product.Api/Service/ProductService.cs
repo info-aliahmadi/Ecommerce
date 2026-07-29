@@ -171,9 +171,7 @@ namespace Hydra.Product.Api.Services
                             CurrencyType = product.CurrencyType,
                             DisplayOrder = product.DisplayOrder,
                             ApprovedRatingSum = product.ApprovedRatingSum,
-                            NotApprovedRatingSum = product.NotApprovedRatingSum,
                             ApprovedTotalReviews = product.ApprovedTotalReviews,
-                            NotApprovedTotalReviews = product.NotApprovedTotalReviews,
                             HasDiscountsApplied = product.HasDiscountsApplied,
                             MarkAsNew = product.MarkAsNew,
                             MarkAsNewStartDateTimeUtc = product.MarkAsNewStartDateTimeUtc,
@@ -301,9 +299,7 @@ namespace Hydra.Product.Api.Services
                         CurrencyType = x.Product.CurrencyType,
                         DisplayOrder = x.Product.DisplayOrder,
                         ApprovedRatingSum = x.Product.ApprovedRatingSum,
-                        NotApprovedRatingSum = x.Product.NotApprovedRatingSum,
                         ApprovedTotalReviews = x.Product.ApprovedTotalReviews,
-                        NotApprovedTotalReviews = x.Product.NotApprovedTotalReviews,
                         HasDiscountsApplied = x.Product.HasDiscountsApplied,
                         MarkAsNew = x.Product.MarkAsNew,
                         MarkAsNewStartDateTimeUtc = x.Product.MarkAsNewStartDateTimeUtc,
@@ -369,9 +365,7 @@ namespace Hydra.Product.Api.Services
                 CurrencyType = product.CurrencyType,
                 DisplayOrder = product.DisplayOrder,
                 ApprovedRatingSum = product.ApprovedRatingSum,
-                NotApprovedRatingSum = product.NotApprovedRatingSum,
                 ApprovedTotalReviews = product.ApprovedTotalReviews,
-                NotApprovedTotalReviews = product.NotApprovedTotalReviews,
                 HasDiscountsApplied = product.HasDiscountsApplied,
                 MarkAsNew = product.MarkAsNew,
                 MarkAsNewStartDateTimeUtc = product.MarkAsNewStartDateTimeUtc,
@@ -479,9 +473,7 @@ namespace Hydra.Product.Api.Services
                                   AvailableEndDateTimeUtc = product.AvailableEndDateTimeUtc,
                                   DisplayOrder = product.DisplayOrder,
                                   ApprovedRatingSum = product.ApprovedRatingSum,
-                                  NotApprovedRatingSum = product.NotApprovedRatingSum,
                                   ApprovedTotalReviews = product.ApprovedTotalReviews,
-                                  NotApprovedTotalReviews = product.NotApprovedTotalReviews,
                                   HasDiscountsApplied = product.HasDiscountsApplied,
                                   MarkAsNew = product.MarkAsNew,
                                   MarkAsNewStartDateTimeUtc = product.MarkAsNewStartDateTimeUtc,
@@ -528,7 +520,7 @@ namespace Hydra.Product.Api.Services
                                       ProductAttributes = v.VariantAttributes.Select(va => new ProductAttributeModel()
                                       {
                                           Id = va.Attribute.Id,
-                                          Name = va.Attribute.DisplayName,
+                                          DisplayName = va.Attribute.DisplayName,
                                           Key = va.Attribute.Key,
                                           AttributeType = va.Attribute.AttributeType,
                                           DisplayOrder = va.Attribute.DisplayOrder,
@@ -580,9 +572,7 @@ namespace Hydra.Product.Api.Services
                 AvailableEndDateTimeUtc = product.AvailableEndDateTimeUtc,
                 DisplayOrder = product.DisplayOrder,
                 ApprovedRatingSum = product.ApprovedRatingSum,
-                NotApprovedRatingSum = product.NotApprovedRatingSum,
                 ApprovedTotalReviews = product.ApprovedTotalReviews,
-                NotApprovedTotalReviews = product.NotApprovedTotalReviews,
                 HasDiscountsApplied = product.HasDiscountsApplied,
                 MarkAsNew = product.MarkAsNew,
                 MarkAsNewStartDateTimeUtc = product.MarkAsNewStartDateTimeUtc,
@@ -649,7 +639,7 @@ namespace Hydra.Product.Api.Services
                     ProductAttributes = v.VariantAttributes != null ? v.VariantAttributes.Select(va => new ProductAttributeModel()
                     {
                         Id = va.Attribute.Id,
-                        Name = va.Attribute.DisplayName,
+                        DisplayName = va.Attribute.DisplayName,
                         Key = va.Attribute.Key,
                         AttributeType = va.Attribute.AttributeType,
                         DisplayOrder = va.Attribute.DisplayOrder,
@@ -756,9 +746,7 @@ namespace Hydra.Product.Api.Services
                 AvailableEndDateTimeUtc = productModel.AvailableEndDateTimeUtc,
                 DisplayOrder = productModel.DisplayOrder,
                 ApprovedRatingSum = productModel.ApprovedRatingSum,
-                NotApprovedRatingSum = productModel.NotApprovedRatingSum,
                 ApprovedTotalReviews = productModel.ApprovedTotalReviews,
-                NotApprovedTotalReviews = productModel.NotApprovedTotalReviews,
                 HasDiscountsApplied = productModel.HasDiscountsApplied,
                 MarkAsNew = productModel.MarkAsNew,
                 MarkAsNewStartDateTimeUtc = productModel.MarkAsNewStartDateTimeUtc,
@@ -939,9 +927,7 @@ namespace Hydra.Product.Api.Services
                     product.AvailableEndDateTimeUtc = productModel.AvailableEndDateTimeUtc;
                     product.DisplayOrder = productModel.DisplayOrder;
                     product.ApprovedRatingSum = productModel.ApprovedRatingSum;
-                    product.NotApprovedRatingSum = productModel.NotApprovedRatingSum;
                     product.ApprovedTotalReviews = productModel.ApprovedTotalReviews;
-                    product.NotApprovedTotalReviews = productModel.NotApprovedTotalReviews;
                     product.HasDiscountsApplied = productModel.HasDiscountsApplied;
                     product.MarkAsNew = productModel.MarkAsNew;
                     product.MarkAsNewStartDateTimeUtc = productModel.MarkAsNewStartDateTimeUtc;

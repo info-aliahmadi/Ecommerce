@@ -9,6 +9,12 @@ namespace Hydra.Crm.Core.Interfaces
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="subscribeUser"></param>
+        /// <returns></returns>
+        Task<Result<UserSubscribeModel>> SubscribeUser(UserSubscribeModel subscribeUser);
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="dataGrid"></param>
         /// <returns></returns>
         Task<Result<PaginatedList<SubscribeModel>>> GetList(GridDataBound dataGrid);

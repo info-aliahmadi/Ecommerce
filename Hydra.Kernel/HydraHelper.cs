@@ -4,6 +4,7 @@ using Hydra.Kernel.GeneralModels;
 using Microsoft.AspNetCore.Http;
 using System.Reflection;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 
 namespace Hydra.Kernel
 {
@@ -118,6 +119,17 @@ namespace Hydra.Kernel
             return DateTimeOffset.FromUnixTimeSeconds(long.Parse(userPrincipal.FindFirst(CustomClaimTypes.Expiration).Value)).DateTime;
         }
 
-
+        /// <summary>
+        /// remove html from text
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string SanitizeText(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+            var withoutHtml = Regex.Replace(text, "<.*?>", string.Empty);
+            return System.Net.WebUtility.HtmlDecode(withoutHtml).Trim();
+        }
     }
 }

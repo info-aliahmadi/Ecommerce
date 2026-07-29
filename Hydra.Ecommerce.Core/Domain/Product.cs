@@ -46,11 +46,7 @@ public class Product : BaseEntity<int>
 
     public int ApprovedRatingSum { get; set; }
 
-    public int NotApprovedRatingSum { get; set; }
-
     public int ApprovedTotalReviews { get; set; }
-
-    public int NotApprovedTotalReviews { get; set; }
 
     public bool HasDiscountsApplied { get; set; }
 

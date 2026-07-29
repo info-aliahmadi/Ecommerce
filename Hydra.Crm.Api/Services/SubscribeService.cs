@@ -5,6 +5,7 @@ using Hydra.Kernel.Extension;
 using Hydra.Kernel.Interface;
 using Hydra.Kernel.GeneralModels;
 using Microsoft.EntityFrameworkCore;
+using Hydra.Kernel;
 
 namespace Hydra.Crm.Api.Services
 {
@@ -16,6 +17,46 @@ namespace Hydra.Crm.Api.Services
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="subscribeModel"></param>
+        /// <returns></returns>
+        public async Task<Result<UserSubscribeModel>> SubscribeUser(UserSubscribeModel subscribeUser)
+        {
+            var result = new Result<UserSubscribeModel>();
+            try
+            {
+                var isExist = await _queryRepository.Table<Subscribe>().AnyAsync(x => x.Email == subscribeUser.Email);
+                if (isExist)
+                {
+                    result.Status = ResultStatusEnum.ItsDuplicate;
+                    result.Message = "The Email already exist";
+                    result.Errors.Add(new Error(nameof(subscribeUser.Email), "The Email already exist"));
+                    return result;
+                }
+                var subscribe = new Subscribe()
+                {
+                    SubscribeLabelId = subscribeUser.SubscribeLabelId ?? DefaultSetting.DEFAULT_SUBSCRIBE_LABEL,
+                    Email = subscribeUser.Email,
+                    InsertDate = DateTime.UtcNow
+                };
+
+                await _commandRepository.InsertAsync(subscribe);
+                await _commandRepository.SaveChangesAsync();
+
+                result.Data = subscribeUser;
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                return result;
+            }
         }
 
         /// <summary>

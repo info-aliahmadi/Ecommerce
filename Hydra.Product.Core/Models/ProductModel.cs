@@ -152,19 +152,9 @@ namespace Hydra.Product.Core.Models
         public int ApprovedRatingSum { get; set; }
 
         /// <summary>
-        /// Sum of not-approved ratings (if stored separately).
-        /// </summary>
-        public int NotApprovedRatingSum { get; set; }
-
-        /// <summary>
         /// Total number of approved reviews.
         /// </summary>
         public int ApprovedTotalReviews { get; set; }
-
-        /// <summary>
-        /// Total number of not-approved reviews.
-        /// </summary>
-        public int NotApprovedTotalReviews { get; set; }
 
         /// <summary>
         /// Whether any discounts are currently applied to the product.

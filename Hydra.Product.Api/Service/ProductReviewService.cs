@@ -5,6 +5,7 @@ using Hydra.Product.Core.Interfaces;
 using Hydra.Product.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Hydra.Kernel.Extension;
+using Hydra.Kernel;
 
 namespace Hydra.Product.Api.Services
 {
@@ -18,6 +19,174 @@ namespace Hydra.Product.Api.Services
             _commandRepository = commandRepository;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        public async Task<Result<List<ProductReviewModel>>> GetProductReviews(int productId)
+        {
+            var result = new Result<List<ProductReviewModel>>();
+
+            var list = await _queryRepository.Table<ProductReview>().Where(x => x.ProductId == productId && x.IsApproved == true).Include(x => x.User)
+                .Select(productReview => new ProductReviewModel()
+                {
+                    Id = productReview.Id,
+                    ProductId = productReview.ProductId,
+                    IsApproved = productReview.IsApproved,
+                    ReviewText = productReview.ReviewText,
+                    ReplyText = productReview.ReplyText,
+                    CustomerNotifiedOfReply = productReview.CustomerNotifiedOfReply,
+                    Rating = productReview.Rating,
+                    CreatedOnUtc = productReview.CreatedOnUtc,
+                    UserId = productReview.UserId,
+                    User = new AuthorModel()
+                    {
+                        Id = productReview.UserId,
+                        Name = productReview.User.Name,
+                        UserName = productReview.User.UserName,
+                        Avatar = productReview.User.Avatar
+                    }
+
+                }).OrderByDescending(x => x.Id).ToListAsync();
+
+            result.Data = list;
+
+            return result;
+        }
+
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="productReviewModel"></param>
+        /// <returns></returns>
+        public async Task<Result<ProductReviewModel>> AddUserReview(ProductReviewModel productReviewModel)
+        {
+            var result = new Result<ProductReviewModel>();
+            try
+            {
+                bool userReviewExist = _queryRepository.Table<ProductReview>().Any(x => x.UserId == productReviewModel.UserId && x.ProductId == productReviewModel.ProductId);
+                if (userReviewExist)
+                {
+                    result.Status = ResultStatusEnum.ItsDuplicate;
+                    result.Message = "The User Review Added Already!";
+                    return result;
+                }
+                var productReview = new ProductReview()
+                {
+                    UserId = productReviewModel.UserId,
+                    ProductId = productReviewModel.ProductId,
+                    IsApproved = DefaultSetting.AUTO_APPROVE_REVIEW,
+                    ReviewText = HydraHelper.SanitizeText(productReviewModel.ReviewText),
+                    ReplyText = null,
+                    CustomerNotifiedOfReply = productReviewModel.CustomerNotifiedOfReply,
+                    Rating = productReviewModel.Rating,
+                    HelpfulYesTotal = 0,
+                    HelpfulNoTotal = 0,
+                    CreatedOnUtc = DateTime.UtcNow
+                };
+
+                await _commandRepository.InsertAsync(productReview);
+                await _commandRepository.SaveChangesAsync();
+
+                await UpdateProductReviewStatisticsAsync(productReviewModel.ProductId, 0, false, productReview.Rating, productReview.IsApproved, false);
+
+                productReviewModel.Id = productReview.Id;
+
+                result.Data = productReviewModel;
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                return result;
+            }
+        }
+        private async Task UpdateProductReviewStatisticsAsync(int productId, int oldRating, bool oldIsApproved, int newRating, bool newIsApproved, bool deleted)
+        {
+            var product = await _queryRepository.Table<Ecommerce.Core.Domain.Product>().FirstAsync(x => x.Id == productId);
+
+            if (deleted)
+            {
+                if (oldIsApproved)
+                {
+                    product.ApprovedTotalReviews--;
+                    product.ApprovedRatingSum -= oldRating;
+                }
+            }
+            else
+            {
+                if (oldIsApproved && newIsApproved)
+                {
+                    product.ApprovedRatingSum += (newRating - oldRating);
+                }
+                else if (oldIsApproved && !newIsApproved)
+                {
+                    product.ApprovedTotalReviews--;
+                    product.ApprovedRatingSum -= oldRating;
+                }
+                else if (!oldIsApproved && newIsApproved)
+                {
+                    product.ApprovedTotalReviews++;
+                    product.ApprovedRatingSum += newRating;
+                }
+            }
+
+            _commandRepository.Update(product);
+            await _commandRepository.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productReviewModel"></param>
+        /// <returns></returns>
+        public async Task<Result<ProductReviewModel>> UpdateUserReview(ProductReviewModel productReviewModel)
+        {
+            var result = new Result<ProductReviewModel>();
+            try
+            {
+                var productReview = await _queryRepository.Table<ProductReview>().FirstAsync(x => x.Id == productReviewModel.Id);
+                if (productReview is null)
+                {
+                    result.Status = ResultStatusEnum.NotFound;
+                    result.Message = "The User Review not found";
+                    return result;
+                }
+                if (productReview.UserId != productReviewModel.UserId)
+                {
+                    result.Status = ResultStatusEnum.NotFound;
+                    result.Message = "The User Review not authorized";
+                    return result;
+                }
+
+                var oldRating = productReview.Rating;
+                var oldIsApproved = productReview.IsApproved;
+
+                productReview.IsApproved = DefaultSetting.AUTO_APPROVE_REVIEW;
+                productReview.ReviewText = HydraHelper.SanitizeText(productReviewModel.ReviewText);
+                productReview.CustomerNotifiedOfReply = productReviewModel.CustomerNotifiedOfReply;
+                productReview.Rating = productReviewModel.Rating;
+
+                _commandRepository.Update(productReview);
+                await _commandRepository.SaveChangesAsync();
+
+                await UpdateProductReviewStatisticsAsync(productReview.ProductId, oldRating, oldIsApproved, productReview.Rating, productReview.IsApproved, false);
+
+                result.Data = productReviewModel;
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                return result;
+            }
+        }
         /// <summary>
         ///
         /// </summary>
@@ -38,8 +207,6 @@ namespace Hydra.Product.Api.Services
                                   ReplyText = productReview.ReplyText,
                                   CustomerNotifiedOfReply = productReview.CustomerNotifiedOfReply,
                                   Rating = productReview.Rating,
-                                  HelpfulYesTotal = productReview.HelpfulYesTotal,
-                                  HelpfulNoTotal = productReview.HelpfulNoTotal,
                                   CreatedOnUtc = productReview.CreatedOnUtc,
                                   //ProductReviewHelpfulnesses = productReview.ProductReviewHelpfulnesses,
 
@@ -70,8 +237,6 @@ namespace Hydra.Product.Api.Services
                 ReplyText = productReview.ReplyText,
                 CustomerNotifiedOfReply = productReview.CustomerNotifiedOfReply,
                 Rating = productReview.Rating,
-                HelpfulYesTotal = productReview.HelpfulYesTotal,
-                HelpfulNoTotal = productReview.HelpfulNoTotal,
                 CreatedOnUtc = productReview.CreatedOnUtc,
                 //ProductReviewHelpfulnesses = productReview.ProductReviewHelpfulnesses,
 
@@ -81,56 +246,6 @@ namespace Hydra.Product.Api.Services
             return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="productReviewModel"></param>
-        /// <returns></returns>
-        public async Task<Result<ProductReviewModel>> Add(ProductReviewModel productReviewModel)
-        {
-            var result = new Result<ProductReviewModel>();
-            try
-            {
-                bool isExist = await _queryRepository.Table<ProductReview>().AnyAsync(x => x.Id == productReviewModel.Id);
-                if (isExist)
-                {
-                    result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(productReviewModel.Id), "The Id already exist"));
-                    return result;
-                }
-                var productReview = new ProductReview()
-                {
-                    UserId = productReviewModel.UserId,
-                    ProductId = productReviewModel.ProductId,
-                    IsApproved = productReviewModel.IsApproved,
-                    ReviewText = productReviewModel.ReviewText,
-                    ReplyText = productReviewModel.ReplyText,
-                    CustomerNotifiedOfReply = productReviewModel.CustomerNotifiedOfReply,
-                    Rating = productReviewModel.Rating,
-                    HelpfulYesTotal = productReviewModel.HelpfulYesTotal,
-                    HelpfulNoTotal = productReviewModel.HelpfulNoTotal,
-                    CreatedOnUtc = productReviewModel.CreatedOnUtc,
-                    //ProductReviewHelpfulnesses = productReviewModel.ProductReviewHelpfulnesses,
-
-                };
-
-                await _commandRepository.InsertAsync(productReview);
-                await _commandRepository.SaveChangesAsync();
-
-                productReviewModel.Id = productReview.Id;
-
-                result.Data = productReviewModel;
-
-                return result;
-            }
-            catch (Exception e)
-            {
-                result.Message = e.Message;
-                result.Status = ResultStatusEnum.ExceptionThrowed;
-                return result;
-            }
-        }
 
         /// <summary>
         ///
@@ -157,6 +272,10 @@ namespace Hydra.Product.Api.Services
                     result.Errors.Add(new Error(nameof(productReviewModel.Id), "The Id already exist"));
                     return result;
                 }
+
+                var oldRating = productReview.Rating;
+                var oldIsApproved = productReview.IsApproved;
+
                 productReview.UserId = productReviewModel.UserId;
                 productReview.ProductId = productReviewModel.ProductId;
                 productReview.IsApproved = productReviewModel.IsApproved;
@@ -164,13 +283,13 @@ namespace Hydra.Product.Api.Services
                 productReview.ReplyText = productReviewModel.ReplyText;
                 productReview.CustomerNotifiedOfReply = productReviewModel.CustomerNotifiedOfReply;
                 productReview.Rating = productReviewModel.Rating;
-                productReview.HelpfulYesTotal = productReviewModel.HelpfulYesTotal;
-                productReview.HelpfulNoTotal = productReviewModel.HelpfulNoTotal;
                 productReview.CreatedOnUtc = productReviewModel.CreatedOnUtc;
                 //productReview.ProductReviewHelpfulnesses = productReviewModel.ProductReviewHelpfulnesses;
 
                 _commandRepository.Update(productReview);
                 await _commandRepository.SaveChangesAsync();
+
+                await UpdateProductReviewStatisticsAsync(productReview.ProductId, oldRating, oldIsApproved, productReview.Rating, productReview.IsApproved, false);
 
                 result.Data = productReviewModel;
 
@@ -189,6 +308,63 @@ namespace Hydra.Product.Api.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        public async Task<Result> Approve(int id)
+        {
+            var result = new Result();
+            var productReview = await _queryRepository.Table<ProductReview>().FirstOrDefaultAsync(x => x.Id == id);
+            if (productReview is null)
+            {
+                result.Status = ResultStatusEnum.NotFound;
+                result.Message = "The ProductReview not found";
+                return result;
+            }
+            if (productReview.IsApproved == false)
+            {
+                var oldRating = productReview.Rating;
+                var oldIsApproved = productReview.IsApproved;
+
+                productReview.IsApproved = true;
+                _commandRepository.Update(productReview);
+                await _commandRepository.SaveChangesAsync();
+
+                await UpdateProductReviewStatisticsAsync(productReview.ProductId, oldRating, oldIsApproved, productReview.Rating, true, false);
+            }
+            return result;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Result> NotApprove(int id)
+        {
+            var result = new Result();
+            var productReview = await _queryRepository.Table<ProductReview>().FirstOrDefaultAsync(x => x.Id == id);
+            if (productReview is null)
+            {
+                result.Status = ResultStatusEnum.NotFound;
+                result.Message = "The ProductReview not found";
+                return result;
+            }
+            if (productReview.IsApproved == true)
+            {
+                var oldRating = productReview.Rating;
+                var oldIsApproved = productReview.IsApproved;
+
+                productReview.IsApproved = false;
+                _commandRepository.Update(productReview);
+                await _commandRepository.SaveChangesAsync();
+
+                await UpdateProductReviewStatisticsAsync(productReview.ProductId, oldRating, oldIsApproved, productReview.Rating, false, false);
+            }
+            return result;
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Result> Delete(int id)
         {
             var result = new Result();
@@ -200,8 +376,13 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
 
+            var oldRating = productReview.Rating;
+            var oldIsApproved = productReview.IsApproved;
+
             _commandRepository.Delete(productReview);
             await _commandRepository.SaveChangesAsync();
+
+            await UpdateProductReviewStatisticsAsync(productReview.ProductId, oldRating, oldIsApproved, 0, false, true);
 
             return result;
         }

@@ -7,7 +7,7 @@ namespace Hydra.Crm.Core.EntityConfiguration.Subscribe
     {
         public void Configure(EntityTypeBuilder<Domain.Subscribe.Subscribe> entity)
         {
-            entity.ToTable(nameof(Domain.Subscribe.Subscribe), "Cms");
+            entity.ToTable(nameof(Domain.Subscribe.Subscribe), "Crm");
             entity.HasKey(e => e.Id);
 
             entity.Property(e => e.Email)
@@ -19,6 +19,9 @@ namespace Hydra.Crm.Core.EntityConfiguration.Subscribe
             .HasForeignKey(d => d.SubscribeLabelId)
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("FK_Subscribe_SubscribeLabel");
+
+
+
         }
     }
 }

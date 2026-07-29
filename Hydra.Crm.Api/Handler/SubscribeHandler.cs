@@ -9,6 +9,20 @@ namespace Hydra.Crm.Api.Handler
 {
     public static class SubscribeHandler
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userClaim"></param>
+        /// <param name="subscribeService"></param>
+        /// <param name="subscribeModel"></param>
+        /// <returns></returns>
+        public static async Task<IResult> SubscribeUser(ClaimsPrincipal userClaim, ISubscribeService subscribeService, [FromBody] UserSubscribeModel subscribeModel)
+        {
+            var result = await subscribeService.SubscribeUser(subscribeModel);
+            return Results.Ok(result);
+        }
+
         /// <summary>
         /// 
         /// </summary>

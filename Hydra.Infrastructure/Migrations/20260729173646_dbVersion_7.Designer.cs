@@ -3,6 +3,7 @@ using System;
 using Hydra.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hydra.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260729173646_dbVersion_7")]
+    partial class dbVersion_7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -6574,6 +6577,14 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("name");
 
+                    b.Property<int>("NotApprovedRatingSum")
+                        .HasColumnType("integer")
+                        .HasColumnName("not_approved_rating_sum");
+
+                    b.Property<int>("NotApprovedTotalReviews")
+                        .HasColumnType("integer")
+                        .HasColumnName("not_approved_total_reviews");
+
                     b.Property<bool>("NotReturnable")
                         .HasColumnType("boolean")
                         .HasColumnName("not_returnable");
@@ -6657,7 +6668,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 324,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -6680,6 +6691,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Wireless Noise-Cancelling Headphones",
                             MinStockQuantity = 0,
                             Name = "Wireless Noise-Cancelling Headphones",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -6696,7 +6709,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 218,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -6719,6 +6732,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Smart Watch Pro",
                             MinStockQuantity = 0,
                             Name = "Smart Watch Pro",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -6735,7 +6750,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 156,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -6758,6 +6773,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Portable Bluetooth Speaker",
                             MinStockQuantity = 0,
                             Name = "Portable Bluetooth Speaker",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -6774,7 +6791,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 189,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -6797,6 +6814,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Mechanical Keyboard RGB",
                             MinStockQuantity = 0,
                             Name = "Mechanical Keyboard RGB",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -6813,7 +6832,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 412,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -6836,6 +6855,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Classic Leather Jacket",
                             MinStockQuantity = 0,
                             Name = "Classic Leather Jacket",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -6852,7 +6873,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 287,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -6875,6 +6896,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Premium Cotton T-Shirt",
                             MinStockQuantity = 0,
                             Name = "Premium Cotton T-Shirt",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -6891,7 +6914,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 165,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -6914,6 +6937,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Designer Sunglasses",
                             MinStockQuantity = 0,
                             Name = "Designer Sunglasses",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -6930,7 +6955,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 143,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -6953,6 +6978,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Minimalist Desk Lamp",
                             MinStockQuantity = 0,
                             Name = "Minimalist Desk Lamp",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -6969,7 +6996,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 211,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -6992,6 +7019,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Ceramic Plant Pot Set",
                             MinStockQuantity = 0,
                             Name = "Ceramic Plant Pot Set",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -7008,7 +7037,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 234,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -7031,6 +7060,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Yoga Mat Premium",
                             MinStockQuantity = 0,
                             Name = "Yoga Mat Premium",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -7047,7 +7078,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 267,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -7070,6 +7101,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "Skincare Essential Kit",
                             MinStockQuantity = 0,
                             Name = "Skincare Essential Kit",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -7086,7 +7119,7 @@ namespace Hydra.Infrastructure.Migrations
                             AllowCustomerReviews = true,
                             AllowedQuantities = false,
                             ApprovedRatingSum = 0,
-                            ApprovedTotalReviews = 0,
+                            ApprovedTotalReviews = 178,
                             AvailableForPreOrder = false,
                             AvailableStartDateTimeUtc = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             CallForPrice = false,
@@ -7109,6 +7142,8 @@ namespace Hydra.Infrastructure.Migrations
                             MetaTitle = "The Art of Modern Living",
                             MinStockQuantity = 0,
                             Name = "The Art of Modern Living",
+                            NotApprovedRatingSum = 0,
+                            NotApprovedTotalReviews = 0,
                             NotReturnable = false,
                             NotifyAdminForQuantityBelow = false,
                             OrderMaximumQuantity = 1000,
@@ -7834,6 +7869,7 @@ namespace Hydra.Infrastructure.Migrations
                         .HasColumnName("rating");
 
                     b.Property<string>("ReplyText")
+                        .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)")
                         .HasColumnName("reply_text");

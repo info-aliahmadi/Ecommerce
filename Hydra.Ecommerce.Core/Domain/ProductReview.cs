@@ -13,15 +13,15 @@ public class ProductReview : BaseEntity<int>
 
     public string ReviewText { get; set; }
 
-    public string ReplyText { get; set; }
+    public string? ReplyText { get; set; }
 
     public bool CustomerNotifiedOfReply { get; set; }
 
     public int Rating { get; set; }
 
-    public int HelpfulYesTotal { get; set; }
+    public int HelpfulYesTotal { get; set; } = 0;
 
-    public int HelpfulNoTotal { get; set; }
+    public int HelpfulNoTotal { get; set; } = 0;
 
     public DateTime CreatedOnUtc { get; set; }
 

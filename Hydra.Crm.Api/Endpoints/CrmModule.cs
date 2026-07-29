@@ -27,6 +27,8 @@ namespace Hydra.Crm.Api.Endpoints
 
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
+            endpoints.MapPost(API_SCHEMA + "/SubscribeUser", SubscribeHandler.SubscribeUser).AllowAnonymous();
+
             endpoints.MapPost(API_SCHEMA + "/SendRequestMessage", MessageHandler.SendRequestMessage).AllowAnonymous();
             endpoints.MapPost(API_SCHEMA + "/SendContactMessage", MessageHandler.SendContactMessage).AllowAnonymous();
 
@@ -81,7 +83,7 @@ namespace Hydra.Crm.Api.Endpoints
             
             endpoints.MapPost(API_SCHEMA + "/GetSubscribeList", SubscribeHandler.GetList).RequirePermission(CrmPermissionTypes.CRM_SUBSCRIBE_MANAGMENT);
             endpoints.MapGet(API_SCHEMA + "/GetSubscribeById", SubscribeHandler.GetSubscribeById).RequirePermission(CrmPermissionTypes.CRM_SUBSCRIBE_MANAGMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddSubscribe", SubscribeHandler.AddSubscribe).AllowAnonymous();
+            endpoints.MapPost(API_SCHEMA + "/AddSubscribe", SubscribeHandler.AddSubscribe).RequirePermission(CrmPermissionTypes.CRM_SUBSCRIBE_MANAGMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateSubscribe", SubscribeHandler.UpdateSubscribe).RequirePermission(CrmPermissionTypes.CRM_SUBSCRIBE_MANAGMENT);
             endpoints.MapGet(API_SCHEMA + "/DeleteSubscribe", SubscribeHandler.DeleteSubscribe).RequirePermission(CrmPermissionTypes.CRM_SUBSCRIBE_MANAGMENT);
 

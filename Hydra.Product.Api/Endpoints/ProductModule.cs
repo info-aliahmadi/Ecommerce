@@ -51,6 +51,10 @@ namespace Hydra.Product.Api.Endpoints
             endpoints.MapGet(API_SCHEMA + "/GetManufacturers", ManufacturerHandler.GetPublishedManufacturers).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetPublishedBundles", BundleHandler.GetPublishedBundles).AllowAnonymous();
 
+            endpoints.MapGet(API_SCHEMA + "/GetProductReviews", ProductReviewHandler.GetProductReviews).AllowAnonymous();
+            endpoints.MapPost(API_SCHEMA + "/AddUserReview", ProductReviewHandler.AddUserReview).RequireAuthorization();
+            endpoints.MapPost(API_SCHEMA + "/UpdateUserReview", ProductReviewHandler.UpdateUserReview).RequireAuthorization();
+
 
 
             endpoints.MapGet(API_SCHEMA + "/GetCategoryList", CategoryHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_CATEGORY_MANAGEMENT);
@@ -83,7 +87,6 @@ namespace Hydra.Product.Api.Endpoints
 
             endpoints.MapPost(API_SCHEMA + "/GetProductReviewList", ProductReviewHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_REVIEW_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetProductReviewById", ProductReviewHandler.GetProductReviewById).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_REVIEW_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddProductReview", ProductReviewHandler.AddProductReview).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_REVIEW_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateProductReview", ProductReviewHandler.UpdateProductReview).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_REVIEW_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/DeleteProductReview", ProductReviewHandler.DeleteProductReview).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_REVIEW_MANAGEMENT);
 

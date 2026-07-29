@@ -32,7 +32,7 @@ namespace Hydra.Product.Api.Services
                   .Select(productAttribute => new ProductAttributeModel()
                   {
                       Id = productAttribute.Id,
-                      Name = productAttribute.DisplayName,
+                      DisplayName = productAttribute.DisplayName,
                       Key = productAttribute.Key,
                       AttributeType = productAttribute.AttributeType,
                       Description = productAttribute.Description,
@@ -58,7 +58,7 @@ namespace Hydra.Product.Api.Services
                 .Select(productAttribute => new ProductAttributeModel()
                 {
                     Id = productAttribute.Id,
-                    Name = productAttribute.DisplayName,
+                    DisplayName = productAttribute.DisplayName,
                     Key = productAttribute.Key,
                     AttributeType = productAttribute.AttributeType,
                     Description = productAttribute.Description,
@@ -82,7 +82,7 @@ namespace Hydra.Product.Api.Services
                 .Select(productAttribute => new ProductAttributeModel()
                 {
                     Id = productAttribute.Id,
-                    Name = productAttribute.DisplayName,
+                    DisplayName = productAttribute.DisplayName,
                     Key = productAttribute.Key,
                     AttributeType = productAttribute.AttributeType,
                     Description = productAttribute.Description,
@@ -146,7 +146,7 @@ namespace Hydra.Product.Api.Services
             var result = new Result<ProductAttributeModel>();
             try
             {
-                var isExist = await _queryRepository.Table<ProductAttribute>().AnyAsync(x => x.Id != productAttributeModel.Id && x.DisplayName == productAttributeModel.Name);
+                var isExist = await _queryRepository.Table<ProductAttribute>().AnyAsync(x => x.Id != productAttributeModel.Id && x.DisplayName == productAttributeModel.DisplayName);
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -158,7 +158,7 @@ namespace Hydra.Product.Api.Services
                 var productAttribute = new Ecommerce.Core.Domain.ProductAttribute()
                 {
                     Id = productAttributeModel.Id,
-                    DisplayName = productAttributeModel.Name,
+                    DisplayName = productAttributeModel.DisplayName,
                     Key = productAttributeModel.Key,
                     AttributeType = productAttributeModel.AttributeType,
                     Description = productAttributeModel.Description,
@@ -210,7 +210,7 @@ namespace Hydra.Product.Api.Services
                     return result;
                 }
 
-                productAttribute.DisplayName = productAttributeModel.Name;
+                productAttribute.DisplayName = productAttributeModel.DisplayName;
                 productAttribute.Key = productAttributeModel.Key;
                 productAttribute.AttributeType = productAttributeModel.AttributeType;
                 productAttribute.Description = productAttributeModel.Description;

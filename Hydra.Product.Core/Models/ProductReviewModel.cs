@@ -1,14 +1,14 @@
-﻿namespace Hydra.Product.Core.Models
+﻿using Hydra.Kernel.GeneralModels;
+
+namespace Hydra.Product.Core.Models
 {
     public class ProductReviewModel
     {
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public int Id { get; set; }
-
 
         /// <summary>
         /// 
@@ -16,6 +16,11 @@
         /// <returns></returns>
         public int UserId { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public AuthorModel User { get; set; }
 
         /// <summary>
         /// 
@@ -57,34 +62,11 @@
         /// <returns></returns>
         public int Rating { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int HelpfulYesTotal { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int HelpfulNoTotal { get; set; }
-
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public DateTime CreatedOnUtc { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int ProductReviewHelpfulnesses { get; set; }
-
 
     }
 }

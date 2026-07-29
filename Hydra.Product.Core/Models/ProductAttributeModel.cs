@@ -14,7 +14,7 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public string Name { get; set; }
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// 
