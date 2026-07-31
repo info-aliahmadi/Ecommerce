@@ -446,6 +446,28 @@ namespace Hydra.Order.Api.Services
                     return result;
                 }
 
+                var variantIds = request.Items.Select(x => x.ProductVariantId).Distinct().ToList();
+                var variants = await _queryRepository.Table<ProductVariant>()
+                    .Where(x => variantIds.Contains(x.Id))
+                    .ToListAsync();
+
+                foreach (var item in request.Items)
+                {
+                    var variant = variants.FirstOrDefault(x => x.Id == item.ProductVariantId);
+                    if (variant == null)
+                    {
+                        result.Status = ResultStatusEnum.NotFound;
+                        result.Message = $"Product variant {item.ProductVariantId} not found";
+                        return result;
+                    }
+                    if (item.UnitPrice != variant.SellPrice)
+                    {
+                        result.Status = ResultStatusEnum.InvalidValidation;
+                        result.Message = $"Unit price for product variant {item.ProductVariantId} does not match database";
+                        return result;
+                    }
+                }
+
                 using var transaction = await _commandRepository.BeginTransactionAsync();
 
                 string addressSnapshot = null;
