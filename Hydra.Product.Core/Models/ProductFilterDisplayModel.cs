@@ -44,7 +44,7 @@ namespace Hydra.Product.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<int>? AttributeIds { get; set; } = new();
+        public List<string>? AttributeKeys { get; set; } = new();
 
         /// <summary>
         /// 

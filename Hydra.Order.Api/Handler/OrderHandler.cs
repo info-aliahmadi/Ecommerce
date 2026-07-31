@@ -109,20 +109,6 @@ namespace Hydra.Order.Api.Handler
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }        
 
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="userClaim"></param>
-        /// <param name="orderService"></param>
-        /// <param name="orderModel"></param>
-        /// <returns></returns>
-        public static async Task<IResult> AddOrder(ClaimsPrincipal userClaim, IOrderService orderService, [FromBody] OrderModel orderModel)
-        {
-            var result = await orderService.Add(orderModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-        }
-
         /// <summary>
         ///
         /// </summary>

@@ -63,7 +63,6 @@ namespace Hydra.Order.Api.Endpoints
             endpoints.MapGet(API_SCHEMA + "/GetOrderById", OrderHandler.GetOrderById).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetAllOrderStatus", OrderHandler.GetAllOrderStatus).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetAllShippingStatus", OrderHandler.GetAllShippingStatus).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddOrder", OrderHandler.AddOrder).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateOrder", OrderHandler.UpdateOrder).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateOrderState", OrderHandler.UpdateOrderState).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/DeleteOrder", OrderHandler.DeleteOrder).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);

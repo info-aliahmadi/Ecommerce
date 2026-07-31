@@ -81,8 +81,8 @@ namespace Hydra.Product.Api.Services
             if (productFilter.AttributeTypes.Count > 0)
                 query = query.Where(x => x.ProductAttributes.Any(c => productFilter.AttributeTypes.Contains(c.Attribute.AttributeType)));
 
-            if (productFilter.AttributeIds.Count > 0)
-                query = query.Where(x => x.ProductAttributes.Any(c => productFilter.AttributeIds.Contains(c.AttributeId)));
+            if (productFilter.AttributeKeys.Count > 0)
+                query = query.Where(x => x.ProductAttributes.Any(c => productFilter.AttributeKeys.Contains(c.Attribute.Key)));
 
             if (productFilter.DateFilter.HasValue)
             {
@@ -272,6 +272,7 @@ namespace Hydra.Product.Api.Services
                 {
                     AttributeId = g.Key,
                     AttributeName = g.First().Attribute.DisplayName,
+                    AttributeKey = g.First().Attribute.Key,
                     AttributeValue = g.First().Attribute.Key,
                     AttributeDescription = g.First().Attribute.Description,
                     ImagePreview = new FileStorage.Core.Models.FileUploadModel(g.First().Attribute.ImagePreview),

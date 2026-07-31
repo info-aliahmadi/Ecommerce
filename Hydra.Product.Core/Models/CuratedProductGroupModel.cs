@@ -8,6 +8,8 @@ namespace Hydra.Product.Core.Models
 
         public string AttributeName { get; set; }
 
+        public string AttributeKey { get; set; }
+
         public string? AttributeValue { get; set; }
 
         public string? AttributeDescription { get; set; }

@@ -16,15 +16,8 @@ namespace Hydra.Order.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IOrderItemService orderItemService, [FromQuery] int orderId)
         {
-            try
-            {
                 var result = await orderItemService.GetListByOrderId(orderId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
 
         /// <summary>

@@ -123,68 +123,6 @@ namespace Hydra.Order.Api.Services
             return result;
         }
 
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="orderModel"></param>
-        /// <returns></returns>
-        public async Task<Result<OrderModel>> Add(OrderModel orderModel)
-        {
-            var result = new Result<OrderModel>();
-            try
-            {
-                bool isExist = await _queryRepository.Table<Ecommerce.Core.Domain.Order>().AnyAsync(x => x.Id == orderModel.Id);
-                if (isExist)
-                {
-                    result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(orderModel.Id), "The Id already exist"));
-                    return result;
-                }
-                var order = new Ecommerce.Core.Domain.Order()
-                {
-                    UserId = orderModel.UserId,
-                    ShipmentId = orderModel.ShipmentId,
-                    AddressId = orderModel.AddressId,
-                    ShippingMethodId = orderModel.ShippingMethodId,
-                    OrderStatusId = orderModel.OrderStatusId,
-                    ShippingStatusId = orderModel.ShippingStatusId,
-                    PaymentStatusId = orderModel.PaymentStatusId,
-                    PaymentMethodId = orderModel.PaymentMethodId,
-                    UserCurrencyType = orderModel.UserCurrencyType,
-                    ShippingTax = orderModel.ShippingTax,
-                    ShippingAmount = orderModel.ShippingAmount,
-                    ShippingAmountTax = orderModel.ShippingAmountTax,
-                    TaxAmount = orderModel.TaxAmount,
-                    DiscountAmount = orderModel.DiscountAmount,
-                    TotalAmount = orderModel.TotalAmount,
-                    FinalPrice = orderModel.FinalPrice,
-                    RefundedAmount = orderModel.RefundedAmount,
-                    CustomerIp = orderModel.CustomerIp,
-                    AllowStoringCreditCardNumber = orderModel.AllowStoringCreditCardNumber,
-                    PaidDateUtc = orderModel.PaidDateUtc,
-                    Deleted = orderModel.Deleted,
-                    CreatedOnUtc = orderModel.CreatedOnUtc,
-                };
-
-                await _commandRepository.InsertAsync(order);
-                await _commandRepository.SaveChangesAsync();
-
-                orderModel.Id = order.Id;
-
-                result.Data = orderModel;
-
-                return result;
-            }
-            catch (Exception e)
-            {
-                result.Message = e.Message;
-                result.Status = ResultStatusEnum.ExceptionThrowed;
-                return result;
-            }
-        }
-
         /// <summary>
         ///
         /// </summary>
@@ -580,15 +518,6 @@ namespace Hydra.Order.Api.Services
 
                 await _commandRepository.InsertRangeAsync(orderItems);
                 await _commandRepository.SaveChangesAsync();
-
-                //var payment = new Ecommerce.Core.Domain.Payment()
-                //{
-                //    OrderId = order.Id,
-                //    ...
-                //};
-
-                //await _commandRepository.InsertAsync(payment);
-                //await _commandRepository.SaveChangesAsync();
 
                 foreach (var item in orderItems)
                 {

@@ -43,7 +43,6 @@ namespace Hydra.Order.Core.Models
         /// </summary>
         public string AddressSnapshot { get; set; }
 
-
         /// <summary>
         ///
         /// </summary>
@@ -66,19 +65,7 @@ namespace Hydra.Order.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public string ShippingStatusTitle => ShippingStatusId != 0 ? ((ShippingStatus)ShippingStatusId).GetDisplayName() : string.Empty;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public PaymentStatus PaymentStatusId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string PaymentStatusTitle => PaymentStatusId != 0 ? ((PaymentStatus)PaymentStatusId).GetDisplayName() : string.Empty;
 
         /// <summary>
         /// 
@@ -137,17 +124,7 @@ namespace Hydra.Order.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public string CreatedOnUtcString => CreatedOnUtc.ToString("g");
-
-        /// <summary>
-        /// 
-        /// </summary>
         public DateTime? PaymentDateUtc { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string PaymentDateUtcToString => PaymentDateUtc?.ToString("g") ?? string.Empty;
 
         /// <summary>
         /// 
