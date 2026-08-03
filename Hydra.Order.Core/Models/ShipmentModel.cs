@@ -74,7 +74,7 @@ namespace Hydra.Order.Core.Models
         ///
         /// </summary>
         public string Email { get; set; }
-
+        
 
         /// <summary>
         /// 
@@ -88,14 +88,6 @@ namespace Hydra.Order.Core.Models
         /// </summary>
         /// <returns></returns>
         public DateTime CreatedOnUtc { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int ShipmentItems { get; set; }
-
 
     }
 }

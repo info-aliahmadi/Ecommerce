@@ -23,25 +23,6 @@ namespace Hydra.Payment.Api.Services
             _orderService = orderService;
         }
 
-        public async Task<Result<List<PaymentStatusModel>>> GetAllPaymentStatus()
-        {
-            return await Task.Run(() =>
-            {
-                var result = new Result<List<PaymentStatusModel>>();
-
-                var paymentStatus = Enum.GetValues(typeof(PaymentStatus)).Cast<Enum>()
-                    .Select(x => new PaymentStatusModel
-                    {
-                        Id = Convert.ToInt32(x),
-                        Title = x.ToString()
-                    }).ToList();
-
-                result.Data = paymentStatus;
-
-                return result;
-            });
-        }
-
         // --- User-facing methods ---
 
         public async Task<Result<List<PaymentModel>>> GetMyPayments(int userId)
@@ -150,7 +131,6 @@ namespace Hydra.Payment.Api.Services
 
                 order.PaymentStatusId = PaymentStatus.Paid;
                 order.PaymentMethodId = request.PaymentMethodId;
-                order.PaidDateUtc = DateTime.UtcNow;
                 _commandRepository.Update(order);
 
                 await _commandRepository.SaveChangesAsync();

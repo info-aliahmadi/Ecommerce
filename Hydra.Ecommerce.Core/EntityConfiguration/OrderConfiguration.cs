@@ -10,6 +10,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
         {
             entity.ToTable("Order", "Sale");
 
+            entity.HasKey(e => e.Id);
+            //entity.Property(e => e.Id).UseIdentityColumn(seed: 1000, increment: 1);
+
             entity.HasIndex(e => e.CreatedOnUtc, "IX_Order_CreatedOnUtc").IsDescending();
 
             entity.HasIndex(e => e.ShipmentId, "IX_Order_ShippingAddressId");
@@ -24,7 +27,6 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             entity.Property(e => e.DiscountAmount).HasColumnType("decimal(18, 4)");
             entity.Property(e => e.TotalAmount).HasColumnType("decimal(18, 4)");
             entity.Property(e => e.FinalPrice).HasColumnType("decimal(18, 4)");
-            entity.Property(e => e.PaidDateUtc).HasPrecision(6);
             entity.Property(e => e.RefundedAmount).HasColumnType("decimal(18, 4)");
 
             entity.HasOne(d => d.Payment).WithMany(p => p.Orders)

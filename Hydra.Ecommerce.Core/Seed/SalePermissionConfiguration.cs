@@ -33,16 +33,6 @@ namespace Hydra.Ecommerce.Core.Seed
                 NormalizedName = EcommercePermissionTypes.SALE_ORDER_DISCOUNT_MANAGEMENT,
             }, new Permission()
             {
-                Id = INCREMENTER + 5,
-                Name = EcommercePermissionTypes.SALE_ORDER_ITEM_MANAGEMENT,
-                NormalizedName = EcommercePermissionTypes.SALE_ORDER_ITEM_MANAGEMENT,
-            }, new Permission()
-            {
-                Id = INCREMENTER + 6,
-                Name = EcommercePermissionTypes.SALE_ORDERNOTE_MANAGEMENT,
-                NormalizedName = EcommercePermissionTypes.SALE_ORDERNOTE_MANAGEMENT,
-            }, new Permission()
-            {
                 Id = INCREMENTER + 7,
                 Name = EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT,
                 NormalizedName = EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT,

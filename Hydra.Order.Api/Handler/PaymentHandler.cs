@@ -60,12 +60,6 @@ namespace Hydra.Order.Api.Handler
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
-        public static async Task<IResult> GetAllPaymentStatus(IPaymentService paymentService)
-        {
-            var result = await paymentService.GetAllPaymentStatus();
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-        }
-
         public static async Task<IResult> AddPayment(ClaimsPrincipal userClaim, IPaymentService paymentService, [FromBody] PaymentModel paymentModel)
         {
             var result = await paymentService.Add(paymentModel);

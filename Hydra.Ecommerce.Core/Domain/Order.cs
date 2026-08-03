@@ -49,8 +49,6 @@ public class Order : BaseEntity<int>
     
     public bool AllowStoringCreditCardNumber { get; set; }
 
-    public DateTime? PaidDateUtc { get; set; }
-
     public bool Deleted { get; set; }
 
     public DateTime CreatedOnUtc { get; set; }

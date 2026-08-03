@@ -19,9 +19,7 @@ namespace Hydra.Order.Core.Interfaces
         Task<Result<PaginatedList<OrderModel>>> GetList(GridDataBound dataGrid);
         Task<Result<OrderModel>> GetById(int id);
         Task<Result<OrderModel>> Update(OrderModel orderModel);
-        Task<Result<OrderModel>> UpdateState(OrderModel orderModel);
+        Task<Result<OrderChangeStatusModel>> UpdateState(OrderChangeStatusModel orderModel);
         Task<Result> Delete(int id);
-        Task<Result<List<OrderStatusModel>>> GetAllOrderStatus();
-        Task<Result<List<ShippingStatusModel>>> GetAllShippingStatus();
     }
 }

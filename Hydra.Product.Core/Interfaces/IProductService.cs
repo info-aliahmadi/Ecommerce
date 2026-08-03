@@ -87,5 +87,12 @@ namespace Hydra.Product.Core.Interfaces
         /// <returns>List of curated product groups.</returns>
         Task<Result<List<CuratedStyleProductModel>>> GetPublishedCuratedStyleProducts();
 
+        /// <summary>
+        /// Retrieves inventory stock quantities for the specified product identifiers.
+        /// </summary>
+        /// <param name="ids">Array of product ids.</param>
+        /// <returns>List of ProductInventoryStockModel entries with product id and stock quantity.</returns>
+        Task<Result<List<ProductInventoryStockModel>>> GetProductStockByIds(int[] ids);
+
     }
 }

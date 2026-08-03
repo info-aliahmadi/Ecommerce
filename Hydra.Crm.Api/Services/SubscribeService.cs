@@ -6,6 +6,7 @@ using Hydra.Kernel.Interface;
 using Hydra.Kernel.GeneralModels;
 using Microsoft.EntityFrameworkCore;
 using Hydra.Kernel;
+using MiniValidation;
 
 namespace Hydra.Crm.Api.Services
 {
@@ -29,7 +30,14 @@ namespace Hydra.Crm.Api.Services
             var result = new Result<UserSubscribeModel>();
             try
             {
-                var isExist = await _queryRepository.Table<Subscribe>().AnyAsync(x => x.Email == subscribeUser.Email);
+                if (MiniValidator.TryValidate(subscribeUser , out var errors))
+                {
+                    result.Status = ResultStatusEnum.InvalidValidation;
+                    result.Message = "The Email is Invalid!";
+                    result.Errors.Add(new Error(nameof(subscribeUser.Email), "Invalid Email"));
+                    return result;
+                }
+                var isExist = await _queryRepository.Table<Subscribe>().AnyAsync(x => x.Email == subscribeUser.Email.ToLower());
                 if (isExist)
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
@@ -40,7 +48,7 @@ namespace Hydra.Crm.Api.Services
                 var subscribe = new Subscribe()
                 {
                     SubscribeLabelId = subscribeUser.SubscribeLabelId ?? DefaultSetting.DEFAULT_SUBSCRIBE_LABEL,
-                    Email = subscribeUser.Email,
+                    Email = subscribeUser.Email.ToLower(),
                     InsertDate = DateTime.UtcNow
                 };
 

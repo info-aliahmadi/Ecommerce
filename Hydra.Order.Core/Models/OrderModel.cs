@@ -24,6 +24,11 @@ namespace Hydra.Order.Core.Models
         /// </summary>
         /// <returns></returns>
         public string UserName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string UserAvatar { get; set; }
 
         /// <summary>
         /// 
@@ -107,12 +112,6 @@ namespace Hydra.Order.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public DateTime? PaidDateUtc { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public bool Deleted { get; set; }
 
         /// <summary>
@@ -165,16 +164,23 @@ namespace Hydra.Order.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public string TransactionTrackingCode { get; set; }
+        public string? TransactionTrackingCode { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string PaymentTrackingCode { get; set; }
+        public string? PaymentTrackingCode { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string TrackingNumber { get; set; }
+        public string? TrackingNumber { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<OrderItemModel> Items { get; set; }
+
+
     }
 }

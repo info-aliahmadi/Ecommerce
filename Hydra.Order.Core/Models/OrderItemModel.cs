@@ -1,4 +1,6 @@
-﻿namespace Hydra.Order.Core.Models
+﻿using Hydra.FileStorage.Core.Models;
+
+namespace Hydra.Order.Core.Models
 {
     public class OrderItemModel
     {
@@ -18,7 +20,13 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        public int ProductId { get; set; }
+        public FileUploadModel? ProductImagePreview { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public int ProductVariantId { get; set; }
 
         /// <summary>
         /// 

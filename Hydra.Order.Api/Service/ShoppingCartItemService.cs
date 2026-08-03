@@ -334,8 +334,10 @@ namespace Hydra.Order.Api.Services
 
             if (items.Count == 0)
                 return result;
-
-            _commandRepository.Delete(items);
+            foreach (var item in items)
+            {
+                _commandRepository.Delete(item);
+            }
             await _commandRepository.SaveChangesAsync();
             return result;
         }
@@ -376,13 +378,18 @@ namespace Hydra.Order.Api.Services
                     result.Message = "The ShoppingCartItem not found";
                     return result;
                 }
+                if (request.Quantity == 0)
+                {
+                    await RemoveFromCart(userId, request.VariantId);
+                }
+                else
+                {
+                    item.Quantity = request.Quantity;
+                    item.UpdatedOnUtc = DateTime.UtcNow;
 
-                item.Quantity = request.Quantity;
-                item.UpdatedOnUtc = DateTime.UtcNow;
-
-                _commandRepository.Update(item);
-                await _commandRepository.SaveChangesAsync();
-
+                    _commandRepository.Update(item);
+                    await _commandRepository.SaveChangesAsync();
+                }
                 result.Data = MapToModel(item);
                 return result;
             }

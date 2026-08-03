@@ -19,7 +19,6 @@ namespace Hydra.Order.Api.Endpoints
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderDiscountService, OrderDiscountService>();
             services.AddScoped<IOrderItemService, OrderItemService>();
-            services.AddScoped<IOrderNoteService, OrderNoteService>();
             services.AddScoped<IShipmentService, ShipmentService>();
             services.AddScoped<IShipmentItemService, ShipmentItemService>();
             services.AddScoped<IShoppingCartItemService, ShoppingCartItemService>();
@@ -61,8 +60,6 @@ namespace Hydra.Order.Api.Endpoints
 
             endpoints.MapPost(API_SCHEMA + "/GetOrderList", OrderHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetOrderById", OrderHandler.GetOrderById).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/GetAllOrderStatus", OrderHandler.GetAllOrderStatus).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/GetAllShippingStatus", OrderHandler.GetAllShippingStatus).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateOrder", OrderHandler.UpdateOrder).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateOrderState", OrderHandler.UpdateOrderState).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/DeleteOrder", OrderHandler.DeleteOrder).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
@@ -73,22 +70,17 @@ namespace Hydra.Order.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/UpdateOrderDiscount", OrderDiscountHandler.UpdateOrderDiscount).RequirePermission(EcommercePermissionTypes.SALE_ORDER_DISCOUNT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/DeleteOrderDiscount", OrderDiscountHandler.DeleteOrderDiscount).RequirePermission(EcommercePermissionTypes.SALE_ORDER_DISCOUNT_MANAGEMENT);
 
-            endpoints.MapGet(API_SCHEMA + "/GetOrderItemList", OrderItemHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_ORDER_ITEM_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/GetOrderItemById", OrderItemHandler.GetOrderItemById).RequirePermission(EcommercePermissionTypes.SALE_ORDER_ITEM_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddOrderItem", OrderItemHandler.AddOrderItem).RequirePermission(EcommercePermissionTypes.SALE_ORDER_ITEM_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/UpdateOrderItem", OrderItemHandler.UpdateOrderItem).RequirePermission(EcommercePermissionTypes.SALE_ORDER_ITEM_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/DeleteOrderItem", OrderItemHandler.DeleteOrderItem).RequirePermission(EcommercePermissionTypes.SALE_ORDER_ITEM_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetOrderItemList", OrderItemHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/GetOrderItemById", OrderItemHandler.GetOrderItemById).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddOrderItem", OrderItemHandler.AddOrderItem).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateOrderItem", OrderItemHandler.UpdateOrderItem).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/DeleteOrderItem", OrderItemHandler.DeleteOrderItem).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
 
-            endpoints.MapPost(API_SCHEMA + "/GetOrderNoteList", OrderNoteHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_ORDERNOTE_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/GetOrderNoteById", OrderNoteHandler.GetOrderNoteById).RequirePermission(EcommercePermissionTypes.SALE_ORDERNOTE_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddOrderNote", OrderNoteHandler.AddOrderNote).RequirePermission(EcommercePermissionTypes.SALE_ORDERNOTE_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/UpdateOrderNote", OrderNoteHandler.UpdateOrderNote).RequirePermission(EcommercePermissionTypes.SALE_ORDERNOTE_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/DeleteOrderNote", OrderNoteHandler.DeleteOrderNote).RequirePermission(EcommercePermissionTypes.SALE_ORDERNOTE_MANAGEMENT);
 
+            endpoints.MapPost(API_SCHEMA + "/AddShipment", ShipmentHandler.AddShipment).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_MANAGEMENT);
 
             endpoints.MapPost(API_SCHEMA + "/GetShipmentList", ShipmentHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetShipmentById", ShipmentHandler.GetShipmentById).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddShipment", ShipmentHandler.AddShipment).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateShipment", ShipmentHandler.UpdateShipment).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/DeleteShipment", ShipmentHandler.DeleteShipment).RequirePermission(EcommercePermissionTypes.SALE_SHIPMENT_MANAGEMENT);
 
@@ -106,12 +98,9 @@ namespace Hydra.Order.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/DeleteShoppingCartItem", ShoppingCartItemHandler.DeleteShoppingCartItem).RequirePermission(EcommercePermissionTypes.SALE_SHOPPING_CART_MANAGEMENT);
 
 
-
-
             endpoints.MapGet(API_SCHEMA + "/GetOrderPaymentById", PaymentHandler.GetOrderPaymentById).RequirePermission(EcommercePermissionTypes.SALE_ORDER_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/GetPaymentList", PaymentHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetPaymentById", PaymentHandler.GetPaymentById).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/GetAllPaymentStatus", PaymentHandler.GetAllPaymentStatus).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddPayment", PaymentHandler.AddPayment).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdatePayment", PaymentHandler.UpdatePayment).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/DeletePayment", PaymentHandler.DeletePayment).RequirePermission(EcommercePermissionTypes.SALE_PAYMENT_MANAGEMENT);

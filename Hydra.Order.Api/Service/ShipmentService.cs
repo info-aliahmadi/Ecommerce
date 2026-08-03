@@ -103,19 +103,19 @@ namespace Hydra.Order.Api.Services
                     result.Errors.Add(new Error(nameof(shipmentModel.Id), "The Id already exist"));
                     return result;
                 }
+
+                var dateNow = DateTime.UtcNow;
+
                 var shipment = new Shipment()
                 {
                     OrderId = shipmentModel.OrderId,
                     TrackingNumber = shipmentModel.TrackingNumber,
-                    ShippingAddressSnapshot = shipmentModel.ShippingAddressSnapshot,
                     TotalWeight = shipmentModel.TotalWeight,
                     ShippedDateUtc = shipmentModel.ShippedDateUtc,
-                    DeliveryDateUtc = shipmentModel.DeliveryDateUtc,
                     ReadyForPickupDateUtc = shipmentModel.ReadyForPickupDateUtc,
+                    DeliveryDateUtc = shipmentModel.DeliveryDateUtc,
                     AdminComment = shipmentModel.AdminComment,
-                    CreatedOnUtc = shipmentModel.CreatedOnUtc,
-                    //ShipmentItems = shipmentModel.ShipmentItems,
-
+                    CreatedOnUtc = dateNow,
                 };
 
                 // Auto-populate contact info from Order if not provided by caller
@@ -124,15 +124,26 @@ namespace Hydra.Order.Api.Services
                     .Include(o => o.Address)
                     .FirstOrDefaultAsync(o => o.Id == shipmentModel.OrderId);
 
-                if (order is not null)
+                if (order is null)
                 {
-                    shipment.RecipientName = shipmentModel.RecipientName ?? order.User?.Name;
-                    shipment.PhoneNumber = shipmentModel.PhoneNumber ?? order.Address?.PhoneNumber;
-                    shipment.Email = shipmentModel.Email ?? order.User?.Email;
+                    result.Message = "Order Not Found!";
+                    result.Status = ResultStatusEnum.NotFound;
+                    return result;
                 }
+
+                shipment.RecipientName = shipmentModel.RecipientName ?? order.User?.Name;
+                shipment.PhoneNumber = shipmentModel.PhoneNumber ?? order.Address?.PhoneNumber;
+                shipment.Email = shipmentModel.Email ?? order.User?.Email;
+                shipment.ShippingAddressSnapshot = order.AddressSnapshot;
 
                 await _commandRepository.InsertAsync(shipment);
                 await _commandRepository.SaveChangesAsync();
+
+                order.ShipmentId = shipment.Id;
+                order.ShippingStatusId = Ecommerce.Core.Enums.ShippingStatus.Shipped;
+
+                _commandRepository.Update(order);
+                _commandRepository.SaveChanges();
 
                 shipmentModel.Id = shipment.Id;
 
@@ -173,18 +184,13 @@ namespace Hydra.Order.Api.Services
                     result.Errors.Add(new Error(nameof(shipmentModel.Id), "The Id already exist"));
                     return result;
                 }
-                shipment.OrderId = shipmentModel.OrderId;
+
                 shipment.TrackingNumber = shipmentModel.TrackingNumber;
                 shipment.TotalWeight = shipmentModel.TotalWeight;
                 shipment.ShippedDateUtc = shipmentModel.ShippedDateUtc;
                 shipment.DeliveryDateUtc = shipmentModel.DeliveryDateUtc;
                 shipment.ReadyForPickupDateUtc = shipmentModel.ReadyForPickupDateUtc;
-                shipment.RecipientName = shipmentModel.RecipientName;
-                shipment.PhoneNumber = shipmentModel.PhoneNumber;
-                shipment.Email = shipmentModel.Email;
                 shipment.AdminComment = shipmentModel.AdminComment;
-                shipment.CreatedOnUtc = shipmentModel.CreatedOnUtc;
-                //shipment.ShipmentItems = shipmentModel.ShipmentItems;
 
                 _commandRepository.Update(shipment);
                 await _commandRepository.SaveChangesAsync();

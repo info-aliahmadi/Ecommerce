@@ -1,13 +1,14 @@
+using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
+using Hydra.Kernel;
 using Hydra.Kernel.Enums;
+using Hydra.Kernel.Extension;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
-using Hydra.Ecommerce.Core.Domain;
 using Hydra.Order.Core.Interfaces;
 using Hydra.Order.Core.Models;
-using Hydra.Ecommerce.Core.Enums;
 using Microsoft.EntityFrameworkCore;
-using Hydra.Kernel.Extension;
-using Hydra.Kernel;
+using Twilio.TwiML.Voice;
 
 namespace Hydra.Order.Api.Services
 {
@@ -46,6 +47,7 @@ namespace Hydra.Order.Api.Services
                                   Id = order.Id,
                                   UserId = order.UserId,
                                   UserName = order.User.Name,
+                                  UserAvatar = order.User.Avatar,
                                   ShipmentId = order.ShipmentId,
                                   AddressId = order.AddressId,
                                   AddressSnapshot = order.AddressSnapshot,
@@ -65,10 +67,9 @@ namespace Hydra.Order.Api.Services
                                   RefundedAmount = order.RefundedAmount,
                                   CustomerIp = order.CustomerIp,
                                   AllowStoringCreditCardNumber = order.AllowStoringCreditCardNumber,
-                                  PaidDateUtc = order.PaidDateUtc,
+                                  PaymentDateUtc = pay.PaymentDateUtc,
                                   Deleted = order.Deleted,
                                   CreatedOnUtc = order.CreatedOnUtc,
-                                  PaymentDateUtc = pay.PaymentDateUtc,
                                   TransactionTrackingCode = pay.TransactionTrackingCode,
                                   PaymentTrackingCode = pay.PaymentTrackingCode,
                                   TrackingNumber = ship.TrackingNumber,
@@ -95,6 +96,8 @@ namespace Hydra.Order.Api.Services
             {
                 Id = order.Id,
                 UserId = order.UserId,
+                UserName = order.User.Name,
+                UserAvatar = order.User.Avatar,
                 ShipmentId = order.ShipmentId,
                 AddressId = order.AddressId,
                 AddressSnapshot = order.AddressSnapshot,
@@ -114,7 +117,6 @@ namespace Hydra.Order.Api.Services
                 RefundedAmount = order.RefundedAmount,
                 CustomerIp = order.CustomerIp,
                 AllowStoringCreditCardNumber = order.AllowStoringCreditCardNumber,
-                PaidDateUtc = order.PaidDateUtc,
                 Deleted = order.Deleted,
                 CreatedOnUtc = order.CreatedOnUtc
             };
@@ -167,7 +169,7 @@ namespace Hydra.Order.Api.Services
                 order.RefundedAmount = orderModel.RefundedAmount;
                 order.CustomerIp = orderModel.CustomerIp;
                 order.AllowStoringCreditCardNumber = orderModel.AllowStoringCreditCardNumber;
-                order.PaidDateUtc = orderModel.PaidDateUtc;
+
                 order.Deleted = orderModel.Deleted;
                 order.CreatedOnUtc = orderModel.CreatedOnUtc;
 
@@ -192,12 +194,12 @@ namespace Hydra.Order.Api.Services
         /// </summary>
         /// <param name="orderModel"></param>
         /// <returns></returns>
-        public async Task<Result<OrderModel>> UpdateState(OrderModel orderModel)
+        public async Task<Result<OrderChangeStatusModel>> UpdateState(OrderChangeStatusModel orderStatusModel)
         {
-            var result = new Result<OrderModel>();
+            var result = new Result<OrderChangeStatusModel>();
             try
             {
-                var order = await _queryRepository.Table<Ecommerce.Core.Domain.Order>().FirstOrDefaultAsync(x => x.Id == orderModel.Id);
+                var order = await _queryRepository.Table<Ecommerce.Core.Domain.Order>().FirstOrDefaultAsync(x => x.Id == orderStatusModel.OrderId);
                 if (order is null)
                 {
                     result.Status = ResultStatusEnum.NotFound;
@@ -205,15 +207,16 @@ namespace Hydra.Order.Api.Services
                     return result;
                 }
 
-                order.ShippingMethodId = orderModel.ShippingMethodId;
-                order.OrderStatusId = (OrderStatus)orderModel.OrderStatusId;
-                order.ShippingStatusId = (ShippingStatus)orderModel.ShippingStatusId;
-                order.PaymentStatusId = orderModel.PaymentStatusId;
+                order.ShippingMethodId = orderStatusModel.ShippingMethodId;
+                order.ShippingStatusId = orderStatusModel.ShippingStatusId;
+                order.OrderStatusId = orderStatusModel.OrderStatusId;
+                order.PaymentStatusId = orderStatusModel.PaymentStatusId;
+                order.PaymentMethodId = orderStatusModel.PaymentMethodId;
 
                 _commandRepository.Update(order);
                 await _commandRepository.SaveChangesAsync();
 
-                result.Data = orderModel;
+                result.Data = orderStatusModel;
 
                 return result;
             }
@@ -245,44 +248,6 @@ namespace Hydra.Order.Api.Services
             await _commandRepository.SaveChangesAsync();
 
             return result;
-        }
-
-        public async Task<Result<List<OrderStatusModel>>> GetAllOrderStatus()
-        {
-            return await Task.Run(() =>
-            {
-                var result = new Result<List<OrderStatusModel>>();
-
-                var orderStatus = Enum.GetValues(typeof(OrderStatus)).Cast<Enum>()
-                    .Select(x => new OrderStatusModel
-                    {
-                        Id = Convert.ToInt32(x),
-                        Title = x.ToString()
-                    }).ToList();
-
-                result.Data = orderStatus;
-
-                return result;
-            });
-        }
-
-        public async Task<Result<List<ShippingStatusModel>>> GetAllShippingStatus()
-        {
-            return await Task.Run(() =>
-            {
-                var result = new Result<List<ShippingStatusModel>>();
-
-                var shippingStatus = Enum.GetValues(typeof(ShippingStatus)).Cast<Enum>()
-                    .Select(x => new ShippingStatusModel
-                    {
-                        Id = Convert.ToInt32(x),
-                        Title = x.ToString()
-                    }).ToList();
-
-                result.Data = shippingStatus;
-
-                return result;
-            });
         }
 
         // --- User-facing methods ---
@@ -327,14 +292,26 @@ namespace Hydra.Order.Api.Services
                                   RefundedAmount = order.RefundedAmount,
                                   CustomerIp = order.CustomerIp,
                                   AllowStoringCreditCardNumber = order.AllowStoringCreditCardNumber,
-                                  PaidDateUtc = order.PaidDateUtc,
+                                  PaymentDateUtc = pay.PaymentDateUtc,
                                   Deleted = order.Deleted,
                                   CreatedOnUtc = order.CreatedOnUtc,
-                                  PaymentDateUtc = pay.PaymentDateUtc,
                                   TransactionTrackingCode = pay.TransactionTrackingCode,
                                   PaymentTrackingCode = pay.PaymentTrackingCode,
                                   TrackingNumber = ship.TrackingNumber,
-                                  OrderNotes = order.OrderNotes.Select(x => x.Note).ToList()
+                                  OrderNotes = order.OrderNotes.Select(x => x.Note).ToList(),
+                                  Items = order.OrderItems.Select(x => new OrderItemModel()
+                                  {
+                                      Id = x.Id,
+                                      OrderId = x.OrderId,
+                                      ProductVariantId = x.ProductVariantId,
+                                      DiscountAmount = x.DiscountAmount,
+                                      ProductImagePreview = new FileStorage.Core.Models.FileUploadModel(x.ProductVariant.Product.ImagePreview),
+                                      ProductName = x.ProductVariant.Product.Name,
+                                      Quantity = x.Quantity,
+                                      TotalPrice = x.TotalPrice,
+                                      TotalPriceTax = x.TotalPriceTax,
+                                      UnitPrice = x.UnitPrice
+                                  }).ToList()
                               }).OrderByDescending(x => x.Id).ToListAsync();
 
             result.Data = list;
@@ -379,7 +356,6 @@ namespace Hydra.Order.Api.Services
                                    RefundedAmount = o.RefundedAmount,
                                    CustomerIp = o.CustomerIp,
                                    AllowStoringCreditCardNumber = o.AllowStoringCreditCardNumber,
-                                   PaidDateUtc = o.PaidDateUtc,
                                    Deleted = o.Deleted,
                                    CreatedOnUtc = o.CreatedOnUtc,
                                    PaymentDateUtc = pay.PaymentDateUtc,
@@ -421,7 +397,7 @@ namespace Hydra.Order.Api.Services
                 {
                     Id = x.Id,
                     OrderId = x.OrderId,
-                    ProductId = x.ProductVariantId,
+                    ProductVariantId = x.ProductVariantId,
                     ProductName = x.ProductVariant.Product.Name,
                     Quantity = x.Quantity,
                     UnitPrice = x.UnitPrice,
@@ -447,7 +423,7 @@ namespace Hydra.Order.Api.Services
                 }
 
                 var variantIds = request.Items.Select(x => x.ProductVariantId).Distinct().ToList();
-                var variants = await _queryRepository.Table<ProductVariant>()
+                var variants = await _queryRepository.Table<ProductVariant>().Include(x=>x.Product).Include(x => x.ProductInventory)
                     .Where(x => variantIds.Contains(x.Id))
                     .ToListAsync();
 
@@ -543,8 +519,7 @@ namespace Hydra.Order.Api.Services
 
                 foreach (var item in orderItems)
                 {
-                    var inventory = await _queryRepository.Table<ProductInventory>()
-                        .FirstOrDefaultAsync(x => x.VariantId == item.ProductVariantId);
+                    var inventory = variants.FirstOrDefault(x => x.ProductInventory.VariantId == item.ProductVariantId)?.ProductInventory;
 
                     if (inventory != null)
                     {
@@ -552,7 +527,8 @@ namespace Hydra.Order.Api.Services
                         if (available < item.Quantity)
                         {
                             result.Status = ResultStatusEnum.Failed;
-                            result.Message = $"Insufficient stock for product variant {item.ProductVariantId}";
+                            var productVariant = variants.FirstOrDefault(x => x.Id == item.ProductVariantId);
+                            result.Message = $"Insufficient stock for {productVariant.Product.Name} | {productVariant.SKU}";
                             await transaction.RollbackAsync();
                             return result;
                         }
@@ -575,6 +551,13 @@ namespace Hydra.Order.Api.Services
                             CreatedDatetime = DateTime.UtcNow
                         };
                         await _commandRepository.InsertAsync(inventoryTransaction);
+                    }
+                    else
+                    {
+                        result.Status = ResultStatusEnum.Failed;
+                        result.Message = $"Inventory for product variant doesn't exist {item.ProductVariantId}";
+                        await transaction.RollbackAsync();
+                        return result;
                     }
                 }
 
@@ -682,7 +665,6 @@ namespace Hydra.Order.Api.Services
 
                 order.OrderStatusId = OrderStatus.Processing;
                 order.PaymentStatusId = PaymentStatus.Paid;
-                order.PaidDateUtc = DateTime.UtcNow;
                 _commandRepository.Update(order);
 
                 var payment = await _queryRepository.Table<Ecommerce.Core.Domain.Payment>()

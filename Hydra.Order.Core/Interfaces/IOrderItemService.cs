@@ -11,7 +11,7 @@ namespace Hydra.Order.Core.Interfaces
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        Task<Result<Tuple<List<OrderItemModel>, SumOrderItemsModel>>> GetListByOrderId(int orderId);
+        Task<Result<OrderItemsResponse>> GetListByOrderId(int orderId);
 
         /// <summary>
         /// 

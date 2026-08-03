@@ -163,7 +163,7 @@ namespace Hydra.Product.Api.Services
                             DeliveryDateType = product.DeliveryDateType,
                             TaxCategoryId = product.TaxCategoryId,
                             TaxCategoryName = product.TaxCategory.Name,
-                            StockQuantity = product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity : 0),
+                            StockQuantity = product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity - v.ProductInventory.ReservedQuantity : 0),
                             MeasureType = product.MeasureType,
                             MinStockQuantity = product.MinStockQuantity,
                             OrderMinimumQuantity = product.OrderMinimumQuantity,
@@ -293,7 +293,7 @@ namespace Hydra.Product.Api.Services
                         TaxCategoryId = x.Product.TaxCategoryId,
                         TaxCategoryName = x.Product.TaxCategory?.Name,
                         MeasureType = x.Product.MeasureType,
-                        StockQuantity = x.Product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity : 0),
+                        StockQuantity = x.Product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity - v.ProductInventory.ReservedQuantity : 0),
                         MinStockQuantity = x.Product.MinStockQuantity,
                         OrderMinimumQuantity = x.Product.OrderMinimumQuantity,
                         OrderMaximumQuantity = x.Product.OrderMaximumQuantity,
@@ -359,7 +359,7 @@ namespace Hydra.Product.Api.Services
                 TaxCategoryId = product.TaxCategoryId,
                 TaxCategoryName = product.TaxCategory.Name,
                 MeasureType = product.MeasureType,
-                StockQuantity = product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity : 0),
+                StockQuantity = product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity - v.ProductInventory.ReservedQuantity : 0),
                 MinStockQuantity = product.MinStockQuantity,
                 OrderMinimumQuantity = product.OrderMinimumQuantity,
                 OrderMaximumQuantity = product.OrderMaximumQuantity,
@@ -464,7 +464,7 @@ namespace Hydra.Product.Api.Services
                                   TaxCategoryId = product.TaxCategoryId,
                                   TaxCategoryName = product.TaxCategory.Name,
                                   MeasureType = product.MeasureType,
-                                  StockQuantity = product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity : 0),
+                                  StockQuantity = product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity - v.ProductInventory.ReservedQuantity : 0),
                                   MinStockQuantity = product.MinStockQuantity,
                                   NotifyAdminForQuantityBelow = product.NotifyAdminForQuantityBelow,
                                   OrderMinimumQuantity = product.OrderMinimumQuantity,
@@ -620,7 +620,7 @@ namespace Hydra.Product.Api.Services
                 RelatedProductIds = product.RelatedProduct1Navigation.Select(cat => cat.ProductId2).ToList(),
                 TagIds = product.ProductProductTags.Select(c => c.ProductTagId).ToList(),
 
-                StockQuantity = product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity : 0),
+                StockQuantity = product.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity - v.ProductInventory.ReservedQuantity : 0),
                 MinStockQuantity = product.MinStockQuantity,
                 DisplayStockQuantity = product.DisplayStockQuantity,
                 Variants = product.ProductVariants.Select(v => new ProductVariantModel()
@@ -685,6 +685,29 @@ namespace Hydra.Product.Api.Services
             }).AsNoTracking().ToListAsync();
 
             result.Data = list;
+            return result;
+        }
+
+        public async Task<Result<List<ProductInventoryStockModel>>> GetProductStockByIds(int[] ids)
+        {
+            var result = new Result<List<ProductInventoryStockModel>>();
+            if (ids.Length == 0)
+            {
+                result.Data = new List<ProductInventoryStockModel>();
+                return result;
+            }
+
+            var stocks = await _queryRepository.Table<Ecommerce.Core.Domain.Product>()
+                .Where(x => ids.Contains(x.Id))
+                .Select(x => new ProductInventoryStockModel
+                {
+                    ProductId = x.Id,
+                    StockQuantity = x.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity - v.ProductInventory.ReservedQuantity : 0)
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            result.Data = stocks;
             return result;
         }
 
@@ -841,7 +864,6 @@ namespace Hydra.Product.Api.Services
                         });
                     }
                 }
-
                 await _commandRepository.SaveChangesAsync();
 
                 await transaction.CommitAsync();

@@ -28,6 +28,11 @@
         /// <summary>
         /// Delivered
         /// </summary>
-        Delivered = 5
+        Delivered = 5,
+
+        /// <summary>
+        /// Back ordered
+        /// </summary>
+        Backordered = 6
     }
 }

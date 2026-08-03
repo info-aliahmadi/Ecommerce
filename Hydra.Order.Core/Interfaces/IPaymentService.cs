@@ -6,7 +6,6 @@ namespace Hydra.Order.Core.Interfaces
     public interface IPaymentService
     {
         Task<Result<PaymentViewModel>> GetOrderPaymentById(int id);
-        Task<Result<List<PaymentStatusModel>>> GetAllPaymentStatus();
         Task<Result<PaginatedList<PaymentModel>>> GetList(GridDataBound dataGrid);
         Task<Result<PaymentModel>> GetById(int id);
         Task<Result<PaymentModel>> Add(PaymentModel paymentModel);

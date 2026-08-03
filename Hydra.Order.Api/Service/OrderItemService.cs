@@ -22,9 +22,9 @@ namespace Hydra.Order.Api.Services
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        public async Task<Result<Tuple<List<OrderItemModel>, SumOrderItemsModel>>> GetListByOrderId(int orderId)
+        public async Task<Result<OrderItemsResponse>> GetListByOrderId(int orderId)
         {
-            var result = new Result<Tuple<List<OrderItemModel>, SumOrderItemsModel>>();
+            var result = new Result<OrderItemsResponse>();
             var list = await (from orderItem in _queryRepository.Table<OrderItem>()
                               .Include(x => x.ProductVariant)
                               where orderItem.OrderId == orderId
@@ -32,7 +32,8 @@ namespace Hydra.Order.Api.Services
                               {
                                   Id = orderItem.Id,
                                   OrderId = orderItem.OrderId,
-                                  ProductId = orderItem.ProductVariantId,
+                                  ProductImagePreview = new FileStorage.Core.Models.FileUploadModel(orderItem.ProductVariant.Product.ImagePreview),
+                                  ProductVariantId = orderItem.ProductVariantId,
                                   ProductName = orderItem.ProductVariant.Product.Name,
                                   Quantity = orderItem.Quantity,
                                   DiscountAmount = orderItem.DiscountAmount,
@@ -42,9 +43,13 @@ namespace Hydra.Order.Api.Services
                               }).OrderByDescending(x => x.Id).ToListAsync();
 
             var sumAmountItems = await SumAmountOrderItemsByOrderId(orderId);
-            
-            result.Data = new Tuple<List<OrderItemModel>, SumOrderItemsModel>(list, sumAmountItems);
 
+            result.Data = new OrderItemsResponse()
+            {
+                OrderItems = list,
+                OrderSummary = sumAmountItems,
+            };
+            
             return result;
         }
 
@@ -83,7 +88,7 @@ namespace Hydra.Order.Api.Services
             {
                 Id = orderItem.Id,
                 OrderId = orderItem.OrderId,
-                ProductId = orderItem.ProductVariantId,
+                ProductVariantId = orderItem.ProductVariantId,
                 Quantity = orderItem.Quantity,
                 DiscountAmount = orderItem.DiscountAmount,
                 UnitPrice = orderItem.UnitPrice,
@@ -116,7 +121,7 @@ namespace Hydra.Order.Api.Services
                 var orderItem = new OrderItem()
                 {
                     OrderId = orderItemModel.OrderId,
-                    ProductVariantId = orderItemModel.ProductId,
+                    ProductVariantId = orderItemModel.ProductVariantId,
                     Quantity = orderItemModel.Quantity,
                     DiscountAmount = orderItemModel.DiscountAmount,
                     UnitPrice = orderItemModel.UnitPrice,
@@ -167,7 +172,7 @@ namespace Hydra.Order.Api.Services
                     return result;
                 }
                 orderItem.OrderId = orderItemModel.OrderId;
-                orderItem.ProductVariantId = orderItemModel.ProductId;
+                orderItem.ProductVariantId = orderItemModel.ProductVariantId;
                 orderItem.Quantity = orderItemModel.Quantity;
                 orderItem.DiscountAmount = orderItemModel.DiscountAmount;
                 orderItem.UnitPrice = orderItemModel.UnitPrice;

@@ -40,7 +40,7 @@ namespace Hydra.Order.Api.Handler
             var userId = userClaim.GetUserId();
             request.CustomerIp = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? string.Empty;
             var result = await orderService.CreateOrder(userId, request);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return  Results.Ok(result);
         }
 
         public static async Task<IResult> CancelMyOrder(ClaimsPrincipal userClaim, IOrderService orderService, int orderId)
@@ -76,28 +76,6 @@ namespace Hydra.Order.Api.Handler
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="orderService"></param>
-        /// <returns></returns>
-        public static async Task<IResult> GetAllOrderStatus(IOrderService orderService)
-        {
-            var result = await orderService.GetAllOrderStatus();
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="orderService"></param>
-        /// <returns></returns>
-        public static async Task<IResult> GetAllShippingStatus(IOrderService orderService)
-        {
-            var result = await orderService.GetAllShippingStatus();
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-        }
-
-        /// <summary>
         ///
         /// </summary>
         /// <param name="orderService"></param>
@@ -129,9 +107,9 @@ namespace Hydra.Order.Api.Handler
         /// <param name="orderService"></param>
         /// <param name="orderModel"></param>
         /// <returns></returns>
-        public static async Task<IResult> UpdateOrderState(ClaimsPrincipal userClaim, IOrderService orderService, [FromBody] OrderModel orderModel)
+        public static async Task<IResult> UpdateOrderState(ClaimsPrincipal userClaim, IOrderService orderService, [FromBody] OrderChangeStatusModel orderStatusModel)
         {
-            var result = await orderService.UpdateState(orderModel);
+            var result = await orderService.UpdateState(orderStatusModel);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 

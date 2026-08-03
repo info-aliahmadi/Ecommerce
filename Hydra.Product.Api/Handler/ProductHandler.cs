@@ -129,11 +129,24 @@ namespace Hydra.Product.Api.Handler
         ///
         /// </summary>
         /// <param name="productService"></param>
-        /// <param name="productId"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         public static async Task<IResult> GetProductsByInput(IProductService productService, string input)
         {
             var result = await productService.GetProductsByInput(input);
+            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="productService"></param>
+        /// <param name="productIds"></param>
+        /// <returns></returns>
+        public static async Task<IResult> GetProductStockByIds(IProductService productService, string productIds)
+        {
+            var Ids = productIds.Split(',').Select(x => int.Parse(x)).ToArray();
+            var result = await productService.GetProductStockByIds(Ids);
             return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
         }
 
