@@ -68,7 +68,10 @@ namespace Hydra.Kernel.GeneralModels
         RequiresTwoFactor = 507,
 
         [Description("User Is Locked")]
-        IsLockedOut = 508
+        IsLockedOut = 508,
+
+        [Description("Insufficient Stock")]
+        InsufficientStock = 509
 
     }
     public static class EnumExtensions

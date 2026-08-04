@@ -1,4 +1,5 @@
 ﻿using Hydra.FileStorage.Core.Models;
+using Hydra.Product.Core.Models;
 
 namespace Hydra.Order.Core.Models
 {
@@ -32,6 +33,11 @@ namespace Hydra.Order.Core.Models
         /// 
         /// </summary>
         public string ProductName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ProductVariantDisplayModel ProductVariant { get; set; }
 
         /// <summary>
         /// 

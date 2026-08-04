@@ -256,10 +256,11 @@ namespace Hydra.Order.Api.Services
         {
             var result = new Result<List<OrderModel>>();
 
-            var list = await (from order in _queryRepository.Table<Ecommerce.Core.Domain.Order>()
-                    .Include(x => x.User)
-                    .Include(x => x.OrderNotes)
-                    .Where(x => x.UserId == userId)
+            var list = await (from order in _queryRepository.Table<Ecommerce.Core.Domain.Order>().Include(x => x.OrderItems)
+                                  .ThenInclude(x => x.ProductVariant).ThenInclude(x => x.Product)
+                                  .Include(x => x.User)
+                                  .Include(x => x.OrderNotes)
+                                  .Where(x => x.UserId == userId)
                               join payment in _queryRepository.Table<Ecommerce.Core.Domain.Payment>() on order.Id equals payment.OrderId
                               into pays
                               from pay in pays.DefaultIfEmpty()
@@ -304,6 +305,23 @@ namespace Hydra.Order.Api.Services
                                       Id = x.Id,
                                       OrderId = x.OrderId,
                                       ProductVariantId = x.ProductVariantId,
+                                      ProductVariant = new Product.Core.Models.ProductVariantDisplayModel()
+                                      {
+                                          Id = x.ProductVariantId,
+                                          SKU = x.ProductVariant.SKU,
+                                          OldSellPrice = x.ProductVariant.OldSellPrice,
+                                          ProductId = x.ProductVariant.ProductId,
+                                          SellPrice = x.ProductVariant.SellPrice,
+                                          ProductAttributes = x.ProductVariant.VariantAttributes.Select(v => new Product.Core.Models.ProductAttributeDisplayModel()
+                                          {
+                                              Id = v.Id,
+                                              AttributeType = v.Attribute.AttributeType,
+                                              Description = v.Attribute.Description,
+                                              DisplayName = v.Attribute.DisplayName,
+                                              DisplayOrder = v.Attribute.DisplayOrder,
+                                              Key = v.Attribute.Key
+                                          }).ToList(),
+                                      },
                                       DiscountAmount = x.DiscountAmount,
                                       ProductImagePreview = new FileStorage.Core.Models.FileUploadModel(x.ProductVariant.Product.ImagePreview),
                                       ProductName = x.ProductVariant.Product.Name,
@@ -423,7 +441,7 @@ namespace Hydra.Order.Api.Services
                 }
 
                 var variantIds = request.Items.Select(x => x.ProductVariantId).Distinct().ToList();
-                var variants = await _queryRepository.Table<ProductVariant>().Include(x=>x.Product).Include(x => x.ProductInventory)
+                var variants = await _queryRepository.Table<ProductVariant>().Include(x => x.Product).Include(x => x.ProductInventory)
                     .Where(x => variantIds.Contains(x.Id))
                     .ToListAsync();
 
@@ -526,7 +544,7 @@ namespace Hydra.Order.Api.Services
                         var available = inventory.StockQuantity - inventory.ReservedQuantity;
                         if (available < item.Quantity)
                         {
-                            result.Status = ResultStatusEnum.Failed;
+                            result.Status = ResultStatusEnum.InsufficientStock;
                             var productVariant = variants.FirstOrDefault(x => x.Id == item.ProductVariantId);
                             result.Message = $"Insufficient stock for {productVariant.Product.Name} | {productVariant.SKU}";
                             await transaction.RollbackAsync();

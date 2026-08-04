@@ -43,13 +43,18 @@ namespace Hydra.Product.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/GetProducts", ProductHandler.GetPublishedProducts).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetProduct", ProductHandler.GetPublishedProductById).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetCuratedStyleProducts", ProductHandler.GetPublishedCuratedStyleProducts).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetProductStockByIds", ProductHandler.GetProductStockByIds).RequireAuthorization();
+
             endpoints.MapGet(API_SCHEMA + "/GetCategories", CategoryHandler.GetPublishedCategories).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetFeaturedCategories", CategoryHandler.GetPublishedFeaturedCategories).AllowAnonymous();
-            endpoints.MapGet(API_SCHEMA + "/GetProductTags", ProductTagHandler.GetPublishedList).AllowAnonymous();
+
+
             endpoints.MapGet(API_SCHEMA + "/GetProductAttributesByType", ProductAttributeHandler.GetPublishedAttributeByAttributeType).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetProductAttributes", ProductAttributeHandler.GetPublishedProductAttributes).AllowAnonymous();
+
             endpoints.MapGet(API_SCHEMA + "/GetManufacturers", ManufacturerHandler.GetPublishedManufacturers).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/GetPublishedBundles", BundleHandler.GetPublishedBundles).AllowAnonymous();
+            endpoints.MapGet(API_SCHEMA + "/GetProductTags", ProductTagHandler.GetPublishedList).AllowAnonymous();
 
             endpoints.MapGet(API_SCHEMA + "/GetProductReviews", ProductReviewHandler.GetProductReviews).AllowAnonymous();
             endpoints.MapPost(API_SCHEMA + "/AddUserReview", ProductReviewHandler.AddUserReview).RequireAuthorization();
@@ -79,7 +84,6 @@ namespace Hydra.Product.Api.Endpoints
             endpoints.MapGet(API_SCHEMA + "/GetProductById", ProductHandler.GetProductById).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetProductsByIds", ProductHandler.GetProductsByIds).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetProductsByInput", ProductHandler.GetProductsByInput).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/GetProductStockByIds", ProductHandler.GetProductStockByIds).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/AddProduct", ProductHandler.AddProduct).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/UpdateProduct", ProductHandler.UpdateProduct).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/DeleteProduct", ProductHandler.DeleteProduct).RequirePermission(EcommercePermissionTypes.SALE_PRODUCT_MANAGEMENT);

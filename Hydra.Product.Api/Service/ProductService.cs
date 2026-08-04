@@ -56,16 +56,16 @@ namespace Hydra.Product.Api.Services
                                          x.FullDescription.ToLower().Contains(searchLower) ||
                                          x.ShortDescription.ToLower().Contains(searchLower));
             }
-
+            
             if (productFilter.HasStockQuantity.HasValue)
             {
                 if (productFilter.HasStockQuantity.Value == true)
                 {
-                    query = query.Where(x => x.ProductVariants.Any(v => v.ProductInventory != null && v.ProductInventory.StockQuantity > 0));
+                    query = query.Where(x => x.ProductVariants.Sum(v => v.ProductInventory.StockQuantity - v.ProductInventory.ReservedQuantity) > 0);
                 }
                 else
                 {
-                    query = query.Where(x => !x.ProductVariants.Any(v => v.ProductInventory != null && v.ProductInventory.StockQuantity > 0));
+                    query = query.Where(x => x.ProductVariants.Sum(v => v.ProductInventory.StockQuantity - v.ProductInventory.ReservedQuantity) <= 0);
                 }
             }
 
@@ -247,19 +247,7 @@ namespace Hydra.Product.Api.Services
             var result = new Result<List<CuratedStyleProductModel>>();
             var currentDateTime = DateTime.UtcNow;
 
-            var products = await _queryRepository.Table<Ecommerce.Core.Domain.Product>()
-                .Include(x => x.ProductVariants).ThenInclude(v => v.ProductInventory)
-                .Include(x => x.ProductVariants).ThenInclude(v => v.VariantAttributes).ThenInclude(va => va.Attribute)
-                .Include(x => x.ProductCategories).ThenInclude(x => x.Category)
-                .Include(x => x.ProductManufacturers).ThenInclude(x => x.Manufacturer)
-                .Include(x => x.ImagePreview)
-                .Include(x => x.ProductAttributes).ThenInclude(x => x.Attribute).ThenInclude(x => x.ImagePreview)
-                .Include(x => x.ProductProductTags).ThenInclude(x => x.ProductTag)
-                .Include(x => x.ProductImages).ThenInclude(x => x.Image)
-                .Where(x => x.Deleted == false && x.Published == true &&
-                    ((x.AvailableStartDateTimeUtc != null && x.AvailableStartDateTimeUtc <= currentDateTime) ||
-                            (x.AvailableEndDateTimeUtc != null && x.AvailableEndDateTimeUtc >= currentDateTime)) &&
-                    x.ProductAttributes.Any(a =>
+            var products = await GetPublishedQuery().Where(x => x.ProductAttributes.Any(a =>
                         a.Attribute.AttributeType == AttributeType.Style))
                 .AsNoTracking().ToListAsync();
 
@@ -328,7 +316,42 @@ namespace Hydra.Product.Api.Services
                             Color = cat.Category.Color,
                         }).ToList(),
                         ManufacturerNames = x.Product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
-                        ProductTags = x.Product.ProductProductTags.Select(t => t.ProductTag).Select(cat => cat.Name).ToList(),
+                        Attributes = x.Product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeDisplayModel()
+                        {
+                            Id = z.Id,
+                            AttributeType = z.AttributeType,
+                            Description = z.Description,
+                            DisplayOrder = z.DisplayOrder,
+                            DisplayName = z.DisplayName,
+                            ImagePreview = new FileStorage.Core.Models.FileUploadModel(z.ImagePreview),
+                            Key = z.Key,
+                        }).ToList(),
+                        ProductTags = x.Product.ProductProductTags.Select(x => x.ProductTag).Select(cat => cat.Name).ToList(),
+                        Variants = x.Product.ProductVariants.Select(v => new ProductVariantDisplayModel()
+                        {
+                            Id = v.Id,
+                            SKU = v.SKU,
+                            ProductId = v.ProductId,
+                            SellPrice = v.SellPrice,
+                            OldSellPrice = v.OldSellPrice,
+                            ProductInventory = v.ProductInventory != null ? new ProductInventoryDisplayModel()
+                            {
+                                Id = v.ProductInventory.Id,
+                                VariantId = v.ProductInventory.VariantId,
+                                StockQuantity = v.ProductInventory.StockQuantity,
+                                ReservedQuantity = v.ProductInventory.ReservedQuantity
+                            } : null,
+                            ProductAttributes = v.VariantAttributes.Select(va => new ProductAttributeDisplayModel()
+                            {
+                                Id = va.Attribute.Id,
+                                AttributeType = va.Attribute.AttributeType,
+                                Description = va.Attribute.Description,
+                                DisplayOrder = va.Attribute.DisplayOrder,
+                                DisplayName = va.Attribute.DisplayName,
+                                ImagePreview = new FileStorage.Core.Models.FileUploadModel(va.Attribute.ImagePreview),
+                                Key = va.Attribute.Key,
+                            }).ToList(),
+                        }).ToList()
                     }).Take(4).ToList()
                 })
                 .ToList();
@@ -697,12 +720,12 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
 
-            var stocks = await _queryRepository.Table<Ecommerce.Core.Domain.Product>()
+            var stocks = await _queryRepository.Table<Ecommerce.Core.Domain.ProductVariant>()
                 .Where(x => ids.Contains(x.Id))
                 .Select(x => new ProductInventoryStockModel
                 {
-                    ProductId = x.Id,
-                    StockQuantity = x.ProductVariants.Sum(v => v.ProductInventory != null ? v.ProductInventory.StockQuantity - v.ProductInventory.ReservedQuantity : 0)
+                    ProductVariableId = x.Id,
+                    StockQuantity = x.ProductInventory.StockQuantity - x.ProductInventory.ReservedQuantity
                 })
                 .AsNoTracking()
                 .ToListAsync();

@@ -44,7 +44,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     Id = 22,
                     Order = 2,
                     Title = "Electronics",
-                    Url = "/products/?category=electronics",
+                    Url = "/products/?categories=electronics",
                     Color = "#6A5ACD"
 
                 },
@@ -54,7 +54,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     Id = 23,
                     Order = 3,
                     Title = "Fashion",
-                    Url = "/products/?category=fashion",
+                    Url = "/products/?categories=fashion",
                     Color = "#E63946"
 
                 },
@@ -64,7 +64,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     Id = 24,
                     Order = 3,
                     Title = "Home & Living",
-                    Url = "/products/?category=home-living",
+                    Url = "/products/?categories=home-living",
                     Color = "#20B2AA"
 
                 },
@@ -74,7 +74,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     Id = 25,
                     Order = 3,
                     Title = "Sports",
-                    Url = "/products/?category=sports",
+                    Url = "/products/?categories=sports",
                     Color = "#FFC107"
 
                 },
@@ -84,7 +84,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     Id = 26,
                     Order = 3,
                     Title = "Beauty",
-                    Url = "/products/?category=beauty",
+                    Url = "/products/?categories=beauty",
                     Color = "#FF69B4"
 
                 },
@@ -94,7 +94,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     Id = 27,
                     Order = 3,
                     Title = "Books",
-                    Url = "/products/?category=books",
+                    Url = "/products/?categories=books",
                     Color = "#10B981"
 
                 },
@@ -111,7 +111,7 @@ namespace Hydra.Cms.Core.EntityConfiguration
                 Id = 4,
                 Order = 4,
                 Title = "Deals",
-                Url = "/products/?sorting=price-lower",
+                Url = "/products/?sort=price-asc",
 
             });
 
