@@ -200,7 +200,7 @@ namespace Hydra.Product.Api.Services
             var result = new Result();
             var manufacturer = await _queryRepository.Table<Manufacturer>()
                 .Include(x => x.ProductManufacturers)
-                .Include(x => x.Discounts)
+                .Include(x => x.DiscountManufacturers)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (manufacturer is null)
@@ -210,7 +210,7 @@ namespace Hydra.Product.Api.Services
                 return result;
             }
 
-            if (manufacturer.Discounts.Any() || manufacturer.ProductManufacturers.Any())
+            if (manufacturer.DiscountManufacturers.Any() || manufacturer.ProductManufacturers.Any())
             {
                 result.Status = ResultStatusEnum.InvalidValidation;
                 result.Message = "The Manufacturer has associated items and cannot be deleted";

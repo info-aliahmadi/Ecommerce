@@ -118,12 +118,12 @@ public class Product : BaseEntity<int>
 
     public virtual User? UpdateUser { get; set; }
 
-    public virtual List<Discount> Discounts { get; set; } = new();
 
     public virtual List<ProductProductTag> ProductProductTags { get; set; } = new();
 
     public virtual List<ProductProductAttribute> ProductAttributes { get; set; } = new();
 
     public virtual List<ProductVariant> ProductVariants { get; set; } = new();
+    public virtual List<DiscountProduct> DiscountProducts { get; set; } = new();
 }
 

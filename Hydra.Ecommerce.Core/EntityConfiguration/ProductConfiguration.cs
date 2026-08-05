@@ -55,6 +55,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_Product_UpdateUser");
 
+
+            entity.HasMany(d => d.DiscountProducts).WithOne(p => p.Product).HasForeignKey(x => x.ProductId);
+
             // Seed sample products from provided example JSON using entity.HasData
             entity.HasData(
                 new Domain.Product

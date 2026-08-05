@@ -30,5 +30,5 @@ public class Manufacturer : BaseEntity<int>
 
     public virtual ICollection<ProductManufacturer> ProductManufacturers { get; set; } = new List<ProductManufacturer>();
 
-    public virtual ICollection<Discount> Discounts { get; set; } = new List<Discount>();
+    public virtual ICollection<DiscountManufacturer> DiscountManufacturers { get; set; } = new List<DiscountManufacturer>();
 }

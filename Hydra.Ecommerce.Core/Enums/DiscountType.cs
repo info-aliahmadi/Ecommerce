@@ -6,33 +6,28 @@
     public enum DiscountType
     {
         /// <summary>
+        /// Assigned to Coupon Code 
+        /// </summary>
+        AssignedToCouponCode = 1,
+        /// <summary>
         /// Assigned to order total 
         /// </summary>
-        AssignedToOrderTotal = 1,
+        AssignedToOrderTotal = 2,
 
         /// <summary>
-        /// Assigned to products (SKUs)
+        /// Assigned to products
         /// </summary>
-        AssignedToSkus = 2,
+        AssignedToProduct = 3,
 
         /// <summary>
         /// Assigned to categories (all products in a category)
         /// </summary>
-        AssignedToCategories = 5,
+        AssignedToCategory = 4,
 
         /// <summary>
         /// Assigned to manufacturers (all products of a manufacturer)
         /// </summary>
-        AssignedToManufacturers = 6,
+        AssignedToManufacturer = 5,
 
-        /// <summary>
-        /// Assigned to shipping
-        /// </summary>
-        AssignedToShipping = 10,
-
-        /// <summary>
-        /// Assigned to order subtotal
-        /// </summary>
-        AssignedToOrderSubTotal = 20
     }
 }

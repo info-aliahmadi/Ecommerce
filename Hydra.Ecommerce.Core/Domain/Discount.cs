@@ -35,12 +35,16 @@ public class Discount : BaseEntity<int>
 
     public bool IsActive { get; set; }
 
-    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    /// <summary>
+    /// if assigned to amount of order
+    /// </summary>
+    public decimal? OrderTotal { get; set; }
+
     public virtual ICollection<OrderDiscount> OrderDiscounts { get; set; } = new List<OrderDiscount>();
 
-    public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
+    public virtual ICollection<DiscountCategory> DiscountCategories { get; set; } = new List<DiscountCategory>();
 
-    public virtual ICollection<Manufacturer> Manufacturers { get; set; } = new List<Manufacturer>();
+    public virtual ICollection<DiscountManufacturer> DiscountManufacturers { get; set; } = new List<DiscountManufacturer>();
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public virtual ICollection<DiscountProduct> DiscountProducts { get; set; } = new List<DiscountProduct>();
 }

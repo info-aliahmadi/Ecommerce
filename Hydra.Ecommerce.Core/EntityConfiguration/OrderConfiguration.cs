@@ -40,6 +40,10 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             .HasForeignKey(d => d.UserId)
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("FK_Order_User");
+
+
+            entity.HasMany(d => d.OrderDiscounts).WithOne(p => p.Order).HasForeignKey(x => x.OrderId);
+
         }
     }
 }

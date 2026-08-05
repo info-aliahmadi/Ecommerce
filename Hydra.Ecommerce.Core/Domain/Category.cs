@@ -39,5 +39,5 @@ public class Category : BaseEntity<int>
 
     public virtual ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
 
-    public virtual ICollection<Discount> Discounts { get; set; } = new List<Discount>();
+    public virtual ICollection<DiscountCategory> DiscountCategories { get; set; } = new List<DiscountCategory>();
 }

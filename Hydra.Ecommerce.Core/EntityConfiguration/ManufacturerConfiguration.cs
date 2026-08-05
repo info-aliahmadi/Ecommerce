@@ -26,6 +26,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                .IsRequired(false)
                .OnDelete(DeleteBehavior.SetNull);
 
+
+            entity.HasMany(d => d.DiscountManufacturers).WithOne(p => p.Manufacturer).HasForeignKey(x => x.ManufacturerId);
+
             entity.HasData(
                 new Manufacturer()
                 {

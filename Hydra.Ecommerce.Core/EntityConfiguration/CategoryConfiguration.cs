@@ -35,6 +35,9 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                .IsRequired(false)
                .OnDelete(DeleteBehavior.SetNull);
 
+
+            entity.HasMany(d => d.DiscountCategories).WithOne(p => p.Category).HasForeignKey(x => x.CategoryId);
+
             entity.HasData(
                 new Category()
                 {

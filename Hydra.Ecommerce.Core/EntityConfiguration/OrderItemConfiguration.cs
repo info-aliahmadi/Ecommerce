@@ -22,9 +22,6 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("FK_OrderItem_Order");
 
-            entity.HasOne(d => d.Discount).WithMany(p => p.OrderItems)
-                .HasForeignKey(d => d.DiscountId);
-
             entity.HasOne(d => d.ProductVariant).WithMany(p => p.OrderItems)
             .HasForeignKey(d => d.ProductVariantId)
             .HasConstraintName("FK_ProductVariant_ProductId_Product_Id");
