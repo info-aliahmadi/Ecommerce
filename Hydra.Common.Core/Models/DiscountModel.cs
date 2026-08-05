@@ -117,6 +117,18 @@ namespace Hydra.Common.Core.Models
         public bool IsActive { get; set; }
 
 
+        public decimal? OrderTotal { get; set; }
+
+
+        public List<int> ProductIds { get; set; } = new();
+
+
+        public List<int> CategoryIds { get; set; } = new();
+
+
+        public List<int> ManufacturerIds { get; set; } = new();
+
+
 
     }
 }

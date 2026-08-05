@@ -29,6 +29,14 @@ namespace Hydra.Common.Api.Endpoints
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
 
+
+            endpoints.MapPost(API_SCHEMA + "/GetDiscountList", DiscountHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/GetDiscountListForSelect", DiscountHandler.GetListForSelect).RequireAuthorization();
+            endpoints.MapGet(API_SCHEMA + "/GetDiscountById", DiscountHandler.GetDiscountById).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/AddDiscount", DiscountHandler.AddDiscount).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
+            endpoints.MapPost(API_SCHEMA + "/UpdateDiscount", DiscountHandler.UpdateDiscount).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
+            endpoints.MapGet(API_SCHEMA + "/DeleteDiscount", DiscountHandler.DeleteDiscount).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
+
             endpoints.MapGet(API_SCHEMA + "/GetUserAddresses", AddressHandler.GetUserAddresses).RequireAuthorization();
             endpoints.MapPost(API_SCHEMA + "/AddAddress", AddressHandler.AddAddress).RequireAuthorization();
             endpoints.MapPost(API_SCHEMA + "/UpdateAddress", AddressHandler.UpdateAddress).RequireAuthorization();
@@ -51,13 +59,6 @@ namespace Hydra.Common.Api.Endpoints
             endpoints.MapPost(API_SCHEMA + "/DeleteSearchTerm", SearchTermHandler.DeleteSearchTerm).RequirePermission(EcommercePermissionTypes.SALE_SEARCH_TERM_MANAGEMENT);
 
             #region BASE Entities
-
-            endpoints.MapPost(API_SCHEMA + "/GetDiscountList", DiscountHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/GetDiscountListForSelect", DiscountHandler.GetListForSelect).RequireAuthorization();
-            endpoints.MapGet(API_SCHEMA + "/GetDiscountById", DiscountHandler.GetDiscountById).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/AddDiscount", DiscountHandler.AddDiscount).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
-            endpoints.MapPost(API_SCHEMA + "/UpdateDiscount", DiscountHandler.UpdateDiscount).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
-            endpoints.MapGet(API_SCHEMA + "/DeleteDiscount", DiscountHandler.DeleteDiscount).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
 
             endpoints.MapPost(API_SCHEMA + "/GetStateProvinceList", StateProvinceHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_STATE_PROVINCE_MANAGEMENT);
             endpoints.MapGet(API_SCHEMA + "/GetStateProvinceById", StateProvinceHandler.GetStateProvinceById).RequirePermission(EcommercePermissionTypes.SALE_STATE_PROVINCE_MANAGEMENT);

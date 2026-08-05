@@ -17,17 +17,17 @@
         /// <summary>
         /// Assigned to products
         /// </summary>
-        AssignedToProduct = 3,
+        AssignedToProducts = 3,
 
         /// <summary>
         /// Assigned to categories (all products in a category)
         /// </summary>
-        AssignedToCategory = 4,
+        AssignedToCategories = 4,
 
         /// <summary>
         /// Assigned to manufacturers (all products of a manufacturer)
         /// </summary>
-        AssignedToManufacturer = 5,
+        AssignedToManufacturers = 5,
 
     }
 }

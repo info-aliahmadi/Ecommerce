@@ -1,6 +1,7 @@
 ﻿using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
 using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
 using Hydra.Common.Core.Interfaces;
 using Hydra.Common.Core.Models;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +19,6 @@ namespace Hydra.Common.Api.Services
             _commandRepository = commandRepository;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
         public async Task<Result<PaginatedList<DiscountModel>>> GetList(GridDataBound dataGrid)
         {
             var result = new Result<PaginatedList<DiscountModel>>();
@@ -39,6 +35,7 @@ namespace Hydra.Common.Api.Services
                                   DiscountPercentage = discount.DiscountPercentage,
                                   DiscountAmount = discount.DiscountAmount,
                                   MaximumDiscountAmount = discount.MaximumDiscountAmount,
+                                  OrderTotal = discount.OrderTotal,
                                   StartDateUtc = discount.StartDateUtc,
                                   EndDateUtc = discount.EndDateUtc,
                                   RequiresCouponCode = discount.RequiresCouponCode,
@@ -54,11 +51,6 @@ namespace Hydra.Common.Api.Services
             return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <returns></returns>
         public async Task<Result<List<DiscountModel>>> GetListForSelect()
         {
             var result = new Result<List<DiscountModel>>();
@@ -75,15 +67,31 @@ namespace Hydra.Common.Api.Services
             return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public async Task<Result<DiscountModel>> GetById(int id)
         {
             var result = new Result<DiscountModel>();
             var discount = await _queryRepository.Table<Discount>().FirstOrDefaultAsync(x => x.Id == id);
+            if (discount is null)
+            {
+                result.Status = ResultStatusEnum.NotFound;
+                result.Message = "The Discount not found";
+                return result;
+            }
+
+            var productIds = await _queryRepository.Table<DiscountProduct>()
+                .Where(x => x.DiscountId == id)
+                .Select(x => x.ProductId)
+                .ToListAsync();
+
+            var categoryIds = await _queryRepository.Table<DiscountCategory>()
+                .Where(x => x.DiscountId == id)
+                .Select(x => x.CategoryId)
+                .ToListAsync();
+
+            var manufacturerIds = await _queryRepository.Table<DiscountManufacturer>()
+                .Where(x => x.DiscountId == id)
+                .Select(x => x.ManufacturerId)
+                .ToListAsync();
 
             var discountModel = new DiscountModel()
             {
@@ -96,6 +104,7 @@ namespace Hydra.Common.Api.Services
                 DiscountPercentage = discount.DiscountPercentage,
                 DiscountAmount = discount.DiscountAmount,
                 MaximumDiscountAmount = discount.MaximumDiscountAmount,
+                OrderTotal = discount.OrderTotal,
                 StartDateUtc = discount.StartDateUtc,
                 EndDateUtc = discount.EndDateUtc,
                 RequiresCouponCode = discount.RequiresCouponCode,
@@ -103,25 +112,48 @@ namespace Hydra.Common.Api.Services
                 LimitationTimes = discount.LimitationTimes,
                 MaximumDiscountedQuantity = discount.MaximumDiscountedQuantity,
                 IsActive = discount.IsActive,
-                //OrderDiscounts = discount.OrderDiscounts,
-                //Categories = discount.Categories,
-                //Manufacturers = discount.Manufacturers,
-                //Products = discount.Products,
-
+                ProductIds = productIds,
+                CategoryIds = categoryIds,
+                ManufacturerIds = manufacturerIds
             };
+
             result.Data = discountModel;
 
             return result;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="discountModel"></param>
-        /// <returns></returns>
         public async Task<Result<DiscountModel>> Add(DiscountModel discountModel)
         {
             var result = new Result<DiscountModel>();
+
+            var validationErrors = ValidateDiscountModel(discountModel);
+            if (validationErrors.Any())
+            {
+                result.Status = ResultStatusEnum.InvalidValidation;
+                result.Errors = validationErrors;
+                return result;
+            }
+
+            if (discountModel.RequiresCouponCode && string.IsNullOrWhiteSpace(discountModel.CouponCode))
+            {
+                result.Status = ResultStatusEnum.InvalidValidation;
+                result.Errors.Add(new Error(nameof(discountModel.CouponCode), "Coupon code is required when RequiresCouponCode is enabled."));
+                return result;
+            }
+
+            if (discountModel.RequiresCouponCode)
+            {
+                bool isExist = await _queryRepository.Table<Discount>().AnyAsync(x => x.CouponCode == discountModel.CouponCode);
+                if (isExist)
+                {
+                    result.Status = ResultStatusEnum.ItsDuplicate;
+                    result.Message = "The coupon code already exists.";
+                    result.Errors.Add(new Error(nameof(discountModel.CouponCode), "The coupon code already exists."));
+                    return result;
+                }
+            }
+
+            await using var transaction = await _commandRepository.BeginTransactionAsync();
             try
             {
                 var discount = new Discount()
@@ -134,6 +166,7 @@ namespace Hydra.Common.Api.Services
                     DiscountPercentage = discountModel.DiscountPercentage,
                     DiscountAmount = discountModel.DiscountAmount,
                     MaximumDiscountAmount = discountModel.MaximumDiscountAmount,
+                    OrderTotal = discountModel.OrderTotal,
                     StartDateUtc = discountModel.StartDateUtc,
                     EndDateUtc = discountModel.EndDateUtc,
                     RequiresCouponCode = discountModel.RequiresCouponCode,
@@ -141,34 +174,92 @@ namespace Hydra.Common.Api.Services
                     LimitationTimes = discountModel.LimitationTimes,
                     MaximumDiscountedQuantity = discountModel.MaximumDiscountedQuantity,
                     IsActive = discountModel.IsActive
-
                 };
 
                 await _commandRepository.InsertAsync(discount);
                 await _commandRepository.SaveChangesAsync();
 
-                discountModel.Id = discount.Id;
+                var discountId = discount.Id;
 
+                if (discountModel.DiscountTypeId == DiscountType.AssignedToProducts && discountModel.ProductIds.Any())
+                {
+                    var discountProducts = discountModel.ProductIds.Select(pid => new DiscountProduct()
+                    {
+                        DiscountId = discountId,
+                        ProductId = pid
+                    }).ToList();
+                    await _commandRepository.InsertRangeAsync(discountProducts);
+                }
+
+                if (discountModel.DiscountTypeId == DiscountType.AssignedToCategories && discountModel.CategoryIds.Any())
+                {
+                    var discountCategories = discountModel.CategoryIds.Select(cid => new DiscountCategory()
+                    {
+                        DiscountId = discountId,
+                        CategoryId = cid
+                    }).ToList();
+                    await _commandRepository.InsertRangeAsync(discountCategories);
+                }
+
+                if (discountModel.DiscountTypeId == DiscountType.AssignedToManufacturers && discountModel.ManufacturerIds.Any())
+                {
+                    var discountManufacturers = discountModel.ManufacturerIds.Select(mid => new DiscountManufacturer()
+                    {
+                        DiscountId = discountId,
+                        ManufacturerId = mid
+                    }).ToList();
+                    await _commandRepository.InsertRangeAsync(discountManufacturers);
+                }
+
+                await _commandRepository.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                discountModel.Id = discount.Id;
                 result.Data = discountModel;
 
                 return result;
             }
             catch (Exception e)
             {
+                await transaction.RollbackAsync();
                 result.Message = e.Message;
                 result.Status = ResultStatusEnum.ExceptionThrowed;
                 return result;
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="discountModel"></param>
-        /// <returns></returns>
         public async Task<Result<DiscountModel>> Update(DiscountModel discountModel)
         {
             var result = new Result<DiscountModel>();
+
+            var validationErrors = ValidateDiscountModel(discountModel);
+            if (validationErrors.Any())
+            {
+                result.Status = ResultStatusEnum.InvalidValidation;
+                result.Errors = validationErrors;
+                return result;
+            }
+
+            if (discountModel.RequiresCouponCode && string.IsNullOrWhiteSpace(discountModel.CouponCode))
+            {
+                result.Status = ResultStatusEnum.InvalidValidation;
+                result.Errors.Add(new Error(nameof(discountModel.CouponCode), "Coupon code is required when RequiresCouponCode is enabled."));
+                return result;
+            }
+
+            if (discountModel.RequiresCouponCode)
+            {
+                bool isExist = await _queryRepository.Table<Discount>().AnyAsync(x => x.Id != discountModel.Id && x.CouponCode == discountModel.CouponCode);
+                if (isExist)
+                {
+                    result.Status = ResultStatusEnum.ItsDuplicate;
+                    result.Message = "The coupon code already exists.";
+                    result.Errors.Add(new Error(nameof(discountModel.CouponCode), "The coupon code already exists."));
+                    return result;
+                }
+            }
+
+            await using var transaction = await _commandRepository.BeginTransactionAsync();
             try
             {
                 var discount = await _queryRepository.Table<Discount>().FirstAsync(x => x.Id == discountModel.Id);
@@ -178,14 +269,7 @@ namespace Hydra.Common.Api.Services
                     result.Message = "The Discount not found";
                     return result;
                 }
-                bool isExist = await _queryRepository.Table<Discount>().AnyAsync(x => x.Id != discountModel.Id && x.CouponCode == discountModel.CouponCode);
-                if (isExist)
-                {
-                    result.Status = ResultStatusEnum.ItsDuplicate;
-                    result.Message = "The Id already exist";
-                    result.Errors.Add(new Error(nameof(discountModel.Id), "The Id already exist"));
-                    return result;
-                }
+
                 discount.Name = discountModel.Name;
                 discount.CouponCode = discountModel.CouponCode;
                 discount.AdminComment = discountModel.AdminComment;
@@ -194,6 +278,7 @@ namespace Hydra.Common.Api.Services
                 discount.DiscountPercentage = discountModel.DiscountPercentage;
                 discount.DiscountAmount = discountModel.DiscountAmount;
                 discount.MaximumDiscountAmount = discountModel.MaximumDiscountAmount;
+                discount.OrderTotal = discountModel.OrderTotal;
                 discount.StartDateUtc = discountModel.StartDateUtc;
                 discount.EndDateUtc = discountModel.EndDateUtc;
                 discount.RequiresCouponCode = discountModel.RequiresCouponCode;
@@ -203,7 +288,18 @@ namespace Hydra.Common.Api.Services
                 discount.IsActive = discountModel.IsActive;
 
                 _commandRepository.Update(discount);
-                await _commandRepository.SaveChangesAsync();
+
+                if (discountModel.DiscountTypeId == DiscountType.AssignedToProducts)
+                    await UpdateDiscountProduct(discount.Id, discountModel.ProductIds.ToArray());
+
+                if (discountModel.DiscountTypeId == DiscountType.AssignedToCategories)
+                    await UpdateDiscountCategory(discount.Id, discountModel.CategoryIds.ToArray());
+
+                if (discountModel.DiscountTypeId == DiscountType.AssignedToManufacturers)
+                    await UpdateDiscountManufacturer(discount.Id, discountModel.ManufacturerIds.ToArray());
+
+                _commandRepository.SaveChanges();
+                await transaction.CommitAsync();
 
                 result.Data = discountModel;
 
@@ -211,17 +307,161 @@ namespace Hydra.Common.Api.Services
             }
             catch (Exception e)
             {
+                await transaction.RollbackAsync();
                 result.Message = e.Message;
                 result.Status = ResultStatusEnum.ExceptionThrowed;
                 return result;
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        private async Task<Result> UpdateDiscountProduct(int discountId, int[] newProductIds)
+        {
+            var result = new Result();
+            try
+            {
+                var discountProducts = _queryRepository.Table<DiscountProduct>().AsNoTracking().Where(x => x.DiscountId == discountId).ToList();
+                var currentProductIds = discountProducts.Select(x => x.ProductId).ToArray();
+
+                if (!newProductIds.SequenceEqual(currentProductIds))
+                {
+                    foreach (var dp in discountProducts)
+                        _commandRepository.Delete(dp);
+
+                    foreach (var pid in newProductIds)
+                        await _commandRepository.InsertAsync(new DiscountProduct() { DiscountId = discountId, ProductId = pid });
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                result.Message = e.Message;
+                return result;
+            }
+        }
+
+        private async Task<Result> UpdateDiscountCategory(int discountId, int[] newCategoryIds)
+        {
+            var result = new Result();
+            try
+            {
+                var discountCategories = _queryRepository.Table<DiscountCategory>().AsNoTracking().Where(x => x.DiscountId == discountId).ToList();
+                var currentCategoryIds = discountCategories.Select(x => x.CategoryId).ToArray();
+
+                if (!newCategoryIds.SequenceEqual(currentCategoryIds))
+                {
+                    foreach (var dc in discountCategories)
+                        _commandRepository.Delete(dc);
+
+                    foreach (var cid in newCategoryIds)
+                        await _commandRepository.InsertAsync(new DiscountCategory() { DiscountId = discountId, CategoryId = cid });
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                result.Message = e.Message;
+                return result;
+            }
+        }
+
+        private async Task<Result> UpdateDiscountManufacturer(int discountId, int[] newManufacturerIds)
+        {
+            var result = new Result();
+            try
+            {
+                var discountManufacturers = _queryRepository.Table<DiscountManufacturer>().AsNoTracking().Where(x => x.DiscountId == discountId).ToList();
+                var currentManufacturerIds = discountManufacturers.Select(x => x.ManufacturerId).ToArray();
+
+                if (!newManufacturerIds.SequenceEqual(currentManufacturerIds))
+                {
+                    foreach (var dm in discountManufacturers)
+                        _commandRepository.Delete(dm);
+
+                    foreach (var mid in newManufacturerIds)
+                        await _commandRepository.InsertAsync(new DiscountManufacturer() { DiscountId = discountId, ManufacturerId = mid });
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Status = ResultStatusEnum.ExceptionThrowed;
+                result.Message = e.Message;
+                return result;
+            }
+        }
+
+        private List<Error> ValidateDiscountModel(DiscountModel model)
+        {
+            var errors = new List<Error>();
+
+            if (string.IsNullOrWhiteSpace(model.Name))
+                errors.Add(new Error(nameof(model.Name), "Name is required."));
+            if (model.UsePercentage)
+            {
+                if (model.DiscountPercentage < 0)
+                    errors.Add(new Error(nameof(model.DiscountPercentage), "Discount percentage cannot be negative."));
+
+                if (model.DiscountPercentage > 100)
+                    errors.Add(new Error(nameof(model.DiscountPercentage), "Discount percentage cannot be greater than 100."));
+            }
+            else
+            {
+                if (model.DiscountAmount < 0)
+                    errors.Add(new Error(nameof(model.DiscountAmount), "Discount amount cannot be negative."));
+            }
+            if (model.MaximumDiscountAmount.HasValue && model.MaximumDiscountAmount < 0)
+                errors.Add(new Error(nameof(model.MaximumDiscountAmount), "Maximum discount amount cannot be negative."));
+
+            if (model.StartDateUtc.HasValue && model.EndDateUtc.HasValue && model.EndDateUtc < model.StartDateUtc)
+                errors.Add(new Error(nameof(model.EndDateUtc), "End date cannot be earlier than start date."));
+
+            if (model.LimitationTimes < 0)
+                errors.Add(new Error(nameof(model.LimitationTimes), "Limitation times cannot be negative."));
+
+            if (model.MaximumDiscountedQuantity.HasValue && model.MaximumDiscountedQuantity < 0)
+                errors.Add(new Error(nameof(model.MaximumDiscountedQuantity), "Maximum discounted quantity cannot be negative."));
+
+            if (model.DiscountLimitationId == DiscountLimitationType.NTimesOnly && model.LimitationTimes <= 0)
+                errors.Add(new Error(nameof(model.LimitationTimes), "Limitation times must be greater than zero when limitation type is N Times Only."));
+
+            if (model.DiscountLimitationId == DiscountLimitationType.NTimesPerCustomer && model.LimitationTimes <= 0)
+                errors.Add(new Error(nameof(model.LimitationTimes), "Limitation times must be greater than zero when limitation type is N Times Per Customer."));
+
+            switch (model.DiscountTypeId)
+            {
+                case DiscountType.AssignedToCouponCode:
+                    if (!model.RequiresCouponCode)
+                        errors.Add(new Error(nameof(model.RequiresCouponCode), "RequiresCouponCode must be enabled when discount type is AssignedToCouponCode."));
+                    if (string.IsNullOrWhiteSpace(model.CouponCode))
+                        errors.Add(new Error(nameof(model.CouponCode), "Coupon code is required when discount type is AssignedToCouponCode."));
+                    break;
+
+                case DiscountType.AssignedToOrderTotal:
+                    if (!model.OrderTotal.HasValue)
+                        errors.Add(new Error(nameof(model.OrderTotal), "Order total is required when discount type is AssignedToOrderTotal."));
+                    break;
+
+                case DiscountType.AssignedToProducts:
+                    if (!model.ProductIds.Any())
+                        errors.Add(new Error(nameof(model.ProductIds), "At least one product is required when discount type is AssignedToProduct."));
+                    break;
+
+                case DiscountType.AssignedToCategories:
+                    if (!model.CategoryIds.Any())
+                        errors.Add(new Error(nameof(model.CategoryIds), "At least one category is required when discount type is AssignedToCategory."));
+                    break;
+
+                case DiscountType.AssignedToManufacturers:
+                    if (!model.ManufacturerIds.Any())
+                        errors.Add(new Error(nameof(model.ManufacturerIds), "At least one manufacturer is required when discount type is AssignedToManufacturer."));
+                    break;
+            }
+
+            return errors;
+        }
+
         public async Task<Result> Delete(int id)
         {
             var result = new Result();
