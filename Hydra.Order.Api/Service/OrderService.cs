@@ -427,7 +427,12 @@ namespace Hydra.Order.Api.Services
             result.Data = items;
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<Result<OrderModel>> CreateOrder(int userId, CreateOrderRequest request)
         {
             var result = new Result<OrderModel>();
@@ -457,10 +462,11 @@ namespace Hydra.Order.Api.Services
                     if (item.UnitPrice != variant.SellPrice)
                     {
                         result.Status = ResultStatusEnum.InvalidValidation;
-                        result.Message = $"Unit price for product variant {item.ProductVariantId} does not match database";
+                        result.Message = $"Unit price for product variant {item.ProductVariantId} does not match the real price";
                         return result;
                     }
                 }
+
 
                 using var transaction = await _commandRepository.BeginTransactionAsync();
 
@@ -489,9 +495,9 @@ namespace Hydra.Order.Api.Services
                     PaymentStatusId = request.PaymentMethodId == PaymentMethod.CashOnDelivery ? PaymentStatus.Authorized : PaymentStatus.Pending,
                     UserCurrencyType = DefaultSetting.DEFAULT_CURRENCY,
                     TotalAmount = request.Items.Sum(x => x.UnitPrice * x.Quantity),
-                    FinalPrice = request.Items.Sum(x => x.UnitPrice * x.Quantity),
+                    FinalPrice = request.Items.Sum(x => (x.UnitPrice * x.Quantity)- x.dis), //   after Discount and Tax
                     CreatedOnUtc = DateTime.UtcNow
-                };
+                };  
 
                 await _commandRepository.InsertAsync(order);
                 await _commandRepository.SaveChangesAsync();
