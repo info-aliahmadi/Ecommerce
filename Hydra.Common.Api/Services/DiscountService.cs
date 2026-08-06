@@ -163,18 +163,31 @@ namespace Hydra.Common.Api.Services
                     AdminComment = discountModel.AdminComment,
                     DiscountTypeId = discountModel.DiscountTypeId,
                     UsePercentage = discountModel.UsePercentage,
-                    DiscountPercentage = discountModel.DiscountPercentage,
-                    DiscountAmount = discountModel.DiscountAmount,
                     MaximumDiscountAmount = discountModel.MaximumDiscountAmount,
-                    OrderTotal = discountModel.OrderTotal,
                     StartDateUtc = discountModel.StartDateUtc,
                     EndDateUtc = discountModel.EndDateUtc,
                     RequiresCouponCode = discountModel.RequiresCouponCode,
                     DiscountLimitationId = discountModel.DiscountLimitationId,
-                    LimitationTimes = discountModel.LimitationTimes,
-                    MaximumDiscountedQuantity = discountModel.MaximumDiscountedQuantity,
+                    MaximumDiscountedQuantity = discountModel.DiscountLimitationId != DiscountLimitationType.Unlimited ? discountModel.MaximumDiscountedQuantity : 0,
                     IsActive = discountModel.IsActive
                 };
+                if (discountModel.DiscountLimitationId == DiscountLimitationType.NTimesOnly || discountModel.DiscountLimitationId == DiscountLimitationType.NTimesPerCustomer)
+                {
+                    discount.LimitationTimes = discountModel.LimitationTimes;
+                }
+
+                if (discountModel.DiscountTypeId == DiscountType.AssignedToOrderTotal)
+                {
+                    discount.OrderTotal = discountModel.OrderTotal;
+                }
+                if (discountModel.UsePercentage)
+                {
+                    discount.DiscountPercentage = discountModel.DiscountPercentage;
+                }
+                else
+                {
+                    discount.DiscountAmount = discountModel.DiscountAmount;
+                }
 
                 await _commandRepository.InsertAsync(discount);
                 await _commandRepository.SaveChangesAsync();
@@ -270,20 +283,37 @@ namespace Hydra.Common.Api.Services
                     return result;
                 }
 
+
+                if (discountModel.DiscountLimitationId == DiscountLimitationType.NTimesOnly || discountModel.DiscountLimitationId == DiscountLimitationType.NTimesPerCustomer)
+                {
+                    discount.LimitationTimes = discountModel.LimitationTimes;
+                }
+
+                if (discountModel.DiscountTypeId == DiscountType.AssignedToOrderTotal)
+                {
+                    discount.OrderTotal = discountModel.OrderTotal;
+                }
+                if (discountModel.UsePercentage)
+                {
+                    discount.DiscountPercentage = discountModel.DiscountPercentage;
+                }
+                else
+                {
+                    discount.DiscountAmount = discountModel.DiscountAmount;
+                }
+
+                discount.MaximumDiscountedQuantity = discountModel.DiscountLimitationId != DiscountLimitationType.Unlimited ? discountModel.MaximumDiscountedQuantity : 0;
+
                 discount.Name = discountModel.Name;
                 discount.CouponCode = discountModel.CouponCode;
                 discount.AdminComment = discountModel.AdminComment;
                 discount.DiscountTypeId = discountModel.DiscountTypeId;
                 discount.UsePercentage = discountModel.UsePercentage;
-                discount.DiscountPercentage = discountModel.DiscountPercentage;
-                discount.DiscountAmount = discountModel.DiscountAmount;
                 discount.MaximumDiscountAmount = discountModel.MaximumDiscountAmount;
-                discount.OrderTotal = discountModel.OrderTotal;
                 discount.StartDateUtc = discountModel.StartDateUtc;
                 discount.EndDateUtc = discountModel.EndDateUtc;
                 discount.RequiresCouponCode = discountModel.RequiresCouponCode;
                 discount.DiscountLimitationId = discountModel.DiscountLimitationId;
-                discount.LimitationTimes = discountModel.LimitationTimes;
                 discount.MaximumDiscountedQuantity = discountModel.MaximumDiscountedQuantity;
                 discount.IsActive = discountModel.IsActive;
 
