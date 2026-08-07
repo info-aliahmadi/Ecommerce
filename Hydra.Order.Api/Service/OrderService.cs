@@ -528,6 +528,7 @@ namespace Hydra.Order.Api.Services
                     await _commandRepository.SaveChangesAsync();
                 }
                 var orderItems = request.Items.Select(item => new OrderItem()
+                                var eligibleItems = new List<(int ProductVariantId, decimal ItemTotal)>();
                 {
                     OrderId = order.Id,
                     ProductVariantId = item.ProductVariantId,
