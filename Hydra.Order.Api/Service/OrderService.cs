@@ -5,6 +5,7 @@ using Hydra.Kernel.Enums;
 using Hydra.Kernel.Extension;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
+using Hydra.Kernel.Resources;
 using Hydra.Order.Core.Interfaces;
 using Hydra.Order.Core.Models;
 using Microsoft.EntityFrameworkCore;

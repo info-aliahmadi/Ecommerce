@@ -9,6 +9,7 @@ using Hydra.Kernel;
 using Hydra.Kernel.Enums;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
+using Hydra.Kernel.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

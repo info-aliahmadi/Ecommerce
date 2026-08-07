@@ -8,6 +8,7 @@ using Hydra.Kernel.GeneralModels;
 using Microsoft.Extensions.Localization;
 using Hydra.Kernel.Interface;
 using Hydra.Kernel;
+using Hydra.Kernel.Resources;
 
 namespace Hydra.Auth.Service
 {

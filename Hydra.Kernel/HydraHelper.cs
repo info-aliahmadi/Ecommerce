@@ -138,7 +138,7 @@ namespace Hydra.Kernel
         /// <returns></returns>
         public static string ToFixed(this decimal decimals)
         {
-            return decimals.ToString("N2" + decimals);
+            return decimals.ToString("N2");
         }
     }
 }

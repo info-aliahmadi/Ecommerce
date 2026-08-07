@@ -7,6 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="Resources\SharedResource.ar.resx" />
+	  <EmbeddedResource Include="Resources\SharedResource.en.resx" />
+	  <EmbeddedResource Include="Resources\SharedResource.fa.resx" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="EFCore.NamingConventions" />
 		<PackageReference Include="EFCoreSecondLevelCacheInterceptor" />
 		<PackageReference Include="Microsoft.Data.SqlClient" />
@@ -26,6 +32,12 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+
+	<PropertyGroup>
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+	</PropertyGroup>
+
+
 
 	<ItemGroup>
 	  <Folder Include="Localization\Constants\" />

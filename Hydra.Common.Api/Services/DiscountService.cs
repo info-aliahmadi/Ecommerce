@@ -3,10 +3,10 @@ using Hydra.Common.Core.Interfaces;
 using Hydra.Common.Core.Models;
 using Hydra.Ecommerce.Core.Domain;
 using Hydra.Ecommerce.Core.Enums;
-using Hydra.Kernel;
 using Hydra.Kernel.Extension;
 using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
+using Hydra.Kernel.Resources;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 

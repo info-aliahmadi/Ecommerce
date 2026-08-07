@@ -1,4 +1,4 @@
-﻿namespace Hydra.Kernel;
+﻿namespace Hydra.Kernel.Resources;
 
 /// <summary>
 /// Just for Localization Worked
