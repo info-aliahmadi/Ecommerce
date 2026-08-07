@@ -5,6 +5,15 @@ namespace Hydra.Common.Core.Interfaces
 {
     public interface IDiscountService
     {
+
+        /// <summary>
+        /// Retrieves the discount associated with the specified coupon code.
+        /// </summary>
+        /// <param name="couponCode">The coupon code to search for. Cannot be null or empty.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a Result object with the
+        /// discount information if the coupon code is valid; otherwise, an error result indicating the reason for
+        /// failure.</returns>
+        Task<Result<DiscountModel>> GetDiscountByCouponCode(int userId, string couponCode);
         /// <summary>
         ///
         /// </summary>

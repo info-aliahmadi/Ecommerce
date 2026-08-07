@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Code is invalid.; Requested By: {0}" xml:space="preserve">
+  <data name="InvalidCode" xml:space="preserve">
     <value>الرمز غير صالح.؛ مطلوب من قبل: {0}</value>
   </data>
-  <data name="Could not get info from an external provider" xml:space="preserve">
+  <data name="CouldNotExternalProvider" xml:space="preserve">
     <value>لا يمكن استرداد المعلومات من موفر خارجي</value>
   </data>
   <data name="Email or password is invalid.; Requested By: {0}" xml:space="preserve">
@@ -203,5 +203,17 @@
   </data>
   <data name="{0}; Requested By: {1}" xml:space="preserve">
     <value>{0} ؛ مطلوب بواسطة: {1}</value>
+  </data>
+  <data name="Email or password are invalid.; Requested By: {0} " xml:space="preserve">
+    <value>ایمیل یا رمز عبور اشتباه است</value>
+  </data>
+  <data name="DicountNotFound" xml:space="preserve">
+    <value>کد تخفیف یافت نشد!</value>
+  </data>
+  <data name="DiscountDateExpired" xml:space="preserve">
+    <value>کد تخفیف منقضی شد!</value>
+  </data>
+  <data name="DiscountLimitExpired" xml:space="preserve">
+    <value>تعداد استفاده از کد تخفیف پایان یافت!</value>
   </data>
 </root>

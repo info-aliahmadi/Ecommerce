@@ -28,7 +28,7 @@ namespace Hydra.Common.Api.Endpoints
 
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
-
+            endpoints.MapPost(API_SCHEMA + "/GetDiscount", DiscountHandler.GetDiscount).RequireAuthorization();
 
             endpoints.MapPost(API_SCHEMA + "/GetDiscountList", DiscountHandler.GetList).RequirePermission(EcommercePermissionTypes.SALE_DISCOUNT_MANAGEMENT);
             endpoints.MapPost(API_SCHEMA + "/GetDiscountListForSelect", DiscountHandler.GetListForSelect).RequireAuthorization();

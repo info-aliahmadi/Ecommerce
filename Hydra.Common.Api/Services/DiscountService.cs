@@ -1,11 +1,14 @@
-﻿using Hydra.Kernel.GeneralModels;
-using Hydra.Kernel.Interface;
-using Hydra.Ecommerce.Core.Domain;
-using Hydra.Ecommerce.Core.Enums;
+﻿using Hydra.Auth.Domain;
 using Hydra.Common.Core.Interfaces;
 using Hydra.Common.Core.Models;
-using Microsoft.EntityFrameworkCore;
+using Hydra.Ecommerce.Core.Domain;
+using Hydra.Ecommerce.Core.Enums;
+using Hydra.Kernel;
 using Hydra.Kernel.Extension;
+using Hydra.Kernel.GeneralModels;
+using Hydra.Kernel.Interface;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Hydra.Common.Api.Services
 {
@@ -13,10 +16,108 @@ namespace Hydra.Common.Api.Services
     {
         private readonly IQueryRepository _queryRepository;
         private readonly ICommandRepository _commandRepository;
-        public DiscountService(IQueryRepository queryRepository, ICommandRepository commandRepository)
+        IStringLocalizer<SharedResource> _sharedlocalizer;
+        public DiscountService(IQueryRepository queryRepository, ICommandRepository commandRepository, IStringLocalizer<SharedResource> sharedlocalizer)
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
+            _sharedlocalizer = sharedlocalizer;
+        }
+
+        public async Task<Result<DiscountModel>> GetDiscountByCouponCode(int userId, string couponCode)
+        {
+            var result = new Result<DiscountModel>();
+            var currentDate = DateTime.Now;
+            var discount = await _queryRepository.Table<Discount>().FirstOrDefaultAsync(x => x.CouponCode == couponCode && x.IsActive);
+
+
+            if (discount is null)
+            {
+                result.Status = ResultStatusEnum.NotFound;
+                result.Message = _sharedlocalizer["DicountNotFound"];
+                return result;
+            }
+
+            if (discount.StartDateUtc != null && discount.StartDateUtc > currentDate)
+            {
+                result.Status = ResultStatusEnum.NotFound;
+                result.Message = _sharedlocalizer["DiscountDateExpired"];
+                return result;
+            }
+
+            if (discount.EndDateUtc != null && discount.EndDateUtc < currentDate)
+            {
+                result.Status = ResultStatusEnum.NotFound;
+                result.Message = _sharedlocalizer["DiscountDateExpired"];
+                return result;
+            }
+
+
+            if (discount.DiscountLimitationId == DiscountLimitationType.NTimesOnly)
+            {
+                var limitationTimes = discount.LimitationTimes;
+                var discountUsedTimes = _queryRepository.Table<OrderDiscount>().Where(x => x.DiscountId == discount.Id).Count();
+                if (discountUsedTimes > discount.LimitationTimes)
+                {
+                    result.Status = ResultStatusEnum.NotFound;
+                    result.Message = _sharedlocalizer["DiscountLimitExpired"];
+                    return result;
+                }
+            }
+
+            if (discount.DiscountLimitationId == DiscountLimitationType.NTimesPerCustomer)
+            {
+                var limitationTimes = discount.LimitationTimes;
+                var discountUserCount = _queryRepository.Table<OrderDiscount>().Where(x => x.DiscountId == discount.Id && x.Order.UserId == userId).Count();
+                if (discountUserCount > discount.LimitationTimes)
+                {
+                    result.Status = ResultStatusEnum.NotFound;
+                    result.Message = _sharedlocalizer["DiscountLimitExpired"];
+                    return result;
+                }
+            }
+            var productIds = await _queryRepository.Table<DiscountProduct>()
+                .Where(x => x.DiscountId == discount.Id)
+                .Select(x => x.ProductId)
+                .ToListAsync();
+
+            var categoryIds = await _queryRepository.Table<DiscountCategory>()
+                .Where(x => x.DiscountId == discount.Id)
+                .Select(x => x.CategoryId)
+                .ToListAsync();
+
+            var manufacturerIds = await _queryRepository.Table<DiscountManufacturer>()
+                .Where(x => x.DiscountId == discount.Id)
+                .Select(x => x.ManufacturerId)
+                .ToListAsync();
+
+            var discountModel = new DiscountModel()
+            {
+                Id = discount.Id,
+                Name = discount.Name,
+                CouponCode = discount.CouponCode,
+                AdminComment = discount.AdminComment,
+                DiscountTypeId = discount.DiscountTypeId,
+                UsePercentage = discount.UsePercentage,
+                DiscountPercentage = discount.DiscountPercentage,
+                DiscountAmount = discount.DiscountAmount,
+                MaximumDiscountAmount = discount.MaximumDiscountAmount,
+                OrderTotal = discount.OrderTotal,
+                StartDateUtc = discount.StartDateUtc,
+                EndDateUtc = discount.EndDateUtc,
+                RequiresCouponCode = discount.RequiresCouponCode,
+                DiscountLimitationId = discount.DiscountLimitationId,
+                LimitationTimes = discount.LimitationTimes,
+                MaximumDiscountedQuantity = discount.MaximumDiscountedQuantity,
+                IsActive = discount.IsActive,
+                ProductIds = productIds,
+                CategoryIds = categoryIds,
+                ManufacturerIds = manufacturerIds
+            };
+
+            result.Data = discountModel;
+
+            return result;
         }
 
         public async Task<Result<PaginatedList<DiscountModel>>> GetList(GridDataBound dataGrid)

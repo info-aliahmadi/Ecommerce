@@ -30,7 +30,7 @@ namespace Hydra.Common.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public string AdminComment { get; set; }
+        public string? AdminComment { get; set; }
 
 
         /// <summary>
@@ -51,14 +51,14 @@ namespace Hydra.Common.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public decimal DiscountPercentage { get; set; }
+        public decimal? DiscountPercentage { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public decimal DiscountAmount { get; set; }
+        public decimal? DiscountAmount { get; set; }
 
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Hydra.Common.Core.Models
         /// 
         /// </summary>
         /// <returns></returns>
-        public int LimitationTimes { get; set; }
+        public int? LimitationTimes { get; set; }
 
 
         /// <summary>

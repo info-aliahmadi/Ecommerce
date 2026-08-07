@@ -446,7 +446,11 @@ namespace Hydra.Order.Api.Services
                 }
 
                 var variantIds = request.Items.Select(x => x.ProductVariantId).Distinct().ToList();
-                var variants = await _queryRepository.Table<ProductVariant>().Include(x => x.Product).Include(x => x.ProductInventory)
+                var variants = await _queryRepository.Table<ProductVariant>()
+                    .Include(x => x.Product.ProductCategories)
+                    .Include(x => x.Product.ProductManufacturers)
+                    .Include(x => x.Product)
+                    .Include(x => x.ProductInventory)
                     .Where(x => variantIds.Contains(x.Id))
                     .ToListAsync();
 
@@ -481,6 +485,8 @@ namespace Hydra.Order.Api.Services
                         addressSnapshot = FormatAddress(address);
                     }
                 }
+
+                var currentDatetime = DateTime.UtcNow;
                 var order = new Ecommerce.Core.Domain.Order()
                 {
                     UserId = userId,
@@ -496,8 +502,8 @@ namespace Hydra.Order.Api.Services
                     UserCurrencyType = DefaultSetting.DEFAULT_CURRENCY,
                     TotalAmount = request.Items.Sum(x => x.UnitPrice * x.Quantity),
                     FinalPrice = request.Items.Sum(x => (x.UnitPrice * x.Quantity)), //   after Discount and Tax
-                    CreatedOnUtc = DateTime.UtcNow
-                };  
+                    CreatedOnUtc = currentDatetime
+                };
 
                 await _commandRepository.InsertAsync(order);
                 await _commandRepository.SaveChangesAsync();
@@ -509,34 +515,140 @@ namespace Hydra.Order.Api.Services
                         UserId = userId,
                         Note = request.OrderNote,
                         IsRead = false,
-                        CreatedOnUtc = DateTime.UtcNow
+                        CreatedOnUtc = currentDatetime
                     };
 
                     await _commandRepository.InsertAsync(orderNote);
                     await _commandRepository.SaveChangesAsync();
                 }
+                var itemDiscounts = new Dictionary<int, decimal>();
+                decimal totalOrderDiscount = 0;
                 if (request.DiscountId != null)
                 {
-                    var orderDiscount = new Ecommerce.Core.Domain.OrderDiscount()
+                    var discount = await _queryRepository.Table<Discount>()
+                        .Include(x => x.DiscountProducts)
+                        .Include(x => x.DiscountCategories)
+                        .Include(x => x.DiscountManufacturers)
+                        .FirstOrDefaultAsync(x => x.Id == request.DiscountId.Value);
+
+
+
+                    if (discount != null && discount.IsActive)
+                    {
+                        bool isValidDate = (!discount.StartDateUtc.HasValue || discount.StartDateUtc <= currentDatetime) &&
+                                          (!discount.EndDateUtc.HasValue || discount.EndDateUtc >= currentDatetime);
+
+                        if (discount.DiscountLimitationId == DiscountLimitationType.NTimesOnly)
+                        {
+                            var limitationTimes = discount.LimitationTimes;
+                            var discountUsedTimes = _queryRepository.Table<OrderDiscount>().Where(x => x.DiscountId == discount.Id).Count();
+                            if (discountUsedTimes > discount.LimitationTimes)
+                            {
+                                isValidDate = false;
+                            }
+                        }
+
+                        if (discount.DiscountLimitationId == DiscountLimitationType.NTimesPerCustomer)
+                        {
+                            var limitationTimes = discount.LimitationTimes;
+                            var discountUserCount = _queryRepository.Table<OrderDiscount>().Where(x => x.DiscountId == discount.Id && x.Order.UserId == userId).Count();
+                            if (discountUserCount > discount.LimitationTimes)
+                            {
+                                isValidDate = false;
+                            }
+                        }
+
+                        if (isValidDate)
+                        {
+
+                            var eligibleItems = new List<(int ProductVariantId, decimal ItemTotal)>();
+                            foreach (var item in request.Items)
+                            {
+                                var variant = variants.FirstOrDefault(x => x.Id == item.ProductVariantId);
+                                if (variant == null) continue;
+
+                                bool isEligible = discount.DiscountTypeId switch
+                                {
+                                    DiscountType.AssignedToCouponCode => true,
+                                    DiscountType.AssignedToOrderTotal => !discount.OrderTotal.HasValue || order.TotalAmount >= discount.OrderTotal.Value,
+                                    DiscountType.AssignedToProducts => discount.DiscountProducts.Any(p => p.ProductId == variant.ProductId),
+                                    DiscountType.AssignedToCategories => variant.Product != null && variant.Product.ProductCategories.Any(pc => discount.DiscountCategories.Any(dc => dc.CategoryId == pc.CategoryId)),
+                                    DiscountType.AssignedToManufacturers => variant.Product != null && variant.Product.ProductManufacturers.Any(pm => discount.DiscountManufacturers.Any(dm => dm.ManufacturerId == pm.ManufacturerId)),
+                                    _ => true
+                                };
+
+                                if (isEligible)
+                                {
+                                    var itemTotal = item.UnitPrice * item.Quantity;
+                                    eligibleItems.Add((item.ProductVariantId, itemTotal));
+                                }
+                            }
+
+                            var eligibleSubtotal = eligibleItems.Sum(x => x.ItemTotal);
+                            if (eligibleSubtotal > 0)
+                            {
+                                decimal discountAmount = 0;
+                                if (discount.UsePercentage)
+                                {
+                                    discountAmount = eligibleSubtotal * discount.DiscountPercentage!.Value / 100;
+                                }
+                                else
+                                {
+                                    discountAmount = discount.DiscountAmount!.Value;
+                                }
+
+                                if (discount.MaximumDiscountAmount.HasValue && discountAmount > discount.MaximumDiscountAmount.Value)
+                                {
+                                    discountAmount = discount.MaximumDiscountAmount.Value;
+                                }
+
+                                if (discountAmount > eligibleSubtotal)
+                                {
+                                    discountAmount = eligibleSubtotal;
+                                }
+
+                                var eligibleTotal = eligibleSubtotal;
+                                foreach (var (productVariantId, itemTotal) in eligibleItems)
+                                {
+                                    var proportion = itemTotal / eligibleTotal;
+                                    var itemDiscount = Math.Round(discountAmount * proportion, 2);
+                                    itemDiscounts[productVariantId] = itemDiscount;
+                                }
+
+                                var sumItemDiscounts = itemDiscounts.Values.Sum();
+                                if (itemDiscounts.Any() && Math.Abs(sumItemDiscounts - discountAmount) > 0.01m)
+                                {
+                                    var diff = discountAmount - sumItemDiscounts;
+                                    var firstKey = itemDiscounts.Keys.First();
+                                    itemDiscounts[firstKey] = Math.Round(itemDiscounts[firstKey] + diff, 2);
+                                }
+
+                                totalOrderDiscount = discountAmount;
+                            }
+
+                        }
+                    }
+                }
+
+                order.DiscountAmount = totalOrderDiscount;
+                order.FinalPrice = order.TotalAmount - totalOrderDiscount;
+                _commandRepository.Update(order);
+                await _commandRepository.SaveChangesAsync();
+
+                var orderItems = request.Items.Select(item =>
+                {
+                    var discountForItem = itemDiscounts.ContainsKey(item.ProductVariantId) ? itemDiscounts[item.ProductVariantId] : 0;
+                    var itemTotal = item.UnitPrice * item.Quantity;
+                    return new OrderItem()
                     {
                         OrderId = order.Id,
-                        DiscountId = request.DiscountId.Value,
-                        CreatedOnUtc = DateTime.UtcNow
+                        ProductVariantId = item.ProductVariantId,
+                        Quantity = item.Quantity,
+                        UnitPrice = item.UnitPrice,
+                        TotalPrice = itemTotal - discountForItem,
+                        TotalPriceTax = 0,
+                        DiscountAmount = discountForItem,
                     };
-
-                    await _commandRepository.InsertAsync(orderDiscount);
-                    await _commandRepository.SaveChangesAsync();
-                }
-                var orderItems = request.Items.Select(item => new OrderItem()
-                                var eligibleItems = new List<(int ProductVariantId, decimal ItemTotal)>();
-                {
-                    OrderId = order.Id,
-                    ProductVariantId = item.ProductVariantId,
-                    Quantity = item.Quantity,
-                    UnitPrice = item.UnitPrice,
-                    TotalPrice = item.UnitPrice * item.Quantity,
-                    TotalPriceTax = 0,
-                    DiscountAmount = 0,
                 }).ToList();
 
                 await _commandRepository.InsertRangeAsync(orderItems);
@@ -573,7 +685,7 @@ namespace Hydra.Order.Api.Services
                             TransactionType = TransactionType.Sale,
                             StockQuantity = request.PaymentMethodId == PaymentMethod.CashOnDelivery ? -item.Quantity : 0,
                             ReservedQuantity = request.PaymentMethodId == PaymentMethod.CashOnDelivery ? 0 : item.Quantity,
-                            CreatedDatetime = DateTime.UtcNow
+                            CreatedDatetime = currentDatetime
                         };
                         await _commandRepository.InsertAsync(inventoryTransaction);
                     }
@@ -591,7 +703,7 @@ namespace Hydra.Order.Api.Services
                     OrderId = order.Id,
                     PaymentTypeId = request.PaymentMethodId,
                     Status = request.PaymentMethodId == PaymentMethod.CashOnDelivery ? PaymentStatus.Authorized : PaymentStatus.Pending,
-                    CreatedOnUtc = DateTime.UtcNow
+                    CreatedOnUtc = currentDatetime
                 };
 
                 await _commandRepository.InsertAsync(payment);
