@@ -1,10 +1,8 @@
-﻿
-namespace Hydra.Kernel
+﻿namespace Hydra.Kernel;
+
+/// <summary>
+/// Just for Localization Worked
+/// </summary>
+public class SharedResource
 {
-    /// <summary>
-    /// Just for Localization Worked
-    /// </summary>
-    public class SharedResource
-    {
-    }
 }

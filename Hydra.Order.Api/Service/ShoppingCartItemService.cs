@@ -155,11 +155,25 @@ namespace Hydra.Order.Api.Services
                 .Where(x => x.UserId == userId && x.ShoppingCartTypeId == type)
                 .OrderByDescending(x => x.CreatedOnUtc).Select(item => new ShoppingCartItemModel
                 {
-                    Id = item.Id,
+                    Id = item.ProductVariant.Product.Id,
                     UserId = item.UserId,
                     Name = item.ProductVariant.Product.Name,
                     ProductVariantId = item.ProductVariantId,
-                    Variant = new Product.Core.Models.ProductVariantDisplayModel(item.ProductVariant),
+                    Variant = new ProductVariantDisplayModel()
+                    {
+                        Id = item.ProductVariant.Id,
+                        SKU = item.ProductVariant.SKU,
+                        ProductId = item.ProductVariant.ProductId,
+                        SellPrice = item.ProductVariant.SellPrice,
+                        OldSellPrice = item.ProductVariant.OldSellPrice,
+                        ProductInventory = new ProductInventoryDisplayModel()
+                        {
+                            Id = item.ProductVariant.ProductInventory.Id,
+                            VariantId = item.ProductVariant.ProductInventory.VariantId,
+                            ReservedQuantity = item.ProductVariant.ProductInventory.ReservedQuantity,
+                            StockQuantity = item.ProductVariant.ProductInventory.StockQuantity
+                        },
+                    },
                     ShoppingCartTypeId = item.ShoppingCartTypeId,
                     Quantity = item.Quantity,
                     Categories = item.ProductVariant.Product.ProductCategories.Select(x => new CategoryDisplayModel(x.Category)).ToList(),

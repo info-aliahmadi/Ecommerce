@@ -217,4 +217,25 @@
   <data name="DiscountLimitExpired" xml:space="preserve">
     <value>تعداد استفاده از کد تخفیف پایان یافت!</value>
   </data>
+  <data name="ProductVariantNotFound" xml:space="preserve">
+    <value> {0} یافت نشد</value>
+  </data>
+  <data name="UnitPriceNotMatch" xml:space="preserve">
+    <value>قیمت این محصول {0} تغییر کرده است</value>
+  </data>
+  <data name="OrderHaveNotItems" xml:space="preserve">
+    <value>محصولی در سفارش شما یافت نشد</value>
+  </data>
+  <data name="FinalPriceNotMatch" xml:space="preserve">
+    <value>اختلاف در محاسبه قیمت</value>
+  </data>
+  <data name="InsufficientStock" xml:space="preserve">
+    <value>موجودی {1} | {0} پایان یافت</value>
+  </data>
+  <data name="InventoryNotFound" xml:space="preserve">
+    <value>برای  {0} {1} موجودی یافت نشد</value>
+  </data>
+  <data name="AddressNotFound" xml:space="preserve">
+    <value>آدرس یافت نشد</value>
+  </data>
 </root>

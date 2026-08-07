@@ -131,5 +131,14 @@ namespace Hydra.Kernel
             var withoutHtml = Regex.Replace(text, "<.*?>", string.Empty);
             return System.Net.WebUtility.HtmlDecode(withoutHtml).Trim();
         }
+        /// <summary>
+        /// convert 35.2546522 to 35.25
+        /// </summary>
+        /// <param name="decimals"></param>
+        /// <returns></returns>
+        public static string ToFixed(this decimal decimals)
+        {
+            return decimals.ToString("N2" + decimals);
+        }
     }
 }

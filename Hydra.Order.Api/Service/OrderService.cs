@@ -8,7 +8,7 @@ using Hydra.Kernel.Interface;
 using Hydra.Order.Core.Interfaces;
 using Hydra.Order.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using Twilio.TwiML.Voice;
+using Microsoft.Extensions.Localization;
 
 namespace Hydra.Order.Api.Services
 {
@@ -16,10 +16,12 @@ namespace Hydra.Order.Api.Services
     {
         private readonly IQueryRepository _queryRepository;
         private readonly ICommandRepository _commandRepository;
-        public OrderService(IQueryRepository queryRepository, ICommandRepository commandRepository)
+        private readonly IStringLocalizer<SharedResource> _sharedlocalizer;
+        public OrderService(IQueryRepository queryRepository, ICommandRepository commandRepository, IStringLocalizer<SharedResource> sharedlocalizer)
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
+            _sharedlocalizer = sharedlocalizer;
         }
 
         /// <summary>
@@ -436,44 +438,44 @@ namespace Hydra.Order.Api.Services
         public async Task<Result<OrderModel>> CreateOrder(int userId, CreateOrderRequest request)
         {
             var result = new Result<OrderModel>();
-            try
+
+            if (request.Items == null || request.Items.Count == 0)
             {
-                if (request.Items == null || request.Items.Count == 0)
+                result.Status = ResultStatusEnum.Failed;
+                result.Message = _sharedlocalizer["OrderHaveNotItems"];
+                return result;
+            }
+
+            var variantIds = request.Items.Select(x => x.ProductVariantId).Distinct().ToList();
+            var variants = await _queryRepository.Table<ProductVariant>()
+                .Include(x => x.Product.ProductCategories)
+                .Include(x => x.Product.ProductManufacturers)
+                .Include(x => x.Product)
+                .Include(x => x.ProductInventory)
+                .Where(x => variantIds.Contains(x.Id))
+                .ToListAsync();
+
+            foreach (var item in request.Items)
+            {
+                var variant = variants.FirstOrDefault(x => x.Id == item.ProductVariantId);
+                if (variant == null)
                 {
-                    result.Status = ResultStatusEnum.Failed;
-                    result.Message = "Order must contain at least one item";
+                    result.Status = ResultStatusEnum.NotFound;
+                    result.Message = _sharedlocalizer["DicountNotFound", variant.Product.Name + " " + variant.SKU];
                     return result;
                 }
-
-                var variantIds = request.Items.Select(x => x.ProductVariantId).Distinct().ToList();
-                var variants = await _queryRepository.Table<ProductVariant>()
-                    .Include(x => x.Product.ProductCategories)
-                    .Include(x => x.Product.ProductManufacturers)
-                    .Include(x => x.Product)
-                    .Include(x => x.ProductInventory)
-                    .Where(x => variantIds.Contains(x.Id))
-                    .ToListAsync();
-
-                foreach (var item in request.Items)
+                if (item.UnitPrice != variant.SellPrice)
                 {
-                    var variant = variants.FirstOrDefault(x => x.Id == item.ProductVariantId);
-                    if (variant == null)
-                    {
-                        result.Status = ResultStatusEnum.NotFound;
-                        result.Message = $"Product variant {item.ProductVariantId} not found";
-                        return result;
-                    }
-                    if (item.UnitPrice != variant.SellPrice)
-                    {
-                        result.Status = ResultStatusEnum.InvalidValidation;
-                        result.Message = $"Unit price for product variant {item.ProductVariantId} does not match the real price";
-                        return result;
-                    }
+                    result.Status = ResultStatusEnum.InvalidValidation;
+                    result.Message = _sharedlocalizer["UnitPriceNotMatch", variant.Product.Name + " " + variant.SKU];
+                    return result;
                 }
+            }
 
 
-                using var transaction = await _commandRepository.BeginTransactionAsync();
-
+            using var transaction = await _commandRepository.BeginTransactionAsync();
+            try
+            {
                 string addressSnapshot = null;
                 if (request.AddressId.HasValue)
                 {
@@ -483,6 +485,12 @@ namespace Hydra.Order.Api.Services
                     if (address != null)
                     {
                         addressSnapshot = FormatAddress(address);
+                    }
+                    else
+                    {
+                        result.Status = ResultStatusEnum.InvalidValidation;
+                        result.Message = _sharedlocalizer["AddressNotFound"];
+                        return result;
                     }
                 }
 
@@ -531,12 +539,23 @@ namespace Hydra.Order.Api.Services
                         .Include(x => x.DiscountManufacturers)
                         .FirstOrDefaultAsync(x => x.Id == request.DiscountId.Value);
 
-
-
                     if (discount != null && discount.IsActive)
                     {
-                        bool isValidDate = (!discount.StartDateUtc.HasValue || discount.StartDateUtc <= currentDatetime) &&
-                                          (!discount.EndDateUtc.HasValue || discount.EndDateUtc >= currentDatetime);
+                        if (discount.StartDateUtc != null && discount.StartDateUtc > currentDatetime)
+                        {
+                            transaction.Rollback();
+                            result.Status = ResultStatusEnum.NotFound;
+                            result.Message = _sharedlocalizer["DiscountDateExpired"];
+                            return result;
+                        }
+
+                        if (discount.EndDateUtc != null && discount.EndDateUtc < currentDatetime)
+                        {
+                            transaction.Rollback();
+                            result.Status = ResultStatusEnum.NotFound;
+                            result.Message = _sharedlocalizer["DiscountDateExpired"];
+                            return result;
+                        }
 
                         if (discount.DiscountLimitationId == DiscountLimitationType.NTimesOnly)
                         {
@@ -544,7 +563,10 @@ namespace Hydra.Order.Api.Services
                             var discountUsedTimes = _queryRepository.Table<OrderDiscount>().Where(x => x.DiscountId == discount.Id).Count();
                             if (discountUsedTimes > discount.LimitationTimes)
                             {
-                                isValidDate = false;
+                                transaction.Rollback();
+                                result.Status = ResultStatusEnum.NotFound;
+                                result.Message = _sharedlocalizer["DiscountLimitExpired"];
+                                return result;
                             }
                         }
 
@@ -554,84 +576,89 @@ namespace Hydra.Order.Api.Services
                             var discountUserCount = _queryRepository.Table<OrderDiscount>().Where(x => x.DiscountId == discount.Id && x.Order.UserId == userId).Count();
                             if (discountUserCount > discount.LimitationTimes)
                             {
-                                isValidDate = false;
+                                transaction.Rollback();
+                                result.Status = ResultStatusEnum.NotFound;
+                                result.Message = _sharedlocalizer["DiscountLimitExpired"];
+                                return result;
                             }
                         }
 
-                        if (isValidDate)
+                        var eligibleItems = new List<(int ProductVariantId, decimal ItemTotal)>();
+                        foreach (var item in request.Items)
                         {
+                            var variant = variants.FirstOrDefault(x => x.Id == item.ProductVariantId);
+                            if (variant == null) continue;
 
-                            var eligibleItems = new List<(int ProductVariantId, decimal ItemTotal)>();
-                            foreach (var item in request.Items)
+                            bool isEligible = discount.DiscountTypeId switch
                             {
-                                var variant = variants.FirstOrDefault(x => x.Id == item.ProductVariantId);
-                                if (variant == null) continue;
+                                DiscountType.AssignedToCouponCode => true,
+                                DiscountType.AssignedToOrderTotal => !discount.OrderTotal.HasValue || order.TotalAmount >= discount.OrderTotal.Value,
+                                DiscountType.AssignedToProducts => discount.DiscountProducts.Any(p => p.ProductId == variant.ProductId),
+                                DiscountType.AssignedToCategories => variant.Product != null && variant.Product.ProductCategories.Any(pc => discount.DiscountCategories.Any(dc => dc.CategoryId == pc.CategoryId)),
+                                DiscountType.AssignedToManufacturers => variant.Product != null && variant.Product.ProductManufacturers.Any(pm => discount.DiscountManufacturers.Any(dm => dm.ManufacturerId == pm.ManufacturerId)),
+                                _ => true
+                            };
 
-                                bool isEligible = discount.DiscountTypeId switch
-                                {
-                                    DiscountType.AssignedToCouponCode => true,
-                                    DiscountType.AssignedToOrderTotal => !discount.OrderTotal.HasValue || order.TotalAmount >= discount.OrderTotal.Value,
-                                    DiscountType.AssignedToProducts => discount.DiscountProducts.Any(p => p.ProductId == variant.ProductId),
-                                    DiscountType.AssignedToCategories => variant.Product != null && variant.Product.ProductCategories.Any(pc => discount.DiscountCategories.Any(dc => dc.CategoryId == pc.CategoryId)),
-                                    DiscountType.AssignedToManufacturers => variant.Product != null && variant.Product.ProductManufacturers.Any(pm => discount.DiscountManufacturers.Any(dm => dm.ManufacturerId == pm.ManufacturerId)),
-                                    _ => true
-                                };
+                            if (isEligible)
+                            {
+                                var itemTotal = item.UnitPrice * item.Quantity;
+                                eligibleItems.Add((item.ProductVariantId, itemTotal));
+                            }
+                        }
 
-                                if (isEligible)
-                                {
-                                    var itemTotal = item.UnitPrice * item.Quantity;
-                                    eligibleItems.Add((item.ProductVariantId, itemTotal));
-                                }
+                        var eligibleSubtotal = eligibleItems.Sum(x => x.ItemTotal);
+                        if (eligibleSubtotal > 0)
+                        {
+                            decimal discountAmount = 0;
+                            if (discount.UsePercentage)
+                            {
+                                discountAmount = eligibleSubtotal * discount.DiscountPercentage!.Value / 100;
+                            }
+                            else
+                            {
+                                discountAmount = discount.DiscountAmount!.Value;
                             }
 
-                            var eligibleSubtotal = eligibleItems.Sum(x => x.ItemTotal);
-                            if (eligibleSubtotal > 0)
+                            if (discount.MaximumDiscountAmount.HasValue && discountAmount > discount.MaximumDiscountAmount.Value)
                             {
-                                decimal discountAmount = 0;
-                                if (discount.UsePercentage)
-                                {
-                                    discountAmount = eligibleSubtotal * discount.DiscountPercentage!.Value / 100;
-                                }
-                                else
-                                {
-                                    discountAmount = discount.DiscountAmount!.Value;
-                                }
-
-                                if (discount.MaximumDiscountAmount.HasValue && discountAmount > discount.MaximumDiscountAmount.Value)
-                                {
-                                    discountAmount = discount.MaximumDiscountAmount.Value;
-                                }
-
-                                if (discountAmount > eligibleSubtotal)
-                                {
-                                    discountAmount = eligibleSubtotal;
-                                }
-
-                                var eligibleTotal = eligibleSubtotal;
-                                foreach (var (productVariantId, itemTotal) in eligibleItems)
-                                {
-                                    var proportion = itemTotal / eligibleTotal;
-                                    var itemDiscount = Math.Round(discountAmount * proportion, 2);
-                                    itemDiscounts[productVariantId] = itemDiscount;
-                                }
-
-                                var sumItemDiscounts = itemDiscounts.Values.Sum();
-                                if (itemDiscounts.Any() && Math.Abs(sumItemDiscounts - discountAmount) > 0.01m)
-                                {
-                                    var diff = discountAmount - sumItemDiscounts;
-                                    var firstKey = itemDiscounts.Keys.First();
-                                    itemDiscounts[firstKey] = Math.Round(itemDiscounts[firstKey] + diff, 2);
-                                }
-
-                                totalOrderDiscount = discountAmount;
+                                discountAmount = discount.MaximumDiscountAmount.Value;
                             }
 
+                            if (discountAmount > eligibleSubtotal)
+                            {
+                                discountAmount = eligibleSubtotal;
+                            }
+
+                            var eligibleTotal = eligibleSubtotal;
+                            foreach (var (productVariantId, itemTotal) in eligibleItems)
+                            {
+                                var proportion = itemTotal / eligibleTotal;
+                                var itemDiscount = Math.Round(discountAmount * proportion, 2);
+                                itemDiscounts[productVariantId] = itemDiscount;
+                            }
+
+                            var sumItemDiscounts = itemDiscounts.Values.Sum();
+                            if (itemDiscounts.Any() && Math.Abs(sumItemDiscounts - discountAmount) > 0.01m)
+                            {
+                                var diff = discountAmount - sumItemDiscounts;
+                                var firstKey = itemDiscounts.Keys.First();
+                                itemDiscounts[firstKey] = Math.Round(itemDiscounts[firstKey] + diff, 2);
+                            }
+
+                            totalOrderDiscount = discountAmount;
                         }
                     }
                 }
 
                 order.DiscountAmount = totalOrderDiscount;
                 order.FinalPrice = order.TotalAmount - totalOrderDiscount;
+                if (order.FinalPrice.ToFixed() != request.FinalPrice.ToFixed())
+                {
+                    transaction.Rollback();
+                    result.Status = ResultStatusEnum.InvalidValidation;
+                    result.Message = _sharedlocalizer["FinalPriceNotMatch"];
+                    return result;
+                }
                 _commandRepository.Update(order);
                 await _commandRepository.SaveChangesAsync();
 
@@ -663,10 +690,10 @@ namespace Hydra.Order.Api.Services
                         var available = inventory.StockQuantity - inventory.ReservedQuantity;
                         if (available < item.Quantity)
                         {
+                            await transaction.RollbackAsync();
                             result.Status = ResultStatusEnum.InsufficientStock;
                             var productVariant = variants.FirstOrDefault(x => x.Id == item.ProductVariantId);
-                            result.Message = $"Insufficient stock for {productVariant.Product.Name} | {productVariant.SKU}";
-                            await transaction.RollbackAsync();
+                            result.Message = _sharedlocalizer["InsufficientStock", inventory.Variant.Product.Name, inventory.Variant.SKU];
                             return result;
                         }
                         if (request.PaymentMethodId == PaymentMethod.CashOnDelivery)
@@ -692,7 +719,7 @@ namespace Hydra.Order.Api.Services
                     else
                     {
                         result.Status = ResultStatusEnum.Failed;
-                        result.Message = $"Inventory for product variant doesn't exist {item.ProductVariantId}";
+                        result.Message = _sharedlocalizer["InventoryNotFound", inventory.Variant.Product.Name, inventory.Variant.SKU];
                         await transaction.RollbackAsync();
                         return result;
                     }
@@ -729,6 +756,7 @@ namespace Hydra.Order.Api.Services
             }
             catch (Exception e)
             {
+                transaction.Rollback();
                 result.Message = e.Message;
                 result.Status = ResultStatusEnum.ExceptionThrowed;
                 return result;

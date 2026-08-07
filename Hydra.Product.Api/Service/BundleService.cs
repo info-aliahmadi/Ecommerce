@@ -84,7 +84,12 @@ namespace Hydra.Product.Api.Services
                                           ImagePreview = new FileStorage.Core.Models.FileUploadModel(cat.Category.ImagePreview),
                                           Color = cat.Category.Color,
                                       }).ToList(),
-                                      ManufacturerNames = pb.Product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
+                                      Manufacturers = pb.Product.ProductManufacturers.Select(c => new ManufacturerDisplayModel()
+                                      {
+                                          Id = c.ManufacturerId,
+                                          Name = c.Manufacturer.Name,
+                                          Description = c.Manufacturer.Description,
+                                      }).ToList(),
                                       Attributes = pb.Product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeDisplayModel()
                                       {
                                           Id = z.Id,

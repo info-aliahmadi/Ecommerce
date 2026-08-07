@@ -198,7 +198,12 @@ namespace Hydra.Product.Api.Services
                                 ImagePreview = new FileStorage.Core.Models.FileUploadModel(cat.Category.ImagePreview),
                                 Color = cat.Category.Color,
                             }).ToList(),
-                            ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
+                            Manufacturers = product.ProductManufacturers.Select(c => new ManufacturerDisplayModel()
+                            {
+                                Id = c.ManufacturerId,
+                                Name = c.Manufacturer.Name,
+                                Description = c.Manufacturer.Description,
+                            }).ToList(),
                             Attributes = product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeDisplayModel()
                             {
                                 Id = z.Id,
@@ -315,7 +320,12 @@ namespace Hydra.Product.Api.Services
                             ImagePreview = new FileStorage.Core.Models.FileUploadModel(cat.Category.ImagePreview),
                             Color = cat.Category.Color,
                         }).ToList(),
-                        ManufacturerNames = x.Product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
+                        Manufacturers = x.Product.ProductManufacturers.Select(c => new ManufacturerDisplayModel()
+                        {
+                            Id = c.ManufacturerId,
+                            Name = c.Manufacturer.Name,
+                            Description = c.Manufacturer.Description,
+                        }).ToList(),
                         Attributes = x.Product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeDisplayModel()
                         {
                             Id = z.Id,
@@ -417,7 +427,13 @@ namespace Hydra.Product.Api.Services
                     ImagePreview = new FileStorage.Core.Models.FileUploadModel(cat.Category.ImagePreview),
                     Color = cat.Category.Color,
                 }).ToList(),
-                ManufacturerNames = product.ProductManufacturers.Select(c => c.Manufacturer.Name).ToList(),
+                Manufacturers = product.ProductManufacturers.Select(c => new ManufacturerDisplayModel()
+                {
+                    Id = c.ManufacturerId,
+                    Name = c.Manufacturer.Name,
+                    Description = c.Manufacturer.Description,
+                }).ToList(),
+
                 Attributes = product.ProductAttributes.Select(c => c.Attribute).Select(z => new ProductAttributeDisplayModel()
                 {
                     Id = z.Id,

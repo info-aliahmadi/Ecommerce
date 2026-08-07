@@ -230,12 +230,8 @@ namespace Hydra.Product.Core.Models
         /// <summary>
         /// Identifiers of manufacturers associated with this product.
         /// </summary>
-        public List<int> ManufacturerIds { get; set; } = new();
+        public List<ManufacturerDisplayModel> Manufacturers { get; set; } = new();
 
-        /// <summary>
-        /// Names of manufacturers associated with this product.
-        /// </summary>
-        public List<string> ManufacturerNames { get; set; } = new();
 
         /// <summary>
         /// List of attribute display models for the product.

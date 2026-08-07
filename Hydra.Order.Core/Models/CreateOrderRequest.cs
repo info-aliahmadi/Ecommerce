@@ -9,6 +9,7 @@ namespace Hydra.Order.Core.Models
         public PaymentMethod? PaymentMethodId { get; set; }
         public string? OrderNote { get; set; }
         public int? DiscountId { get; set; }
+        public decimal FinalPrice { get; set; }
         public List<CreateOrderItemRequest> Items { get; set; } = new();
         public string CustomerIp { get; set; } = string.Empty;
     }
