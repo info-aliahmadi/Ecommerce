@@ -283,6 +283,7 @@ namespace Hydra.Common.Api.Services
                     return result;
                 }
 
+                var oldDiscount = discount.DiscountTypeId;
 
                 if (discountModel.DiscountLimitationId == DiscountLimitationType.NTimesOnly || discountModel.DiscountLimitationId == DiscountLimitationType.NTimesPerCustomer)
                 {
@@ -292,6 +293,7 @@ namespace Hydra.Common.Api.Services
                 if (discountModel.DiscountTypeId == DiscountType.AssignedToOrderTotal)
                 {
                     discount.OrderTotal = discountModel.OrderTotal;
+                    discount.DiscountPercentage = 0;
                 }
                 if (discountModel.UsePercentage)
                 {
@@ -319,8 +321,33 @@ namespace Hydra.Common.Api.Services
 
                 _commandRepository.Update(discount);
 
+                if (oldDiscount != discountModel.DiscountTypeId)
+                {
+                    if (oldDiscount == DiscountType.AssignedToProducts)
+                    {
+                        var oldItems = _queryRepository.Table<DiscountProduct>().Where(x => x.DiscountId == discountModel.Id).ToList();
+                        foreach (var item in oldItems)
+                            _commandRepository.Delete(item);
+                    }
+                    if (oldDiscount == DiscountType.AssignedToCategories)
+                    {
+                        var oldItems = _queryRepository.Table<DiscountCategory>().Where(x => x.DiscountId == discountModel.Id).ToList();
+                        foreach (var item in oldItems)
+                            _commandRepository.Delete(item);
+                    }
+                    if (oldDiscount == DiscountType.AssignedToManufacturers)
+                    {
+                        var oldItems = _queryRepository.Table<DiscountManufacturer>().Where(x => x.DiscountId == discountModel.Id).ToList();
+                        foreach (var item in oldItems)
+                            _commandRepository.Delete(item);
+                    }
+                    _commandRepository.SaveChanges();
+                }
+
                 if (discountModel.DiscountTypeId == DiscountType.AssignedToProducts)
+                {
                     await UpdateDiscountProduct(discount.Id, discountModel.ProductIds.ToArray());
+                }
 
                 if (discountModel.DiscountTypeId == DiscountType.AssignedToCategories)
                     await UpdateDiscountCategory(discount.Id, discountModel.CategoryIds.ToArray());

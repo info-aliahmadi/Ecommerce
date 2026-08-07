@@ -495,7 +495,7 @@ namespace Hydra.Order.Api.Services
                     PaymentStatusId = request.PaymentMethodId == PaymentMethod.CashOnDelivery ? PaymentStatus.Authorized : PaymentStatus.Pending,
                     UserCurrencyType = DefaultSetting.DEFAULT_CURRENCY,
                     TotalAmount = request.Items.Sum(x => x.UnitPrice * x.Quantity),
-                    FinalPrice = request.Items.Sum(x => (x.UnitPrice * x.Quantity)- x.dis), //   after Discount and Tax
+                    FinalPrice = request.Items.Sum(x => (x.UnitPrice * x.Quantity)), //   after Discount and Tax
                     CreatedOnUtc = DateTime.UtcNow
                 };  
 
