@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
+using SkiaSharp;
+using System.IO;
 
 namespace Hydra.Kernel
 {
@@ -139,6 +141,37 @@ namespace Hydra.Kernel
         public static string ToFixed(this decimal decimals)
         {
             return decimals.ToString("N2");
+        }
+
+        public static void SaveThumbnail(string sourcePath, string outputPath, int thumbWidth, int thumbHeight)
+        {
+            // 1. Decode the bitmap from the file
+            using var src = SKBitmap.Decode(sourcePath);
+            if (src == null)
+                throw new ArgumentException("Could not decode image at the provided path.");
+
+            // 2. Compute dimensions preserving aspect ratio
+            var (newW, newH) = FitInside(src.Width, src.Height, thumbWidth, thumbHeight);
+
+            // 3. Create the destination bitmap
+            using var dst = new SKBitmap(newW, newH, src.ColorType, src.AlphaType);
+
+            // 4. Scale the pixels (Best Quality)
+            src.ScalePixels(
+                dst,SKSamplingOptions.Default);
+
+            // 5. Encode to file
+            using var image = SKImage.FromBitmap(dst);
+            using var data = image.Encode(SKEncodedImageFormat.Jpeg, 85); // 85 is high quality
+
+            using var stream = File.OpenWrite(outputPath);
+            data.SaveTo(stream);
+        }
+
+        private static (int W, int H) FitInside(int srcW, int srcH, int maxW, int maxH)
+        {
+            float ratio = Math.Min((float)maxW / srcW, (float)maxH / srcH);
+            return ((int)Math.Round(srcW * ratio), (int)Math.Round(srcH * ratio));
         }
     }
 }

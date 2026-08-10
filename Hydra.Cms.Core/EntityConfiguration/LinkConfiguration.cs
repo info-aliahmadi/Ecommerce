@@ -193,9 +193,131 @@ namespace Hydra.Cms.Core.EntityConfiguration
                     Url = "/pages/terms-service",
                     Description = "Terms of Service",
                     Order = 5,
-                    
+
                     ImagePreviewId = null
-                }
+                },
+                // Promo Bar
+                new Link()
+                {
+                    LinkSectionId = 4,
+                    Id = 40,
+                    Title = "✨ New Arrivals Just Dropped!",
+                    Url = "#",
+                    Description = null,
+                    Order = 5,
+                    ImagePreviewId = null
+                },
+                new Link()
+                {
+                    LinkSectionId = 4,
+                    Id = 41,
+                    Title = "🔥 Summer Sale — Up to 60% OFF!",
+                    Url = "#",
+                    Description = null,
+                    Order = 5,
+                    ImagePreviewId = null
+                },
+                new Link()
+                {
+                    LinkSectionId = 4,
+                    Id = 42,
+                    Title = "🎁 Use code WELCOME15 — 15% off!",
+                    Url = "#",
+                    Description = null,
+                    Order = 5,
+                    ImagePreviewId = null
+                },
+                new Link()
+                {
+                    LinkSectionId = 4,
+                    Id = 43,
+                    Title = "🎁 Use code WELCOME15 for 15% off your first order",
+                    Url = "#",
+                    Description = null,
+                    Order = 5,
+                    ImagePreviewId = null
+                },
+                // Deal Ticker
+                new Link()
+                {
+                    LinkSectionId = 5,
+                    Id = 51,
+                    Title = "🔥 Flash Sale: Up to 60% OFF Electronics",
+                    Url = "#",
+                    Description = null,
+                    Order = 5,
+                    ImagePreviewId = null
+                },
+                 new Link()
+                 {
+                     LinkSectionId = 5,
+                     Id = 52,
+                     Title = "🚚 Free Shipping on Orders Over $50",
+                     Url = "#",
+                     Description = null,
+                     Order = 5,
+                     ImagePreviewId = null
+                 },
+                 new Link()
+                 {
+                     LinkSectionId = 5,
+                     Id = 53,
+                     Title = "🎁 Use Code WELCOME15 for 15% Off",
+                     Url = "#",
+                     Description = null,
+                     Order = 5,
+                     ImagePreviewId = null
+                 },
+                 new Link()
+                 {
+                     LinkSectionId = 5,
+                     Id = 54,
+                     Title = "⚡ New Arrivals Just Dropped — Shop Now",
+                     Url = "#",
+                     Description = null,
+                     Order = 5,
+                     ImagePreviewId = null
+                 },
+                 new Link()
+                 {
+                     LinkSectionId = 5,
+                     Id = 55,
+                     Title = "💎 Premium Collection — Exclusive Deals",
+                     Url = "#",
+                     Description = null,
+                     Order = 5,
+                     ImagePreviewId = null
+                 },
+                 new Link()
+                 {
+                     LinkSectionId = 5,
+                     Id = 56,
+                     Title = "🔄 Easy 30-Day Returns on All Orders",
+                     Url = "#",
+                     Description = null,
+                     Order = 5,
+                     ImagePreviewId = null
+                 },
+                 new Link()
+                 {
+                     LinkSectionId = 5,
+                     Id = 57,
+                     Title = "⭐ 50K+ Happy Customers Worldwide",
+                     Url = "#",
+                     Description = null,
+                     Order = 5,
+                     ImagePreviewId = null
+                 },
+                 new Link()
+                 {
+                     LinkSectionId = 5,
+                     Id = 58,
+                     Title = "🔒 100% Secure Checkout — SSL Encrypted",
+                     Url = "#",
+                     Description = null,
+                     Order = 5,
+                     ImagePreviewId = null
+                 }
             );
 
         }

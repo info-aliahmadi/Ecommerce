@@ -33,6 +33,18 @@ namespace Hydra.Cms.Core.EntityConfiguration
                 Title = "Company",
                 Key = "company",
                 IsVisible = true,
+            }, new LinkSection()
+            {
+                Id = 4,
+                Title = "Promo Bar",
+                Key = "promobar",
+                IsVisible = true,
+            }, new LinkSection()
+            {
+                Id = 5,
+                Title = "Deal Ticker",
+                Key = "dealticker",
+                IsVisible = true,
             });
         }
     }
