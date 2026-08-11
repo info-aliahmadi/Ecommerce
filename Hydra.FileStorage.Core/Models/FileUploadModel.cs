@@ -42,7 +42,7 @@ namespace Hydra.FileStorage.Core.Models
                 return $"/{Directory}{FileName}";
             }
         }
-        public string ThumbnailPath
+        public string ThumbnailFullPath
         {
             get
             {

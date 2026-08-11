@@ -10,8 +10,6 @@ using Hydra.Kernel.GeneralModels;
 using Hydra.Kernel.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
 using System.IO;
 
 namespace Hydra.FileStorage.Api.Services
@@ -706,7 +704,7 @@ namespace Hydra.FileStorage.Api.Services
                     return result;
                 }
 
-         
+
 
                 var extension = Path.GetExtension(base64File.FileName).ToLowerInvariant();
                 var directory = GetDirectory(extension);
@@ -825,44 +823,24 @@ namespace Hydra.FileStorage.Api.Services
         public string? GenerateThumbnail(FileInfo fileInfo)
         {
             var imagesExtension = _fileStorageSetting.ImagesExtensions.Split(',');
-            var videoExtension = _fileStorageSetting.VideosExtensions.Split(',');
 
             if (imagesExtension.Contains(fileInfo.Extension))
             {
-
                 var thumbnailSize = _fileStorageSetting.ImageThumbnailSize;
+                var relativeThumbnailPath = Path.GetFileNameWithoutExtension(fileInfo.FullName) + "-Thumb.jpg";
+                var outputFile = fileInfo.Directory + @"\" + relativeThumbnailPath;
 
-                var extension = fileInfo.Extension;
-                var fileNameOnly = fileInfo.Name.Substring(0, fileInfo.Name.Length - extension.Length);
+                HydraHelper.SaveThumbnail(fileInfo.FullName, outputFile, thumbnailSize, thumbnailSize);
 
-                SixLabors.ImageSharp.Image image = SixLabors.ImageSharp.Image.Load(fileInfo.FullName);
-
-                var imageHeight = image.Height;
-                var imageWidth = image.Width;
-
-                if (imageHeight > imageWidth)
-                {
-                    imageWidth = (int)((float)imageWidth / (float)imageHeight * thumbnailSize);
-                    imageHeight = thumbnailSize;
-                }
-                else
-                {
-                    imageHeight = (int)((float)imageHeight / (float)imageWidth * thumbnailSize);
-                    imageWidth = thumbnailSize;
-                }
-
-                image.Mutate(x => x.Resize(imageWidth, imageHeight, KnownResamplers.Lanczos3));
-
-                var newSImageName = fileNameOnly + "-Thumb.png";
-
-                image.SaveAsPng(fileInfo.Directory + "/" + newSImageName);
-                image.Dispose();
-                return newSImageName;
+                return relativeThumbnailPath;
             }
-            else if (videoExtension.Contains(fileInfo.Extension))
+
+            var videoExtension = _fileStorageSetting.VideosExtensions.Split(',');
+
+            if (videoExtension.Contains(fileInfo.Extension))
             {
                 var extension = fileInfo.Extension;
-                var fileNameOnly = fileInfo.Name.Substring(0, fileInfo.Name.Length - extension.Length);
+                var fileNameOnly = Path.GetFileNameWithoutExtension(fileInfo.FullName);
                 var newSVideoName = fileNameOnly + "-Thumb.jpg";
                 var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
                 ffMpeg.GetVideoThumbnail(fileInfo.FullName, fileInfo.Directory + @"\" + newSVideoName, 3.0f);
