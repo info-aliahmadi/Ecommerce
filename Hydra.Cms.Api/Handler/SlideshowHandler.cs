@@ -17,17 +17,9 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetPublishedSlideshow(ISlideshowService _slideshowService)
         {
-            try
-            {
-                var result = await _slideshowService.GetPublishedSlideshow();
+            var result = await _slideshowService.GetPublishedSlideshow();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -38,17 +30,9 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(ISlideshowService _slideshowService)
         {
-            try
-            {
-                var result = await _slideshowService.GetList();
+            var result = await _slideshowService.GetList();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -65,7 +49,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _slideshowService.GetById(slideshowId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -79,19 +63,11 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] SlideshowModel slideshowModel
             )
         {
-            try
-            {
-                var userId = userClaim.GetUserId();
-                slideshowModel.UserId = userId;
-                var result = await _slideshowService.Add(slideshowModel);
+            var userId = userClaim.GetUserId();
+            slideshowModel.UserId = userId;
+            var result = await _slideshowService.Add(slideshowModel);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -105,24 +81,15 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] List<SlideshowModel> slideshowModelList
             )
         {
-            try
+            var userId = userClaim.GetUserId();
+            foreach (var slideshowModel in slideshowModelList.Where(x => x.IsVisible))
             {
-                var userId = userClaim.GetUserId();
-                foreach (var slideshowModel in slideshowModelList.Where(x => x.IsVisible))
-                {
-                    slideshowModel.UserId = userId;
-                }
-
-                var result = await _slideshowService.UpdateOrder(slideshowModelList);
-
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
+                slideshowModel.UserId = userId;
             }
 
+            var result = await _slideshowService.UpdateOrder(slideshowModelList);
 
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -136,20 +103,11 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] SlideshowModel slideshowModel
             )
         {
-            try
-            {
-                var userId = userClaim.GetUserId();
-                slideshowModel.UserId = userId;
-                var result = await _slideshowService.Update(slideshowModel);
+            var userId = userClaim.GetUserId();
+            slideshowModel.UserId = userId;
+            var result = await _slideshowService.Update(slideshowModel);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
-
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -159,17 +117,9 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> VisibleSlideshow(ISlideshowService _slideshowService, int slideshowId)
         {
-            try
-            {
-                var result = await _slideshowService.Visible(slideshowId);
+            var result = await _slideshowService.Visible(slideshowId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -179,17 +129,10 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteSlideshow(ISlideshowService _slideshowService, int slideshowId)
         {
-            try
-            {
-                var result = await _slideshowService.Delete(slideshowId);
+            var result = await _slideshowService.Delete(slideshowId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }

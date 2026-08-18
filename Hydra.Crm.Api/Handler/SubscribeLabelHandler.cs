@@ -18,15 +18,8 @@ namespace Hydra.Crm.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(ISubscribeLabelService subscribeLabelService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await subscribeLabelService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await subscribeLabelService.GetList(dataGrid);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -36,17 +29,8 @@ namespace Hydra.Crm.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetListForSelect(ISubscribeLabelService labelService)
         {
-            try
-            {
-                var result = await labelService.GetListForSelect();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            var result = await labelService.GetListForSelect();
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -57,7 +41,7 @@ namespace Hydra.Crm.Api.Handler
         public static async Task<IResult> GetSubscribeLabelById(ISubscribeLabelService subscribeLabelService, int subscribeLabelId)
         {
             var result = await subscribeLabelService.GetById(subscribeLabelId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -70,7 +54,7 @@ namespace Hydra.Crm.Api.Handler
         public static async Task<IResult> AddSubscribeLabel(ClaimsPrincipal userClaim, ISubscribeLabelService subscribeLabelService, [FromBody] SubscribeLabelModel subscribelabelModel)
         {
             var result = await subscribeLabelService.Add(subscribelabelModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -83,7 +67,7 @@ namespace Hydra.Crm.Api.Handler
         public static async Task<IResult> UpdateSubscribeLabel(ClaimsPrincipal userClaim, ISubscribeLabelService subscribeLabelService, [FromBody] SubscribeLabelModel subscribelabelModel)
         {
             var result = await subscribeLabelService.Update(subscribelabelModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -94,15 +78,8 @@ namespace Hydra.Crm.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteSubscribeLabel(ISubscribeLabelService subscribeLabelService, int subscribeLabelId)
         {
-            try
-            {
-                var result = await subscribeLabelService.Delete(subscribeLabelId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await subscribeLabelService.Delete(subscribeLabelId);
+            return Results.Ok(result);
         }
 
     }

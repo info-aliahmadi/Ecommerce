@@ -23,7 +23,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _roleService.AssignPermissionToRoleAsync(permissionId, roleId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
 
@@ -42,7 +42,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _roleService.DismissPermissionToRoleAsync(permissionId, roleId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -55,7 +55,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _roleService.GetList(dataGrid);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _roleService.GetAllRoles();
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _roleService.GetById(roleId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _roleService.Add(roleModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _roleService.Update(roleModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -131,7 +131,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _roleService.Delete(roleId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
 

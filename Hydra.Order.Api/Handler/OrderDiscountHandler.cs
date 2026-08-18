@@ -18,15 +18,9 @@ namespace Hydra.Order.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IOrderDiscountService orderDiscountService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await orderDiscountService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await orderDiscountService.GetList(dataGrid);
+            return Results.Ok(result);
+
         }
 
         /// <summary>
@@ -38,7 +32,7 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> GetOrderDiscountById(IOrderDiscountService orderDiscountService, int orderDiscountId)
         {
             var result = await orderDiscountService.GetById(orderDiscountId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -51,7 +45,7 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> AddOrderDiscount(ClaimsPrincipal userClaim, IOrderDiscountService orderDiscountService, [FromBody] OrderDiscountModel orderDiscountModel)
         {
             var result = await orderDiscountService.Add(orderDiscountModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -64,7 +58,7 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> UpdateOrderDiscount(ClaimsPrincipal userClaim, IOrderDiscountService orderDiscountService, [FromBody] OrderDiscountModel orderDiscountModel)
         {
             var result = await orderDiscountService.Update(orderDiscountModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -75,15 +69,8 @@ namespace Hydra.Order.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteOrderDiscount(IOrderDiscountService orderDiscountService, int orderDiscountId)
         {
-            try
-            {
-                var result = await orderDiscountService.Delete(orderDiscountId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await orderDiscountService.Delete(orderDiscountId);
+            return Results.Ok(result);
         }
 
     }

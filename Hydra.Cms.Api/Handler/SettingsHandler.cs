@@ -15,17 +15,9 @@ namespace Hydra.Cms.Api.Handler
         public static IResult GetSettings(
              ISiteSettingsService _settingService)
         {
-            try
-            {
-                var result = _settingService.GetSettings();
+            var result = _settingService.GetSettings();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -36,17 +28,9 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static IResult AddOrUpdateSettings(ISiteSettingsService _settingService, [FromBody] SiteSettingsModel siteSettingsModel)
         {
-            try
-            {
-                var result = _settingService.AddOrUpdate(siteSettingsModel);
+            var result = _settingService.AddOrUpdate(siteSettingsModel);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 

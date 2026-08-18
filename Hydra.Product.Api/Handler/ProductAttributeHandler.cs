@@ -18,16 +18,9 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetPublishedAttributeByAttributeType(IProductAttributeService productAttributeService, string attributeTypes)
         {
-            try
-            {
                 var attributeTypesEnums = attributeTypes.Split(',').Select(x=>(AttributeType)int.Parse(x)).ToArray();
                 var result = productAttributeService.GetPublishedAttributeByAttributeTypesList(attributeTypesEnums);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
         /// <summary>
         ///
@@ -37,15 +30,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetPublishedProductAttributes(IProductAttributeService productAttributeService)
         {
-            try
-            {
                 var result = productAttributeService.GetPublishedProductAttributesList();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
 
         /// <summary>
@@ -56,15 +42,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IProductAttributeService productAttributeService)
         {
-            try
-            {
                 var result = productAttributeService.GetList();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
 
         /// <summary>
@@ -75,15 +54,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static IResult GetListForSelect(IProductAttributeService productAttributeService)
         {
-            try
-            {
                 var result = productAttributeService.GetListForSelect();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
         /// <summary>
         ///
@@ -94,7 +66,7 @@ namespace Hydra.Product.Api.Handler
         public static IResult GetProductAttributeById(IProductAttributeService productAttributeService, int productAttributeId)
         {
             var result = productAttributeService.GetById(productAttributeId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -107,7 +79,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> AddProductAttribute(ClaimsPrincipal userClaim, IProductAttributeService productAttributeService, [FromBody] ProductAttributeModel productAttributeModel)
         {
             var result = await productAttributeService.Add(productAttributeModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -120,7 +92,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> UpdateProductAttribute(ClaimsPrincipal userClaim, IProductAttributeService productAttributeService, [FromBody] ProductAttributeModel productAttributeModel)
         {
             var result = await productAttributeService.Update(productAttributeModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -131,15 +103,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteProductAttribute(IProductAttributeService productAttributeService, int productAttributeId)
         {
-            try
-            {
                 var result = await productAttributeService.Delete(productAttributeId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
 
     }

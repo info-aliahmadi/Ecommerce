@@ -18,17 +18,9 @@ namespace Hydra.Cms.Api.Handler
         public static async Task<IResult> GetList(
              ILinkSectionService _linkSectionService)
         {
-            try
-            {
-                var result = await _linkSectionService.GetList();
+            var result = await _linkSectionService.GetList();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -45,7 +37,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _linkSectionService.GetById(linkSectionId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -63,7 +55,7 @@ namespace Hydra.Cms.Api.Handler
             var userId = userClaim.GetUserId();
             var result = await _linkSectionService.Add(linkSectionModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -81,7 +73,7 @@ namespace Hydra.Cms.Api.Handler
             var userId = userClaim.GetUserId();
             var result = await _linkSectionService.Update(linkSectionModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -92,17 +84,10 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> VisibleLinkSection(ILinkSectionService _linkSectionService, int linkSectionId)
         {
-            try
-            {
-                var result = await _linkSectionService.Visible(linkSectionId);
+            var result = await _linkSectionService.Visible(linkSectionId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
         /// <summary>
@@ -116,17 +101,10 @@ namespace Hydra.Cms.Api.Handler
             int linkSectionId
             )
         {
-            try
-            {
-                var result = await _linkSectionService.Delete(linkSectionId);
+            var result = await _linkSectionService.Delete(linkSectionId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }

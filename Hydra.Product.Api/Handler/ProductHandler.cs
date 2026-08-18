@@ -10,7 +10,7 @@ namespace Hydra.Product.Api.Handler
 {
     public static class ProductHandler
     {
-        
+
         /// <summary>
         /// Retrieves a list of products that match the specified filter criteria.
         /// </summary>
@@ -22,15 +22,9 @@ namespace Hydra.Product.Api.Handler
         /// error details if it fails.</returns>
         public static async Task<IResult> GetPublishedProducts(IProductService productService, ProductFilterDisplayModel productFilter)
         {
-            try
-            {
-                var result = await productService.GetPublishedProducts(productFilter);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await productService.GetPublishedProducts(productFilter);
+            return Results.Ok(result);
+
         }
 
         /// <summary>
@@ -44,15 +38,8 @@ namespace Hydra.Product.Api.Handler
         /// error details if it fails.</returns>
         public static async Task<IResult> GetPublishedCuratedStyleProducts(IProductService productService)
         {
-            try
-            {
-                var result = await productService.GetPublishedCuratedStyleProducts();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await productService.GetPublishedCuratedStyleProducts();
+            return Results.Ok(result);
         }
 
 
@@ -67,15 +54,8 @@ namespace Hydra.Product.Api.Handler
         /// error details if it fails.</returns>
         public static async Task<IResult> GetPublishedProductById(IProductService productService, int productId)
         {
-            try
-            {
-                var result = await productService.GetPublishedProductById(productId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await productService.GetPublishedProductById(productId);
+            return Results.Ok(result);
         }
 
 
@@ -87,15 +67,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IProductService productService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await productService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await productService.GetList(dataGrid);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -107,7 +80,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> GetProductById(IProductService productService, int productId)
         {
             var result = await productService.GetById(productId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
 
@@ -122,7 +95,7 @@ namespace Hydra.Product.Api.Handler
             var Ids = productIds.Split(',').Select(x => int.Parse(x)).ToArray();
 
             var result = await productService.GetByIds(Ids);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -134,7 +107,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> GetProductsByInput(IProductService productService, string input)
         {
             var result = await productService.GetProductsByInput(input);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -162,7 +135,7 @@ namespace Hydra.Product.Api.Handler
             var userId = userClaim.GetUserId();
             productModel.CreateUserId = userId;
             var result = await productService.Add(productModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -178,7 +151,7 @@ namespace Hydra.Product.Api.Handler
             productModel.UpdateUserId = userId;
 
             var result = await productService.Update(productModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -189,15 +162,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteProduct(IProductService productService, int productId)
         {
-            try
-            {
-                var result = await productService.Delete(productId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await productService.Delete(productId);
+            return Results.Ok(result);
         }
         /// <summary>
         ///
@@ -207,15 +173,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> RemoveProduct(IProductService productService, int productId)
         {
-            try
-            {
-                var result = await productService.Remove(productId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await productService.Remove(productId);
+            return Results.Ok(result);
         }
 
     }

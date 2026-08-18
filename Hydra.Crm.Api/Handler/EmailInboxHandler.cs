@@ -22,7 +22,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailInboxService.LoadEmailInbox(userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
 
         }
@@ -37,7 +37,7 @@ namespace Hydra.Crm.Api.Handler
         {
             var result = await _emailInboxService.GetAllEmailInbox(dataGrid);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
 
         }
@@ -56,7 +56,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailInboxService.GetInbox(dataGrid, currentEmail);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -73,7 +73,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailInboxService.GetDeletedInbox(dataGrid, currentEmail);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
 
@@ -91,7 +91,7 @@ namespace Hydra.Crm.Api.Handler
             var result = await _emailInboxService.GetById(emailInboxId);
 
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailInboxService.GetByIdForReceiver(emailInboxId, currentEmail);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailInboxService.Delete(emailInboxId, currentEmail);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -142,7 +142,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailInboxService.Restore(emailInboxId, currentEmail);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
 
@@ -160,7 +160,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailInboxService.Pin(emailInboxId, currentEmail);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -177,7 +177,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailInboxService.Read(emailInboxId, currentEmail);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -194,7 +194,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailInboxService.Remove(emailInboxId, currentEmail);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
     }

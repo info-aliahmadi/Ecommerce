@@ -19,7 +19,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _permissionService.GetList(dataGrid);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return  Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -32,7 +32,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _permissionService.GetPermissionsByName(name);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _permissionService.GetById(permissionId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -64,7 +64,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _permissionService.Add(permissionModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _permissionService.Update(permissionModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -95,7 +95,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _permissionService.Delete(permissionId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
     }

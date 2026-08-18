@@ -17,15 +17,8 @@ namespace Hydra.Product.Api.Handler
         /// published product tags if successful; otherwise, an HTTP 400 response with error details.</returns>
         public static IResult GetPublishedList(IProductTagService productTagService)
         {
-            try
-            {
-                var result = productTagService.GetPublishedList();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = productTagService.GetPublishedList();
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -36,15 +29,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IProductTagService productTagService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await productTagService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await productTagService.GetList(dataGrid);
+            return Results.Ok(result);
         }
         /// <summary>
         ///
@@ -54,15 +40,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetListForSelect(IProductTagService productTagService)
         {
-            try
-            {
-                var result = await productTagService.GetListForSelect();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await productTagService.GetListForSelect();
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -74,7 +53,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> GetProductTagById(IProductTagService productTagService, int productTagId)
         {
             var result = await productTagService.GetById(productTagId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -87,7 +66,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> AddProductTag(ClaimsPrincipal userClaim, IProductTagService productTagService, [FromBody] ProductTagModel productTagModel)
         {
             var result = await productTagService.Add(productTagModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -100,7 +79,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> UpdateProductTag(ClaimsPrincipal userClaim, IProductTagService productTagService, [FromBody] ProductTagModel productTagModel)
         {
             var result = await productTagService.Update(productTagModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -111,15 +90,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteProductTag(IProductTagService productTagService, int productTagId)
         {
-            try
-            {
-                var result = await productTagService.Delete(productTagId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await productTagService.Delete(productTagId);
+            return Results.Ok(result);
         }
 
     }

@@ -23,7 +23,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _pageService.GetById(pageId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -35,17 +35,9 @@ namespace Hydra.Cms.Api.Handler
         public static async Task<IResult> GetList(
              IPageService _pageService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await _pageService.GetList(dataGrid);
+            var result = await _pageService.GetList(dataGrid);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -62,7 +54,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _pageService.GetById(pageId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -81,7 +73,7 @@ namespace Hydra.Cms.Api.Handler
             pageModel.WriterId = userId;
             var result = await _pageService.Add(pageModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -100,9 +92,9 @@ namespace Hydra.Cms.Api.Handler
             pageModel.EditorId = userId;
             var result = await _pageService.Update(pageModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
-      
+
         /// <summary>
         /// 
         /// </summary>
@@ -114,17 +106,10 @@ namespace Hydra.Cms.Api.Handler
             int pageId
             )
         {
-            try
-            {
-                var result = await _pageService.Delete(pageId);
+            var result = await _pageService.Delete(pageId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }

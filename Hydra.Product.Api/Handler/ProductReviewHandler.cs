@@ -59,15 +59,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IProductReviewService productReviewService, GridDataBound dataGrid)
         {
-            try
-            {
                 var result = await productReviewService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
 
         /// <summary>
@@ -79,7 +72,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> GetProductReviewById(IProductReviewService productReviewService, int productReviewId)
         {
             var result = await productReviewService.GetById(productReviewId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -92,7 +85,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> UpdateProductReview(ClaimsPrincipal userClaim, IProductReviewService productReviewService, [FromBody] ProductReviewModel productReviewModel)
         {
             var result = await productReviewService.Update(productReviewModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -103,15 +96,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteProductReview(IProductReviewService productReviewService, int productReviewId)
         {
-            try
-            {
                 var result = await productReviewService.Delete(productReviewId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
 
     }

@@ -19,17 +19,9 @@ namespace Hydra.Cms.Api.Handler
         public static async Task<IResult> GetList(
              IArticleService _articleService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await _articleService.GetList(dataGrid);
+            var result = await _articleService.GetList(dataGrid);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -46,17 +38,9 @@ namespace Hydra.Cms.Api.Handler
         public static async Task<IResult> GetListForVisitors(
              IArticleService _articleService, string? searchInput, string? categoryName, string? tagName, int pageIndex, int pageSize)
         {
-            try
-            {
-                var result = await _articleService.GetListForVisitors(searchInput, categoryName, tagName, pageIndex, pageSize);
+            var result = await _articleService.GetListForVisitors(searchInput, categoryName, tagName, pageIndex, pageSize);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -72,17 +56,9 @@ namespace Hydra.Cms.Api.Handler
         public static async Task<IResult> GetRelatedArticlesForVisitors(
              IArticleService _articleService, int articleId)
         {
-            try
-            {
-                var result = await _articleService.GetRelatedForVisitors(articleId, 3);
+            var result = await _articleService.GetRelatedForVisitors(articleId, 3);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -99,7 +75,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _articleService.GetTopForVisitors();
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -115,7 +91,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _articleService.GetByIdForVisitors(articleId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -127,17 +103,9 @@ namespace Hydra.Cms.Api.Handler
         public static async Task<IResult> GetTrashList(
              IArticleService _articleService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await _articleService.GetTrashList(dataGrid);
+            var result = await _articleService.GetTrashList(dataGrid);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -154,7 +122,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _articleService.GetById(articleId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -174,7 +142,7 @@ namespace Hydra.Cms.Api.Handler
             articleModel.WriterId = userId;
             var result = await _articleService.Add(articleModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -194,7 +162,7 @@ namespace Hydra.Cms.Api.Handler
             articleModel.EditorId = userId;
             var result = await _articleService.Update(articleModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -208,17 +176,10 @@ namespace Hydra.Cms.Api.Handler
             int articleId
             )
         {
-            try
-            {
-                var result = await _articleService.Pin(articleId);
+            var result = await _articleService.Pin(articleId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
         /// <summary>
@@ -232,17 +193,10 @@ namespace Hydra.Cms.Api.Handler
             int articleId
             )
         {
-            try
-            {
-                var result = await _articleService.Delete(articleId);
+            var result = await _articleService.Delete(articleId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
         /// <summary>
@@ -256,17 +210,10 @@ namespace Hydra.Cms.Api.Handler
             int articleId
             )
         {
-            try
-            {
-                var result = await _articleService.Restore(articleId);
+            var result = await _articleService.Restore(articleId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
         /// <summary>
@@ -280,17 +227,9 @@ namespace Hydra.Cms.Api.Handler
             int articleId
             )
         {
-            try
-            {
-                var result = await _articleService.Remove(articleId);
+            var result = await _articleService.Remove(articleId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
         }
 
     }

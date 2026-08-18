@@ -20,7 +20,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetList(ITaxRateService taxRateService, GridDataBound dataGrid)
         {
                 var result = await taxRateService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                return Results.Ok(result);
         }
 
 
@@ -32,7 +32,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetTaxRateListForSelect(ITaxRateService taxCategoryService)
         {
             var result = await taxCategoryService.GetTaxRateListForSelect();
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetTaxRateById(ITaxRateService taxRateService, int taxRateId)
         {
             var result = await taxRateService.GetById(taxRateId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> AddTaxRate(ClaimsPrincipal userClaim, ITaxRateService taxRateService, [FromBody] TaxRateModel taxRateModel)
         {
             var result = await taxRateService.Add(taxRateModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> UpdateTaxRate(ClaimsPrincipal userClaim, ITaxRateService taxRateService, [FromBody] TaxRateModel taxRateModel)
         {
             var result = await taxRateService.Update(taxRateModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> DeleteTaxRate(ITaxRateService taxRateService, int taxRateId)
         {
                 var result = await taxRateService.Delete(taxRateId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                return Results.Ok(result);
         }
 
     }

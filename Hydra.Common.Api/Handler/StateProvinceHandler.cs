@@ -19,7 +19,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetStateProvincesSelect(IStateProvinceService stateProvinceService, int countryId)
         {
             var result = await stateProvinceService.GetListForSelect(countryId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
 
@@ -32,7 +32,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetList(IStateProvinceService stateProvinceService, GridDataBound dataGrid)
         {
                 var result = await stateProvinceService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                return Results.Ok(result);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetStateProvinceById(IStateProvinceService stateProvinceService, int stateProvinceId)
         {
             var result = await stateProvinceService.GetById(stateProvinceId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> AddStateProvince(ClaimsPrincipal userClaim, IStateProvinceService stateProvinceService, [FromBody] StateProvinceModel stateProvinceModel)
         {
             var result = await stateProvinceService.Add(stateProvinceModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> UpdateStateProvince(ClaimsPrincipal userClaim, IStateProvinceService stateProvinceService, [FromBody] StateProvinceModel stateProvinceModel)
         {
             var result = await stateProvinceService.Update(stateProvinceModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> DeleteStateProvince(IStateProvinceService stateProvinceService, int stateProvinceId)
         {
                 var result = await stateProvinceService.Delete(stateProvinceId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                return Results.Ok(result);
         }
 
     }

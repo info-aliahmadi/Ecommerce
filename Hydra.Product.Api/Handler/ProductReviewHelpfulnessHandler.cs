@@ -18,15 +18,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IProductReviewHelpfulnessService productReviewHelpfulnessService, GridDataBound dataGrid)
         {
-            try
-            {
                 var result = await productReviewHelpfulnessService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
 
         /// <summary>
@@ -38,7 +31,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> GetProductReviewHelpfulnessById(IProductReviewHelpfulnessService productReviewHelpfulnessService, int productReviewHelpfulnessId)
         {
             var result = await productReviewHelpfulnessService.GetById(productReviewHelpfulnessId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -51,7 +44,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> AddProductReviewHelpfulness(ClaimsPrincipal userClaim, IProductReviewHelpfulnessService productReviewHelpfulnessService, [FromBody] ProductReviewHelpfulnessModel productReviewHelpfulnessModel)
         {
             var result = await productReviewHelpfulnessService.Add(productReviewHelpfulnessModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -64,7 +57,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> UpdateProductReviewHelpfulness(ClaimsPrincipal userClaim, IProductReviewHelpfulnessService productReviewHelpfulnessService, [FromBody] ProductReviewHelpfulnessModel productReviewHelpfulnessModel)
         {
             var result = await productReviewHelpfulnessService.Update(productReviewHelpfulnessModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -75,15 +68,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteProductReviewHelpfulness(IProductReviewHelpfulnessService productReviewHelpfulnessService, int productReviewHelpfulnessId)
         {
-            try
-            {
                 var result = await productReviewHelpfulnessService.Delete(productReviewHelpfulnessId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
 
     }

@@ -18,7 +18,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetList(ITaxCategoryService taxCategoryService)
         {
                 var result = await taxCategoryService.GetList();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                return Results.Ok(result);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetTaxCategoryListForSelect(ITaxCategoryService taxCategoryService)
         {
                 var result = await taxCategoryService.GetTaxCategoryListForSelect();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                return Results.Ok(result);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetTaxCategoryById(ITaxCategoryService taxCategoryService, int taxCategoryId)
         {
             var result = await taxCategoryService.GetById(taxCategoryId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> AddTaxCategory(ClaimsPrincipal userClaim, ITaxCategoryService taxCategoryService, [FromBody] TaxCategoryModel taxCategoryModel)
         {
             var result = await taxCategoryService.Add(taxCategoryModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> UpdateTaxCategory(ClaimsPrincipal userClaim, ITaxCategoryService taxCategoryService, [FromBody] TaxCategoryModel taxCategoryModel)
         {
             var result = await taxCategoryService.Update(taxCategoryModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> DeleteTaxCategory(ITaxCategoryService taxCategoryService, int taxCategoryId)
         {
                 var result = await taxCategoryService.Delete(taxCategoryId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                return Results.Ok(result);
         }
 
     }

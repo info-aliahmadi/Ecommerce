@@ -16,8 +16,8 @@ namespace Hydra.Order.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IOrderItemService orderItemService, [FromQuery] int orderId)
         {
-                var result = await orderItemService.GetListByOrderId(orderId);
-                return Results.Ok(result);
+            var result = await orderItemService.GetListByOrderId(orderId);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> GetOrderItemById(IOrderItemService orderItemService, int orderItemId)
         {
             var result = await orderItemService.GetById(orderItemId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> AddOrderItem(ClaimsPrincipal userClaim, IOrderItemService orderItemService, [FromBody] OrderItemModel orderItemModel)
         {
             var result = await orderItemService.Add(orderItemModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> UpdateOrderItem(ClaimsPrincipal userClaim, IOrderItemService orderItemService, [FromBody] OrderItemModel orderItemModel)
         {
             var result = await orderItemService.Update(orderItemModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -66,15 +66,8 @@ namespace Hydra.Order.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteOrderItem(IOrderItemService orderItemService, int orderItemId)
         {
-            try
-            {
-                var result = await orderItemService.Delete(orderItemId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await orderItemService.Delete(orderItemId);
+            return Results.Ok(result);
         }
 
     }

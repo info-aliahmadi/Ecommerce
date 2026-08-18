@@ -15,7 +15,7 @@ namespace Hydra.Crm.Api.Handler
         {
             var result = _messageSettingsService.GetSettings();
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Hydra.Crm.Api.Handler
         {
             var result = _messageSettingsService.AddOrUpdate(messageSettingModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
     }

@@ -16,7 +16,6 @@
 		<PackageReference Include="EFCoreSecondLevelCacheInterceptor.MemoryCache" />
 		<PackageReference Include="Hangfire.Core" />
 		<PackageReference Include="Hangfire.PostgreSql" />
-		<PackageReference Include="InstagramApiSharp" />
 		<PackageReference Include="MailKit" />
 		<PackageReference Include="Microsoft.Extensions.Identity.Core" />
 		<PackageReference Include="Microsoft.Extensions.Identity.Stores" />
@@ -26,7 +25,6 @@
 		<PackageReference Include="Serilog.AspNetCore" />
 		<PackageReference Include="Serilog.Exceptions" />
 		<PackageReference Include="Serilog.Sinks.Debug" />
-		<PackageReference Include="Serilog.Sinks.Elasticsearch" />
 		<PackageReference Include="Serilog.Sinks.SQLite" />
 		<PackageReference Include="Swashbuckle.AspNetCore" />
 		<PackageReference Include="Twilio" />

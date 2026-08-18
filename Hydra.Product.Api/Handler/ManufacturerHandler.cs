@@ -19,15 +19,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetPublishedManufacturers(IManufacturerService manufacturerService)
         {
-            try
-            {
-                var result = await manufacturerService.GetPublishedManufacturers();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await manufacturerService.GetPublishedManufacturers();
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -38,15 +31,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IManufacturerService manufacturerService)
         {
-            try
-            {
-                var result = await manufacturerService.GetManufacturersList();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await manufacturerService.GetManufacturersList();
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -57,15 +43,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetListForSelect(IManufacturerService manufacturerService)
         {
-            try
-            {
-                var result = await manufacturerService.GetListForSelect();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await manufacturerService.GetListForSelect();
+            return Results.Ok(result);
         }
         /// <summary>
         ///
@@ -76,7 +55,7 @@ namespace Hydra.Product.Api.Handler
         public static IResult GetManufacturerById(IManufacturerService manufacturerService, int manufacturerId)
         {
             var result = manufacturerService.GetById(manufacturerId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -89,7 +68,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> AddManufacturer(ClaimsPrincipal userClaim, IManufacturerService manufacturerService, [FromBody] ManufacturerModel manufacturerModel)
         {
             var result = await manufacturerService.Add(manufacturerModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -102,7 +81,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> UpdateManufacturer(ClaimsPrincipal userClaim, IManufacturerService manufacturerService, [FromBody] ManufacturerModel manufacturerModel)
         {
             var result = await manufacturerService.Update(manufacturerModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -116,18 +95,11 @@ namespace Hydra.Product.Api.Handler
             [FromBody] List<ManufacturerModel> manufacturerList
             )
         {
-            try
-            {
-                var userId = userClaim.GetUserId();
+            var userId = userClaim.GetUserId();
 
-                var result = await manufacturerService.UpdateOrder(manufacturerList);
+            var result = await manufacturerService.UpdateOrder(manufacturerList);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -138,15 +110,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteManufacturer(IManufacturerService manufacturerService, int manufacturerId)
         {
-            try
-            {
-                var result = await manufacturerService.Delete(manufacturerId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await manufacturerService.Delete(manufacturerId);
+            return Results.Ok(result);
         }
 
     }

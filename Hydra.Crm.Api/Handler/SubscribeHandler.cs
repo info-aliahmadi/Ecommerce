@@ -31,15 +31,8 @@ namespace Hydra.Crm.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(ISubscribeService subscribeService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await subscribeService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await subscribeService.GetList(dataGrid);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -51,7 +44,7 @@ namespace Hydra.Crm.Api.Handler
         public static async Task<IResult> GetSubscribeById(ISubscribeService subscribeService, long subscribeId)
         {
             var result = await subscribeService.GetById(subscribeId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -64,7 +57,7 @@ namespace Hydra.Crm.Api.Handler
         public static async Task<IResult> AddSubscribe(ClaimsPrincipal userClaim, ISubscribeService subscribeService, [FromBody] SubscribeModel subscribeModel)
         {
             var result = await subscribeService.Add(subscribeModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -77,7 +70,7 @@ namespace Hydra.Crm.Api.Handler
         public static async Task<IResult> UpdateSubscribe(ClaimsPrincipal userClaim, ISubscribeService subscribeService, [FromBody] SubscribeModel subscribeModel)
         {
             var result = await subscribeService.Update(subscribeModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -88,15 +81,8 @@ namespace Hydra.Crm.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteSubscribe(ISubscribeService subscribeService, long subscribeId)
         {
-            try
-            {
-                var result = await subscribeService.Delete(subscribeId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await subscribeService.Delete(subscribeId);
+            return Results.Ok(result);
         }
     }
 }

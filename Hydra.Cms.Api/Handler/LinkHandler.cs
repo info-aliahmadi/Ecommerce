@@ -18,20 +18,11 @@ namespace Hydra.Cms.Api.Handler
         public static async Task<IResult> GetList(
              ILinkService _linkService)
         {
-            try
-            {
-                var result = await _linkService.GetList();
+            var result = await _linkService.GetList();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -42,17 +33,9 @@ namespace Hydra.Cms.Api.Handler
              ILinkService _linkService,
             string sectionKey)
         {
-            try
-            {
-                var result = await _linkService.GetByKeyList(sectionKey);
+            var result = await _linkService.GetByKeyList(sectionKey);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -69,7 +52,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _linkService.GetById(linkId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -88,7 +71,7 @@ namespace Hydra.Cms.Api.Handler
             linkModel.UserId = userId;
             var result = await _linkService.Add(linkModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -107,7 +90,7 @@ namespace Hydra.Cms.Api.Handler
             linkModel.UserId = userId;
             var result = await _linkService.Update(linkModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -121,18 +104,11 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] List<LinkModel> linkModelList
             )
         {
-            try
-            {
-                var userId = userClaim.GetUserId();
+            var userId = userClaim.GetUserId();
 
-                var result = await _linkService.UpdateOrder(linkModelList);
+            var result = await _linkService.UpdateOrder(linkModelList);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -146,17 +122,10 @@ namespace Hydra.Cms.Api.Handler
             int linkId
             )
         {
-            try
-            {
-                var result = await _linkService.Delete(linkId);
+            var result = await _linkService.Delete(linkId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }

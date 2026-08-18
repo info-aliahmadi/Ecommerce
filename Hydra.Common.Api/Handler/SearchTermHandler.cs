@@ -19,7 +19,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetList(ISearchTermService searchTermService, GridDataBound dataGrid)
         {
                 var result = await searchTermService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                return Results.Ok(result);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetSearchTermById(ISearchTermService searchTermService, int searchTermId)
         {
             var result = await searchTermService.GetById(searchTermId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> AddSearchTerm(ClaimsPrincipal userClaim, ISearchTermService searchTermService, [FromBody] SearchTermModel searchTermModel)
         {
             var result = await searchTermService.Add(searchTermModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> UpdateSearchTerm(ClaimsPrincipal userClaim, ISearchTermService searchTermService, [FromBody] SearchTermModel searchTermModel)
         {
             var result = await searchTermService.Update(searchTermModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> DeleteSearchTerm(ISearchTermService searchTermService, int searchTermId)
         {
                 var result = await searchTermService.Delete(searchTermId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                return Results.Ok(result);
         }
 
     }

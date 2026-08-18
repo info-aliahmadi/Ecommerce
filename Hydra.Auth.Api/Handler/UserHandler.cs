@@ -18,18 +18,8 @@ namespace Hydra.Auth.Api.Handler
         public static async Task<IResult> GetList(
              IUserService _userService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await _userService.GetList(dataGrid);
-
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            var result = await _userService.GetList(dataGrid);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -41,18 +31,9 @@ namespace Hydra.Auth.Api.Handler
         public static async Task<IResult> GetListForSelect(
              IUserService _userService, [FromBody] string input)
         {
-            try
-            {
-                var result = await _userService.GetListForSelect(input);
+            var result = await _userService.GetListForSelect(input);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -64,18 +45,9 @@ namespace Hydra.Auth.Api.Handler
         public static async Task<IResult> GetListForSelectByIds(
              IUserService _userService, [FromBody] int[] userIds)
         {
-            try
-            {
-                var result = await _userService.GetListForSelectByIds(userIds);
+            var result = await _userService.GetListForSelectByIds(userIds);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -90,7 +62,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _userService.GetById(userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -106,7 +78,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _userService.Add(userModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -122,7 +94,7 @@ namespace Hydra.Auth.Api.Handler
         {
             var result = await _userService.Update(userModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -135,17 +107,9 @@ namespace Hydra.Auth.Api.Handler
             int userId
             )
         {
-            try
-            {
-                var result = await _userService.DeleteUser(userId);
+            var result = await _userService.DeleteUser(userId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
         }
 
     }

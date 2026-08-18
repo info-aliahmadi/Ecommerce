@@ -18,17 +18,10 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetMenu(IMenuService _menuService)
         {
-            try
-            {
-                var result = await _menuService.GetMenu();
+            var result = await _menuService.GetMenu();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
         /// <summary>
@@ -38,17 +31,9 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetMenusHierarchy(IMenuService _menuService)
         {
-            try
-            {
-                var result = await _menuService.GetHierarchy();
+            var result = await _menuService.GetHierarchy();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -65,7 +50,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _menuService.GetById(menuId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -79,19 +64,11 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] MenuModel menuModel
             )
         {
-            try
-            {
-                var userId = userClaim.GetUserId();
-                menuModel.UserId = userId;
-                var result = await _menuService.Add(menuModel);
+            var userId = userClaim.GetUserId();
+            menuModel.UserId = userId;
+            var result = await _menuService.Add(menuModel);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -105,22 +82,15 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] List<MenuModel> menuModelList
             )
         {
-            try
+            var userId = userClaim.GetUserId();
+            foreach (var menuModel in menuModelList.Where(x => x.isEdited))
             {
-                var userId = userClaim.GetUserId();
-                foreach (var menuModel in menuModelList.Where(x => x.isEdited))
-                {
-                    menuModel.UserId = userId;
-                }
-
-                var result = await _menuService.UpdateOrder(menuModelList);
-
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                menuModel.UserId = userId;
             }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+
+            var result = await _menuService.UpdateOrder(menuModelList);
+
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -134,20 +104,11 @@ namespace Hydra.Cms.Api.Handler
             [FromBody] MenuModel menuModel
             )
         {
-            try
-            {
-                var userId = userClaim.GetUserId();
-                menuModel.UserId = userId;
-                var result = await _menuService.Update(menuModel);
+            var userId = userClaim.GetUserId();
+            menuModel.UserId = userId;
+            var result = await _menuService.Update(menuModel);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
-
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -157,17 +118,10 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteMenu(IMenuService _menuService, int menuId)
         {
-            try
-            {
-                var result = await _menuService.Delete(menuId);
+            var result = await _menuService.Delete(menuId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }

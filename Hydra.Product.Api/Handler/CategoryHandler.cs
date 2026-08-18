@@ -19,18 +19,9 @@ namespace Hydra.Product.Api.Handler
         /// request result with error details.</returns>
         public static IResult GetPublishedCategories(ICategoryService _categoryService)
         {
-            try
-            {
-                var result = _categoryService.GetPublishedHerarchyCategories();
+            var result = _categoryService.GetPublishedHerarchyCategories();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
         /// <summary>
         /// Retrieves the list of published categories using the specified category service.
@@ -42,18 +33,9 @@ namespace Hydra.Product.Api.Handler
         /// request result with error details.</returns>
         public static IResult GetPublishedFeaturedCategories(ICategoryService _categoryService)
         {
-            try
-            {
-                var result = _categoryService.GetPublishedFeaturedHerarchyCategories();
+            var result = _categoryService.GetPublishedFeaturedHerarchyCategories();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -68,18 +50,9 @@ namespace Hydra.Product.Api.Handler
         /// with error details.</returns>
         public static IResult GetCategoryHierarchy(ICategoryService _categoryService)
         {
-            try
-            {
-                var result =  _categoryService.GetHierarchy();
+            var result = _categoryService.GetHierarchy();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -88,18 +61,9 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static IResult GetListForSelect(ICategoryService _categoryService)
         {
-            try
-            {
-                var result = _categoryService.GetListForSelect();
+            var result = _categoryService.GetListForSelect();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -110,15 +74,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static IResult GetList(ICategoryService categoryService)
         {
-            try
-            {
-                var result = categoryService.GetList();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = categoryService.GetList();
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -130,7 +87,7 @@ namespace Hydra.Product.Api.Handler
         public static IResult GetCategoryById(ICategoryService categoryService, int categoryId)
         {
             var result = categoryService.GetById(categoryId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -143,7 +100,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> AddCategory(ClaimsPrincipal userClaim, ICategoryService categoryService, [FromBody] CategoryModel categoryModel)
         {
             var result = await categoryService.Add(categoryModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -156,7 +113,7 @@ namespace Hydra.Product.Api.Handler
         public static async Task<IResult> UpdateCategory(ClaimsPrincipal userClaim, ICategoryService categoryService, [FromBody] CategoryModel categoryModel)
         {
             var result = await categoryService.Update(categoryModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
 
@@ -171,18 +128,11 @@ namespace Hydra.Product.Api.Handler
             [FromBody] List<CategoryModel> categoryList
             )
         {
-            try
-            {
-                var userId = userClaim.GetUserId();
-               
-                var result = await _menuService.UpdateOrder(categoryList);
+            var userId = userClaim.GetUserId();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await _menuService.UpdateOrder(categoryList);
+
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -193,15 +143,8 @@ namespace Hydra.Product.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteCategory(ICategoryService categoryService, int categoryId)
         {
-            try
-            {
-                var result = await categoryService.Delete(categoryId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await categoryService.Delete(categoryId);
+            return Results.Ok(result);
         }
 
     }

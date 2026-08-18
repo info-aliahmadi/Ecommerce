@@ -21,7 +21,7 @@ namespace Hydra.Crm.Api.Handler
         {
             var result = await _messageService.GetAllMessages(dataGrid);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.GetInbox(dataGrid, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
 
@@ -54,7 +54,7 @@ namespace Hydra.Crm.Api.Handler
         {
             var result = await _messageService.GetPublicInbox(dataGrid);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
 
@@ -73,7 +73,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.GetDeletedInbox(dataGrid, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
 
@@ -91,7 +91,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.GetSent(dataGrid, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
 
@@ -109,7 +109,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.GetDrafts(dataGrid, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
 
@@ -127,7 +127,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.GetDeletedSent(dataGrid, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
 
@@ -143,7 +143,7 @@ namespace Hydra.Crm.Api.Handler
         {
             var result = await _messageService.GetByIdForPublic(messageId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.GetByIdForReceiver(messageId, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.GetByIdForSender(messageId, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.Send(messageModel, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.Send(messageModel, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.Send(messageModel, 0);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.Send(messageModel, 0);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.SaveDraft(messageModel, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -329,7 +329,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.DeleteDraft(messageId, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -346,7 +346,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.Delete(messageId, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -363,7 +363,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.Restore(messageId, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
 
@@ -381,7 +381,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.Pin(messageId, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -398,7 +398,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.Read(messageId, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -415,7 +415,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _messageService.RemoveDraft(messageId, userId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
     }

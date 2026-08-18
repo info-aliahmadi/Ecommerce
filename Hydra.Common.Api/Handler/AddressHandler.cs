@@ -19,16 +19,9 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetUserAddresses(ClaimsPrincipal userClaim, IAddressService addressService)
         {
-            try
-            {
-                var userId = userClaim.GetUserId();
-                var result = await addressService.GetUserAddresses(userId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var userId = userClaim.GetUserId();
+            var result = await addressService.GetUserAddresses(userId);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -42,7 +35,7 @@ namespace Hydra.Common.Api.Handler
         {
             addressModel.UserId = userClaim.GetUserId();
             var result = await addressService.Add(addressModel);
-            return  Results.Ok(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -69,7 +62,7 @@ namespace Hydra.Common.Api.Handler
         {
             var userId = userClaim.GetUserId();
             var result = await addressService.SetAsDefault(userId, addressId);
-            return Results.Ok(result) ;
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -80,15 +73,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IAddressService addressService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await addressService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await addressService.GetList(dataGrid);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -100,7 +86,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetAddressById(IAddressService addressService, int addressId)
         {
             var result = await addressService.GetById(addressId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
 
@@ -112,15 +98,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteAddress(IAddressService addressService, int addressId)
         {
-            try
-            {
-                var result = await addressService.Delete(addressId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await addressService.Delete(addressId);
+            return Results.Ok(result);
         }
 
     }

@@ -22,7 +22,7 @@ namespace Hydra.Crm.Api.Handler
         {
             var result = await _emailOutboxService.GetAllEmailOutbox(dataGrid);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailOutboxService.GetOutbox(dataGrid, currentEmail);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
 
@@ -53,7 +53,7 @@ namespace Hydra.Crm.Api.Handler
         {
             var result = _emailOutboxService.GetAddressForSelect();
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -71,7 +71,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailOutboxService.GetByIdForSender(emailOutboxId, currentEmail);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+                return Results.Ok(result);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailOutboxService.Send(emailOutboxModel, fromUser, context);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
 
@@ -125,7 +125,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailOutboxService.SaveDraft(emailOutboxModel, fromUser);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Hydra.Crm.Api.Handler
 
             var result = await _emailOutboxService.Remove(emailOutboxId, currentEmail);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
         }
     }

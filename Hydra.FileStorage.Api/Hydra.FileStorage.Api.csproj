@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="NReco.VideoConverter" />
-    <PackageReference Include="SixLabors.ImageSharp" />
   </ItemGroup>
 
   <ItemGroup>

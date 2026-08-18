@@ -35,7 +35,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetList(IDiscountService discountService, GridDataBound dataGrid)
         {
             var result = await discountService.GetList(dataGrid);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetListForSelect(IDiscountService discountService)
         {
             var result = await discountService.GetListForSelect();
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetDiscountById(IDiscountService discountService, int discountId)
         {
             var result = await discountService.GetById(discountId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> AddDiscount(IDiscountService discountService, [FromBody] DiscountModel discountModel)
         {
             var result = await discountService.Add(discountModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> UpdateDiscount(ClaimsPrincipal userClaim, IDiscountService discountService, [FromBody] DiscountModel discountModel)
         {
             var result = await discountService.Update(discountModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> DeleteDiscount(IDiscountService discountService, int discountId)
         {
             var result = await discountService.Delete(discountId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
     }

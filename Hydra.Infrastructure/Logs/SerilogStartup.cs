@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Exceptions;
-using Serilog.Sinks.Elasticsearch;
-using System.Reflection;
 
 namespace Hydra.Infrastructure.Logs
 {
@@ -54,7 +52,7 @@ namespace Hydra.Infrastructure.Logs
             var provider = configuration["Logging:Provider"];
             if (provider == "Elastic")
             {
-                ElasticConfig(environment, configuration);
+                //ElasticConfig(environment, configuration);
             }
             else if (provider == "SQLight")
             {
@@ -103,22 +101,22 @@ namespace Hydra.Infrastructure.Logs
         /// </summary>
         /// <param name="environment"></param>
         /// <param name="configuration"></param>
-        private static void ElasticConfig(string? environment, IConfigurationRoot configuration)
-        {
-            Log.Logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .Enrich.WithExceptionDetails()
-                .WriteTo.Debug()
-                .WriteTo.Console()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(configuration["Logging:Configuration:Elastic:Uri"]))
-                {
-                    AutoRegisterTemplate = true,
-                    IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name?.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}"
-                })
-                .Enrich.WithProperty("Environment", environment)
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
-        }
+        //private static void ElasticConfig(string? environment, IConfigurationRoot configuration)
+        //{
+        //    Log.Logger = new LoggerConfiguration()
+        //        .Enrich.FromLogContext()
+        //        .Enrich.WithExceptionDetails()
+        //        .WriteTo.Debug()
+        //        .WriteTo.Console()
+        //        .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(configuration["Logging:Configuration:Elastic:Uri"]))
+        //        {
+        //            AutoRegisterTemplate = true,
+        //            IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name?.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}"
+        //        })
+        //        .Enrich.WithProperty("Environment", environment)
+        //        .ReadFrom.Configuration(configuration)
+        //        .CreateLogger();
+        //}
 
 
         /// <summary>

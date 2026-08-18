@@ -18,15 +18,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetCountryListForSelect(ICountryService countryService)
         {
-            try
-            {
                 var result = await countryService.GetCountryListForSelect();
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
 
         /// <summary>
@@ -38,7 +31,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> GetCountryById(ICountryService countryService, int countryId)
         {
             var result = await countryService.GetById(countryId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -51,7 +44,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> AddCountry(ClaimsPrincipal userClaim, ICountryService countryService, [FromBody] CountryModel countryModel)
         {
             var result = await countryService.Add(countryModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -64,7 +57,7 @@ namespace Hydra.Common.Api.Handler
         public static async Task<IResult> UpdateCountry(ClaimsPrincipal userClaim, ICountryService countryService, [FromBody] CountryModel countryModel)
         {
             var result = await countryService.Update(countryModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -75,15 +68,8 @@ namespace Hydra.Common.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteCountry(ICountryService countryService, int countryId)
         {
-            try
-            {
                 var result = await countryService.Delete(countryId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+                return Results.Ok(result);
         }
 
     }

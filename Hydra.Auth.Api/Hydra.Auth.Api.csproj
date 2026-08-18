@@ -6,6 +6,12 @@
 		<Nullable>enable</Nullable>
 		<OutputPath>$(SolutionDir)Hydra.Web/bin/$(Configuration)/$(OutDir)/</OutputPath>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Services\**" />
+	  <EmbeddedResource Remove="Services\**" />
+	  <None Remove="Services\**" />
+	</ItemGroup>
 	<!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="xcopy /y  &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Hydra.Web/$(OutDir)&quot;" />
 	</Target>-->
@@ -15,10 +21,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Hydra.Infrastructure\Hydra.Infrastructure.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Services\" />
 	</ItemGroup>
 	<!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="xcopy /y  &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Hydra.Web\$(OutDir)&quot;" />

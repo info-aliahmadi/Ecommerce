@@ -18,15 +18,8 @@ namespace Hydra.Order.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(IShipmentItemService shipmentItemService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await shipmentItemService.GetList(dataGrid);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await shipmentItemService.GetList(dataGrid);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -38,7 +31,7 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> GetShipmentItemById(IShipmentItemService shipmentItemService, int shipmentItemId)
         {
             var result = await shipmentItemService.GetById(shipmentItemId);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -51,7 +44,7 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> AddShipmentItem(ClaimsPrincipal userClaim, IShipmentItemService shipmentItemService, [FromBody] ShipmentItemModel shipmentItemModel)
         {
             var result = await shipmentItemService.Add(shipmentItemModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -64,7 +57,7 @@ namespace Hydra.Order.Api.Handler
         public static async Task<IResult> UpdateShipmentItem(ClaimsPrincipal userClaim, IShipmentItemService shipmentItemService, [FromBody] ShipmentItemModel shipmentItemModel)
         {
             var result = await shipmentItemService.Update(shipmentItemModel);
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -75,15 +68,8 @@ namespace Hydra.Order.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> DeleteShipmentItem(IShipmentItemService shipmentItemService, int shipmentItemId)
         {
-            try
-            {
-                var result = await shipmentItemService.Delete(shipmentItemId);
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            var result = await shipmentItemService.Delete(shipmentItemId);
+            return Results.Ok(result);
         }
 
     }

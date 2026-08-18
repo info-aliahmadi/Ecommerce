@@ -21,17 +21,10 @@ namespace Hydra.Cms.Api.Handler
         public static async Task<IResult> GetList(
              ITagService _tagService, GridDataBound dataGrid)
         {
-            try
-            {
-                var result = await _tagService.GetList(dataGrid);
+            var result = await _tagService.GetList(dataGrid);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
         /// <summary>
@@ -43,16 +36,9 @@ namespace Hydra.Cms.Api.Handler
         public static async Task<IResult> GetAllList(
              ITagService _tagService)
         {
-            try
-            {
-                var result = await _tagService.GetAllList();
+            var result = await _tagService.GetAllList();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -62,17 +48,9 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetListForSelect(ITagService _tagService)
         {
-            try
-            {
-                var result = await _tagService.GetListForSelect();
+            var result = await _tagService.GetListForSelect();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
 
@@ -89,7 +67,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _tagService.GetById(tagId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -106,7 +84,7 @@ namespace Hydra.Cms.Api.Handler
             var userId = userClaim.GetUserId();
             var result = await _tagService.Add(tagModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -123,7 +101,7 @@ namespace Hydra.Cms.Api.Handler
             var userId = userClaim.GetUserId();
             var result = await _tagService.Update(tagModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -137,17 +115,10 @@ namespace Hydra.Cms.Api.Handler
             )
         {
             var userId = userClaim.GetUserId();
-            try
-            {
-                var result = await _tagService.Delete(tagId);
+            var result = await _tagService.Delete(tagId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }

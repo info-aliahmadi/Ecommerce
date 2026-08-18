@@ -19,17 +19,9 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetTopicsHierarchy(ITopicService _topicService)
         {
-            try
-            {
-                var result = await _topicService.GetHierarchy();
+            var result = await _topicService.GetHierarchy();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
+            return Results.Ok(result);
 
         }
         /// <summary>
@@ -39,18 +31,9 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetListForSelect(ITopicService _topicService)
         {
-            try
-            {
-                var result = await _topicService.GetListForSelect();
+            var result = await _topicService.GetListForSelect();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -60,18 +43,9 @@ namespace Hydra.Cms.Api.Handler
         /// <returns></returns>
         public static async Task<IResult> GetList(ITopicService _topicService)
         {
-            try
-            {
-                var result = await _topicService.GetList();
+            var result = await _topicService.GetList();
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
-
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -87,7 +61,7 @@ namespace Hydra.Cms.Api.Handler
         {
             var result = await _topicService.GetById(topicId);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -105,7 +79,7 @@ namespace Hydra.Cms.Api.Handler
             topicModel.UserId = userId;
             var result = await _topicService.Add(topicModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
 
         /// <summary>
@@ -123,7 +97,7 @@ namespace Hydra.Cms.Api.Handler
             topicModel.UserId = userId;
             var result = await _topicService.Update(topicModel);
 
-            return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
         }
         /// <summary>
         /// 
@@ -137,17 +111,10 @@ namespace Hydra.Cms.Api.Handler
             )
         {
             var userId = userClaim.GetUserId();
-            try
-            {
-                var result = await _topicService.Delete(topicId);
+            var result = await _topicService.Delete(topicId);
 
-                return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+            return Results.Ok(result);
 
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
         }
 
     }
