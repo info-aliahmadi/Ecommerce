@@ -31,15 +31,15 @@ namespace Hydra.Kernel
         }
         public static string GetAvatarDirectory()
         {
-            return Directory.GetCurrentDirectory() + @"\\images\\avatar\\";
+            return Path.Combine(Directory.GetCurrentDirectory(), Directory.GetCurrentDirectory() + "images", "avatar");
         }
         public static string GetProductDirectory()
         {
-            return Directory.GetCurrentDirectory() + @"\\images\\product\\";
+            return Path.Combine(Directory.GetCurrentDirectory(), "images", "product");
         }
         public static string GetUploadsDirectory()
         {
-            return Directory.GetCurrentDirectory() + @"\\uploads\\";
+            return Path.Combine(Directory.GetCurrentDirectory(), "uploads");
         }
         public static void DirectorySearch(string dir)
         {

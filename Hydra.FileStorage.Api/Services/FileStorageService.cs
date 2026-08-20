@@ -374,12 +374,20 @@ namespace Hydra.FileStorage.Api.Services
         /// <param name="stream"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="contentType"></param>
+        /// <param name="stream"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<Result<FileUploadModel>> Upload(int userId, IFormFile fileForm, string uploadAction, CancellationToken cancellationToken = default)
         {
             var result = new Result<FileUploadModel>();
             try
             {
-
                 var stream = fileForm.OpenReadStream();
                 var validBuffer = new byte[64];
                 stream.Read(validBuffer, 0, validBuffer.Length);
@@ -399,17 +407,23 @@ namespace Hydra.FileStorage.Api.Services
                 }
                 var isExisted = IsDbExist(fileName);
 
+
                 if (isExisted && uploadAction != "Rename" && uploadAction != "Replace")
                 {
                     result.Status = ResultStatusEnum.ItsDuplicate;
                     result.Message = "The file Is already Existed";
                     return result;
                 }
+
+
                 var extension = Path.GetExtension(fileName).ToLowerInvariant();
+
+
                 var directory = GetDirectory(extension);
                 var fullDirectory = Path.Combine(uploadsPaths, directory);
 
                 var oldfileInfo = new FileInfo(Path.Combine(fullDirectory, fileName));
+
 
                 if (isExisted && uploadAction == "Rename")
                 {
@@ -418,12 +432,14 @@ namespace Hydra.FileStorage.Api.Services
 
                 var fileInfo = new FileInfo(Path.Combine(fullDirectory, fileName));
 
+
                 using (var fileStream = File.Create(fileInfo.FullName))
                 {
                     await stream.CopyToAsync(fileStream);
                 }
 
                 var registerDate = DateTime.UtcNow;
+
                 var thumbnail = GenerateThumbnail(fileInfo);
                 var uploadModel = new FileUploadModel();
                 if (isExisted && uploadAction == "Replace")
@@ -460,6 +476,7 @@ namespace Hydra.FileStorage.Api.Services
                     UploadDate = registerDate,
                     UserId = userId
                 };
+
                 await _commandRepository.InsertAsync(fileUpload);
 
                 await _commandRepository.SaveChangesAsync();
@@ -478,6 +495,8 @@ namespace Hydra.FileStorage.Api.Services
             }
             catch (Exception e)
             {
+                Console.WriteLine($"[UPLOAD ERROR] {e}");
+
                 result.Status = ResultStatusEnum.ExceptionThrowed;
                 result.Message = e.Message;
                 return result;
@@ -875,29 +894,31 @@ namespace Hydra.FileStorage.Api.Services
         }
 
         /// <summary>
+        /// 
         /// </summary>
-        /// <param name="objectId"></param>
+        /// <param name="extension"></param>
         /// <returns></returns>
         public string GetDirectory(string extension)
         {
             if (_fileStorageSetting.ImagesExtensions.Split(',').Contains(extension))
             {
-                return "images/";
+                return "images";
             }
             if (_fileStorageSetting.VideosExtensions.Split(',').Contains(extension))
             {
-                return "videos/";
+                return "videos";
             }
             if (_fileStorageSetting.AudioExtensions.Split(',').Contains(extension))
             {
-                return "audio/";
+                return "audio";
             }
             if (_fileStorageSetting.DocumentsExtensions.Split(',').Contains(extension))
             {
-                return "documents/";
+                return "documents";
             }
-            return "others/";
+            return "others";
         }
+
 
         /// <summary>
         /// </summary>
