@@ -527,14 +527,26 @@ namespace Hydra.Auth.Service
             var result = new Result();
             try
             {
+                Console.WriteLine("[SaveAvatarFile] : Start Method");
                 if (!string.IsNullOrEmpty(avatarFile))
                 {
+
+                    Console.WriteLine("[SaveAvatarFile] : avatarFile not null");
                     var fileBytes = HydraHelper.Base64FileToBytes( avatarFile);
+
+                    Console.WriteLine($"[fileBytes] : {fileBytes.RandomFileName}");
                     var fileName = fileBytes.RandomFileName;
-                    var avatarPath = HydraHelper.GetAvatarDirectory() + "{0}";
-                    File.WriteAllBytes(string.Format(avatarPath, fileName), fileBytes.FileBytes);
+                    var avatarPath = HydraHelper.GetAvatarDirectory();
+                    Console.WriteLine($"[avatarPath] : {avatarPath}");
+                    var fullPath = Path.Combine(avatarPath, fileName);
+                    Console.WriteLine($"[fullPath] : {fullPath}");
+
+                    File.WriteAllBytes(fullPath, fileBytes.FileBytes);
+
+                    Console.WriteLine($"[WriteAllBytes] : Finished");
                     if (!string.IsNullOrEmpty(oldAvatarName))
                     {
+                        Console.WriteLine($"[oldAvatarName] : oldAvatarName");
                         if (File.Exists(string.Format(avatarPath, oldAvatarName)))
                         {
                             File.Delete(string.Format(avatarPath, oldAvatarName));

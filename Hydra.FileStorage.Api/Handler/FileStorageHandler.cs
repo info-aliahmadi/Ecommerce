@@ -105,6 +105,8 @@ namespace Hydra.FileStorage.Api.Handler
         /// <param name="file"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+        [RequestSizeLimit(100 * 1024 * 1024)] // Allow up to 100MB
+        [RequestFormLimits(MultipartBodyLengthLimit = 100 * 1024 * 1024)]
         public static async Task<IResult> UploadFile(ClaimsPrincipal userClaim, IFileStorageService _fileStorageService, HttpContext _context, IFormFile file, CancellationToken cancellationToken)
         {
             var userId = userClaim.GetUserId();
@@ -112,7 +114,7 @@ namespace Hydra.FileStorage.Api.Handler
             var uploadAction = _context.Request.Headers["UploadAction"]; // none / Rename / Replace
             var result =
                 await _fileStorageService.Upload(userId, file, uploadAction, cancellationToken);
-            return result.Succeeded ? Results.Ok(result) : Results.StatusCode(((int)result.Status));
+            return result.Succeeded ? Results.Ok(result) : Results.Problem(result.Message);
         }
 
         /// <summary>

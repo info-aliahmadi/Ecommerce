@@ -1,3 +1,4 @@
+using Hydra.Kernel;
 using Hydra.Kernel.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -101,8 +102,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     UpdateUserId = null,
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number,
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE,
 
                 },
                 new Domain.Product
@@ -144,8 +145,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 },
                 new Domain.Product
                 {
@@ -186,8 +187,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 },
                 new Domain.Product
                 {
@@ -228,8 +229,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 },
                 new Domain.Product
                 {
@@ -270,8 +271,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 },
                 new Domain.Product
                 {
@@ -312,8 +313,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 },
                 new Domain.Product
                 {
@@ -354,8 +355,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 },
                 new Domain.Product
                 {
@@ -396,8 +397,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 },
                 new Domain.Product
                 {
@@ -438,8 +439,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 },
                 new Domain.Product
                 {
@@ -480,8 +481,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 },
                 new Domain.Product
                 {
@@ -522,8 +523,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 },
                 new Domain.Product
                 {
@@ -564,8 +565,8 @@ namespace Hydra.Ecommerce.Core.EntityConfiguration
                     CreatedOnUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     AvailableStartDateTimeUtc = DateTime.SpecifyKind(DateTime.Parse("2026-4-23"), DateTimeKind.Utc),
                     DeliveryDateType = Enums.DeliveryDateType.ThreeDays,
-                    CurrencyType = CurrencyType.Dollar,
-                    MeasureType = Enums.MeasureType.Number
+                    CurrencyType = DefaultSetting.DEFAULT_CURRENCY,
+                    MeasureType = DefaultSetting.DEFAULT_MEASURE
                 }
             );
 

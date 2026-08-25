@@ -13,10 +13,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="SkiaSharp" />
 		<PackageReference Include="EFCore.NamingConventions" />
 		<PackageReference Include="EFCoreSecondLevelCacheInterceptor" />
 		<PackageReference Include="Microsoft.Data.SqlClient" />
-		<PackageReference Include="SkiaSharp" />
 		<PackageReference Include="Microsoft.AspNetCore.Http" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />

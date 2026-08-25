@@ -39,14 +39,14 @@ namespace Hydra.FileStorage.Core.Models
         {
             get
             {
-                return $"/{Directory}{FileName}";
+                return $"/{Directory}/{FileName}";
             }
         }
         public string ThumbnailFullPath
         {
             get
             {
-                return $"/{Directory}{Thumbnail}";
+                return $"/{Directory}/{Thumbnail}";
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using Hydra.Kernel.Data;
-
+﻿
 namespace Hydra.Crm.Core.Models.Email
 {
     public record EmailInboxFromAddressModel
@@ -14,13 +13,13 @@ namespace Hydra.Crm.Core.Models.Email
         /// <summary>
         /// 
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
 
     }

@@ -45,8 +45,7 @@ namespace Hydra.Cms.Api.Services
                 ImagePreview = new FileUploadModel(link.ImagePreview),
                 LinkSectionId = link.LinkSectionId,
                 Order = link.Order,
-                UserId = link.UserId,
-                UserName = link.User.UserName ?? string.Empty,
+                UserName = link.User != null ? link.User.UserName : string.Empty
             }).OrderByDescending(x => x.Order).Cacheable().ToListAsync();
 
             result.Data = linkList;
@@ -63,7 +62,7 @@ namespace Hydra.Cms.Api.Services
         {
             var result = new Result<List<LinkModel>>();
 
-            var linkList = await _queryRepository.Table<Link>().Include(x => x.LinkSection).Where(x=>x.LinkSection.Key == sectionKey).Select(link => new LinkModel()
+            var linkList = await _queryRepository.Table<Link>().Include(x => x.LinkSection).Where(x => x.LinkSection.Key == sectionKey).Select(link => new LinkModel()
             {
                 Id = link.Id,
                 Description = link.Description,
@@ -72,7 +71,7 @@ namespace Hydra.Cms.Api.Services
                 ImagePreviewId = link.ImagePreviewId,
                 LinkSectionId = link.LinkSectionId,
                 Order = link.Order,
-                UserId = link.UserId
+                UserName = link.User != null ? link.User.UserName : ""
             }).OrderByDescending(x => x.Order).Cacheable().ToListAsync();
 
 
@@ -103,7 +102,7 @@ namespace Hydra.Cms.Api.Services
                 LinkSectionKey = link.LinkSection.Key,
                 Order = link.Order,
                 UserId = link.UserId,
-                UserName = link.User.UserName ?? ""
+                UserName = link.User != null ? link.User.UserName : ""
             };
 
             result.Data = linkModel;

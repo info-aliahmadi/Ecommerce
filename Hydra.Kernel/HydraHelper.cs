@@ -31,7 +31,7 @@ namespace Hydra.Kernel
         }
         public static string GetAvatarDirectory()
         {
-            return Path.Combine(Directory.GetCurrentDirectory(), Directory.GetCurrentDirectory() + "images", "avatar");
+            return Path.Combine(Directory.GetCurrentDirectory(), "images", "avatar");
         }
         public static string GetProductDirectory()
         {
@@ -60,17 +60,24 @@ namespace Hydra.Kernel
                 throw new ArgumentNullException(nameof(input));
             }
 
+            Console.WriteLine("[SaveAvatarFile] : avatarFile not null");
             int indexOfSemiColon = input.IndexOf(";", StringComparison.OrdinalIgnoreCase);
+            Console.WriteLine($"[indexOfSemiColon] : {indexOfSemiColon}");
 
             string dataLabel = input.Substring(0, indexOfSemiColon);
 
             string contentType = dataLabel.Split(':').Last();
 
+            Console.WriteLine($"[contentType] : {contentType}");
             var startIndex = input.IndexOf("base64,", StringComparison.OrdinalIgnoreCase) + 7;
 
+            Console.WriteLine($"[startIndex] : {startIndex}");
             var fileContents = input.Substring(startIndex);
 
+            Console.WriteLine($"[fileContents] : {fileContents}");
             var bytes = Convert.FromBase64String(fileContents);
+
+            Console.WriteLine($"[bytes.Length] : {bytes.Length}");
 
             return new FileModel()
             {
@@ -145,27 +152,50 @@ namespace Hydra.Kernel
 
         public static void SaveThumbnail(string sourcePath, string outputPath, int thumbWidth, int thumbHeight)
         {
+
+            Console.WriteLine($"[START] Decode");
+
             // 1. Decode the bitmap from the file
             using var src = SKBitmap.Decode(sourcePath);
+
+            Console.WriteLine($"[START] src");
+
+
             if (src == null)
+            {
+                Console.WriteLine($"[START] src == null");
                 throw new ArgumentException("Could not decode image at the provided path.");
+            }
 
             // 2. Compute dimensions preserving aspect ratio
             var (newW, newH) = FitInside(src.Width, src.Height, thumbWidth, thumbHeight);
 
+            Console.WriteLine($"[START] FitInside {newW} , {newH}");
+
             // 3. Create the destination bitmap
             using var dst = new SKBitmap(newW, newH, src.ColorType, src.AlphaType);
 
+            Console.WriteLine($"[START] dst {dst}");
+
             // 4. Scale the pixels (Best Quality)
             src.ScalePixels(
-                dst,SKSamplingOptions.Default);
+                dst, SKSamplingOptions.Default);
+
+            Console.WriteLine($"[START] ScalePixels Finished");
 
             // 5. Encode to file
             using var image = SKImage.FromBitmap(dst);
+
+            Console.WriteLine($"[START] FromBitmap Finished");
+
             using var data = image.Encode(SKEncodedImageFormat.Jpeg, 85); // 85 is high quality
 
             using var stream = File.OpenWrite(outputPath);
+
+            Console.WriteLine($"[START] stream Finished");
             data.SaveTo(stream);
+
+            Console.WriteLine($"[START] SaveTo Finished");
         }
 
         private static (int W, int H) FitInside(int srcW, int srcH, int maxW, int maxH)

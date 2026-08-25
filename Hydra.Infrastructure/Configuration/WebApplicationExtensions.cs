@@ -22,11 +22,11 @@ namespace Hydra.Infrastructure.Configuration
         public static void ConfigureRequestPipeline(this WebApplication app)
         {
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
             // All about exceptional handler and logging
 
             app.UseSerilogExceptionHandler();

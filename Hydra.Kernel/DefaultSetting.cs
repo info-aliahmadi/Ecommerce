@@ -4,8 +4,9 @@ namespace Hydra.Kernel
 {
     public static class DefaultSetting
     {
-        public const CurrencyType DEFAULT_CURRENCY = CurrencyType.Dollar;
-        public const LanguageType DEFAULT_LANGUAGE = LanguageType.English; // en | ar | fa
+        public const CurrencyType DEFAULT_CURRENCY = CurrencyType.Toman;
+        public const LanguageType DEFAULT_LANGUAGE = LanguageType.Persian; // en | ar | fa
+        public const MeasureType DEFAULT_MEASURE = MeasureType.Number;
         public const ThemeType DEFAULT_THEME = ThemeType.Light; // dark | light
         public const int DEFAULT_COUNTRY = 100;
         public const int DEFAULT_SUBSCRIBE_LABEL = 1;

@@ -38,6 +38,7 @@ namespace Hydra.Infrastructure.Configuration
             builder.WebHost.ConfigureKestrel(serverOptions =>
             {
                 serverOptions.Limits.MaxRequestBodySize = null;
+
             });
             services.AddSingleton<IUploadFileSetting>((serviceProvider) =>
                     builder.Configuration.GetSection("UploadFileSetting").Get<UploadFileSetting>());

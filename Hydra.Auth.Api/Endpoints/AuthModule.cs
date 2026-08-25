@@ -27,6 +27,7 @@ namespace Hydra.Auth.Api.Endpoints
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
 
+            endpoints.MapGet(API_SCHEMA + "/test", AccountHandler.Test).AllowAnonymous();
             endpoints.MapGet(API_SCHEMA + "/initialize", AccountHandler.InitializeHandler).AllowAnonymous();
 
             endpoints.MapPost(API_SCHEMA + "/login", AccountHandler.LoginHandler).AllowAnonymous();

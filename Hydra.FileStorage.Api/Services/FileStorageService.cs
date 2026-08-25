@@ -374,15 +374,6 @@ namespace Hydra.FileStorage.Api.Services
         /// <param name="stream"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="contentType"></param>
-        /// <param name="stream"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
         public async Task<Result<FileUploadModel>> Upload(int userId, IFormFile fileForm, string uploadAction, CancellationToken cancellationToken = default)
         {
             var result = new Result<FileUploadModel>();
@@ -845,9 +836,14 @@ namespace Hydra.FileStorage.Api.Services
 
             if (imagesExtension.Contains(fileInfo.Extension))
             {
+
                 var thumbnailSize = _fileStorageSetting.ImageThumbnailSize;
+
                 var relativeThumbnailPath = Path.GetFileNameWithoutExtension(fileInfo.FullName) + "-Thumb.jpg";
-                var outputFile = fileInfo.Directory + @"\" + relativeThumbnailPath;
+
+
+                var outputFile = Path.Combine(fileInfo.Directory.FullName, relativeThumbnailPath);
+
 
                 HydraHelper.SaveThumbnail(fileInfo.FullName, outputFile, thumbnailSize, thumbnailSize);
 
@@ -862,7 +858,8 @@ namespace Hydra.FileStorage.Api.Services
                 var fileNameOnly = Path.GetFileNameWithoutExtension(fileInfo.FullName);
                 var newSVideoName = fileNameOnly + "-Thumb.jpg";
                 var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                ffMpeg.GetVideoThumbnail(fileInfo.FullName, fileInfo.Directory + @"\" + newSVideoName, 3.0f);
+                var output = Path.Combine(fileInfo.Directory.FullName, newSVideoName);
+                ffMpeg.GetVideoThumbnail(fileInfo.FullName, output, 3.0f);
                 return newSVideoName;
             }
             return null;
@@ -894,9 +891,8 @@ namespace Hydra.FileStorage.Api.Services
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="extension"></param>
+        /// <param name="objectId"></param>
         /// <returns></returns>
         public string GetDirectory(string extension)
         {
@@ -918,7 +914,6 @@ namespace Hydra.FileStorage.Api.Services
             }
             return "others";
         }
-
 
         /// <summary>
         /// </summary>
