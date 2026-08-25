@@ -25,8 +25,11 @@ namespace Hydra.FileStorage.Core.Domain
 
         public int UserId { get; set; }
 
-        public string FullPath { get {
-                return "/" + Directory + FileName;
+        public string FullPath
+        {
+            get
+            {
+                return Path.Combine(Directory, FileName);
             }
         }
 

@@ -636,10 +636,10 @@ namespace Hydra.Product.Api.Services
                 ImagePreview = new FileStorage.Core.Models.FileUploadModel(product.ImagePreview),
                 CreateUser = new AuthorModel()
                 {
-                    Id = product.CreateUser.Id,
-                    Name = product.CreateUser.Name,
-                    UserName = product.CreateUser.UserName,
-                    Avatar = product.CreateUser.Avatar
+                    Id = product.CreateUser?.Id,
+                    Name = product.CreateUser?.Name,
+                    UserName = product.CreateUser?.UserName,
+                    Avatar = product.CreateUser?.Avatar
                 },
                 UpdateUser = new AuthorModel()
                 {
@@ -928,7 +928,7 @@ namespace Hydra.Product.Api.Services
                 if (validationErrors.Count > 0)
                 {
                     result.Status = ResultStatusEnum.InvalidValidation;
-                    result.Message = "Validation failed.";
+                    result.Message = validationErrors.First().Description;
                     result.Errors.AddRange(validationErrors);
                     return result;
                 }
