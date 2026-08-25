@@ -810,14 +810,15 @@ namespace Hydra.FileStorage.Api.Services
                 return result;
             }
             var directory = GetDirectory(fileUpload.Extension);
-
-            if (File.Exists(uploadsPaths + directory + fileUpload.FileName))
+            var filePath = Path.Combine(uploadsPaths, directory, fileUpload.FileName);
+            var fileThumbPath = Path.Combine(uploadsPaths, directory, fileUpload.Thumbnail);
+            if (File.Exists(filePath))
             {
-                File.Delete(uploadsPaths + directory + fileUpload.FileName);
+                File.Delete(filePath);
             }
-            if (File.Exists(uploadsPaths + directory + fileUpload.Thumbnail))
+            if (File.Exists(fileThumbPath))
             {
-                File.Delete(uploadsPaths + directory + fileUpload.Thumbnail);
+                File.Delete(fileThumbPath);
             }
             _commandRepository.Delete(fileUpload);
             await _commandRepository.SaveChangesAsync();
