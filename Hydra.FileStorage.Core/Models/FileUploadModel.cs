@@ -35,18 +35,18 @@ namespace Hydra.FileStorage.Core.Models
         public string UserName { get; set; }
         public int UserId { get; set; }
 
-        public string FullPath
+        public string? FullPath
         {
             get
             {
-                return $"/{Directory}/{FileName}";
+                return Thumbnail != null ? $"/{Directory}/{FileName}" : null;
             }
         }
-        public string ThumbnailFullPath
+        public string? ThumbnailFullPath
         {
             get
             {
-                return $"/{Directory}/{Thumbnail}";
+                return Thumbnail != null ? $"/{Directory}/{Thumbnail}" : null;
             }
         }
     }
